@@ -7,3 +7,4 @@
 使用 Redux 作为 state 管理框架  
 集成用户登录/注册/忘记密码/ Profile 管理,路由切换  
 调整 Redux 代码结构,以便使用工具生成代码
+为使 API 后台可替换(如 MaxLeap,或PHP/Java 等非 Nodejs Server),移除 strongloop isomorphic client
