@@ -35,7 +35,6 @@ const createStoreWithMiddleware = applyMiddleware(
  * device, global, auth, profile
  * 
  */
- const fluxReducers = flux.reducers 
 export default function configureStore(initialState) {
 		return createStoreWithMiddleware(reducers, initialState);
 };
