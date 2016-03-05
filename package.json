@@ -1,0 +1,73 @@
+{
+  "name": "ReactEngine",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "clean:babelrc": "find ./node_modules -name react-packager -prune -o -name '.babelrc' -print | xargs rm -f",
+    "postinstall": "npm run clean:babelrc",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest ",
+    "test:watch": "npm run test -- --watch",
+    "test-chrome": "node-debug --preload false --nodejs --harmony jest --runInBand",
+    "docs": "./node_modules/docker/docker -w -i src/ -o ../reactengine-pages "
+  },
+  "dependencies": {
+    "apsl-react-native-button": "git+https://git@github.com/bartonhammond/react-native-button.git",
+    "immutable": "^3.7.6",
+    "key-mirror": "^1.0.1",
+    "lodash": "^4.6.1",
+    "react-native": "^0.21.0",
+    "react-native-gifted-spinner": "0.0.3",
+    "react-native-simple-store": "^0.1.0",
+    "react-native-simpledialog-android": "^1.0.2",
+    "react-native-tab-navigator": "^0.2.16",
+    "react-native-vector-icons": "^1.3.2",
+    "react-redux": "^4.4.0",
+    "redux": "^3.3.1",
+    "redux-thunk": "^1.0.3",
+    "regenerator": "^0.8.42",
+    "tcomb-form-native": "^0.4.0",
+    "validate.js": "^0.9.0"
+  },
+  "devDependencies": {
+    "babel-core": "~6.4.5",
+    "babel-jest": "^9.0.0",
+    "docker": "^0.2.14",
+    "istanbul": "^0.4.2",
+    "jest-cli": "^0.9.0",
+    "react": "^0.14.7",
+    "react-addons-test-utils": "^0.14.7"
+  },
+    "jest": {
+    "scriptPreprocessor": "jestSupport/scriptPreprocess.js",
+    "setupEnvScriptFile": "./node_modules/react-native/jestSupport/env.js",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6"
+    ],
+    "unmockedModulePathPatterns": [
+      "react",
+      "react-addons-test-utils",
+      "promise",
+      "source-map",
+      "key-mirror",
+      "immutable",
+      "fetch",
+      "redux",
+      "redux-thunk",
+      "fbjs"
+    ],
+    "verbose": true,
+    "testPathDirs": [
+      "src/"
+    ]
+  }
+}
