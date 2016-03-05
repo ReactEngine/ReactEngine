@@ -10,15 +10,15 @@
  * 
  * redux functions
  */
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware,combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import loopback from './loopback'
+import { asyncDispatch } from './redux-rest';
 
 /**
 * ## Reducer
 * The reducer contains reducers
 */
-import reducer from '../modules';
+import reducers from '../modules';
 
 /**
  * ## creatStoreWithMiddleware
@@ -26,7 +26,7 @@ import reducer from '../modules';
  */ 
 const createStoreWithMiddleware = applyMiddleware(
   thunk,
-  loopback()
+  asyncDispatch
 )(createStore);
 
 /**
@@ -34,7 +34,8 @@ const createStoreWithMiddleware = applyMiddleware(
  * @param {Object} the state with for keys:
  * device, global, auth, profile
  * 
- */ 
+ */
+ const fluxReducers = flux.reducers 
 export default function configureStore(initialState) {
-  return createStoreWithMiddleware(reducer, initialState);
+		return createStoreWithMiddleware(reducers, initialState);
 };

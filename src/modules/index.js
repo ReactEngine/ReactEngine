@@ -17,17 +17,21 @@ import profile from './profile/reducers';
 
 import { combineReducers } from 'redux';
 
+import flux  from '../lib/flux';
+
 /**
  * ## CombineReducers
  * 
  * the rootReducer will call each and every reducer with the state and action
  * EVERY TIME there is a basic action
  */ 
+  const fluxReducers = flux.reducers 
 const rootReducer = combineReducers({
   auth,
   device,
   global,
-  profile
+  profile,
+  fluxReducers
 });
 
 export default rootReducer;
