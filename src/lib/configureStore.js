@@ -12,7 +12,16 @@
  */
 import { createStore, applyMiddleware,combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { asyncDispatch } from './redux-rest';
+import { asyncDispatch } from '../rest/redux-rest';
+import createLogger from 'redux-logger';
+
+
+const logger = createLogger({
+  duration : true,
+  timestamp : true,
+  logger : console,
+  logErrors : true
+});
 
 /**
 * ## Reducer
@@ -26,7 +35,8 @@ import reducers from '../modules';
  */ 
 const createStoreWithMiddleware = applyMiddleware(
   thunk,
-  asyncDispatch
+  asyncDispatch,
+  logger
 )(createStore);
 
 /**
