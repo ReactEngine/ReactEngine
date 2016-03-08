@@ -1,4 +1,4 @@
-export class ActionCreators {
+export class Actions {
   constructor(endpointName, API, actionTypes,methods = ['list', 'retrieve', 'create', 'update']) {
     this.actionTypes = actionTypes;
     this._pendingID = 0;

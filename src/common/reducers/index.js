@@ -13,8 +13,7 @@ import auth from '../../modules/auth/reducers';
 import device from '../../modules/device/reducers';
 import global from '../../modules/global/reducers';
 import profile from '../../modules/profile/reducers';
-// import rest  from '../../rest/reducers';
-import restUser  from '../../rest/reducers/users';
+import apiBot  from '../../rest/apiBot';
 
 import { combineReducers } from 'redux';
 
@@ -24,12 +23,14 @@ import { combineReducers } from 'redux';
  * the rootReducer will call each and every reducer with the state and action
  * EVERY TIME there is a basic action
  */
+const restReducer = apiBot.reducers
+
 const rootReducer = combineReducers({
   auth,
   device,
   global,
   profile,
-  restUser
+  restReducer
 });
 
 export default rootReducer;

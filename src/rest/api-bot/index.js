@@ -6,7 +6,7 @@ import itemStatus from './itemStatus';
 import asyncDispatch from './asyncDispatch'
 import Endpoint from './endpoints'
 import ActionTypes from './actionTypes'
-import ActionCreators from './actionCreators'
+import Actions from './actions'
 import ItemReducer from './reducers/itemReducer'
 import CollectionReducer from './reducers/collectionReducer'
 
@@ -16,7 +16,7 @@ export default class Flux {
   constructor(APIConfig, CSRFOptions) {
     this.API = {};
     this.actionTypes = {};
-    this.actionCreators = {};
+    this.actions = {};
     this.reducers = {};
     for (let endpointName in APIConfig) {
       if (APIConfig.hasOwnProperty(endpointName)) {
@@ -24,8 +24,8 @@ export default class Flux {
         this.API[endpointName] = new Endpoint(url, CSRFOptions);
         //actionTypes
         this.actionTypes[endpointName] = new ActionTypes(endpointName);
-        //actionCreators
-        this.actionCreators[endpointName] = new ActionCreators(
+        //actions
+        this.actions[endpointName] = new Actions(
           endpointName,
           this.API[endpointName],
           this.actionTypes[endpointName]
