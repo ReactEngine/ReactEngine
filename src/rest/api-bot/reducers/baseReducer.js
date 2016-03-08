@@ -1,4 +1,4 @@
-class BaseReducer {
+export default class BaseReducer {
   constructor(actionTypes) {
     this.actionTypes = actionTypes;
   }

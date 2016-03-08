@@ -13,8 +13,6 @@
 import { createStore, applyMiddleware,combineReducers,compose } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import apiBot,{asyncDispatch}  from '../../rest/apiBot';
-
 
 const logger = createLogger({
   duration : true,
@@ -34,7 +32,7 @@ import reducers from '../reducers';
  * Like the name...
  */
 const createStoreWithMiddleware = compose(
-  applyMiddleware(thunk,asyncDispatch,logger),
+  applyMiddleware(thunk,logger),
   typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
 )(createStore);;
 

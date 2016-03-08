@@ -1,5 +1,6 @@
+import agent from 'superagent';
 
-export class Endpoint {
+export default class Endpoint {
   constructor(url,
               {
                 withCSRF = false,

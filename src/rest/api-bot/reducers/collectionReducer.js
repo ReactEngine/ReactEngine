@@ -1,6 +1,6 @@
 import BaseReducer from './baseReducer'
 
-export class CollectionReducer extends BaseReducer {
+export default class CollectionReducer extends BaseReducer {
 
   _reducer(state = [], action) {
     let item;

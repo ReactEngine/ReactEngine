@@ -1,7 +1,6 @@
 /**
  * Utility class to automatically create Redux reducers for REST API endpoints.
  */
-import agent from 'superagent';
 import itemStatus from './itemStatus';
 import asyncDispatch from './asyncDispatch'
 import Endpoint from './endpoint'
@@ -12,7 +11,7 @@ import CollectionReducer from './reducers/collectionReducer'
 
 export { itemStatus };
 
-export default class Flux {
+export default class APIBot {
   constructor(APIConfig, CSRFOptions) {
     this.API = {};
     this.actionTypes = {};

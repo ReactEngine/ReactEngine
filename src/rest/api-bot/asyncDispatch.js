@@ -1,4 +1,4 @@
-export const asyncDispatch = store => next => action =>
+export default asyncDispatch = store => next => action =>
   typeof action === 'function' ?
   action(store.dispatch, store.getState) :
   next(action)

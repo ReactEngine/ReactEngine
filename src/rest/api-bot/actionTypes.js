@@ -1,7 +1,7 @@
-export class ActionTypes {
-  constructor(endpointName,methods = ['list', 'retrieve', 'create', 'update']) {
+export default class ActionTypes {
+  constructor(endpointName) {
     this.endpointName = endpointName;
-    methods.forEach(action => {
+    ['list', 'retrieve', 'create', 'update'].forEach(action => {
       //mehtod
       this[`${action}`] = this.getConstant(action);
       //mehtod_result

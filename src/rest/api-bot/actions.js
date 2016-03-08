@@ -1,8 +1,8 @@
-export class Actions {
-  constructor(endpointName, API, actionTypes,methods = ['list', 'retrieve', 'create', 'update']) {
+export default class Actions {
+  constructor(endpointName, API, actionTypes) {
     this.actionTypes = actionTypes;
     this._pendingID = 0;
-    methods.forEach(action => {
+    ['list', 'retrieve', 'create', 'update'].forEach(action => {
       this[action] = this._createAction.bind(this, action, API[action].bind(API));
     });
   }
