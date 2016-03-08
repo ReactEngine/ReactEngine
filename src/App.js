@@ -10,7 +10,7 @@
 import React, { AppRegistry } from 'react-native';
 import { Provider } from 'react-redux';
 import App from './common/containers/App';
-import configureStore from './lib/configureStore';
+import configureStore from './common/store/configure';
 
 /**
  * ## Actions

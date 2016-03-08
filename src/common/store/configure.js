@@ -1,18 +1,17 @@
 /**
  * # configureStore.js
- * 
+ *
  */
 
 'use strict';
 
 /**
  * ## Imports
- * 
+ *
  * redux functions
  */
 import { createStore, applyMiddleware,combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { asyncDispatch } from '../rest/redux-rest';
 import createLogger from 'redux-logger';
 
 
@@ -27,24 +26,25 @@ const logger = createLogger({
 * ## Reducer
 * The reducer contains reducers
 */
-import reducers from '../modules';
+import moduleReducers from '../modules';
 
 /**
  * ## creatStoreWithMiddleware
  * Like the name...
- */ 
-const createStoreWithMiddleware = applyMiddleware(
-  thunk,
-  asyncDispatch,
-  logger
-)(createStore);
+ */
+const createStoreWithMiddleware = compose(
+  applyMiddleware(thunk,logger),
+  typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
+)(createStore);;
+
+
 
 /**
  * ## configureStore
  * @param {Object} the state with for keys:
  * device, global, auth, profile
- * 
+ *
  */
 export default function configureStore(initialState) {
-		return createStoreWithMiddleware(reducers, initialState);
+		return createStoreWithMiddleware(moduleReducers, initialState);
 };
