@@ -1,14 +1,14 @@
 /**
  * # Login.js
- * 
+ *
  * This class is a little complicated as it handles 4 states. It's also
  * a container so there is boilerplate from Redux similiar to ```App```.
  */
 'use strict';
 /**
  * ## Imports
- * 
- * Redux 
+ *
+ * Redux
  */
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -17,11 +17,12 @@ import { connect } from 'react-redux';
  * The actions we need
  */
 import * as authActions from '../actions';
+import apiBot from '../../../rest/apiBot';
 import * as globalActions from '../../global/actions';
 
 /**
  * Immutable
- */ 
+ */
 import {Map} from 'immutable';
 
 /**
@@ -42,7 +43,7 @@ import FormButton from '../../../common/components/FormButton';
  */
 import AuthForm from '../components/AuthForm';
 /**
- * The itemCheckbox will toggle the display of the password fields 
+ * The itemCheckbox will toggle the display of the password fields
  */
 import ItemCheckbox from '../../../common/components/ItemCheckbox';
 
@@ -118,12 +119,13 @@ function mapDispatchToProps(dispatch) {
 
 class Login extends Component {
   /**
-   * ## Login class 
+   * ## Login class
    * Provide 4 user interfaces depending on state
    * In the constructor we set the initial state of the fields
    * displayed in the form to the properties.  This was mostly
    * necessary for Hot Loading
    */
+
   constructor(props) {
     super(props);
     this.errorAlert = new ErrorAlert();
@@ -179,11 +181,11 @@ class Login extends Component {
   }
   /**
    * ### render
-   * Setup some default presentations and render 
+   * Setup some default presentations and render
    */
   render() {
     this.errorAlert.checkError(this.props.auth.form.error);
-     
+
     /**
     * Set default components for reference later
     */
@@ -198,13 +200,13 @@ class Login extends Component {
         onPress={() => this.props.actions.loginState()}>
       <Text>Already have an account?</Text>
     </TouchableHighlight>;
-    
+
     let register =
     <TouchableHighlight onPress={() => this.props.actions.registerState()}>
       <Text>Register</Text>
     </TouchableHighlight>;
-    
-    
+
+
     let self = this;
     let loginButtonText;
     let leftMessage;
@@ -243,14 +245,22 @@ class Login extends Component {
 
       /**
        * Configure the screen for registration and call the signup
-      action 
+      action
        */
     case(LOGIN_STATE_REGISTER):
       loginButtonText = 'Register';
       onButtonPress = () => {
-        this.props.actions.signup(this.props.auth.form.fields.username,
-                                  this.props.auth.form.fields.email,
-                                  this.props.auth.form.fields.password);
+        // this.props.actions.signup(this.props.auth.form.fields.username,
+        //                           this.props.auth.form.fields.email,
+        //                           this.props.auth.form.fields.password);
+        this.props.dispatch(
+            apiBot.actions.users.create(
+              { "username":this.props.auth.form.fields.username,
+                "email":this.props.auth.form.fields.email,
+                "credentials":this.props.auth.form.fields.password
+              }
+            )
+          );
       };
       passwordDisplay = itemCheckBox;
       leftMessage = forgotPassword;
@@ -285,7 +295,7 @@ class Login extends Component {
     }//switch
 
     /**
-     * If we're logged in, display the logout button.  
+     * If we're logged in, display the logout button.
      * The header will display the spinner if we're fetching
      * We'll look at these properties for Header there
      */
@@ -310,8 +320,8 @@ class Login extends Component {
       /**
        * The AuthForm is now defined with the required fields.  Just
        * surround it with the Header and the navigation messages
-       * Note how the button too is disabled if we're fetching. The 
-       * header props are mostly for support of Hot reloading. 
+       * Note how the button too is disabled if we're fetching. The
+       * header props are mostly for support of Hot reloading.
        * See the docs for Header for more info.
        */
       return (
@@ -321,7 +331,7 @@ class Login extends Component {
                     showState={this.props.global.showState}
                     currentState={this.props.global.currentState}
                     onGetState={this.props.actions.getState}
-                    onSetState={this.props.actions.setState}                      
+                    onSetState={this.props.actions.setState}
             />
             <View style={styles.inputs}>
               <AuthForm
