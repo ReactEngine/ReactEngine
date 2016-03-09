@@ -110,7 +110,7 @@ let App = React.createClass({
     });
   },
   /**
-   * See if there's a sessionToken from a previous login, if so, then
+   * See if there's a accessToken from a previous login, if so, then
    * the state will be changed to ```LOGIN_STATE_LOGOUT```
    */
   componentDidMount() {

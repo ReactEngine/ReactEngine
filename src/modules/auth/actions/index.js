@@ -92,18 +92,18 @@ export function onAuthFormFieldChange(field,value) {
 /**
  * ## AccessToken actions
  */
-export function sessionTokenRequest() {
+export function accessTokenRequest() {
   return {
     type: SESSION_TOKEN_REQUEST
   };
 }
-export function sessionTokenRequestSuccess(token) {
+export function accessTokenRequestSuccess(token) {
   return {
     type: SESSION_TOKEN_SUCCESS,
     payload: token
   };
 }
-export function sessionTokenRequestFailure(error) {
+export function accessTokenRequestFailure(error) {
   return {
     type: SESSION_TOKEN_FAILURE,
     payload: _.isUndefined(error) ? null:error
@@ -117,33 +117,33 @@ export function sessionTokenRequestFailure(error) {
  */
 export function deleteAccessToken() {
   return dispatch => {
-    dispatch(sessionTokenRequest());
+    dispatch(accessTokenRequest());
     return new  AppAuthToken().deleteAccessToken()
       .then(() => {
-        dispatch(sessionTokenRequestSuccess());
+        dispatch(accessTokenRequestSuccess());
       });
   };
 }
 /**
  * ## getAccessToken
- * If AppAuthToken has the sessionToken, the user is logged in
+ * If AppAuthToken has the accessToken, the user is logged in
  * so set the state to logout.
  * Otherwise, the user will default to the login in screen.
  */
 export function getAccessToken() {
   return dispatch => {
-    dispatch(sessionTokenRequest());
+    dispatch(accessTokenRequest());
     return new AppAuthToken().getAccessToken()
       .then((token) => {
         if (token) {
           dispatch(logoutState());
-          dispatch(sessionTokenRequestSuccess(token));
+          dispatch(accessTokenRequestSuccess(token));
         } else {
-          dispatch(sessionTokenRequestFailure());
+          dispatch(accessTokenRequestFailure());
         }
       })
       .catch((error) => {
-        dispatch(sessionTokenRequestFailure(error));
+        dispatch(accessTokenRequestFailure(error));
       });
   };
 }
@@ -151,7 +151,7 @@ export function getAccessToken() {
 /**
  * ## saveAccessToken
  * @param {Object} response - to return to keep the promise chain
- * @param {Object} json - object with sessionToken
+ * @param {Object} json - object with accessToken
  */
 export function saveAccessToken(json) {
   return new AppAuthToken().storeAccessToken(json);

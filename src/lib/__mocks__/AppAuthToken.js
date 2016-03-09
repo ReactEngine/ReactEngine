@@ -15,12 +15,12 @@ export default class AppAuthToken {
    * ## AppAuthToken
    *
    * ### getAccessToken
-   * @returns {Object} sessionToken
+   * @returns {Object} accessToken
    */
   async getAccessToken () {
     return await {
-      sessionToken: {
-        sessionToken: 'token'
+      accessToken: {
+        accessToken: 'token'
       }
     };
   }

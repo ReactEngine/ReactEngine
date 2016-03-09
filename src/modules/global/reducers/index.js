@@ -36,16 +36,16 @@ export default function globalReducer(state = initialState, action) {
 
   switch (action.type) {
     /**
-     * ### Save the sessionToken
+     * ### Save the accessToken
      */
   case SET_SESSION_TOKEN:
-    return state.set('sessionToken', action.payload);
+    return state.set('accessToken', action.payload);
     
     /**
      * ### Save the payload in the store
      *
      * This payload is the ```currentUser``` object returned by
-     * Server.  It contains the ```sessionToken``` and the user's
+     * Server.  It contains the ```accessToken``` and the user's
      * ```objectId``` which will be needed for some calls to Maxleap
      */
   case GET_PROFILE_SUCCESS:

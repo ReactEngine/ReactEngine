@@ -26,7 +26,7 @@ export function loginFailure(error) {
  * @param {string} password - user's password
  *
  * After calling Backend, if response is good, save the json
- * which is the currentUser which contains the sessionToken
+ * which is the currentUser which contains the accessToken
  *
  * If successful, set the state to logout
  * otherwise, dispatch a failure

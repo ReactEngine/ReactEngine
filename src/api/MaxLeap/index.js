@@ -26,17 +26,17 @@ export default class Maxleap extends Backend{
    * ## Maxleap
    *
    * constructor sets the default keys required by Server
-   * if a user is logged in, we'll need the sessionToken
+   * if a user is logged in, we'll need the accessToken
    *
    * @throws tokenMissing if token is undefined
    */
   constructor( token) {
     super(token);
-    if (!_.isNull(token) && _.isUndefined(token.sessionToken)) {
+    if (!_.isNull(token) && _.isUndefined(token.accessToken)) {
       throw 'TokenMissing';
     }
-    this._sessionToken =
-      _.isNull(token) ?  null :  token.sessionToken.sessionToken;
+    this._accessToken =
+      _.isNull(token) ?  null :  token.accessToken.accessToken;
     
     this._applicationId = CONFIG.MAXLEAP.APP_ID;
     this._restAPIKey = CONFIG.MAXLEAP.REST_API_KEY;
@@ -54,7 +54,7 @@ export default class Maxleap extends Backend{
    * @return
    * if ok, {createdAt: "2015-12-30T15:17:05.379Z",
    *   objectId: "5TgExo2wBA", 
-   *   sessionToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
+   *   accessToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
    *
    * if error, {code: xxx, error: 'message'}
    */
@@ -90,7 +90,7 @@ export default class Maxleap extends Backend{
    * createdAt: "2015-12-30T15:29:36.611Z"
    * email: "barton@foo.com"
    * objectId: "Z4yvP19OeL"
-   * sessionToken: "r:Kt9wXIBWD0dNijNIq2u5rRllW"
+   * accessToken: "r:Kt9wXIBWD0dNijNIq2u5rRllW"
    * updatedAt: "2015-12-30T16:08:50.419Z"
    * username: "barton"
    *
@@ -177,7 +177,7 @@ export default class Maxleap extends Backend{
   }  
   /**
    * ### getProfile
-   * Using the sessionToken, we'll get everything about
+   * Using the accessToken, we'll get everything about
    * the current user.
    *
    * @returns
@@ -186,7 +186,7 @@ export default class Maxleap extends Backend{
    * {createdAt: "2015-12-30T15:29:36.611Z"
    *  email: "barton@acclivyx.com"
    *  objectId: "Z4yvP19OeL"
-   *  sessionToken: "r:uFeYONgIsZMPyxOWVJ6VqJGqv"
+   *  accessToken: "r:uFeYONgIsZMPyxOWVJ6VqJGqv"
    *  updatedAt: "2015-12-30T15:29:36.611Z"
    *  username: "barton"}
    *
@@ -256,8 +256,8 @@ export default class Maxleap extends Backend{
         'X-ML-REST-API-Key': this._restAPIKey
       }
     };
-    if (this._sessionToken) {
-      reqOpts.headers['X-ML-Session-Token'] = this._sessionToken;
+    if (this._accessToken) {
+      reqOpts.headers['X-ML-Session-Token'] = this._accessToken;
     }
     
     if (this._masterKey) {

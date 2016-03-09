@@ -112,19 +112,19 @@ describe('authActions', () => {
     expect(actions.signupSuccess()).toEqual({type: SIGNUP_SUCCESS});
   });
 
-  it('should set sessionTokenRequest', () => {
-    expect(actions.sessionTokenRequest()).toEqual({type: SESSION_TOKEN_REQUEST});
+  it('should set accessTokenRequest', () => {
+    expect(actions.accessTokenRequest()).toEqual({type: SESSION_TOKEN_REQUEST});
   });
 
-  it('should set sessionTokenRequestSuccess', () => {
+  it('should set accessTokenRequestSuccess', () => {
     let token = {token: 'thisisthetoken'};
-    expect(actions.sessionTokenRequestSuccess(token)).toEqual({
+    expect(actions.accessTokenRequestSuccess(token)).toEqual({
       type:SESSION_TOKEN_SUCCESS,payload:token});
   });
 
-  it('should set sessionTokenRequestFailure', () => {
+  it('should set accessTokenRequestFailure', () => {
     let error = {error: 'thisistheerror'};
-    expect(actions.sessionTokenRequestFailure(error)).toEqual({
+    expect(actions.accessTokenRequestFailure(error)).toEqual({
       type: SESSION_TOKEN_FAILURE,payload: error });
   });
 

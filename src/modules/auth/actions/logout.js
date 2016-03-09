@@ -20,7 +20,7 @@ export function logoutFailure(error) {
 }
 /**
  * ## Login
- * After dispatching the logoutRequest, get the sessionToken
+ * After dispatching the logoutRequest, get the accessToken
  * and call Maxleap
  *
  * When the response from Maxleap is received and it's valid
@@ -29,10 +29,10 @@ export function logoutFailure(error) {
  * But if the call to Maxleap fails, like expired token or
  * no network connection, just send the failure
  *
- * And if you fail due to an invalid sessionToken, be sure
+ * And if you fail due to an invalid accessToken, be sure
  * to delete it so the user can log in.
  *
- * How could there be an invalid sessionToken?  Maybe they
+ * How could there be an invalid accessToken?  Maybe they
  * haven't used the app for a long time.  Or they used another
  * device and logged out there.
  */

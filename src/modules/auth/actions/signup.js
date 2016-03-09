@@ -4,7 +4,7 @@
  * @param {string} email - user's email
  * @param {string} password - user's password
  *
- * Call Maxleap.signup and if good, save the sessionToken,
+ * Call Maxleap.signup and if good, save the accessToken,
  * set the state to logout and signal success
  *
  * Otherwise, dispatch the error so the user can see
@@ -27,7 +27,7 @@ export function signup(username, email, password) {
 			      email: email,
 			      objectId: json.objectId,
 			      createdAt: json.createdAt,
-			      sessionToken: json.sessionToken
+			      accessToken: json.accessToken
 			    }
 			   )
 	    ));

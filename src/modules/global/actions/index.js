@@ -18,13 +18,13 @@ const {
 } = require('../../../common/constants').default;
 
 /**
- * ## set the sessionToken
+ * ## set the accessToken
  *
  */
-export function setAccessToken(sessionToken) {
+export function setAccessToken(accessToken) {
   return {
     type: SET_SESSION_TOKEN,
-    payload: sessionToken
+    payload: accessToken
   };
 }
 /**
