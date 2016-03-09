@@ -1,3 +1,10 @@
+const {
+
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILURE
+
+} = require('../../../common/constants').default
 /**
   * ## Login
   * After dispatching the logoutRequest, get the accessToken

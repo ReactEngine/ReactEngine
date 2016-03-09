@@ -33,7 +33,7 @@
  signup(username, email, password) {
   return dispatch => {
     dispatch(signupRequest())
-    return  BackendFactory().signup({
+    return  APIFactory().signup({
       username: username,
       email: email,
       password: password

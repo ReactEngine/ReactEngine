@@ -35,7 +35,7 @@
    resetPassword(email) {
     return dispatch => {
       dispatch(resetPasswordRequest())
-      return BackendFactory().resetPassword({
+      return APIFactory().resetPassword({
         email: email
       })
         .then(() => {

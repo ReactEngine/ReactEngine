@@ -25,7 +25,7 @@ logout() {
    dispatch(logoutRequest())
    return store.getAccessToken()
      .then((token) => {
-       return BackendFactory(token).logout()
+       return APIFactory(token).logout()
      })
      .then(() => {
        dispatch(registerState())
