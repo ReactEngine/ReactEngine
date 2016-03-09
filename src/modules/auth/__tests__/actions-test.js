@@ -4,16 +4,16 @@
  * This test is for authActions
  *
  */
-'use strict';
-jest.autoMockOff();
+'use strict'
+jest.autoMockOff()
 
 /**
  * ## Mocks
  *
  * We don't want to use the devices storage, nor actually call Server
  */
-jest.mock('../../../../lib/AppAuthToken');
-jest.mock('../../../../api');
+jest.mock('../../../../lib/store')
+jest.mock('../../../../api')
 
 /**
  * ## Mock Store
@@ -22,13 +22,13 @@ jest.mock('../../../../api');
  * in the correct order
  *
  */
-var mockStore = require('../../mocks/Store').default;
+var mockStore = require('../../mocks/Store').default
 
 /**
  * ## Class under test
  *
  */
-var actions = require('../actions');
+var actions = require('../actions')
 
 /**
  * ## Imports
@@ -36,32 +36,32 @@ var actions = require('../actions');
  * actions under test 
  */
 const {
-  SESSION_TOKEN_REQUEST,
-  SESSION_TOKEN_SUCCESS,
-  SESSION_TOKEN_FAILURE,
+  ACCESSTOKEN_REQUEST,
+  ACCESSTOKEN_SUCCESS,
+  ACCESSTOKEN_FAILURE,
 
   LOGIN_STATE_LOGOUT,
   LOGIN_STATE_REGISTER,
   LOGIN_STATE_LOGIN,
   LOGIN_STATE_FORGOT_PASSWORD,
 
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAILURE,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGOUT_FAILURE,
 
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILURE,
   
   ON_AUTH_FORM_FIELD_CHANGE,
-  SIGNUP_REQUEST,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
+  USER_SIGNUP_REQUEST,
+  USER_SIGNUP_SUCCESS,
+  USER_SIGNUP_FAILURE,
 
-  RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_FAILURE
-} = require('../../../common/constants').default;
+  USER_RESETPASSWORD_REQUEST,
+  USER_RESETPASSWORD_SUCCESS,
+  USER_RESETPASSWORD_FAILURE
+} = require('../../../common/constants').default
 
 /**
  * ## Tests
@@ -73,106 +73,106 @@ describe('authActions', () => {
    * ### simple tests that prove the actions have the specific type
    */ 
   it('should set logoutState', () => {
-    expect(actions.logoutState()).toEqual({type: LOGIN_STATE_LOGOUT });
-  });
+    expect(actions.logoutState()).toEqual({type: LOGIN_STATE_LOGOUT })
+  })
 
   it('should set registerState', () => {
-    expect(actions.registerState()).toEqual({type: LOGIN_STATE_REGISTER });
-  });
+    expect(actions.registerState()).toEqual({type: LOGIN_STATE_REGISTER })
+  })
 
   it('should set loginState', () => {
-    expect(actions.loginState()).toEqual({type: LOGIN_STATE_LOGIN});
-  });
+    expect(actions.loginState()).toEqual({type: LOGIN_STATE_LOGIN})
+  })
   
   it('should set forgotPasswordState', () => {
-    expect(actions.forgotPasswordState()).toEqual({type: LOGIN_STATE_FORGOT_PASSWORD});
-  });
+    expect(actions.forgotPasswordState()).toEqual({type: LOGIN_STATE_FORGOT_PASSWORD})
+  })
 
   it('should set logoutRequest', () => {
-    expect(actions.logoutRequest()).toEqual({type: LOGOUT_REQUEST});
-  });
+    expect(actions.logoutRequest()).toEqual({type: USER_LOGOUT_REQUEST})
+  })
 
   it('should set logoutSuccess', () => {
-    expect(actions.logoutSuccess()).toEqual({type: LOGOUT_SUCCESS});
-  });
+    expect(actions.logoutSuccess()).toEqual({type: USER_LOGOUT_SUCCESS})
+  })
 
   it('should set logoutFailure', () => {
-    let error = {error: 'test error'};
+    let error = {error: 'test error'}
     expect(actions.logoutFailure(error)).toEqual({type:
-                                                  LOGOUT_FAILURE,
-                                                  payload: error});
+                                                  USER_LOGOUT_FAILURE,
+                                                  payload: error})
 
-  });
+  })
   
   it('should set signupRequest', () => {
-    expect(actions.signupRequest()).toEqual({type: SIGNUP_REQUEST});
-  });
+    expect(actions.signupRequest()).toEqual({type: USER_SIGNUP_REQUEST})
+  })
 
   it('should set signupSuccess', () => {
-    expect(actions.signupSuccess()).toEqual({type: SIGNUP_SUCCESS});
-  });
+    expect(actions.signupSuccess()).toEqual({type: USER_SIGNUP_SUCCESS})
+  })
 
   it('should set accessTokenRequest', () => {
-    expect(actions.accessTokenRequest()).toEqual({type: SESSION_TOKEN_REQUEST});
-  });
+    expect(actions.accessTokenRequest()).toEqual({type: ACCESSTOKEN_REQUEST})
+  })
 
   it('should set accessTokenRequestSuccess', () => {
-    let token = {token: 'thisisthetoken'};
+    let token = {token: 'thisisthetoken'}
     expect(actions.accessTokenRequestSuccess(token)).toEqual({
-      type:SESSION_TOKEN_SUCCESS,payload:token});
-  });
+      type:ACCESSTOKEN_SUCCESS,payload:token})
+  })
 
   it('should set accessTokenRequestFailure', () => {
-    let error = {error: 'thisistheerror'};
+    let error = {error: 'thisistheerror'}
     expect(actions.accessTokenRequestFailure(error)).toEqual({
-      type: SESSION_TOKEN_FAILURE,payload: error });
-  });
+      type: ACCESSTOKEN_FAILURE,payload: error })
+  })
 
   it('should set signupFailure', () => {
-    let error = {error: 'thisistheerror'};
+    let error = {error: 'thisistheerror'}
     expect(actions.signupFailure(error)).toEqual({type:
-                                                  SIGNUP_FAILURE, payload:error});
-  });
+                                                  USER_SIGNUP_FAILURE, payload:error})
+  })
 
   it('should set loginRequest', () => {
-    expect(actions.loginRequest()).toEqual({type: LOGIN_REQUEST});
-  });
+    expect(actions.loginRequest()).toEqual({type: USER_LOGIN_REQUEST})
+  })
 
   it('should set loginSuccess', () => {
-    expect(actions.loginSuccess()).toEqual({type: LOGIN_SUCCESS});
-  });
+    expect(actions.loginSuccess()).toEqual({type: USER_LOGIN_SUCCESS})
+  })
 
   it('should set loginFailure', () => {
-    let error = {error: 'thisistheerror'};
-    expect(actions.loginFailure(error)).toEqual({type: LOGIN_FAILURE,
-                                                 payload: error});
-  });
+    let error = {error: 'thisistheerror'}
+    expect(actions.loginFailure(error)).toEqual({type: USER_LOGIN_FAILURE,
+                                                 payload: error})
+  })
 
   it('should set resetPasswordRequest', () => {
-    expect(actions.resetPasswordRequest()).toEqual({type: RESET_PASSWORD_REQUEST});
-  });
+    expect(actions.resetPasswordRequest()).toEqual({type: USER_RESETPASSWORD_REQUEST})
+  })
 
   it('should set resetPasswordSuccess', () => {
-    expect(actions.resetPasswordSuccess()).toEqual({type: RESET_PASSWORD_SUCCESS});
-  });
+    expect(actions.resetPasswordSuccess()).toEqual({type: USER_RESETPASSWORD_SUCCESS})
+  })
 
   it('should set resetPasswordFailure', () => {
-    let error = {error: 'thisistheerror'};
+    let error = {error: 'thisistheerror'}
     expect(actions.resetPasswordFailure(error)).toEqual({type:
-                                                         RESET_PASSWORD_FAILURE,
-                                                         payload: error});
+                                                         USER_RESETPASSWORD_FAILURE,
+                                                         payload: error})
 
 
-  });
+  })
 
   it('should set onAuthFormFieldChange', () => {
-    let field = 'field';
-    let value = 'value';
+    let field = 'field'
+    let value = 'value'
     expect(actions.onAuthFormFieldChange(field, value)).toEqual({
       type: ON_AUTH_FORM_FIELD_CHANGE,
       payload: {field: field, value: value}
-    });
-  });
+    })
+  })
 
   /**
    * ### async tests
@@ -185,69 +185,69 @@ describe('authActions', () => {
    */
   it('should logout', () => {
     const expectedActions = [
-      {type: LOGOUT_REQUEST},
+      {type: USER_LOGOUT_REQUEST},
       {type: LOGIN_STATE_REGISTER},
-      {type: LOGOUT_SUCCESS},
-      {type: SESSION_TOKEN_REQUEST},
-      {type: SESSION_TOKEN_SUCCESS}
-    ];
+      {type: USER_LOGOUT_SUCCESS},
+      {type: ACCESSTOKEN_REQUEST},
+      {type: ACCESSTOKEN_SUCCESS}
+    ]
 
-    const store = mockStore({}, expectedActions);
-    return store.dispatch(actions.logout());
-  });
+    const store = mockStore({}, expectedActions)
+    return store.dispatch(actions.logout())
+  })
 
   it('should login', () => {
     const expectedActions = [
-      {type: LOGIN_REQUEST},
+      {type: USER_LOGIN_REQUEST},
       {type: LOGIN_STATE_LOGOUT},
-      {type: LOGIN_SUCCESS}
-    ];
+      {type: USER_LOGIN_SUCCESS}
+    ]
 
-    const store = mockStore({}, expectedActions);
-    return store.dispatch(actions.login('foo','bar'));
-  });
+    const store = mockStore({}, expectedActions)
+    return store.dispatch(actions.login('foo','bar'))
+  })
 
   it('should getAccessToken', () => {
     const expectedActions = [
-      {type: SESSION_TOKEN_REQUEST},      
+      {type: ACCESSTOKEN_REQUEST},      
       {type: LOGIN_STATE_LOGOUT},
-      {type: SESSION_TOKEN_SUCCESS}
-    ];
+      {type: ACCESSTOKEN_SUCCESS}
+    ]
 
-    const store = mockStore({}, expectedActions);
-    return store.dispatch(actions.getAccessToken());
-  });
+    const store = mockStore({}, expectedActions)
+    return store.dispatch(actions.getAccessToken())
+  })
 
   it('should signup', () => {
     const expectedActions = [
-      {type: SIGNUP_REQUEST},      
+      {type: USER_SIGNUP_REQUEST},      
       {type: LOGIN_STATE_LOGOUT},
-      {type: SIGNUP_SUCCESS}
-    ];
+      {type: USER_SIGNUP_SUCCESS}
+    ]
 
-    const store = mockStore({}, expectedActions);
-    return store.dispatch(actions.signup('user','email','password'));
-  });
+    const store = mockStore({}, expectedActions)
+    return store.dispatch(actions.signup('user','email','password'))
+  })
 
   it('should resetPassword', () => {
     const expectedActions = [
-      {type: RESET_PASSWORD_REQUEST},      
+      {type: USER_RESETPASSWORD_REQUEST},      
       {type: LOGIN_STATE_LOGIN},
-      {type: RESET_PASSWORD_SUCCESS}
-    ];
+      {type: USER_RESETPASSWORD_SUCCESS}
+    ]
 
-    const store = mockStore({}, expectedActions);
-    return store.dispatch(actions.resetPassword('email'));
-  });
+    const store = mockStore({}, expectedActions)
+    return store.dispatch(actions.resetPassword('email'))
+  })
 
   it('should deleteAccessToken', () => {
     const expectedActions = [
-      {type: SESSION_TOKEN_REQUEST},
-      {type: SESSION_TOKEN_SUCCESS}      
-    ];
+      {type: ACCESSTOKEN_REQUEST},
+      {type: ACCESSTOKEN_SUCCESS}      
+    ]
 
-    const store = mockStore({}, expectedActions);
-    return store.dispatch(actions.deleteAccessToken());
-  });
+    const store = mockStore({}, expectedActions)
+    return store.dispatch(actions.deleteAccessToken())
+  })
 
-});
+})

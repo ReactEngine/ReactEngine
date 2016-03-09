@@ -6,14 +6,14 @@
  * state that is immutable.
  *
  */
-'use strict';
+'use strict'
 /**
  * ## Import
  */
-const {Record} = require('immutable');
+const {Record} = require('immutable')
 const {
   LOGIN_STATE_REGISTER
-} = require('../../../common/constants').default;
+} = require('../../../common/constants').default
 
 /**
  * ## Form
@@ -37,7 +37,7 @@ const Form = Record({
     passwordAgainHasError: false,
     showPassword: false
   }))
-});
+})
 
 /**
  * ## InitialState
@@ -45,6 +45,6 @@ const Form = Record({
  */
 var InitialState = Record({
   form: new Form
-});
-export default InitialState;
+})
+export default InitialState
 

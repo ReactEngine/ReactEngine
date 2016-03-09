@@ -3,7 +3,7 @@
  * 
  *
  */
-'use strict';
+'use strict'
 /**
  * ## Imports
  * The InitialState for auth
@@ -11,35 +11,35 @@
  * formValidation for setting the form's valid flag
  */
 const {
-  SET_SESSION_TOKEN,
+  SET_ACCESSTOKEN,
 
   GET_PROFILE_SUCCESS,
-  SIGNUP_SUCCESS,
-  LOGIN_SUCCESS,
+  USER_SIGNUP_SUCCESS,
+  USER_LOGIN_SUCCESS,
 
   GET_STATE,
   SET_STATE,
   SET_STORE
   
-} = require('../../../common/constants').default;
+} = require('../../../common/constants').default
 
-import InitialState from '../initialState';
+import InitialState from '../initialState'
 
-const initialState = new InitialState;
+const initialState = new InitialState
 /**
  * ## globalReducer function
  * @param {Object} state - initialState 
  * @param {Object} action - type and payload
  */
 export default function globalReducer(state = initialState, action) {
-  if (!(state instanceof InitialState)) return initialState.merge(state);
+  if (!(state instanceof InitialState)) return initialState.merge(state)
 
   switch (action.type) {
     /**
      * ### Save the accessToken
      */
-  case SET_SESSION_TOKEN:
-    return state.set('accessToken', action.payload);
+  case SET_ACCESSTOKEN:
+    return state.set('accessToken', action.payload)
     
     /**
      * ### Save the payload in the store
@@ -49,9 +49,9 @@ export default function globalReducer(state = initialState, action) {
      * ```objectId``` which will be needed for some calls to Maxleap
      */
   case GET_PROFILE_SUCCESS:
-  case SIGNUP_SUCCESS:
-  case LOGIN_SUCCESS:
-    return state.set('currentUser',action.payload);
+  case USER_SIGNUP_SUCCESS:
+  case USER_LOGIN_SUCCESS:
+    return state.set('currentUser',action.payload)
     
     /**
      * ### sets the payload into the store
@@ -61,7 +61,7 @@ export default function globalReducer(state = initialState, action) {
      *
      */
   case SET_STORE:
-    return state.set('store',action.payload);
+    return state.set('store',action.payload)
 
     /**
      * ### Get the current state from the store
@@ -73,19 +73,19 @@ export default function globalReducer(state = initialState, action) {
      * when trying to convert to JSON, it will be recursive and fail
      */    
   case GET_STATE:
-    let _state = state.store.getState();
+    let _state = state.store.getState()
 
     if (action.payload) {
-      let newState = {};
-      newState['auth'] = _state.auth.toJS();
-      newState['device'] = _state.device.toJS();
-      newState['profile'] = _state.profile.toJS();    
-      newState['global'] = _state.global.set('store',null).toJS();
+      let newState = {}
+      newState['auth'] = _state.auth.toJS()
+      newState['device'] = _state.device.toJS()
+      newState['profile'] = _state.profile.toJS()    
+      newState['global'] = _state.global.set('store',null).toJS()
 
       return state.set('showState',action.payload)
-        .set('currentState',newState);
+        .set('currentState',newState)
     } else {
-      return state.set('showState',action.payload);
+      return state.set('showState',action.payload)
     }
 
     /**
@@ -95,13 +95,13 @@ export default function globalReducer(state = initialState, action) {
      *
      */    
   case SET_STATE:
-    var global = JSON.parse(action.payload).global;
+    var global = JSON.parse(action.payload).global
     var next = state.set('currentUser', global.currentUser)
           .set('showState', false)
-          .set('currentState', null);
-    return next;
+          .set('currentState', null)
+    return next
 
   }
   
-  return state;
+  return state
 }

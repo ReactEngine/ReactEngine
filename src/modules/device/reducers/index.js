@@ -3,13 +3,13 @@
  *
  * The reducer for all the actions from the various log states
  */
-'use strict';
+'use strict'
 /**
  * ## Imports
  *
  * InitialState
  */
-import InitialState from '../initialState';
+import InitialState from '../initialState'
 
 /**
  * Device actions to test
@@ -18,9 +18,9 @@ const {
   SET_PLATFORM,
   SET_VERSION,
   SET_STATE
-} = require('../../../common/constants').default;
+} = require('../../../common/constants').default
 
-const initialState = new InitialState;
+const initialState = new InitialState
 
 /**
  * ## deviceReducer function
@@ -28,7 +28,7 @@ const initialState = new InitialState;
  * @param {Object} action - type and payload
  */
 export default function deviceReducer(state = initialState, action) {
-  if (!(state instanceof InitialState)) return initialState.merge(state);
+  if (!(state instanceof InitialState)) return initialState.merge(state)
 
   switch (action.type) {
 
@@ -37,17 +37,17 @@ export default function deviceReducer(state = initialState, action) {
      *
      */
   case SET_PLATFORM:
-    const platform = action.payload;
-    return state.set('platform', platform);
+    const platform = action.payload
+    return state.set('platform', platform)
 
     /**
      * ### set the version in the state
      *
      */
   case SET_VERSION:
-    const version = action.payload;
-    return state.set('version', version);
+    const version = action.payload
+    return state.set('version', version)
   }
 
-  return state;
+  return state
 }

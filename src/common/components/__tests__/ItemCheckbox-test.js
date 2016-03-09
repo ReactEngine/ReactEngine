@@ -8,9 +8,9 @@
  * ```console.log``` and then ```npm test```.
  *
  */
-'use strict';
+'use strict'
 
-jest.autoMockOff();
+jest.autoMockOff()
 
 /**
  * ## Imports
@@ -20,15 +20,15 @@ jest.autoMockOff();
  * *Note*: put a ```console.log``` on the outputs to see the structures
  */
 
-import React, { View } from 'react-native';
-import utils from 'react-addons-test-utils';
+import React, { View } from 'react-native'
+import utils from 'react-addons-test-utils'
 
 /**
  * ## Under test
  * class under test
  */
-jest.dontMock('../ItemCheckbox');
-var ItemCheckbox = require('../ItemCheckbox');
+jest.dontMock('../ItemCheckbox')
+var ItemCheckbox = require('../ItemCheckbox')
 
 /**
  * ## Test
@@ -37,7 +37,7 @@ describe('ItemCheckbox', () => {
   let iconName = {
     'true': 'check-square',
     'false': 'square-o'
-  };
+  }
   /**
    * ### renderItemCheckbox
    * render the component under test and return
@@ -45,36 +45,36 @@ describe('ItemCheckbox', () => {
    *
    */
   function renderItemCheckbox(props) {
-    const renderer = utils.createRenderer();
-    renderer.render(<ItemCheckbox {...props}/>);
-    const output = renderer.getRenderOutput();
+    const renderer = utils.createRenderer()
+    renderer.render(<ItemCheckbox {...props}/>)
+    const output = renderer.getRenderOutput()
 
     return {
       props,
       output,
       renderer
-    };
+    }
   }
   /**
    * ### findTouchable
    * @returns {Object} props the 
    */
   function findTouchable(output) {
-    return output.props.children.props;
+    return output.props.children.props
   }
   /**
    * ### findIcon
    * @returns {Object} that contains icon object
    */
   function findIcon(output) {
-    return output.children.props.children[0];
+    return output.children.props.children[0]
   }
   /**
    * ### findText
    * @returns {Object} that contains the text object
    */
   function findText(output) {
-    return output.children.props.children[1];
+    return output.children.props.children[1]
   }
   /**
    * ### testItemCheckbox
@@ -88,21 +88,21 @@ describe('ItemCheckbox', () => {
    * Validate that the renderend componets displays correctly
    */
   function testItemCheckbox(props) {
-    const {output} = renderItemCheckbox(props);
-    expect(output.type).toEqual(View);
+    const {output} = renderItemCheckbox(props)
+    expect(output.type).toEqual(View)
 
-    const touchableWithoutFeedback =   findTouchable(output);
+    const touchableWithoutFeedback =   findTouchable(output)
     if (props.disabled) {
-      expect(typeof touchableWithoutFeedback.onPress).toEqual('undefined');
+      expect(typeof touchableWithoutFeedback.onPress).toEqual('undefined')
     } else {
-      expect(typeof touchableWithoutFeedback.onPress).toEqual('function');
+      expect(typeof touchableWithoutFeedback.onPress).toEqual('function')
     }
     
-    const icon = findIcon(touchableWithoutFeedback);
-    expect(icon.props.name).toEqual(iconName[props.checked]);
+    const icon = findIcon(touchableWithoutFeedback)
+    expect(icon.props.name).toEqual(iconName[props.checked])
     
-    const text = findText(touchableWithoutFeedback);
-    expect(text.props.children[1]).toEqual(props.text);
+    const text = findText(touchableWithoutFeedback)
+    expect(text.props.children[1]).toEqual(props.text)
   }
   /**
    * ### if not disabled and checked, it should display check-square and text
@@ -113,9 +113,9 @@ describe('ItemCheckbox', () => {
       checked: true,
       text: 'TextShouldDisplay',
       disabled: false
-    };
-    testItemCheckbox(props);
-  });
+    }
+    testItemCheckbox(props)
+  })
 
   /**
    * ### if not disabled and not checked, it should display square-o and text
@@ -126,9 +126,9 @@ describe('ItemCheckbox', () => {
       checked: false,
       text: 'TextShouldDisplay',
       disabled: false
-    };
-    testItemCheckbox(props);
-  });
+    }
+    testItemCheckbox(props)
+  })
   
   /**
    * ### if disabled and checked, it should display check-square and text
@@ -139,9 +139,9 @@ describe('ItemCheckbox', () => {
       checked: true,
       text: 'TextShouldDisplay',
       disabled: true
-    };
-    testItemCheckbox(props);
-  });
+    }
+    testItemCheckbox(props)
+  })
   
   /**
    * ### if disabled and not checked, it should display square-o and text
@@ -152,11 +152,11 @@ describe('ItemCheckbox', () => {
       checked: false,
       text: 'TextShouldDisplay',
       disabled: true
-    };
-    testItemCheckbox(props);
-  });
+    }
+    testItemCheckbox(props)
+  })
 
-});//describe ItemCheckbox
+})//describe ItemCheckbox
 
 
 

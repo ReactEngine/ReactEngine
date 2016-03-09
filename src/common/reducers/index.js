@@ -4,19 +4,19 @@
  * This class combines all the reducers into one
  *
  */
-'use strict';
+'use strict'
 /**
  * ## Imports
  *
  */
-import auth from '../../modules/auth/reducers';
-import device from '../../modules/device/reducers';
-import global from '../../modules/global/reducers';
-import profile from '../../modules/profile/reducers';
-import reduxCrud from 'redux-crud';
+import auth from '../../modules/auth/reducers'
+import device from '../../modules/device/reducers'
+import global from '../../modules/global/reducers'
+import profile from '../../modules/profile/reducers'
+import reduxCrud from 'redux-crud'
 import users from './users'
 
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
 /**
  * ## CombineReducers
@@ -32,6 +32,6 @@ const rootReducer = combineReducers({
   global,
   profile,
   users
-});
+})
 
-export default rootReducer;
+export default rootReducer

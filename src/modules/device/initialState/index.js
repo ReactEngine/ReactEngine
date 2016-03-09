@@ -6,11 +6,11 @@
  * state that is immutable.
  *
  */
-'use strict';
+'use strict'
 /**
  * ## Import immutable record
  */
-import {Record} from 'immutable';
+import {Record} from 'immutable'
 
 /**
  * ## InitialState
@@ -21,6 +21,6 @@ var InitialState = Record({
   isMobile: false,
   platform: '',
   version: null
-});
+})
 
-export default InitialState;
+export default InitialState

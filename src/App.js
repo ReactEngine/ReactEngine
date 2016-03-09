@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * ## imports
@@ -7,17 +7,17 @@
  * * ```configureStore``` will connect the ```reducers```, the
  * ```thunk``` and the initial state.
  */
-import React, { AppRegistry } from 'react-native';
-import { Provider } from 'react-redux';
-import App from './common/containers/App';
-import configureStore from './common/store/configure';
+import React, { AppRegistry } from 'react-native'
+import { Provider } from 'react-redux'
+import App from './common/containers/App'
+import configureStore from './common/store/configure'
 
 /**
  * ## Actions
  *  The necessary actions for dispatching our bootstrap values
  */
-import {setPlatform, setVersion} from './modules/device/actions';
-import {setStore} from './modules/global/actions';
+import {setPlatform, setVersion} from './modules/device/actions'
+import {setStore} from './modules/global/actions'
 
 
 /**
@@ -26,15 +26,15 @@ import {setStore} from './modules/global/actions';
  * initial state
  */
 
-import authInitialState from './modules/auth/initialState';
-import deviceInitialState from './modules/device/initialState';
-import globalInitialState from './modules/global/initialState';
-import profileInitialState from './modules/profile/initialState';
+import authInitialState from './modules/auth/initialState'
+import deviceInitialState from './modules/device/initialState'
+import globalInitialState from './modules/global/initialState'
+import profileInitialState from './modules/profile/initialState'
 
 /**
  *  The version of the app but not  displayed yet
  */
-var VERSION='0.0.1';
+var VERSION='0.0.1'
 
 /**
  *
@@ -48,8 +48,8 @@ function getInitialState() {
     device: (new deviceInitialState).set('isMobile',true),
     global: (new globalInitialState),
     profile: new profileInitialState
-  };
-  return _initState;
+  }
+  return _initState
 }
 /**
  * ## Native
@@ -63,10 +63,10 @@ export default function native(platform) {
 
   let AppComponent = React.createClass( {
     render() {
-      const store = configureStore(getInitialState());
-      store.dispatch(setPlatform(platform));
-      store.dispatch(setVersion(VERSION));
-      store.dispatch(setStore(store));
+      const store = configureStore(getInitialState())
+      store.dispatch(setPlatform(platform))
+      store.dispatch(setVersion(VERSION))
+      store.dispatch(setStore(store))
       /**
        * Provider wrap the ```App``` with a ```Provider``` and both
        * have a ```store```
@@ -75,14 +75,14 @@ export default function native(platform) {
         <Provider store={store}>
           <App/>
         </Provider>
-      );
+      )
 
     }
-  });
+  })
   
 
   /**
    * registerComponent to the AppRegistery
    */
-  AppRegistry.registerComponent('App', () => AppComponent);
+  AppRegistry.registerComponent('App', () => AppComponent)
 }

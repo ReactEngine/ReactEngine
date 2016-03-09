@@ -6,9 +6,9 @@
  * state that is immutable.
  *
  */
-'use strict';
+'use strict'
 
-const  {Record} = require('immutable');
+const  {Record} = require('immutable')
 
 /**
  * ## Form
@@ -36,11 +36,11 @@ const Form = Record({
     emailHasError: false,
     emailVerified: false
   }))
-});
+})
 
 
 var InitialState = Record({
   form: new Form
-});
+})
 
-export default InitialState;
+export default InitialState

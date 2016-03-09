@@ -1,6 +1,6 @@
-import _ from 'lodash';
+import _ from 'lodash'
 import Utils from './utils'
-import CONFIG from './config';
+import CONFIG from './config'
 
 const baseUrl = CONFIG.baseUrl+'Users/'
 
@@ -27,16 +27,16 @@ export default User {
       body: data
     })
       .then((response) => {
-        var json = JSON.parse(response._bodyInit);        
+        var json = JSON.parse(response._bodyInit)        
         if (response.status === 200 || response.status === 201) {
-          return json;
+          return json
         } else {
-          throw(json);
+          throw(json)
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
 
   }
   /**
@@ -64,16 +64,16 @@ export default User {
       body: data
     })
       .then((response) => {
-        var json = JSON.parse(response._bodyInit);
+        var json = JSON.parse(response._bodyInit)
         if (response.status === 200 || response.status === 201) {
-          return json;
+          return json
         } else {
-          throw(json);
+          throw(json)
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
 
   }
   /**
@@ -87,18 +87,18 @@ export default User {
       body: {}
     })
       .then((response) => {
-        var  res = JSON.parse(response._bodyInit);        
+        var  res = JSON.parse(response._bodyInit)        
         if ((response.status === 200 || response.status === 201)
             || //invalid session token
             (response.status === 400 && res.code === 209)) {
-          return {};
+          return {}
         } else {
-          throw({code: res.statusCode, error: res.message});
+          throw({code: res.statusCode, error: res.message})
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
   }
   /**
    * ### resetPassword
@@ -119,15 +119,15 @@ export default User {
     })
       .then((response) => {
         if ((response.status === 200 || response.status === 201)) {
-          return {};
+          return {}
         } else {
-          var  res = JSON.parse(response._bodyInit);                  
-          throw(res);
+          var  res = JSON.parse(response._bodyInit)                  
+          throw(res)
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
   }  
   /**
    * ### getProfile
@@ -152,16 +152,16 @@ export default User {
       url: baseUrl + userId
     })
       .then((response) => {
-        var  res = JSON.parse(response._bodyInit);
+        var  res = JSON.parse(response._bodyInit)
         if ((response.status === 200 || response.status === 201)) {
-          return res;
+          return res
         } else {
-          throw(res);
+          throw(res)
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
   }
   /**
    * ### updateProfile
@@ -180,15 +180,15 @@ export default User {
     })
       .then((response) => {
         if ((response.status === 200 || response.status === 201)) {
-          return {};
+          return {}
         } else {
-          var  res = JSON.parse(response._bodyInit);          
-          throw(res);
+          var  res = JSON.parse(response._bodyInit)          
+          throw(res)
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
 
   }  
 }

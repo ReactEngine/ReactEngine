@@ -6,19 +6,19 @@
  * 
  * I've opened an issue to attempt to merge this back in 
  */
-'use strict';
+'use strict'
 
 /**
  * ## Imports
  *
  * React
  */
-var React = require('react-native');
+var React = require('react-native')
 
  /**
   * The vector icon
   */
-var Icon = require('react-native-vector-icons/FontAwesome');
+var Icon = require('react-native-vector-icons/FontAwesome')
 
 var {
   PropTypes,
@@ -26,7 +26,7 @@ var {
   Text,
   TouchableHighlight,
   TouchableWithoutFeedback
-} = React;
+} = React
 
 
 var ItemCheckbox = React.createClass({
@@ -66,7 +66,7 @@ var ItemCheckbox = React.createClass({
       checked: false,
       text: 'MISSING TEXT',
       disabled: false
-    };
+    }
   },
   /**
    * ### getInitialState
@@ -77,7 +77,7 @@ var ItemCheckbox = React.createClass({
     return {
       checked: this.props.checked,
       bg_color: this.props.backgroundColor
-    };
+    }
   },
   /**
    * ### _getCircleCheckSytel
@@ -94,7 +94,7 @@ var ItemCheckbox = React.createClass({
       justifyContent: 'center',
       alignItems: 'center',
       padding: 2
-    };
+    }
   },
   /**
    * ### _completeProgress
@@ -106,17 +106,17 @@ var ItemCheckbox = React.createClass({
       this.setState({
         checked: false,
         bg_color: this.props.backgroundColor
-      });
+      })
       if (this.props.onUncheck) {
-        this.props.onUncheck();
+        this.props.onUncheck()
       }
     } else {
       this.setState({
         checked: true,
         bg_color: this.props.color
-      });
+      })
       if (this.props.onCheck) {
-        this.props.onCheck();
+        this.props.onCheck()
       }
     }
   },
@@ -126,7 +126,7 @@ var ItemCheckbox = React.createClass({
    */
   componentDidMount: function() {
     if (this.props.checked) {
-      this._completeProgress();
+      this._completeProgress()
     }
   },
   /**
@@ -136,12 +136,12 @@ var ItemCheckbox = React.createClass({
    * Set the ```iconName``` depending on if checked
    */
   render: function() {
-    var iconName=this.props.icon_open;
+    var iconName=this.props.icon_open
     if (this.state.checked) {
-      iconName=this.props.icon_check;
+      iconName=this.props.icon_check
     }
     if (this.props.disabled) {
-      iconName = this.props.checked ? this.props.icon_check : this.props.icon_open;
+      iconName = this.props.checked ? this.props.icon_check : this.props.icon_open
       return (
         <View style={this.props.style}>
           <TouchableWithoutFeedback>
@@ -157,7 +157,7 @@ var ItemCheckbox = React.createClass({
             </View>
           </TouchableWithoutFeedback>
         </View>
-        );
+        )
       } else {
         return(
           <View style={this.props.style}>
@@ -176,9 +176,9 @@ var ItemCheckbox = React.createClass({
               </View>
             </TouchableHighlight>
           </View>
-        );
+        )
       }
     }
-  });
+  })
 
-module.exports = ItemCheckbox;
+module.exports = ItemCheckbox

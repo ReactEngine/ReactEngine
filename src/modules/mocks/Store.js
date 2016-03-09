@@ -3,17 +3,17 @@
  * 
  * This mocks the Redux store
  */
-'use strict';
+'use strict'
 /**
  * ## Imports
  *
  * same middleWare as the app uses
  */
-const { applyMiddleware } = require('redux');
-const thunk = require('redux-thunk');
+const { applyMiddleware } = require('redux')
+const thunk = require('redux-thunk')
 
 
-const middlewares = [thunk];
+const middlewares = [thunk]
 
 /**
  * ## mockStore
@@ -25,7 +25,7 @@ const middlewares = [thunk];
  */
 export default function mockStore(state, expectedActions) {
   if (!Array.isArray(expectedActions)) {
-    throw new Error('expectedActions should be an array of expected actions.');
+    throw new Error('expectedActions should be an array of expected actions.')
   }
   /**
    * ### mockStoreWithoutMiddleware
@@ -35,7 +35,7 @@ export default function mockStore(state, expectedActions) {
   function mockStoreWithoutMiddleware() {
     return {
       getState() {
-        return typeof state === 'function' ? state() : state;
+        return typeof state === 'function' ? state() : state
       },
       /**
        * #### dispatch
@@ -43,22 +43,22 @@ export default function mockStore(state, expectedActions) {
        * confirm that it is in order, and that all of them have been processed
        */
       dispatch(action) {
-        const expectedAction = expectedActions.shift();
+        const expectedAction = expectedActions.shift()
         try {
-          expect(action.type).toEqual(expectedAction.type);
-          return action;
+          expect(action.type).toEqual(expectedAction.type)
+          return action
         } catch (e) {
-          throw new Error(e);
+          throw new Error(e)
         }
       }
-    };
+    }
   }
   /**
    * ##  basic testing setup
    */
   const mockStoreWithMiddleware = applyMiddleware(
       ...middlewares
-  )(mockStoreWithoutMiddleware);
+  )(mockStoreWithoutMiddleware)
 
-  return mockStoreWithMiddleware();
+  return mockStoreWithMiddleware()
 }

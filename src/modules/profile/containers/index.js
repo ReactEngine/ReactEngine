@@ -6,43 +6,43 @@
  * It too is a container so there is boilerplate from Redux similar to
  * ```App``` and ```Login```
  */
-'use strict';
+'use strict'
 /**
 * ## Imports
 *
 * Redux
 */
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 /**
  * The actions we need
  */
-import * as profileActions from '../actions';
-import * as globalActions from '../../global/actions';
+import * as profileActions from '../actions'
+import * as globalActions from '../../global/actions'
 
 /**
  * Immutable Mapn
  */
-import {Map} from 'immutable';
+import {Map} from 'immutable'
 
 /**
  * The ErrorAlert will display any and all errors
  */
-import ErrorAlert from '../../../common/components/ErrorAlert';
+import ErrorAlert from '../../../common/components/ErrorAlert'
 /**
  * The FormButton will respond to the press
  */
-import FormButton from '../../../common/components/FormButton';
+import FormButton from '../../../common/components/FormButton'
 /**
  * The Header will display a Image and support Hot Loading
  */
-import Header from '../../../common/components/Header';
+import Header from '../../../common/components/Header'
 
 /**
  * The itemCheckbox will display the state of the email verified
  */
-import ItemCheckbox from '../../../common/components/ItemCheckbox';
+import ItemCheckbox from '../../../common/components/ItemCheckbox'
 /**
  * The necessary React components
  */
@@ -52,14 +52,14 @@ import React,
   StyleSheet,
   View
 }
-from 'react-native';
+from 'react-native'
 
 /**
 * The form processing component
 */
-import t from 'tcomb-form-native';
+import t from 'tcomb-form-native'
 
-let Form = t.form.Form;
+let Form = t.form.Form
 
 /**
  * ## Styles
@@ -76,7 +76,7 @@ var styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   }
-});
+})
 
 /** 
 * ## Redux boilerplate
@@ -84,24 +84,24 @@ var styles = StyleSheet.create({
 const actions = [
   profileActions,
   globalActions
-];
+]
 
 function mapStateToProps(state) {
   return {
       ...state
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   const creators = Map()
           .merge(...actions)
           .filter(value => typeof value === 'function')
-          .toObject();
+          .toObject()
 
   return {
     actions: bindActionCreators(creators, dispatch),
     dispatch
-  };
+  }
 }
 
 
@@ -111,14 +111,14 @@ class Profile extends Component {
    * Set the initial state and prepare the errorAlert
    */
   constructor(props) {
-    super(props);
-    this.errorAlert = new ErrorAlert();
+    super(props)
+    this.errorAlert = new ErrorAlert()
     this.state = {
       formValues: {
         username: '',
         email: ''
       }
-    };
+    }
   }
   /**
    * ### onChange
@@ -128,8 +128,8 @@ class Profile extends Component {
    * 
    */
   onChange(value) {
-    this.props.actions.onProfileFormFieldChange(value);
-    this.setState({value});
+    this.props.actions.onProfileFormFieldChange(value)
+    this.setState({value})
   }
   /**
    * ### componentWillReceiveProps
@@ -143,7 +143,7 @@ class Profile extends Component {
         username: props.profile.form.fields.username,
         email: props.profile.form.fields.email
       }
-    });
+    })
 
   }
   /**
@@ -155,14 +155,14 @@ class Profile extends Component {
    */
   componentDidMount() {
     if (this.props.profile.form.fields.username == '' && this.props.profile.form.fields.email == '') {
-      this.props.actions.getProfile(this.props.global.currentUser);
+      this.props.actions.getProfile(this.props.global.currentUser)
     } else {
       this.setState({
         formValues: {
           username: this.props.profile.form.fields.username,
           email: this.props.profile.form.fields.email
         }
-      });
+      })
     }      
   }
 
@@ -171,14 +171,14 @@ class Profile extends Component {
    * display the form wrapped with the header and button
    */
   render() {
-    this.errorAlert.checkError(this.props.profile.form.error);
+    this.errorAlert.checkError(this.props.profile.form.error)
 
-    let self = this;
+    let self = this
     
     let ProfileForm = t.struct({
       username: t.String,
       email: t.String
-    });
+    })
     /**
      * Set up the field definitions.  If we're fetching, the fields
      * are disabled.  
@@ -201,21 +201,21 @@ class Profile extends Component {
           error: 'Please enter valid email'
         }
       }
-    };
+    }
 
     /**
      * When the button is pressed, send the users info including the
      * ```currrentUser``` object as it contains the accessToken and
      * user objectId which Server requires
      */
-    let profileButtonText = 'Update Profile';
+    let profileButtonText = 'Update Profile'
     let onButtonPress = () => {
       this.props.actions.updateProfile(
         this.props.profile.form.originalProfile.objectId,
         this.props.profile.form.fields.username,
         this.props.profile.form.fields.email,
-        this.props.global.currentUser);
-    };
+        this.props.global.currentUser)
+    }
     /**
      * Wrap the form with the header and button.  The header props are
      * mostly for support of Hot reloading. See the docs for Header
@@ -250,7 +250,7 @@ class Profile extends Component {
 
 
       </View>
-    );
+    )
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

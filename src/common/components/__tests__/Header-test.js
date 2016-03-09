@@ -7,28 +7,28 @@
  * ```console.log``` and then ```npm test```.
  *
  */
-'use strict';
+'use strict'
 
-jest.autoMockOff();
+jest.autoMockOff()
 
 /**
 * ## Imports
 */
-import React, { View } from 'react-native';
-import utils from 'react-addons-test-utils';
+import React, { View } from 'react-native'
+import utils from 'react-addons-test-utils'
 
 /**
  * ## Under test
  * class under test
  */
-jest.dontMock('../Header');
-var Header = require('../Header');
+jest.dontMock('../Header')
+var Header = require('../Header')
 
 /**
  * ## Test
  */
 describe('Header', () => {
-  let header;
+  let header
   
   /**
    * ### renderHeader
@@ -37,15 +37,15 @@ describe('Header', () => {
    */ 
 
   function renderHeader(props) {
-    const renderer = utils.createRenderer();
-    renderer.render(<Header {...props}/>);
-    const output = renderer.getRenderOutput();
+    const renderer = utils.createRenderer()
+    renderer.render(<Header {...props}/>)
+    const output = renderer.getRenderOutput()
 
     return {
       props,
       output,
       renderer
-    };
+    }
   }
   /**
    * ### it should be display empty text when not fetching
@@ -54,13 +54,13 @@ describe('Header', () => {
   it('should be display empty text when not fetching', () => {
     const buttonProps = {
       isFetching: false
-    };
-    header = renderHeader(buttonProps);
-    const {output} = header;
-    expect(output.type).toEqual(View);
-    expect(output.props.children[0].props.children[1].props.children).toEqual(' ');
+    }
+    header = renderHeader(buttonProps)
+    const {output} = header
+    expect(output.type).toEqual(View)
+    expect(output.props.children[0].props.children[1].props.children).toEqual(' ')
 
-  });
+  })
   /**
    * ### it should be display spinner when fetching
    * When fetching, the GiftedSpinner should display
@@ -68,12 +68,12 @@ describe('Header', () => {
   it('should be display spinner when fetching', () => {
     const buttonProps = {
       isFetching: true
-    };
-    header = renderHeader(buttonProps);
-    const {output} = header;
+    }
+    header = renderHeader(buttonProps)
+    const {output} = header
 
-    expect(output.type).toEqual(View);
-    expect(output.props.children[0].props.children[1].type.displayName).toEqual('GiftedSpinner');
-  });
+    expect(output.type).toEqual(View)
+    expect(output.props.children[0].props.children[1].type.displayName).toEqual('GiftedSpinner')
+  })
 
-});//describe Header
+})//describe Header

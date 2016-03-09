@@ -7,24 +7,24 @@
  * fails, setting it back to false.
  * 
  */
-'use strict';
+'use strict'
 
 /**
  * ## Mocks
  *
- * turn mocking off but mock AppAuthToken and Maxleap
+ * turn mocking off but mock store and Maxleap
  *
  */
-jest.autoMockOff();
+jest.autoMockOff()
 
-jest.mock('../../../../lib/AppAuthToken');
-jest.mock('../../../../api');
+jest.mock('../../../../lib/store')
+jest.mock('../../../../api')
 /**
  * ## Store
  * The mockStore will validate the actions are performed 
  */
-const mockStore = require('../../mocks/Store').default;
-const actions = require('../actions');
+const mockStore = require('../../mocks/Store').default
+const actions = require('../actions')
 
 /**
  * ## Actions to test
@@ -40,7 +40,7 @@ const {
 
   ON_PROFILE_FORM_FIELD_CHANGE
 
-} = require('../../../common/constants').default;
+} = require('../../../common/constants').default
 
 /**
  * ## Tests
@@ -52,44 +52,44 @@ describe('profileActions', () => {
    * ### simple tests that prove the actions have the specific type
    */   
   it('should getProfileRequest', () => {
-    expect(actions.getProfileRequest()).toEqual({type: GET_PROFILE_REQUEST});
-  });
+    expect(actions.getProfileRequest()).toEqual({type: GET_PROFILE_REQUEST})
+  })
 
   it('should getProfileSuccess', () => {
-    var json = {json: true};
+    var json = {json: true}
     expect(actions.getProfileSuccess(json)).toEqual({type:
                                                      GET_PROFILE_SUCCESS,
-                                                     payload: json});
-  });
+                                                     payload: json})
+  })
 
   it('should getProfileFailure', () => {
-    var json = {json: true};
+    var json = {json: true}
     expect(actions.getProfileFailure(json)).toEqual({type:
                                                      GET_PROFILE_FAILURE,
-                                                     payload:json});
-  });
+                                                     payload:json})
+  })
   
   it('should profileUpdateRequest', () => {
-    expect(actions.profileUpdateRequest()).toEqual({type: PROFILE_UPDATE_REQUEST});
-  });
+    expect(actions.profileUpdateRequest()).toEqual({type: PROFILE_UPDATE_REQUEST})
+  })
 
   it('should profileUpdateSuccess', () => {
-    expect(actions.profileUpdateSuccess()).toEqual({type: PROFILE_UPDATE_SUCCESS});
-  });
+    expect(actions.profileUpdateSuccess()).toEqual({type: PROFILE_UPDATE_SUCCESS})
+  })
 
   it('should profileUpdateFailure', () => {
-    var json = {json: true};
+    var json = {json: true}
     expect(actions.profileUpdateFailure(json)).toEqual({type:
                                                         PROFILE_UPDATE_FAILURE,
-                                                        payload:json});
-  });
+                                                        payload:json})
+  })
 
   it('should onProfileFormFieldChange', () => {
-    let field = 'field';
-    let value = 'value';
+    let field = 'field'
+    let value = 'value'
     expect(actions.onProfileFormFieldChange(field, value)).toEqual({
-      type: ON_PROFILE_FORM_FIELD_CHANGE,       payload: {field: field, value: value}});
-  });
+      type: ON_PROFILE_FORM_FIELD_CHANGE,       payload: {field: field, value: value}})
+  })
 
   /**
    * ### async tests
@@ -104,11 +104,11 @@ describe('profileActions', () => {
     const expectedActions = [
       {type: GET_PROFILE_REQUEST},
       {type: GET_PROFILE_SUCCESS}
-    ];
+    ]
 
-    const store = mockStore({}, expectedActions);
-    return store.dispatch(actions.getProfile());
-  });
+    const store = mockStore({}, expectedActions)
+    return store.dispatch(actions.getProfile())
+  })
 
   it('should updateProfile', () => {
     const expectedActions = [
@@ -116,10 +116,10 @@ describe('profileActions', () => {
       {type: PROFILE_UPDATE_SUCCESS},
       {type: GET_PROFILE_REQUEST},
       {type: GET_PROFILE_SUCCESS}
-    ];
+    ]
 
-    const store = mockStore({}, expectedActions);
-    return store.dispatch(actions.updateProfile('userid','username','email'));
-  });
+    const store = mockStore({}, expectedActions)
+    return store.dispatch(actions.updateProfile('userid','username','email'))
+  })
 
-});
+})

@@ -3,29 +3,29 @@
  *
  */
 
-'use strict';
+'use strict'
 
 /**
  * ## Imports
  *
  * redux functions
  */
-import { createStore, applyMiddleware,combineReducers,compose } from 'redux';
-import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
+import { createStore, applyMiddleware,combineReducers,compose } from 'redux'
+import thunk from 'redux-thunk'
+import createLogger from 'redux-logger'
 
 const logger = createLogger({
   duration : true,
   timestamp : true,
   logger : console,
   logErrors : true
-});
+})
 
 /**
 * ## Reducer
 * The reducer contains reducers
 */
-import reducers from '../reducers';
+import reducers from '../reducers'
 
 /**
  * ## creatStoreWithMiddleware
@@ -34,7 +34,7 @@ import reducers from '../reducers';
 const createStoreWithMiddleware = compose(
   applyMiddleware(thunk,logger),
   typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
-)(createStore);;
+)(createStore)
 
 
 
@@ -45,5 +45,5 @@ const createStoreWithMiddleware = compose(
  *
  */
 export default function configureStore(initialState) {
-		return createStoreWithMiddleware(reducers, initialState);
-};
+		return createStoreWithMiddleware(reducers, initialState)
+}

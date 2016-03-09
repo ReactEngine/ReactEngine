@@ -5,20 +5,20 @@
  * see [https://parse.com/docs/rest/guide](https://parse.com/docs/rest/guide)
  *
  */
-'use strict';
+'use strict'
 /**
  * ## Async support
  * 
  */ 
-require('regenerator/runtime');
+require('regenerator/runtime')
 
 /**
  * ## Imports
  * 
  * Config for defaults and lodash for a couple of features
  */ 
-import CONFIG from './config';
-import _ from 'lodash';
+import CONFIG from './config'
+import _ from 'lodash'
 
 export default class Maxleap {
   /**
@@ -30,18 +30,18 @@ export default class Maxleap {
    * @throws tokenMissing if token is undefined
    */
   constructor( token) {
-    super(token);
+    super(token)
     if (!_.isNull(token) && _.isUndefined(token.accessToken)) {
-      throw 'TokenMissing';
+      throw 'TokenMissing'
     }
     this._accessToken =
-      _.isNull(token) ?  null :  token.accessToken.accessToken;
+      _.isNull(token) ?  null :  token.accessToken.accessToken
     
-    this._applicationId = CONFIG.MAXLEAP.APP_ID;
-    this._restAPIKey = CONFIG.MAXLEAP.REST_API_KEY;
-    this._masterKey = null;
+    this._applicationId = CONFIG.MAXLEAP.APP_ID
+    this._restAPIKey = CONFIG.MAXLEAP.REST_API_KEY
+    this._masterKey = null
 
-    this.API_BASE_URL= 'https://api.maxleap.cn';
+    this.API_BASE_URL= 'https://api.maxleap.cn'
   }
   /**
    * ### signup
@@ -64,16 +64,16 @@ export default class Maxleap {
       body: data
     })
       .then((response) => {
-        var json = JSON.parse(response._bodyInit);        
+        var json = JSON.parse(response._bodyInit)        
         if (response.status === 200 || response.status === 201) {
-          return json;
+          return json
         } else {
-          throw(json);
+          throw(json)
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
 
   }
   /**
@@ -95,29 +95,29 @@ export default class Maxleap {
    *
    */
   async login(data) {
-    var formBody = [];
+    var formBody = []
     for (var property in data) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(data[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
+      var encodedKey = encodeURIComponent(property)
+      var encodedValue = encodeURIComponent(data[property])
+      formBody.push(encodedKey + "=" + encodedValue)
     }
-    formBody = formBody.join("&");
+    formBody = formBody.join("&")
 
     return await this._fetch({
       method: 'GET',
       url: '/2.0/login?' + formBody
     })
       .then((response) => {
-        var json = JSON.parse(response._bodyInit);
+        var json = JSON.parse(response._bodyInit)
         if (response.status === 200 || response.status === 201) {
-          return json;
+          return json
         } else {
-          throw(json);
+          throw(json)
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
 
   }
   /**
@@ -131,18 +131,18 @@ export default class Maxleap {
       body: {}
     })
       .then((response) => {
-        var  res = JSON.parse(response._bodyInit);        
+        var  res = JSON.parse(response._bodyInit)        
         if ((response.status === 200 || response.status === 201)
             || //invalid session token
             (response.status === 400 && res.code === 209)) {
-          return {};
+          return {}
         } else {
-          throw({code: 404, error: 'unknown error from Server'});
+          throw({code: 404, error: 'unknown error from Server'})
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
 
   }
   /**
@@ -164,15 +164,15 @@ export default class Maxleap {
     })
       .then((response) => {
         if ((response.status === 200 || response.status === 201)) {
-          return {};
+          return {}
         } else {
-          var  res = JSON.parse(response._bodyInit);                  
-          throw(res);
+          var  res = JSON.parse(response._bodyInit)                  
+          throw(res)
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
   }  
   /**
    * ### getProfile
@@ -197,16 +197,16 @@ export default class Maxleap {
       url: '/2.0/users/me'
     })
       .then((response) => {
-        var  res = JSON.parse(response._bodyInit);
+        var  res = JSON.parse(response._bodyInit)
         if ((response.status === 200 || response.status === 201)) {
-          return res;
+          return res
         } else {
-          throw(res);
+          throw(res)
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
   }
   /**
    * ### updateProfile
@@ -225,15 +225,15 @@ export default class Maxleap {
     })
       .then((response) => {
         if ((response.status === 200 || response.status === 201)) {
-          return {};
+          return {}
         } else {
-          var  res = JSON.parse(response._bodyInit);          
-          throw(res);
+          var  res = JSON.parse(response._bodyInit)          
+          throw(res)
         }
       })
       .catch((error) => {
-        throw(error);
-      });
+        throw(error)
+      })
 
   }  
   /**
@@ -246,7 +246,7 @@ export default class Maxleap {
       url: null,
       body: null,
       callback: null
-    }, opts);
+    }, opts)
 
     var reqOpts = {
       method: opts.method,
@@ -254,26 +254,26 @@ export default class Maxleap {
         'X-ML-Application-Id': this._applicationId,
         'X-ML-REST-API-Key': this._restAPIKey
       }
-    };
+    }
     if (this._accessToken) {
-      reqOpts.headers['X-ML-Session-Token'] = this._accessToken;
+      reqOpts.headers['X-ML-Session-Token'] = this._accessToken
     }
     
     if (this._masterKey) {
-      reqOpts.headers['X-ML-Master-Key'] = this.masterKey;
+      reqOpts.headers['X-ML-Master-Key'] = this.masterKey
     }
 
     if (opts.method === 'POST' || opts.method === 'PUT') {
-      reqOpts.headers['Accept'] = 'application/json';
-      reqOpts.headers['Content-Type'] = 'application/json';
+      reqOpts.headers['Accept'] = 'application/json'
+      reqOpts.headers['Content-Type'] = 'application/json'
     }
 
     if (opts.body) {
-      reqOpts.body = JSON.stringify(opts.body);
+      reqOpts.body = JSON.stringify(opts.body)
     }
 
-    return await fetch(this.API_BASE_URL + opts.url, reqOpts);
+    return await fetch(this.API_BASE_URL + opts.url, reqOpts)
 
   }
-};
+}
 

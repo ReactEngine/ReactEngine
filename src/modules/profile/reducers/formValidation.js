@@ -6,7 +6,7 @@
  * if all the fields on the form are without error,
  * the form is considered valid
  */
-'use strict';
+'use strict'
 
 /**
  * ## formValidation
@@ -27,12 +27,12 @@ export default function formValidation (state) {
         ||
          state.form.fields.email != state.form.originalProfile.email)
        ) {
-      return state.setIn(['form','isValid'],true);
+      return state.setIn(['form','isValid'],true)
     } else {
-      return state.setIn(['form','isValid'],false);
+      return state.setIn(['form','isValid'],false)
     }
     
-  return state;
+  return state
 
 }
 

@@ -3,7 +3,7 @@
  * 
  * The actions to support the users profile
  */
-'use strict';
+'use strict'
 /**
  * ## Imports
  * 
@@ -19,14 +19,14 @@ const {
   PROFILE_UPDATE_FAILURE,
 
   ON_PROFILE_FORM_FIELD_CHANGE
-} = require('../../../common/constants').default;
+} = require('../../../common/constants').default
 
 /**
  * APIFactory - base class for server implementation
- * AppAuthToken for localStorage accessToken access 
+ * store for store accessToken access 
  */
-const APIFactory = require('../../../api').default;
-const AppAuthToken = require('../../../lib/AppAuthToken').default;
+const APIFactory = require('../../../api').default
+const store = require('../../../lib/store').default
 
 /**
  * ## retreiving profile actions
@@ -34,19 +34,19 @@ const AppAuthToken = require('../../../lib/AppAuthToken').default;
 export function getProfileRequest() {
   return {
     type: GET_PROFILE_REQUEST
-  };
+  }
 }
 export function getProfileSuccess(json) {
   return {
     type: GET_PROFILE_SUCCESS,
     payload: json
-  };
+  }
 }
 export function getProfileFailure(json) {
   return {
     type: GET_PROFILE_FAILURE,
     payload: json
-  };
+  }
 }
 /**
  * ## State actions
@@ -55,19 +55,19 @@ export function getProfileFailure(json) {
  */
 export function getProfile(accessToken) {
   return dispatch => {
-    dispatch(getProfileRequest());
+    dispatch(getProfileRequest())
     //store or get a accessToken
-    return new AppAuthToken().getAccessToken(accessToken)
+    return new store().getAccessToken(accessToken)
       .then((token) => {
-        return APIFactory(token).getProfile();
+        return APIFactory(token).getProfile()
       })
       .then((json) => {
-          dispatch(getProfileSuccess(json));
+          dispatch(getProfileSuccess(json))
       })
       .catch((error) => {
-        dispatch(getProfileFailure(error));
-      });
-  };
+        dispatch(getProfileFailure(error))
+      })
+  }
 }
 /**
  * ## State actions
@@ -77,18 +77,18 @@ export function getProfile(accessToken) {
 export function profileUpdateRequest() {
   return {
     type: PROFILE_UPDATE_REQUEST
-  };
+  }
 }
 export function profileUpdateSuccess() {
   return {
     type: PROFILE_UPDATE_SUCCESS
-  };
+  }
 }
 export function profileUpdateFailure(json) {
   return {
     type: PROFILE_UPDATE_FAILURE,
     payload: json
-  };
+  }
 }
 /**
  * ## updateProfile
@@ -106,24 +106,24 @@ export function profileUpdateFailure(json) {
  */
 export function updateProfile(userId, username, email, accessToken) {
   return dispatch => {
-    dispatch(profileUpdateRequest());
-    return new AppAuthToken().getAccessToken(accessToken)
+    dispatch(profileUpdateRequest())
+    return new store().getAccessToken(accessToken)
       .then((token) => {
         return APIFactory(token).updateProfile(userId,
           {
             username: username,
             email: email
           }
-        );
+        )
       })
       .then(() => {
-          dispatch(profileUpdateSuccess());
-          dispatch(getProfile());
+          dispatch(profileUpdateSuccess())
+          dispatch(getProfile())
       })
       .catch((error) => {
-        dispatch(profileUpdateFailure(error));
-      });
-  };
+        dispatch(profileUpdateFailure(error))
+      })
+  }
 }
 /**
  * ## onProfileFormFieldChange
@@ -133,5 +133,5 @@ export function onProfileFormFieldChange(field,value) {
   return {
     type: ON_PROFILE_FORM_FIELD_CHANGE,
     payload: {field: field, value: value}
-  };
+  }
 }

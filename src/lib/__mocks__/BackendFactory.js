@@ -5,11 +5,11 @@
  * see [https://parse.com/docs/rest/guide](https://parse.com/docs/rest/guide)
  *
  */
-'use strict';
+'use strict'
 
 
-const backend = require('./Backend').default;
+const backend = require('./Backend').default
 
 export default function APIFactory(token = null) {
-  return new backend();
+  return new backend()
 }

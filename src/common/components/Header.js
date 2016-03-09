@@ -16,14 +16,14 @@
  *
  * When the mark image is clicked, it is just toggled to display or hide.
 */
-'use strict';
+'use strict'
 
 /**
  * ## Imports
  *
  * React
 */
-const React = require('react-native');
+const React = require('react-native')
 
 const {
   Image,
@@ -34,15 +34,15 @@ const {
   TouchableHighlight,
   View
 
-} = React;
+} = React
 /**
  * A spiner
  */
-const GiftedSpinner = require('react-native-gifted-spinner');
+const GiftedSpinner = require('react-native-gifted-spinner')
 /**
  * Project component that will respond to onPress
  */
-const FormButton = require('./FormButton');
+const FormButton = require('./FormButton')
 /**
  * ## Styles
  */
@@ -62,7 +62,7 @@ var styles = StyleSheet.create({
     width: 50,
     height: 50
   }
-});
+})
 
 var Header = React.createClass({
   /**
@@ -73,7 +73,7 @@ var Header = React.createClass({
     return {
       text: '',
       isDisabled: true
-    };
+    }
   },
   /**
    * ### propTypes
@@ -95,7 +95,7 @@ var Header = React.createClass({
    * Call the onGetState action passing the state prop
    */
   _onPressMark() {
-    this.props.onGetState(!this.props.showState);
+    this.props.onGetState(!this.props.showState)
   },
   /**
    * ### _onChangeText
@@ -105,14 +105,14 @@ var Header = React.createClass({
     this.setState({
       text,
       isDisabled: false
-    });
+    })
   },
   /**
    * ### _updateStateButtonPress
    * When the button for the state is pressed, call ```onSetState```
    */
   _updateStateButtonPress() {
-    this.props.onSetState(this.state.text);
+    this.props.onSetState(this.state.text)
   },
 
   /**
@@ -129,11 +129,11 @@ var Header = React.createClass({
    *
    */
   render() {
-    let showState = <Text> </Text>;
+    let showState = <Text> </Text>
     if (this.props.showState) {
-      let displayText = JSON.stringify(this.props.currentState);
+      let displayText = JSON.stringify(this.props.currentState)
       
-     console.log(displayText);
+     console.log(displayText)
 
       showState =
       <View style={styles.container}>
@@ -157,9 +157,9 @@ var Header = React.createClass({
       </View>
     }
     
-    let spinner = <Text> </Text>;
+    let spinner = <Text> </Text>
     if (this.props.isFetching) {
-      spinner =  <GiftedSpinner/>;
+      spinner =  <GiftedSpinner/>
     }
 
     return (
@@ -176,8 +176,8 @@ var Header = React.createClass({
         </View>
         {showState}
       </View>
-    );
+    )
   }
-});
+})
 
-module.exports = Header;
+module.exports = Header

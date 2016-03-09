@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * ## Imports
@@ -6,8 +6,8 @@
  * validate and lodash
  *
  */
-import validate from 'validate.js';
-import _ from 'lodash';
+import validate from 'validate.js'
+import _ from 'lodash'
 
 /**
  * ## Email validation setup
@@ -17,13 +17,13 @@ const emailConstraints = {
   from: {
     email: true
   }
-};
+}
 
 /**
 * ## username validation rule
-* read the message.. ;)
+* read the message.. )
 */
-const usernamePattern = /^[a-zA-Z0-9]{6,12}$/;
+const usernamePattern = /^[a-zA-Z0-9]{6,12}$/
 const usernameConstraints = {
   username: {
     format: {
@@ -32,13 +32,13 @@ const usernameConstraints = {
       message: "must have 6-12 numbers, letters or special characters"
     }
   }
-};
+}
 
 /**
 * ## password validation rule
-* read the message... ;)
+* read the message... )
 */
-const passwordPattern =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
+const passwordPattern =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/
 const passwordConstraints = {
   password: {
     format: {
@@ -48,7 +48,7 @@ const passwordConstraints = {
           + " and between 6-12 in length"
     }
   }
-};
+}
 
 /**
  * ## Field Validation
@@ -56,7 +56,7 @@ const passwordConstraints = {
  * @param {Object} action type & payload
  */
 export default function fieldValidation(state, action ) {
-  const {field, value} = action.payload;
+  const {field, value} = action.payload
   
   switch(field) {
     /**
@@ -65,13 +65,13 @@ export default function fieldValidation(state, action ) {
      */
   case('username'):
     let validUsername  = _.isUndefined(validate({username: value},
-                                                usernameConstraints));
+                                                usernameConstraints))
     if (validUsername) {
-      return state.setIn(['form', 'fields', 'usernameHasError'], false);
+      return state.setIn(['form', 'fields', 'usernameHasError'], false)
     } else {
-      return state.setIn(['form', 'fields', 'usernameHasError'], true);
+      return state.setIn(['form', 'fields', 'usernameHasError'], true)
     }
-    break;
+    break
     
     /**
      * ### email validation
@@ -79,13 +79,13 @@ export default function fieldValidation(state, action ) {
      */    
   case('email'):
     let validEmail  = _.isUndefined(validate({from: value},
-                                             emailConstraints));
+                                             emailConstraints))
     if (validEmail) {
-        return state.setIn(['form', 'fields', 'emailHasError'], false);
+        return state.setIn(['form', 'fields', 'emailHasError'], false)
     } else {
-      return state.setIn(['form', 'fields', 'emailHasError'], true);
+      return state.setIn(['form', 'fields', 'emailHasError'], true)
     }
-    break;
+    break
     
     /**
      * ### password validation
@@ -93,13 +93,13 @@ export default function fieldValidation(state, action ) {
      */    
   case('password'):
     let validPassword = _.isUndefined(validate({password: value},
-                                               passwordConstraints));
+                                               passwordConstraints))
     if (validPassword) {
-      return state.setIn(['form', 'fields', 'passwordHasError'], false);
+      return state.setIn(['form', 'fields', 'passwordHasError'], false)
     } else {
-      return state.setIn(['form', 'fields', 'passwordHasError'], true);
+      return state.setIn(['form', 'fields', 'passwordHasError'], true)
     }
-    break;
+    break
     
     /**
      * ### showPassword
@@ -107,9 +107,9 @@ export default function fieldValidation(state, action ) {
      */    
   case('showPassword'):
     return state.setIn(['form', 'fields',
-                                'showPassword'], value);
-    break;
+                                'showPassword'], value)
+    break
   }
-  return state;
+  return state
 
 }

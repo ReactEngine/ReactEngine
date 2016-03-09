@@ -10,37 +10,37 @@
  *
  */
 
-'use strict';
+'use strict'
 
-jest.autoMockOff();
+jest.autoMockOff()
 
 /**
  * ## Imports
  * 
  * React is mocked in src/__mocks__/react-native.js
  */
-const React = require('react-native');
+const React = require('react-native')
 
-const utils = require('react-addons-test-utils');
+const utils = require('react-addons-test-utils')
 
 const {
   LOGIN_STATE_REGISTER,
   LOGIN_STATE_LOGIN,
   LOGIN_STATE_FORGOT_PASSWORD
-} = require('../../constants').default;
+} = require('../../constants').default
 
 /**
  * ## Under test
  * class under test
  */
-jest.dontMock('../AuthForm');
-var AuthForm = require('../AuthForm');
+jest.dontMock('../AuthForm')
+var AuthForm = require('../AuthForm')
 
 /**
  * Included here, after dontMock so it's in all it's glory
  */
-var t = require('tcomb-form-native');
-let Form = t.form.Form;
+var t = require('tcomb-form-native')
+let Form = t.form.Form
 
 /**
  * ## Test
@@ -53,15 +53,15 @@ describe('AuthForm', () => {
    * @returns {Object} object with props, output and the renderer
    */
   function renderAuthForm(props) {
-    const renderer = utils.createRenderer();
-    renderer.render(<AuthForm {...props}/>);
-    const output = renderer.getRenderOutput();
+    const renderer = utils.createRenderer()
+    renderer.render(<AuthForm {...props}/>)
+    const output = renderer.getRenderOutput()
 
     return {
       props,
       output,
       renderer
-    };
+    }
   }
   /**
    * ### getFields
@@ -69,7 +69,7 @@ describe('AuthForm', () => {
    * @returns {Object} fields
    */  
   function getFields(output) {
-    return output.props.options.fields;
+    return output.props.options.fields
   }
   /**
    * ### renderAuthForm
@@ -77,7 +77,7 @@ describe('AuthForm', () => {
    * @returns {Object} object with props, output and the renderer
    */
   function getValues(output) {
-    return output.props.value;
+    return output.props.value
   }
   /**
    * ### checkAuthForm
@@ -86,38 +86,38 @@ describe('AuthForm', () => {
    * component has the correct data
    */
   function checkAuthForm(props) {
-    const {output} = renderAuthForm(props);
-    expect(output.type,Form);
+    const {output} = renderAuthForm(props)
+    expect(output.type,Form)
 
-    const fields = getFields(output);
-    const values = getValues(output);
+    const fields = getFields(output)
+    const values = getValues(output)
     
     if (props.form.state === LOGIN_STATE_REGISTER
         ||
         props.form.state === LOGIN_STATE_LOGIN) {
-      expect(values.username).toEqual(props.value.username);      
-      expect(fields.username.editable).toEqual(!props.form.isFetching);
-      expect(fields.username.hasError).toEqual(props.form.fields.usernameHasError);
+      expect(values.username).toEqual(props.value.username)      
+      expect(fields.username.editable).toEqual(!props.form.isFetching)
+      expect(fields.username.hasError).toEqual(props.form.fields.usernameHasError)
 
-      expect(values.password).toEqual(props.value.password);      
-      expect(fields.password.editable).toEqual(!props.form.isFetching);
-      expect(fields.password.hasError).toEqual(props.form.fields.passwordHasError);    
-      expect(fields.password.secureTextEntry).toEqual(!props.form.fields.showPassword);
+      expect(values.password).toEqual(props.value.password)      
+      expect(fields.password.editable).toEqual(!props.form.isFetching)
+      expect(fields.password.hasError).toEqual(props.form.fields.passwordHasError)    
+      expect(fields.password.secureTextEntry).toEqual(!props.form.fields.showPassword)
     }
     
     if (props.form.state === LOGIN_STATE_FORGOT_PASSWORD
         ||
         props.form.state === LOGIN_STATE_REGISTER) {
-      expect(values.email).toEqual(props.value.email);      
-      expect(fields.email.editable).toEqual(!props.form.isFetching);
-      expect(fields.email.hasError).toEqual(props.form.fields.emailHasError);
+      expect(values.email).toEqual(props.value.email)      
+      expect(fields.email.editable).toEqual(!props.form.isFetching)
+      expect(fields.email.hasError).toEqual(props.form.fields.emailHasError)
     }
 
     if (props.form.state === LOGIN_STATE_REGISTER) {
-      expect(values.passwordAgain).toEqual(props.value.passwordAgain);          
-      expect(fields.passwordAgain.editable).toEqual(!props.form.isFetching);
-      expect(fields.passwordAgain.hasError).toEqual(props.form.fields.passwordAgainHasError);    
-      expect(fields.passwordAgain.secureTextEntry).toEqual(!props.form.fields.showPassword);
+      expect(values.passwordAgain).toEqual(props.value.passwordAgain)          
+      expect(fields.passwordAgain.editable).toEqual(!props.form.isFetching)
+      expect(fields.passwordAgain.hasError).toEqual(props.form.fields.passwordAgainHasError)    
+      expect(fields.passwordAgain.secureTextEntry).toEqual(!props.form.fields.showPassword)
     }
 
   }
@@ -140,23 +140,23 @@ describe('AuthForm', () => {
           showPassword: false
         },
         state: LOGIN_STATE_REGISTER
-      };
+      }
 
       let value = {
         username: '',
         email: '',
         password: '',
         passwordAgain: ''
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
     /**
      * ### it should display  errors and  value
      * change the props and call ```checkAuthForm``` to validate
@@ -172,23 +172,23 @@ describe('AuthForm', () => {
           showPassword: false
         },
         state: LOGIN_STATE_REGISTER
-      };
+      }
 
       let value = {
         username: 'username',
         email: 'email',
         password: 'password',
         passwordAgain: 'passwordagain'
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
     /**
      * ### it should not be editable if fetching
      * change the props and call ```checkAuthForm``` to validate
@@ -204,23 +204,23 @@ describe('AuthForm', () => {
           showPassword: false
         },
         state: LOGIN_STATE_REGISTER
-      };
+      }
 
       let value = {
         username: 'username',
         email: 'email',
         password: 'password',
         passwordAgain: 'passwordagain'
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
     /**
      * ### the password fields are not secured if shown
      * change the props and call ```checkAuthForm``` to validate
@@ -236,25 +236,25 @@ describe('AuthForm', () => {
           showPassword: true
         },
         state: LOGIN_STATE_REGISTER
-      };
+      }
 
       let value = {
         username: 'username',
         email: 'email',
         password: 'password',
         passwordAgain: 'passwordagain'
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
 
-  });
+  })
 
   /**
    * ## Test Log in
@@ -273,21 +273,21 @@ describe('AuthForm', () => {
           showPassword: false
         },
         state: LOGIN_STATE_LOGIN
-      };
+      }
 
       let value = {
         username: '',
         password: ''
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
     /**
      * ### it should display  errors and  values
      * change the props and call ```checkAuthForm``` to validate
@@ -300,21 +300,21 @@ describe('AuthForm', () => {
           passwordHasError: true
         },
         state: LOGIN_STATE_LOGIN
-      };
+      }
 
       let value = {
         username: 'username',
         password: 'password'
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
     /**
      * ### it should not be editable if fetching
      * change the props and call ```checkAuthForm``` to validate
@@ -328,21 +328,21 @@ describe('AuthForm', () => {
           showPassword: false
         },
         state: LOGIN_STATE_LOGIN
-      };
+      }
 
       let value = {
         username: 'username',
         password: 'password'
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
     /**
      * ### password fields are not secured if shown
      * change the props and call ```checkAuthForm``` to validate
@@ -356,23 +356,23 @@ describe('AuthForm', () => {
           showPassword: true
         },
         state: LOGIN_STATE_LOGIN
-      };
+      }
 
       let value = {
         username: 'username',
         password: 'password'
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
 
-  });
+  })
   /**
    * ## Test reset password
    */
@@ -389,20 +389,20 @@ describe('AuthForm', () => {
           showPassword: false
         },
         state: LOGIN_STATE_FORGOT_PASSWORD
-      };
+      }
 
       let value = {
         email: ''
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
     /**
      * ### register password fields are not secured if shown
      * change the props and call ```checkAuthForm``` to validate
@@ -414,20 +414,20 @@ describe('AuthForm', () => {
           emailHasError: true
         },
         state: LOGIN_STATE_FORGOT_PASSWORD
-      };
+      }
 
       let value = {
         email: 'email'
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
 
     /**
      * ### it should not be editable if fetching
@@ -441,21 +441,21 @@ describe('AuthForm', () => {
           showPassword: false
         },
         state: LOGIN_STATE_LOGIN
-      };
+      }
 
       let value = {
         username: 'username',
         password: 'password'
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
 
     /**
      * ### password fields are not secured if shown
@@ -469,21 +469,21 @@ describe('AuthForm', () => {
           showPassword: true
         },
         state: LOGIN_STATE_FORGOT_PASSWORD
-      };
+      }
 
       let value = {
         email: 'email'
-      };
+      }
       
       let props = {
         form: form,
         value: value,
         onChange: () => {}
-      };
+      }
 
-      checkAuthForm(props);
-    });
+      checkAuthForm(props)
+    })
 
-  });
+  })
   
-});//describe AuthFormTest
+})//describe AuthFormTest

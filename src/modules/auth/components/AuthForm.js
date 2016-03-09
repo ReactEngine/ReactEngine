@@ -6,16 +6,16 @@
 * Login, Register or Reset Password
 *
 */
-'use strict';
+'use strict'
 /**
 * ## Import
 *
 * React
 */
-const React = require('react-native');
+const React = require('react-native')
 const {
   PropTypes
-} = React;
+} = React
 
 /**
 * States of login display
@@ -24,13 +24,13 @@ const {
   LOGIN_STATE_REGISTER,
   LOGIN_STATE_LOGIN,
   LOGIN_STATE_FORGOT_PASSWORD
-} = require('../../../common/constants').default;
+} = require('../../../common/constants').default
 
 /**
 *  The fantastic little form library
 */
-const t = require('tcomb-form-native');
-let Form = t.form.Form;
+const t = require('tcomb-form-native')
+let Form = t.form.Form
 
 var AuthForm = React.createClass({
   /**
@@ -60,7 +60,7 @@ var AuthForm = React.createClass({
       fields: {
 
       }
-    };
+    }
 
     let username = {
       label: 'Username',
@@ -68,7 +68,7 @@ var AuthForm = React.createClass({
       editable: !this.props.form.isFetching,
       hasError: this.props.form.fields.usernameHasError,
       error: 'Must have 6-12 characters and/or numbers'
-    };
+    }
 
     let email = {
       label: 'Email',
@@ -76,9 +76,9 @@ var AuthForm = React.createClass({
       editable: !this.props.form.isFetching,
       hasError: this.props.form.fields.emailHasError,
       error: 'Please enter valid email'
-    };
+    }
 
-    let secureTextEntry = !this.props.form.fields.showPassword;
+    let secureTextEntry = !this.props.form.fields.showPassword
 
     let password = {
       label: 'Password',
@@ -87,9 +87,9 @@ var AuthForm = React.createClass({
       editable: !this.props.form.isFetching,
       hasError: this.props.form.fields.passwordHasError,
       error: 'Must have 6-12 characters with at least 1 number and 1 special character'
-    };
+    }
 
-    let authForm;
+    let authForm
     switch(this.props.form.state) {
       /**
       * ### Registration
@@ -100,11 +100,11 @@ var AuthForm = React.createClass({
         username: t.String,
         email: t.String,
         password: t.String,
-      });
-      options.fields['username'] = username;
-      options.fields['email'] = email;
-      options.fields['password'] = password;
-      break;
+      })
+      options.fields['username'] = username
+      options.fields['email'] = email
+      options.fields['password'] = password
+      break
 
       /**
       * ### Login
@@ -114,10 +114,10 @@ var AuthForm = React.createClass({
       authForm = t.struct({
         username: t.String,
         password: t.String
-      });
-      options.fields['username'] = username;
-      options.fields['password'] = password;
-      break;
+      })
+      options.fields['username'] = username
+      options.fields['password'] = password
+      break
 
       /**
       * ### Reset password
@@ -126,9 +126,9 @@ var AuthForm = React.createClass({
       case(LOGIN_STATE_FORGOT_PASSWORD):
       authForm = t.struct({
         email: t.String
-      });
-      options.fields['email'] = email;
-      break;
+      })
+      options.fields['email'] = email
+      break
     } //switch
 
     /**
@@ -143,8 +143,8 @@ var AuthForm = React.createClass({
         value={this.props.value}
         onChange={this.props.onChange}
         />
-    );
+    )
   }
-});
+})
 
-module.exports = AuthForm;
+module.exports = AuthForm

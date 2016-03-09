@@ -4,48 +4,48 @@
  * This class is a little complicated as it handles 4 states. It's also
  * a container so there is boilerplate from Redux similiar to ```App```.
  */
-'use strict';
+'use strict'
 /**
  * ## Imports
  *
  * Redux
  */
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 /**
  * The actions we need
  */
-import * as authActions from '../actions';
-import apiBot from '../../../rest/apiBot';
-import * as globalActions from '../../global/actions';
+import * as authActions from '../actions'
+import apiBot from '../../../rest/apiBot'
+import * as globalActions from '../../global/actions'
 
 /**
  * Immutable
  */
-import {Map} from 'immutable';
+import {Map} from 'immutable'
 
 /**
  * The Header will display a Image and support Hot Loading
  */
-import Header from '../../../common/components/Header';
+import Header from '../../../common/components/Header'
 /**
  * The ErrorAlert displays an alert for both ios & android
  */
-import ErrorAlert from '../../../common/components/ErrorAlert';
+import ErrorAlert from '../../../common/components/ErrorAlert'
 /**
  * The FormButton will change it's text between the 4 states as necessary
  */
-import FormButton from '../../../common/components/FormButton';
+import FormButton from '../../../common/components/FormButton'
 /**
  *  The AuthForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import AuthForm from '../components/AuthForm';
+import AuthForm from '../components/AuthForm'
 /**
  * The itemCheckbox will toggle the display of the password fields
  */
-import ItemCheckbox from '../../../common/components/ItemCheckbox';
+import ItemCheckbox from '../../../common/components/ItemCheckbox'
 
 /**
  * The necessary React components
@@ -58,7 +58,7 @@ import React,
   TouchableHighlight,
   View
 }
-from 'react-native';
+from 'react-native'
 
 /**
  * The 4 states were interested in
@@ -68,7 +68,7 @@ const {
   LOGIN_STATE_REGISTER,
   LOGIN_STATE_LOGIN,
   LOGIN_STATE_FORGOT_PASSWORD
-} = require('../../../common/constants').default;
+} = require('../../../common/constants').default
 /**
  * ## Styles
  */
@@ -90,31 +90,31 @@ var styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   }
-});
+})
 /**
  * ## Redux boilerplate
  */
 const actions = [
   authActions,
   globalActions
-];
+]
 
 function mapStateToProps(state) {
   return {
       ...state
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   const creators = Map()
           .merge(...actions)
           .filter(value => typeof value === 'function')
-          .toObject();
+          .toObject()
 
   return {
     actions: bindActionCreators(creators, dispatch),
     dispatch
-  };
+  }
 }
 
 class Login extends Component {
@@ -127,8 +127,8 @@ class Login extends Component {
    */
 
   constructor(props) {
-    super(props);
-    this.errorAlert = new ErrorAlert();
+    super(props)
+    this.errorAlert = new ErrorAlert()
     this.state ={
       value: {
         username: this.props.auth.form.fields.username,
@@ -136,7 +136,7 @@ class Login extends Component {
         password: this.props.auth.form.fields.password,
         passwordAgain: this.props.auth.form.fields.passwordAgain
       }
-    };
+    }
   }
   /**
    * ### componentWillReceiveProps
@@ -150,7 +150,7 @@ class Login extends Component {
         password: props.auth.form.fields.password,
         passwordAgain: props.auth.form.fields.passwordAgain
       }
-    });
+    })
   }
   /**
    * ### onChange
@@ -163,20 +163,20 @@ class Login extends Component {
    */
   onChange(value) {
     if (value.username != '') {
-      this.props.actions.onAuthFormFieldChange('username',value.username);
+      this.props.actions.onAuthFormFieldChange('username',value.username)
     }
     if (value.email != '') {
-      this.props.actions.onAuthFormFieldChange('email',value.email);
+      this.props.actions.onAuthFormFieldChange('email',value.email)
     }
     if (value.password != '') {
-      this.props.actions.onAuthFormFieldChange('password',value.password);
+      this.props.actions.onAuthFormFieldChange('password',value.password)
     }
     if (value.passwordAgain != '') {
-      this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain);
+      this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain)
     }
     this.setState(
       {value}
-    );
+    )
 
   }
   /**
@@ -184,7 +184,7 @@ class Login extends Component {
    * Setup some default presentations and render
    */
   render() {
-    this.errorAlert.checkError(this.props.auth.form.error);
+    this.errorAlert.checkError(this.props.auth.form.error)
 
     /**
     * Set default components for reference later
@@ -193,26 +193,26 @@ class Login extends Component {
     <TouchableHighlight
         onPress={() => this.props.actions.forgotPasswordState()} >
       <Text>Forgot Password?</Text>
-    </TouchableHighlight>;
+    </TouchableHighlight>
 
     let alreadyHaveAccount =
     <TouchableHighlight
         onPress={() => this.props.actions.loginState()}>
       <Text>Already have an account?</Text>
-    </TouchableHighlight>;
+    </TouchableHighlight>
 
     let register =
     <TouchableHighlight onPress={() => this.props.actions.registerState()}>
       <Text>Register</Text>
-    </TouchableHighlight>;
+    </TouchableHighlight>
 
 
-    let self = this;
-    let loginButtonText;
-    let leftMessage;
-    let rightMessage;
-    let onButtonPress;
-    let passwordDisplay = <Text/>;
+    let self = this
+    let loginButtonText
+    let leftMessage
+    let rightMessage
+    let onButtonPress
+    let passwordDisplay = <Text/>
 
     /**
     * Toggle the display of the Password and PasswordAgain fields
@@ -227,7 +227,7 @@ class Login extends Component {
         onUncheck={() => {
       this.props.actions.onAuthFormFieldChange('showPassword',false)}
         }
-    />;
+    />
 
     /**
      * Display the appropriate fields depending on the state
@@ -237,22 +237,22 @@ class Login extends Component {
        * The logout state is rather simple - no input fields
        */
     case(LOGIN_STATE_LOGOUT):
-      loginButtonText = 'Log out';
+      loginButtonText = 'Log out'
       onButtonPress = () => {
-        this.props.actions.logout();
-      };
-      break;
+        this.props.actions.logout()
+      }
+      break
 
       /**
        * Configure the screen for registration and call the signup
       action
        */
     case(LOGIN_STATE_REGISTER):
-      loginButtonText = 'Register';
+      loginButtonText = 'Register'
       onButtonPress = () => {
         // this.props.actions.signup(this.props.auth.form.fields.username,
         //                           this.props.auth.form.fields.email,
-        //                           this.props.auth.form.fields.password);
+        //                           this.props.auth.form.fields.password)
         this.props.dispatch(
             apiBot.actions.users.create(
               { "username":this.props.auth.form.fields.username,
@@ -260,38 +260,38 @@ class Login extends Component {
                 "password":this.props.auth.form.fields.password
               }
             )
-          );
-      };
-      passwordDisplay = itemCheckBox;
-      leftMessage = forgotPassword;
-      rightMessage = alreadyHaveAccount;
-      break;
+          )
+      }
+      passwordDisplay = itemCheckBox
+      leftMessage = forgotPassword
+      rightMessage = alreadyHaveAccount
+      break
 
       /**
        * Configure the screen for logging in and call the login action
        */
     case(LOGIN_STATE_LOGIN):
-      loginButtonText = 'Log in';
-      leftMessage = register;
-      rightMessage = forgotPassword;
+      loginButtonText = 'Log in'
+      leftMessage = register
+      rightMessage = forgotPassword
       onButtonPress = () => {
-        this.props.actions.login(this.props.auth.form.fields.username, this.props.auth.form.fields.password);
-      };
-      passwordDisplay = itemCheckBox;
-      break;
+        this.props.actions.login(this.props.auth.form.fields.username, this.props.auth.form.fields.password)
+      }
+      passwordDisplay = itemCheckBox
+      break
 
       /**
        * Configure the screen for password reset and call the
        * resetPassword action
        */
     case(LOGIN_STATE_FORGOT_PASSWORD):
-      loginButtonText = 'Reset password';
-      leftMessage = register;
-      rightMessage = alreadyHaveAccount;
+      loginButtonText = 'Reset password'
+      leftMessage = register
+      rightMessage = alreadyHaveAccount
       onButtonPress = () => {
-        this.props.actions.resetPassword(this.props.auth.form.fields.email);
-      };
-      break;
+        this.props.actions.resetPassword(this.props.auth.form.fields.email)
+      }
+      break
     }//switch
 
     /**
@@ -315,7 +315,7 @@ class Login extends Component {
                 buttonText={loginButtonText}/>
           </View>
         </View>
-      );
+      )
     } else {
       /**
        * The AuthForm is now defined with the required fields.  Just
@@ -353,8 +353,8 @@ class Login extends Component {
             </View>
           </View>
         </View>
-      );
+      )
     }//else
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

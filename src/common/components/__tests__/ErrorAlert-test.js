@@ -7,26 +7,26 @@
  * ```console.log``` and then ```npm test```.
  * 
  */
-'use strict';
+'use strict'
 /**
  * ## Mock
  *  Mock the simpledialog, see: 'src/__mocks__/react-native-simpledialog-android.js'
  */
 
-jest.autoMockOff();
-jest.mock('react-native-simpledialog-android');
+jest.autoMockOff()
+jest.mock('react-native-simpledialog-android')
 
 /**
  * This will load in the mocked version
  */
-const SimpleAlert = require('react-native-simpledialog-android');
+const SimpleAlert = require('react-native-simpledialog-android')
 
 /**
  * ## Under test
  * Object under test
  */
-jest.dontMock('../ErrorAlert');
-var ErrorAlert = require('../ErrorAlert');
+jest.dontMock('../ErrorAlert')
+var ErrorAlert = require('../ErrorAlert')
 
 /**
  * ## Test
@@ -40,7 +40,7 @@ describe('ErrorAlert', () => {
       error: {
         error: 'Error occurred'
       }
-    };
+    }
     
     /**
      * Invoke the ErrorAlert constructor and pass in the mocked
@@ -49,10 +49,10 @@ describe('ErrorAlert', () => {
      * check that the title is 'Error' which is a hard coded constant
      * and the alert matches the props error
      */
-    new ErrorAlert().checkError(errorAlertProps);
-    expect(SimpleAlert.alert.mock.calls[0][0]).toEqual('Error');
-    expect(SimpleAlert.alert.mock.calls[0][1]).toEqual(errorAlertProps.error.error);
-  });
+    new ErrorAlert().checkError(errorAlertProps)
+    expect(SimpleAlert.alert.mock.calls[0][0]).toEqual('Error')
+    expect(SimpleAlert.alert.mock.calls[0][1]).toEqual(errorAlertProps.error.error)
+  })
 
 
-});//describe ErrorAlert
+})//describe ErrorAlert

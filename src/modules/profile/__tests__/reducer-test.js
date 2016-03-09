@@ -8,9 +8,9 @@
  * *Note*: in this app,```state``` is an Immutable.js object 
  *
  */
-'use strict';
+'use strict'
 
-jest.autoMockOff();
+jest.autoMockOff()
 
 /**
  * ## Imports
@@ -26,13 +26,13 @@ const {
   PROFILE_UPDATE_REQUEST,
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE
-} = require('../../../common/constants').default;
+} = require('../../../common/constants').default
 
 /**
  * ## Class under test
  *
  */
-const  profileReducer = require('../reducers').default;
+const  profileReducer = require('../reducers').default
 /**
  * ## Tests
  * 
@@ -55,12 +55,12 @@ describe('profileReducer', () => {
     it('starts fetching', () => {
       const action = {
         type: GET_PROFILE_REQUEST
-      };
-      let next = profileReducer(undefined, action);
+      }
+      let next = profileReducer(undefined, action)
 
-      expect(next.form.isFetching).toBe(true);
-      expect(next.form.error).toBe(null);
-    });
+      expect(next.form.isFetching).toBe(true)
+      expect(next.form.error).toBe(null)
+    })
     /**
      * #### it finishes fetching on success
      *
@@ -81,21 +81,21 @@ describe('profileReducer', () => {
           emailVerified: true,
           objectId: 'someObjectId'
         }
-      };
-      let next = profileReducer(undefined, action);
+      }
+      let next = profileReducer(undefined, action)
 
-      expect(next.form.isFetching).toBe(false);
-      expect(next.form.error).toBe(null);
-      expect(next.form.fields.username, action.payload.username);
-      expect(next.form.fields.email, action.payload.email);
+      expect(next.form.isFetching).toBe(false)
+      expect(next.form.error).toBe(null)
+      expect(next.form.fields.username, action.payload.username)
+      expect(next.form.fields.email, action.payload.email)
       expect(next.form.fields.emailVerified,
-             action.payload.emailVerified);
+             action.payload.emailVerified)
 
-      expect(next.form.originalProfile.username, action.payload.username);
-      expect(next.form.originalProfile.email, action.payload.email);
-      expect(next.form.originalProfile.emailVerified, action.payload.emailVerified);
+      expect(next.form.originalProfile.username, action.payload.username)
+      expect(next.form.originalProfile.email, action.payload.email)
+      expect(next.form.originalProfile.emailVerified, action.payload.emailVerified)
 
-    });
+    })
     /**
      * #### finishes fetching on failure
      *
@@ -106,13 +106,13 @@ describe('profileReducer', () => {
       const action = {
         type: GET_PROFILE_FAILURE,
         payload: {error: 'error'}
-      };
-      let next = profileReducer(undefined, action);
-      expect(next.form.isFetching).toBe(false);
-      expect(next.form.error).toBe(action.payload);
-    });
+      }
+      let next = profileReducer(undefined, action)
+      expect(next.form.isFetching).toBe(false)
+      expect(next.form.error).toBe(action.payload)
+    })
 
-  });//Profile Request
+  })//Profile Request
   
   /**
    * ### Profile update
@@ -127,12 +127,12 @@ describe('profileReducer', () => {
     it('starts fetching on request', () => {
       const action = {
         type: PROFILE_UPDATE_REQUEST
-      };
-      let next = profileReducer(undefined, action);
+      }
+      let next = profileReducer(undefined, action)
 
-      expect(next.form.isFetching).toBe(true);
-      expect(next.form.error).toBe(null);
-    });
+      expect(next.form.isFetching).toBe(true)
+      expect(next.form.error).toBe(null)
+    })
     /**
      * #### finishes fetching on success
      *
@@ -141,12 +141,12 @@ describe('profileReducer', () => {
     it('finishes fetching on success', () => {
       const action = {
         type: PROFILE_UPDATE_SUCCESS
-      };
-      let next = profileReducer(undefined, action);
+      }
+      let next = profileReducer(undefined, action)
 
-      expect(next.form.isFetching).toBe(false);
+      expect(next.form.isFetching).toBe(false)
 
-    });
+    })
     /**
      * #### finishes fetching on failure and saves error
      *
@@ -157,13 +157,13 @@ describe('profileReducer', () => {
       const action = {
         type: PROFILE_UPDATE_FAILURE,
         payload: {error: 'error'}
-      };
-      let next = profileReducer(undefined, action);
-      expect(next.form.isFetching).toBe(false);
-      expect(next.form.error).toBe(action.payload);
-    });
+      }
+      let next = profileReducer(undefined, action)
+      expect(next.form.isFetching).toBe(false)
+      expect(next.form.error).toBe(action.payload)
+    })
 
-  });//ProfileUpdate
+  })//ProfileUpdate
   /**
    * ### Profile form field changes
    * 
@@ -178,17 +178,17 @@ describe('profileReducer', () => {
       const action = {
         type: ON_PROFILE_FORM_FIELD_CHANGE,
         payload: {field: {username: 'barton', email: 'bar@ton.com'}}
-      };
+      }
       let next = profileReducer(undefined,
-                                action);
+                                action)
       
-      expect(next.form.isValid,true);      
+      expect(next.form.isValid,true)      
       expect(next.form.fields.username,
-             action.payload.field.username);
-      expect(next.form.fields.usernameHasError,false);
-      expect(next.form.fields.email, action.payload.field.email);
-      expect(next.form.fields.emailHasError, false);      
-    });
+             action.payload.field.username)
+      expect(next.form.fields.usernameHasError,false)
+      expect(next.form.fields.email, action.payload.field.email)
+      expect(next.form.fields.emailHasError, false)      
+    })
     /**
      * #### form is invalid with invalid email & invalid username
      *
@@ -198,19 +198,19 @@ describe('profileReducer', () => {
       const action = {
         type: ON_PROFILE_FORM_FIELD_CHANGE,
         payload: {field: {username: 'bart', email: 'bar.com'}}
-      };
+      }
       let next = profileReducer(undefined,
-                                action);
+                                action)
 
-      expect(next.form.isValid,true);
+      expect(next.form.isValid,true)
       expect(next.form.fields.username,
-             action.payload.field.username);
-      expect(next.form.fields.usernameHasError,true);
-      expect(next.form.fields.email, action.payload.field.email);
-      expect(next.form.fields.emailHasError, true);
+             action.payload.field.username)
+      expect(next.form.fields.usernameHasError,true)
+      expect(next.form.fields.email, action.payload.field.email)
+      expect(next.form.fields.emailHasError, true)
 
       
-    });
+    })
     
-  }); //FORM FIELD CHANGE
-});//reducer
+  }) //FORM FIELD CHANGE
+})//reducer

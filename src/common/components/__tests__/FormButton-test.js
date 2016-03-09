@@ -6,31 +6,31 @@
  * *Note:* if you want to understand the structures here, add a
  * ```console.log``` and then ```npm test```.
  */
-'use strict';
+'use strict'
 
-jest.autoMockOff();
+jest.autoMockOff()
 
 /**
 * ## Imports
  */
 
-const React = require('react-native');
-const { View } = React;
+const React = require('react-native')
+const { View } = React
 
-const utils = require('react-addons-test-utils');
+const utils = require('react-addons-test-utils')
 
 /**
  * ## Under test
  * class under test
  */
-jest.dontMock('../FormButton');
-var FormButton = require('../FormButton');
+jest.dontMock('../FormButton')
+var FormButton = require('../FormButton')
 
 /**
  * ## Test
  */
 describe('FormButton', () => {
-  let formButton;
+  let formButton
 
   /**
    * ### defaults
@@ -40,7 +40,7 @@ describe('FormButton', () => {
     isDisabled: false,
     onPress: () => {},
     buttonText: 'TestString'
-  };
+  }
   
   /**
    * ### renderFormButton
@@ -48,41 +48,41 @@ describe('FormButton', () => {
    * @returns {Object} object with props, output and the renderer
    */
   function renderFormButton(props) {
-    const renderer = utils.createRenderer();
-    renderer.render(<FormButton {...props}/>);
-    const output = renderer.getRenderOutput();
+    const renderer = utils.createRenderer()
+    renderer.render(<FormButton {...props}/>)
+    const output = renderer.getRenderOutput()
 
     return {
       props,
       output,
       renderer
-    };
+    }
   }
   /**
    * ### beforeEach 
    * before each test, render the form button with the default props
    */
   beforeEach(() => {
-    formButton = renderFormButton(buttonProps);
-  });
+    formButton = renderFormButton(buttonProps)
+  })
   /**
    * ### it should be fine
    * the containing object should be a view
    */    
   it('should be fine', () => {
-    const {output} = formButton;
-    expect(output.type).toEqual(View);
-  });
+    const {output} = formButton
+    expect(output.type).toEqual(View)
+  })
 
   /**
    * ### it should display text
    * the button should be disabled and have the correct text
    */
   it('should display text', () => {
-    const {output} = formButton;
-    const button = output.props.children;
-    expect(button.props.isDisabled).toEqual(buttonProps.isDisabled);
-    const buttonText = button.props.children;
-    expect(buttonText).toEqual(buttonProps.buttonText);
-  });
-});//describe FormButton
+    const {output} = formButton
+    const button = output.props.children
+    expect(button.props.isDisabled).toEqual(buttonProps.isDisabled)
+    const buttonText = button.props.children
+    expect(buttonText).toEqual(buttonProps.buttonText)
+  })
+})//describe FormButton

@@ -4,7 +4,7 @@
  * This class provides basic navigation between the home and the
  * profile only if the user is logged in 
  */
-'use strict';
+'use strict'
 /**
 *
 * ## Imports
@@ -16,21 +16,21 @@ import React,
   StyleSheet,
   View
 }
-from 'react-native';
+from 'react-native'
 
 /**
  * A tab bar that switches between scenes, written in JS for cross-platform support
  */
-import TabNavigator from 'react-native-tab-navigator';
+import TabNavigator from 'react-native-tab-navigator'
 /**
  * Font awesome icon
  */
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome'
 /**
  * project imports
  */
-import Auth from '../../modules/auth/containers';
-import Profile from '../../modules/profile/containers';
+import Auth from '../../modules/auth/containers'
+import Profile from '../../modules/profile/containers'
 
 /**
  * ## Styles
@@ -51,7 +51,7 @@ var styles = StyleSheet.create({
     width: 150,
     height: 150
   }
-});
+})
 
 let Tabbar = React.createClass({
     /**
@@ -62,7 +62,7 @@ let Tabbar = React.createClass({
   getInitialState() {
     return {
       selectedTab: 'home'
-    };
+    }
   },
   /**
    * ### render
@@ -103,6 +103,6 @@ let Tabbar = React.createClass({
 
     )
   }
-});
+})
 
-export default Tabbar;
+export default Tabbar

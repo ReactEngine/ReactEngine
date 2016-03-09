@@ -4,14 +4,14 @@
  * A simple mock for a simple class
  * 
  */
-'use strict';
+'use strict'
 
-var SimpleAlert = {};
+var SimpleAlert = {}
 
 /**
  * ## Override the default behavior of the `alert` mock
  */
 
-SimpleAlert.alert = jest.genMockFunction();
+SimpleAlert.alert = jest.genMockFunction()
 
-module.exports = SimpleAlert;
+module.exports = SimpleAlert

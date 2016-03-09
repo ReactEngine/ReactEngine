@@ -5,12 +5,12 @@
  * see [http://hapijs.com/api](http://hapijs.com/api)
  *
  */
-'use strict';
+'use strict'
 /**
  * ## Async support
  * 
  */ 
-require('regenerator/runtime');
+require('regenerator/runtime')
 import Utils from './utils'
 import User from './user'
 
@@ -19,8 +19,8 @@ import User from './user'
  * 
  * Config for defaults and lodash for a couple of features
  */ 
-import CONFIG from './config';
-import _ from 'lodash';
+import CONFIG from './config'
+import _ from 'lodash'
 
 export default class Strongloop {
   /**
@@ -31,13 +31,13 @@ export default class Strongloop {
    */
   constructor(token) {
     if (!_.isNull(token) && _.isUndefined(token.accessToken)) {
-      throw 'TokenMissing';
+      throw 'TokenMissing'
     }
     this._accessToken =
-      _.isNull(token) ?  null :  token.accessToken.accessToken;
+      _.isNull(token) ?  null :  token.accessToken.accessToken
     
   }
 
  
-};
+}
 
