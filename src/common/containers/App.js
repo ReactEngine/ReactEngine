@@ -47,7 +47,7 @@ from 'react-native'
  */
 
 const {
-  LOGIN_STATE_LOGOUT
+  STATE_LOGOUT
 } = require('../constants').default
 
 /**
@@ -100,18 +100,18 @@ let App = React.createClass({
   },
   /**
    * Change the state to logged in if the Auth form is in the state of
-   * ```LOGIN_STATE_LOGOUT```.  This  state will be set after a
+   * ```STATE_LOGOUT```.  This  state will be set after a
    * successful Registrations or Auth
    */
   componentWillReceiveProps(props) {
-    var loggedIn =  props.auth.form.state === LOGIN_STATE_LOGOUT
+    var loggedIn =  props.auth.form.state === STATE_LOGOUT
     this.setState({
       loggedIn: loggedIn
     })
   },
   /**
    * See if there's a accessToken from a previous login, if so, then
-   * the state will be changed to ```LOGIN_STATE_LOGOUT```
+   * the state will be changed to ```STATE_LOGOUT```
    */
   componentDidMount() {
     this.props.actions.getAccessToken()

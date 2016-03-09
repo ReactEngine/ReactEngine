@@ -40,10 +40,10 @@ const {
   ACCESSTOKEN_SUCCESS,
   ACCESSTOKEN_FAILURE,
 
-  LOGIN_STATE_LOGOUT,
-  LOGIN_STATE_REGISTER,
-  LOGIN_STATE_LOGIN,
-  LOGIN_STATE_FORGOT_PASSWORD,
+  STATE_LOGOUT,
+  STATE_REGISTER,
+  STATE_LOGIN,
+  STATE_FORGOT_PASSWORD,
 
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_SUCCESS,
@@ -53,7 +53,7 @@ const {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
   
-  ON_AUTH_FORM_FIELD_CHANGE,
+  ON_FORM_FIELD_CHANGE,
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAILURE,
@@ -73,19 +73,19 @@ describe('authActions', () => {
    * ### simple tests that prove the actions have the specific type
    */ 
   it('should set logoutState', () => {
-    expect(actions.logoutState()).toEqual({type: LOGIN_STATE_LOGOUT })
+    expect(actions.logoutState()).toEqual({type: STATE_LOGOUT })
   })
 
   it('should set registerState', () => {
-    expect(actions.registerState()).toEqual({type: LOGIN_STATE_REGISTER })
+    expect(actions.registerState()).toEqual({type: STATE_REGISTER })
   })
 
   it('should set loginState', () => {
-    expect(actions.loginState()).toEqual({type: LOGIN_STATE_LOGIN})
+    expect(actions.loginState()).toEqual({type: STATE_LOGIN})
   })
   
   it('should set forgotPasswordState', () => {
-    expect(actions.forgotPasswordState()).toEqual({type: LOGIN_STATE_FORGOT_PASSWORD})
+    expect(actions.forgotPasswordState()).toEqual({type: STATE_FORGOT_PASSWORD})
   })
 
   it('should set logoutRequest', () => {
@@ -169,7 +169,7 @@ describe('authActions', () => {
     let field = 'field'
     let value = 'value'
     expect(actions.onAuthFormFieldChange(field, value)).toEqual({
-      type: ON_AUTH_FORM_FIELD_CHANGE,
+      type: ON_FORM_FIELD_CHANGE,
       payload: {field: field, value: value}
     })
   })
@@ -186,7 +186,7 @@ describe('authActions', () => {
   it('should logout', () => {
     const expectedActions = [
       {type: USER_LOGOUT_REQUEST},
-      {type: LOGIN_STATE_REGISTER},
+      {type: STATE_REGISTER},
       {type: USER_LOGOUT_SUCCESS},
       {type: ACCESSTOKEN_REQUEST},
       {type: ACCESSTOKEN_SUCCESS}
@@ -199,7 +199,7 @@ describe('authActions', () => {
   it('should login', () => {
     const expectedActions = [
       {type: USER_LOGIN_REQUEST},
-      {type: LOGIN_STATE_LOGOUT},
+      {type: STATE_LOGOUT},
       {type: USER_LOGIN_SUCCESS}
     ]
 
@@ -210,7 +210,7 @@ describe('authActions', () => {
   it('should getAccessToken', () => {
     const expectedActions = [
       {type: ACCESSTOKEN_REQUEST},      
-      {type: LOGIN_STATE_LOGOUT},
+      {type: STATE_LOGOUT},
       {type: ACCESSTOKEN_SUCCESS}
     ]
 
@@ -221,7 +221,7 @@ describe('authActions', () => {
   it('should signup', () => {
     const expectedActions = [
       {type: USER_SIGNUP_REQUEST},      
-      {type: LOGIN_STATE_LOGOUT},
+      {type: STATE_LOGOUT},
       {type: USER_SIGNUP_SUCCESS}
     ]
 
@@ -232,7 +232,7 @@ describe('authActions', () => {
   it('should resetPassword', () => {
     const expectedActions = [
       {type: USER_RESETPASSWORD_REQUEST},      
-      {type: LOGIN_STATE_LOGIN},
+      {type: STATE_LOGIN},
       {type: USER_RESETPASSWORD_SUCCESS}
     ]
 

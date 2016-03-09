@@ -1,11 +1,11 @@
 const {
 
-  LOGIN_STATE_LOGOUT,
-  LOGIN_STATE_REGISTER,
-  LOGIN_STATE_LOGIN,
-  LOGIN_STATE_FORGOT_PASSWORD,
-
-  ON_AUTH_FORM_FIELD_CHANGE
+  STATE_LOGOUT,
+  STATE_REGISTER,
+  STATE_LOGIN,
+  STATE_FORGOT_PASSWORD,
+  ON_STATE_CHANGE
+  ON_FORM_FIELD_CHANGE
 } = require('../../lib/constants').default
 
 /**
@@ -15,25 +15,25 @@ const {
  */
 export function logoutState() {
   return {
-    type: LOGIN_STATE_LOGOUT
+    type: STATE_LOGOUT
   }
 
 }
 export function registerState() {
   return {
-    type: LOGIN_STATE_REGISTER
+    type: STATE_REGISTER
   }
 }
 
 export function loginState() {
   return {
-    type: LOGIN_STATE_LOGIN
+    type: STATE_LOGIN
   }
 }
 
 export function forgotPasswordState() {
   return {
-    type: LOGIN_STATE_FORGOT_PASSWORD
+    type: STATE_FORGOT_PASSWORD
   }
 }
 
@@ -43,7 +43,7 @@ export function forgotPasswordState() {
  */
 export function onAuthFormFieldChange(field,value) {
   return {
-    type: ON_AUTH_FORM_FIELD_CHANGE,
+    type: ON_FORM_FIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }

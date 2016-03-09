@@ -24,9 +24,9 @@ const React = require('react-native')
 const utils = require('react-addons-test-utils')
 
 const {
-  LOGIN_STATE_REGISTER,
-  LOGIN_STATE_LOGIN,
-  LOGIN_STATE_FORGOT_PASSWORD
+  STATE_REGISTER,
+  STATE_LOGIN,
+  STATE_FORGOT_PASSWORD
 } = require('../../constants').default
 
 /**
@@ -92,9 +92,9 @@ describe('AuthForm', () => {
     const fields = getFields(output)
     const values = getValues(output)
     
-    if (props.form.state === LOGIN_STATE_REGISTER
+    if (props.form.state === STATE_REGISTER
         ||
-        props.form.state === LOGIN_STATE_LOGIN) {
+        props.form.state === STATE_LOGIN) {
       expect(values.username).toEqual(props.value.username)      
       expect(fields.username.editable).toEqual(!props.form.isFetching)
       expect(fields.username.hasError).toEqual(props.form.fields.usernameHasError)
@@ -105,15 +105,15 @@ describe('AuthForm', () => {
       expect(fields.password.secureTextEntry).toEqual(!props.form.fields.showPassword)
     }
     
-    if (props.form.state === LOGIN_STATE_FORGOT_PASSWORD
+    if (props.form.state === STATE_FORGOT_PASSWORD
         ||
-        props.form.state === LOGIN_STATE_REGISTER) {
+        props.form.state === STATE_REGISTER) {
       expect(values.email).toEqual(props.value.email)      
       expect(fields.email.editable).toEqual(!props.form.isFetching)
       expect(fields.email.hasError).toEqual(props.form.fields.emailHasError)
     }
 
-    if (props.form.state === LOGIN_STATE_REGISTER) {
+    if (props.form.state === STATE_REGISTER) {
       expect(values.passwordAgain).toEqual(props.value.passwordAgain)          
       expect(fields.passwordAgain.editable).toEqual(!props.form.isFetching)
       expect(fields.passwordAgain.hasError).toEqual(props.form.fields.passwordAgainHasError)    
@@ -124,7 +124,7 @@ describe('AuthForm', () => {
   /**
    * ## Test Registration
    */
-  describe('LOGIN_STATE_REGISTER', () => {
+  describe('STATE_REGISTER', () => {
     /**
      * ### it should display without errors and without value
      * change the props and call ```checkAuthForm``` to validate
@@ -139,7 +139,7 @@ describe('AuthForm', () => {
           passwordAgainHasError: false,
           showPassword: false
         },
-        state: LOGIN_STATE_REGISTER
+        state: STATE_REGISTER
       }
 
       let value = {
@@ -171,7 +171,7 @@ describe('AuthForm', () => {
           passwordAgainHasError: true,
           showPassword: false
         },
-        state: LOGIN_STATE_REGISTER
+        state: STATE_REGISTER
       }
 
       let value = {
@@ -203,7 +203,7 @@ describe('AuthForm', () => {
           passwordAgainHasError: true,
           showPassword: false
         },
-        state: LOGIN_STATE_REGISTER
+        state: STATE_REGISTER
       }
 
       let value = {
@@ -235,7 +235,7 @@ describe('AuthForm', () => {
           passwordAgainHasError: false,
           showPassword: true
         },
-        state: LOGIN_STATE_REGISTER
+        state: STATE_REGISTER
       }
 
       let value = {
@@ -259,7 +259,7 @@ describe('AuthForm', () => {
   /**
    * ## Test Log in
    */  
-  describe('LOGIN_STATE_LOGIN', () => {
+  describe('STATE_LOGIN', () => {
     /**
      * ### it should display without errors and without value
      * change the props and call ```checkAuthForm``` to validate
@@ -272,7 +272,7 @@ describe('AuthForm', () => {
           passwordHasError: false,
           showPassword: false
         },
-        state: LOGIN_STATE_LOGIN
+        state: STATE_LOGIN
       }
 
       let value = {
@@ -299,7 +299,7 @@ describe('AuthForm', () => {
           usernameHasError: true,
           passwordHasError: true
         },
-        state: LOGIN_STATE_LOGIN
+        state: STATE_LOGIN
       }
 
       let value = {
@@ -327,7 +327,7 @@ describe('AuthForm', () => {
           passwordHasError: true,
           showPassword: false
         },
-        state: LOGIN_STATE_LOGIN
+        state: STATE_LOGIN
       }
 
       let value = {
@@ -355,7 +355,7 @@ describe('AuthForm', () => {
           passwordHasError: false,
           showPassword: true
         },
-        state: LOGIN_STATE_LOGIN
+        state: STATE_LOGIN
       }
 
       let value = {
@@ -376,7 +376,7 @@ describe('AuthForm', () => {
   /**
    * ## Test reset password
    */
-  describe('LOGIN_STATE_FORGOT_PASSWORD', () => {
+  describe('STATE_FORGOT_PASSWORD', () => {
     /**
      * ### it should display without errors and without values
      * change the props and call ```checkAuthForm``` to validate
@@ -388,7 +388,7 @@ describe('AuthForm', () => {
           emailHasError: false,
           showPassword: false
         },
-        state: LOGIN_STATE_FORGOT_PASSWORD
+        state: STATE_FORGOT_PASSWORD
       }
 
       let value = {
@@ -413,7 +413,7 @@ describe('AuthForm', () => {
         fields: {
           emailHasError: true
         },
-        state: LOGIN_STATE_FORGOT_PASSWORD
+        state: STATE_FORGOT_PASSWORD
       }
 
       let value = {
@@ -440,7 +440,7 @@ describe('AuthForm', () => {
           emailHasError: true,
           showPassword: false
         },
-        state: LOGIN_STATE_LOGIN
+        state: STATE_LOGIN
       }
 
       let value = {
@@ -468,7 +468,7 @@ describe('AuthForm', () => {
           emailHasError: false,
           showPassword: true
         },
-        state: LOGIN_STATE_FORGOT_PASSWORD
+        state: STATE_FORGOT_PASSWORD
       }
 
       let value = {

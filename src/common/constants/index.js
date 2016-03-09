@@ -9,8 +9,6 @@ export default Constant.addPrefix({
   ACCESSTOKEN_SUCCESS: null,
   ACCESSTOKEN_FAILURE: null,
 
-  ON_LOGIN_STATE_CHANGE: null,
-
   USER_SIGNUP_REQUEST: null,
   USER_SIGNUP_SUCCESS: null,
   USER_SIGNUP_FAILURE: null,

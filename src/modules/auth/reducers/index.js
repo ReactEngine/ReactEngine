@@ -22,10 +22,10 @@ const {
   ACCESSTOKEN_SUCCESS,
   ACCESSTOKEN_FAILURE,
 
-  LOGIN_STATE_LOGOUT,
-  LOGIN_STATE_REGISTER,
-  LOGIN_STATE_LOGIN,
-  LOGIN_STATE_FORGOT_PASSWORD,
+  STATE_LOGOUT,
+  STATE_REGISTER,
+  STATE_LOGIN,
+  STATE_FORGOT_PASSWORD,
 
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_SUCCESS,
@@ -35,7 +35,7 @@ const {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
 
-  ON_AUTH_FORM_FIELD_CHANGE,
+  ON_FORM_FIELD_CHANGE,
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAILURE,
@@ -75,7 +75,7 @@ export default function authReducer(state = initialState, action) {
      * The user has successfully access Server
      * Clear the form's error and all the fields
      */
-  case LOGIN_STATE_LOGOUT:
+  case STATE_LOGOUT:
     return formValidation(
       state.setIn(['form', 'state'], action.type)
         .setIn(['form','error'],null)
@@ -92,9 +92,9 @@ export default function authReducer(state = initialState, action) {
      *
      * Set the form state and clear any errors
      */
-  case LOGIN_STATE_LOGIN:
-  case LOGIN_STATE_REGISTER:
-  case LOGIN_STATE_FORGOT_PASSWORD:
+  case STATE_LOGIN:
+  case STATE_REGISTER:
+  case STATE_FORGOT_PASSWORD:
     return formValidation(
       state.setIn(['form', 'state'], action.type)
         .setIn(['form','error'],null)
@@ -108,7 +108,7 @@ export default function authReducer(state = initialState, action) {
      * Pass the fieldValidation results to the
      * the formValidation
      */
-  case ON_AUTH_FORM_FIELD_CHANGE: {
+  case ON_FORM_FIELD_CHANGE: {
     const {field, value} = action.payload
     let nextState =  state.setIn(['form', 'fields', field], value)
           .setIn(['form','error'],null)

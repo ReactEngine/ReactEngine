@@ -64,10 +64,10 @@ from 'react-native'
  * The 4 states were interested in
  */
 const {
-  LOGIN_STATE_LOGOUT,
-  LOGIN_STATE_REGISTER,
-  LOGIN_STATE_LOGIN,
-  LOGIN_STATE_FORGOT_PASSWORD
+  STATE_LOGOUT,
+  STATE_REGISTER,
+  STATE_LOGIN,
+  STATE_FORGOT_PASSWORD
 } = require('../../../common/constants').default
 /**
  * ## Styles
@@ -236,7 +236,7 @@ class Login extends Component {
       /**
        * The logout state is rather simple - no input fields
        */
-    case(LOGIN_STATE_LOGOUT):
+    case(STATE_LOGOUT):
       loginButtonText = 'Log out'
       onButtonPress = () => {
         this.props.actions.logout()
@@ -247,7 +247,7 @@ class Login extends Component {
        * Configure the screen for registration and call the signup
       action
        */
-    case(LOGIN_STATE_REGISTER):
+    case(STATE_REGISTER):
       loginButtonText = 'Register'
       onButtonPress = () => {
         // this.props.actions.signup(this.props.auth.form.fields.username,
@@ -270,7 +270,7 @@ class Login extends Component {
       /**
        * Configure the screen for logging in and call the login action
        */
-    case(LOGIN_STATE_LOGIN):
+    case(STATE_LOGIN):
       loginButtonText = 'Log in'
       leftMessage = register
       rightMessage = forgotPassword
@@ -284,7 +284,7 @@ class Login extends Component {
        * Configure the screen for password reset and call the
        * resetPassword action
        */
-    case(LOGIN_STATE_FORGOT_PASSWORD):
+    case(STATE_FORGOT_PASSWORD):
       loginButtonText = 'Reset password'
       leftMessage = register
       rightMessage = alreadyHaveAccount
@@ -299,7 +299,7 @@ class Login extends Component {
      * The header will display the spinner if we're fetching
      * We'll look at these properties for Header there
      */
-    if (this.props.auth.form.state === LOGIN_STATE_LOGOUT) {
+    if (this.props.auth.form.state === STATE_LOGOUT) {
       return (
         <View style={styles.container}>
           <View>

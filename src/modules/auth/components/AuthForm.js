@@ -21,9 +21,9 @@ const {
 * States of login display
 */
 const {
-  LOGIN_STATE_REGISTER,
-  LOGIN_STATE_LOGIN,
-  LOGIN_STATE_FORGOT_PASSWORD
+  STATE_REGISTER,
+  STATE_LOGIN,
+  STATE_FORGOT_PASSWORD
 } = require('../../../common/constants').default
 
 /**
@@ -95,7 +95,7 @@ var AuthForm = React.createClass({
       * ### Registration
       * The registration form has 4 fields
       */
-      case(LOGIN_STATE_REGISTER):
+      case(STATE_REGISTER):
       authForm = t.struct({
         username: t.String,
         email: t.String,
@@ -110,7 +110,7 @@ var AuthForm = React.createClass({
       * ### Login
       * The login form has only 2 fields
       */
-      case(LOGIN_STATE_LOGIN):
+      case(STATE_LOGIN):
       authForm = t.struct({
         username: t.String,
         password: t.String
@@ -123,7 +123,7 @@ var AuthForm = React.createClass({
       * ### Reset password
       * The password reset form has only 1 field
       */
-      case(LOGIN_STATE_FORGOT_PASSWORD):
+      case(STATE_FORGOT_PASSWORD):
       authForm = t.struct({
         email: t.String
       })
