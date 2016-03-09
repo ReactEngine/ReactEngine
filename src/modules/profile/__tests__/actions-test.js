@@ -30,13 +30,13 @@ const actions = require('../actions')
  * ## Actions to test
  */
 const {
-  GET_PROFILE_REQUEST,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+  USER_GET_REQUEST,
+  USER_GET_SUCCESS,
+  USER_GET_FAILURE,
 
-  PROFILE_UPDATE_REQUEST,
-  PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILURE,
 
   ON_PROFILE_FORM_FIELD_CHANGE
 
@@ -52,35 +52,35 @@ describe('profileActions', () => {
    * ### simple tests that prove the actions have the specific type
    */   
   it('should getProfileRequest', () => {
-    expect(actions.getProfileRequest()).toEqual({type: GET_PROFILE_REQUEST})
+    expect(actions.getProfileRequest()).toEqual({type: USER_GET_REQUEST})
   })
 
   it('should getProfileSuccess', () => {
     var json = {json: true}
     expect(actions.getProfileSuccess(json)).toEqual({type:
-                                                     GET_PROFILE_SUCCESS,
+                                                     USER_GET_SUCCESS,
                                                      payload: json})
   })
 
   it('should getProfileFailure', () => {
     var json = {json: true}
     expect(actions.getProfileFailure(json)).toEqual({type:
-                                                     GET_PROFILE_FAILURE,
+                                                     USER_GET_FAILURE,
                                                      payload:json})
   })
   
   it('should profileUpdateRequest', () => {
-    expect(actions.profileUpdateRequest()).toEqual({type: PROFILE_UPDATE_REQUEST})
+    expect(actions.profileUpdateRequest()).toEqual({type: USER_UPDATE_REQUEST})
   })
 
   it('should profileUpdateSuccess', () => {
-    expect(actions.profileUpdateSuccess()).toEqual({type: PROFILE_UPDATE_SUCCESS})
+    expect(actions.profileUpdateSuccess()).toEqual({type: USER_UPDATE_SUCCESS})
   })
 
   it('should profileUpdateFailure', () => {
     var json = {json: true}
     expect(actions.profileUpdateFailure(json)).toEqual({type:
-                                                        PROFILE_UPDATE_FAILURE,
+                                                        USER_UPDATE_FAILURE,
                                                         payload:json})
   })
 
@@ -102,8 +102,8 @@ describe('profileActions', () => {
    */
   it('should getProfile', () => {
     const expectedActions = [
-      {type: GET_PROFILE_REQUEST},
-      {type: GET_PROFILE_SUCCESS}
+      {type: USER_GET_REQUEST},
+      {type: USER_GET_SUCCESS}
     ]
 
     const store = mockStore({}, expectedActions)
@@ -112,10 +112,10 @@ describe('profileActions', () => {
 
   it('should updateProfile', () => {
     const expectedActions = [
-      {type: PROFILE_UPDATE_REQUEST},
-      {type: PROFILE_UPDATE_SUCCESS},
-      {type: GET_PROFILE_REQUEST},
-      {type: GET_PROFILE_SUCCESS}
+      {type: USER_UPDATE_REQUEST},
+      {type: USER_UPDATE_SUCCESS},
+      {type: USER_GET_REQUEST},
+      {type: USER_GET_SUCCESS}
     ]
 
     const store = mockStore({}, expectedActions)

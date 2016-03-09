@@ -19,13 +19,13 @@ jest.autoMockOff()
  */
 const {
   ON_PROFILE_FORM_FIELD_CHANGE,
-  GET_PROFILE_REQUEST,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+  USER_GET_REQUEST,
+  USER_GET_SUCCESS,
+  USER_GET_FAILURE,
 
-  PROFILE_UPDATE_REQUEST,
-  PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILURE
 } = require('../../../common/constants').default
 
 /**
@@ -54,7 +54,7 @@ describe('profileReducer', () => {
      */
     it('starts fetching', () => {
       const action = {
-        type: GET_PROFILE_REQUEST
+        type: USER_GET_REQUEST
       }
       let next = profileReducer(undefined, action)
 
@@ -74,7 +74,7 @@ describe('profileReducer', () => {
      */
     it('finishes fetching on success', () => {
       const action = {
-        type: GET_PROFILE_SUCCESS,
+        type: USER_GET_SUCCESS,
         payload: {
           username: 'barton',
           email: 'barton@foo.com',
@@ -104,7 +104,7 @@ describe('profileReducer', () => {
      */    
     it('finishes fetching on failure', () => {
       const action = {
-        type: GET_PROFILE_FAILURE,
+        type: USER_GET_FAILURE,
         payload: {error: 'error'}
       }
       let next = profileReducer(undefined, action)
@@ -118,7 +118,7 @@ describe('profileReducer', () => {
    * ### Profile update
    * 
    */
-  describe('PROFILE_UPDATE', () => {
+  describe('USER_UPDATE', () => {
     /**
      * #### starts fetching on request
      *
@@ -126,7 +126,7 @@ describe('profileReducer', () => {
      */
     it('starts fetching on request', () => {
       const action = {
-        type: PROFILE_UPDATE_REQUEST
+        type: USER_UPDATE_REQUEST
       }
       let next = profileReducer(undefined, action)
 
@@ -140,7 +140,7 @@ describe('profileReducer', () => {
      */
     it('finishes fetching on success', () => {
       const action = {
-        type: PROFILE_UPDATE_SUCCESS
+        type: USER_UPDATE_SUCCESS
       }
       let next = profileReducer(undefined, action)
 
@@ -155,7 +155,7 @@ describe('profileReducer', () => {
      */    
     it('finishes fetching on failure and saves error', () => {
       const action = {
-        type: PROFILE_UPDATE_FAILURE,
+        type: USER_UPDATE_FAILURE,
         payload: {error: 'error'}
       }
       let next = profileReducer(undefined, action)

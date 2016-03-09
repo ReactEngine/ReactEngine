@@ -1,41 +1,66 @@
 import store from './store'
 import _ from 'lodash'
 
-function() {
-  var props = ['accessTokenId', 'currentUserId', 'currentUserData']
-
-  function User() {
-    var self = this
-    _.each(props,(name)={
-      self[name] = store.get(name) || ''
-    })
+export default User {
+  global.ReacEngine = global.ReacEngine || {};
+  if(global.ReacEngine.User){
+    return global.ReacEngine.User
   }
 
-  User.prototype.save = function() {
-    var self = this
-    _.each(props,(name)={
-      self[name] = store.set(name,self[name])
-    })
-  }
+  const props = ['accessToken', 'currentUserId', 'currentUserData']
 
-  User.prototype.setUser = function(accessTokenId, userId, userData) {
-    this.accessTokenId = accessTokenId
-    this.currentUserId = userId
-    this.currentUserData = userData
-  }
+  Class _User() {
+      constructor{
+        this.load()
+      }
 
-  User.prototype.clearUser = function() {
-    this.accessTokenId = null
-    this.currentUserId = null
-    this.currentUserData = null
-  }
+      load(){
+        const self = this
+        _.each(props,(name)={
+          self[name] = store.get(name) || ''
+        })
+      }
 
-  User.prototype.clearStorage = function() {
-    _.each(props,(name)={
-      store.delete(name)
-    })
-  }
+      save() {
+        const self = this
+        _.each(props,(name)={
+           store.set(name,self[name])
+        })
+      }
 
-  return new User()
+      getCurrent() {
+        return {
+          "accessToken" : this.accessToken
+          "currentUserId" : this.userId
+          "currentUserData" : this.userData
+        }
+      }
 
+      setCurrent(user) {
+        const self = this
+        if((!user.accessToken)||(!user.userId)){
+          throw("user error")
+          return
+        }
+        _.each(props,(name)={
+          self[name] = user[name]
+        })
+      }
+
+      clearCurrent() {
+        const self = this
+        _.each(props,(name)={
+          self[name] = null
+        })
+      }
+
+      clearStorage = function() {
+        _.each(props,(name)={
+          store.delete(name)
+        })
+      }
+    }
+
+  global.ReacEngine.User = new _User()
+  return global.ReacEngine.User
 }

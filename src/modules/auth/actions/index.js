@@ -4,9 +4,9 @@ const {
   STATE_REGISTER,
   STATE_LOGIN,
   STATE_FORGOT_PASSWORD,
-  ON_STATE_CHANGE
+  STATE_CHANGE,
   ON_FORM_FIELD_CHANGE
-} = require('../../lib/constants').default
+} = require('../constants').default
 
 /**
  * ## State actions

@@ -17,7 +17,7 @@ import InitialState from '../initialState'
 const {
   SET_PLATFORM,
   SET_VERSION,
-  SET_STATE
+  STATE_SET
 } = require('../../../common/constants').default
 
 const initialState = new InitialState

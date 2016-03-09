@@ -13,12 +13,12 @@
 const {
   SET_ACCESSTOKEN,
 
-  GET_PROFILE_SUCCESS,
+  USER_GET_SUCCESS,
   USER_SIGNUP_SUCCESS,
   USER_LOGIN_SUCCESS,
 
-  GET_STATE,
-  SET_STATE,
+  STATE_GET,
+  STATE_SET,
   SET_STORE
   
 } = require('../../../common/constants').default
@@ -48,7 +48,7 @@ export default function globalReducer(state = initialState, action) {
      * Server.  It contains the ```accessToken``` and the user's
      * ```objectId``` which will be needed for some calls to Maxleap
      */
-  case GET_PROFILE_SUCCESS:
+  case USER_GET_SUCCESS:
   case USER_SIGNUP_SUCCESS:
   case USER_LOGIN_SUCCESS:
     return state.set('currentUser',action.payload)
@@ -72,7 +72,7 @@ export default function globalReducer(state = initialState, action) {
      * *Note*: the global state removes the ```store```, otherwise,
      * when trying to convert to JSON, it will be recursive and fail
      */    
-  case GET_STATE:
+  case STATE_GET:
     let _state = state.store.getState()
 
     if (action.payload) {
@@ -94,7 +94,7 @@ export default function globalReducer(state = initialState, action) {
      * This is in support of Hot Loading
      *
      */    
-  case SET_STATE:
+  case STATE_SET:
     var global = JSON.parse(action.payload).global
     var next = state.set('currentUser', global.currentUser)
           .set('showState', false)

@@ -10,13 +10,13 @@
  * The actions for profile
  */
 const {
-  GET_PROFILE_REQUEST,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+  USER_GET_REQUEST,
+  USER_GET_SUCCESS,
+  USER_GET_FAILURE,
 
-  PROFILE_UPDATE_REQUEST,
-  PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILURE,
 
   ON_PROFILE_FORM_FIELD_CHANGE
 } = require('../../../common/constants').default
@@ -33,18 +33,18 @@ const store = require('../../../lib/store').default
  */
 export function getProfileRequest() {
   return {
-    type: GET_PROFILE_REQUEST
+    type: USER_GET_REQUEST
   }
 }
 export function getProfileSuccess(json) {
   return {
-    type: GET_PROFILE_SUCCESS,
+    type: USER_GET_SUCCESS,
     payload: json
   }
 }
 export function getProfileFailure(json) {
   return {
-    type: GET_PROFILE_FAILURE,
+    type: USER_GET_FAILURE,
     payload: json
   }
 }
@@ -76,17 +76,17 @@ export function getProfile(accessToken) {
  */
 export function profileUpdateRequest() {
   return {
-    type: PROFILE_UPDATE_REQUEST
+    type: USER_UPDATE_REQUEST
   }
 }
 export function profileUpdateSuccess() {
   return {
-    type: PROFILE_UPDATE_SUCCESS
+    type: USER_UPDATE_SUCCESS
   }
 }
 export function profileUpdateFailure(json) {
   return {
-    type: PROFILE_UPDATE_FAILURE,
+    type: USER_UPDATE_FAILURE,
     payload: json
   }
 }

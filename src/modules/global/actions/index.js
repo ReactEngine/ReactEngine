@@ -13,8 +13,8 @@
 const {
   SET_ACCESSTOKEN,
   SET_STORE,
-  SET_STATE,
-  GET_STATE
+  STATE_SET,
+  STATE_GET
 } = require('../../../common/constants').default
 
 /**
@@ -47,7 +47,7 @@ export function setStore(store) {
  */
 export function setState(newState) {
   return {
-    type: SET_STATE,
+    type: STATE_SET,
     payload: newState
   }
 }
@@ -57,7 +57,7 @@ export function setState(newState) {
  */
 export function getState(toggle) {
   return {
-    type: GET_STATE,
+    type: STATE_GET,
     payload: toggle
   }
 }

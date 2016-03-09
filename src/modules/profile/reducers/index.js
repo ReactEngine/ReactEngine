@@ -20,15 +20,15 @@ const formValidation = require('./formValidation').default
  */
 const {
   ON_PROFILE_FORM_FIELD_CHANGE,
-  GET_PROFILE_REQUEST,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+  USER_GET_REQUEST,
+  USER_GET_SUCCESS,
+  USER_GET_FAILURE,
 
-  PROFILE_UPDATE_REQUEST,
-  PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILURE,
 
-  SET_STATE
+  STATE_SET
 } = require('../../../common/constants').default
 
 /**
@@ -51,8 +51,8 @@ export default function profileReducer(state = initialState, action) {
      * ### Request starts
      * set the form to fetching and clear any errors
      */    
-  case GET_PROFILE_REQUEST:
-  case PROFILE_UPDATE_REQUEST:
+  case USER_GET_REQUEST:
+  case USER_UPDATE_REQUEST:
     return state.setIn(['form', 'isFetching'], true)
       .setIn(['form','error'],null)
 
@@ -60,7 +60,7 @@ export default function profileReducer(state = initialState, action) {
      * ### Request end successfully
      * set the form to fetching as done
      */    
-  case PROFILE_UPDATE_SUCCESS:
+  case USER_UPDATE_SUCCESS:
     return state.setIn(['form', 'isFetching'], false)
 
     /**
@@ -71,7 +71,7 @@ export default function profileReducer(state = initialState, action) {
      * Validate the data to make sure it's all good and someone didn't
      * mung it up through some other mechanism
      */    
-  case GET_PROFILE_SUCCESS:
+  case USER_GET_SUCCESS:
     let nextProfileState = state.setIn(['form', 'isFetching'], false)
       .setIn(['form','fields','username'], action.payload.username)
       .setIn(['form','fields','email'], action.payload.email)
@@ -91,8 +91,8 @@ export default function profileReducer(state = initialState, action) {
      * ### Request fails
      * we're done fetching and the error needs to be displayed to the user
      */
-  case GET_PROFILE_FAILURE:
-  case PROFILE_UPDATE_FAILURE:
+  case USER_GET_FAILURE:
+  case USER_UPDATE_FAILURE:
     return state.setIn(['form', 'isFetching'], false)
       .setIn(['form','error'], action.payload)
 
@@ -120,7 +120,7 @@ export default function profileReducer(state = initialState, action) {
      * and set the values into the state
      *
      */    
-  case SET_STATE:
+  case STATE_SET:
     var profile  = JSON.parse(action.payload).profile.form
     var next = state.setIn(['form','disabled'],profile.disabled)
           .setIn(['form','error'],profile.error)

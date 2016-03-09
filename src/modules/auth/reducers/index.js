@@ -44,7 +44,7 @@ const {
   USER_RESETPASSWORD_SUCCESS,
   USER_RESETPASSWORD_FAILURE,
 
-  SET_STATE
+  STATE_SET
 } = require('../../../common/constants').default
 
 const initialState = new InitialState
@@ -148,7 +148,7 @@ export default function authReducer(state = initialState, action) {
      *
      * Set all the field values from the payload
      */
-  case SET_STATE:
+  case STATE_SET:
     var form = JSON.parse(action.payload).auth.form
 
     var next = state.setIn(['form','state'],form.state)
