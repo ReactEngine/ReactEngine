@@ -39,14 +39,14 @@ export function logoutFailure(error) {
 export function logout() {
   return dispatch => {
     dispatch(logoutRequest());
-    return new AppAuthToken().getSessionToken()
+    return new AppAuthToken().getAccessToken()
       .then((token) => {
-        return BackendFactory(token).logout();
+        return APIFactory(token).logout();
       })
       .then(() => {
         dispatch(registerState());
         dispatch(logoutSuccess());
-        dispatch(deleteSessionToken());
+        dispatch(deleteAccessToken());
       })
       .catch((error) => {
         dispatch(loginState());

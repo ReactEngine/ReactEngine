@@ -21,7 +21,7 @@ const {
  * ## set the sessionToken
  *
  */
-export function setSessionToken(sessionToken) {
+export function setAccessToken(sessionToken) {
   return {
     type: SET_SESSION_TOKEN,
     payload: sessionToken

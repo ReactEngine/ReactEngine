@@ -257,7 +257,7 @@ class Login extends Component {
             apiBot.actions.users.create(
               { "username":this.props.auth.form.fields.username,
                 "email":this.props.auth.form.fields.email,
-                "credentials":this.props.auth.form.fields.password
+                "password":this.props.auth.form.fields.password
               }
             )
           );

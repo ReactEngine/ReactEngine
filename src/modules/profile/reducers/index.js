@@ -11,7 +11,7 @@
  * fieldValidation for validating the fields
  * formValidation for setting the form's valid flag
  */
-const fieldValidation = require('../../../lib/fieldValidation').default;
+const fieldValidation = require('../../../common/reducers/fieldValidation').default;
 const formValidation = require('./formValidation').default;
 
 /**

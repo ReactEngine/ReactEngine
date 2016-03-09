@@ -34,12 +34,12 @@ export function loginFailure(error) {
 export function login(username,  password) {
   return dispatch => {
     dispatch(loginRequest());
-    return BackendFactory().login({
+    return APIFactory().login({
       username: username,
       password: password
     })
       .then(function (json) {
-	return saveSessionToken(json)
+	return saveAccessToken(json)
 	  .then(function () {
 	    dispatch(loginSuccess(json));
 	    dispatch(logoutState());

@@ -10,6 +10,6 @@
 
 const backend = require('./Backend').default;
 
-export default function BackendFactory(token = null) {
+export default function APIFactory(token = null) {
   return new backend();
 }

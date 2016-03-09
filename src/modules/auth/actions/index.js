@@ -43,7 +43,7 @@ const {
 /**
  * Project requirements
  */
-const BackendFactory = require('../../../lib/BackendFactory').default;
+const APIFactory = require('../../../api').default;
 
 const  AppAuthToken = require('../../../lib/AppAuthToken').default;
 
@@ -90,7 +90,7 @@ export function onAuthFormFieldChange(field,value) {
 }
 
 /**
- * ## SessionToken actions
+ * ## AccessToken actions
  */
 export function sessionTokenRequest() {
   return {
@@ -113,27 +113,27 @@ export function sessionTokenRequestFailure(error) {
 /**
  * ## Delete session token
  *
- * Call the AppAuthToken deleteSessionToken
+ * Call the AppAuthToken deleteAccessToken
  */
-export function deleteSessionToken() {
+export function deleteAccessToken() {
   return dispatch => {
     dispatch(sessionTokenRequest());
-    return new  AppAuthToken().deleteSessionToken()
+    return new  AppAuthToken().deleteAccessToken()
       .then(() => {
         dispatch(sessionTokenRequestSuccess());
       });
   };
 }
 /**
- * ## getSessionToken
+ * ## getAccessToken
  * If AppAuthToken has the sessionToken, the user is logged in
  * so set the state to logout.
  * Otherwise, the user will default to the login in screen.
  */
-export function getSessionToken() {
+export function getAccessToken() {
   return dispatch => {
     dispatch(sessionTokenRequest());
-    return new AppAuthToken().getSessionToken()
+    return new AppAuthToken().getAccessToken()
       .then((token) => {
         if (token) {
           dispatch(logoutState());
@@ -149,10 +149,10 @@ export function getSessionToken() {
 }
 
 /**
- * ## saveSessionToken
+ * ## saveAccessToken
  * @param {Object} response - to return to keep the promise chain
  * @param {Object} json - object with sessionToken
  */
-export function saveSessionToken(json) {
-  return new AppAuthToken().storeSessionToken(json);
+export function saveAccessToken(json) {
+  return new AppAuthToken().storeAccessToken(json);
 }

@@ -14,10 +14,10 @@ export default class AppAuthToken {
   /**
    * ## AppAuthToken
    *
-   * ### getSessionToken
+   * ### getAccessToken
    * @returns {Object} sessionToken
    */
-  async getSessionToken () {
+  async getAccessToken () {
     return await {
       sessionToken: {
         sessionToken: 'token'
@@ -25,16 +25,16 @@ export default class AppAuthToken {
     };
   }
   /**
-   * ### storeSessionToken
+   * ### storeAccessToken
    * @returns {Object} empty
    */
-  async storeSessionToken() {
+  async storeAccessToken() {
     return await {};
   }
   /**
-   * ### deleteSessionToken
+   * ### deleteAccessToken
    */  
-  async deleteSessionToken () {
+  async deleteAccessToken () {
     return await {};
   }
 };

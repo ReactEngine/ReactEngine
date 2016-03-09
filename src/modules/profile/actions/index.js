@@ -22,10 +22,10 @@ const {
 } = require('../../../common/constants').default;
 
 /**
- * BackendFactory - base class for server implementation
+ * APIFactory - base class for server implementation
  * AppAuthToken for localStorage sessionToken access 
  */
-const BackendFactory = require('../../../lib/BackendFactory').default;
+const APIFactory = require('../../../api').default;
 const AppAuthToken = require('../../../lib/AppAuthToken').default;
 
 /**
@@ -57,9 +57,9 @@ export function getProfile(sessionToken) {
   return dispatch => {
     dispatch(getProfileRequest());
     //store or get a sessionToken
-    return new AppAuthToken().getSessionToken(sessionToken)
+    return new AppAuthToken().getAccessToken(sessionToken)
       .then((token) => {
-        return BackendFactory(token).getProfile();
+        return APIFactory(token).getProfile();
       })
       .then((json) => {
           dispatch(getProfileSuccess(json));
@@ -107,9 +107,9 @@ export function profileUpdateFailure(json) {
 export function updateProfile(userId, username, email, sessionToken) {
   return dispatch => {
     dispatch(profileUpdateRequest());
-    return new AppAuthToken().getSessionToken(sessionToken)
+    return new AppAuthToken().getAccessToken(sessionToken)
       .then((token) => {
-        return BackendFactory(token).updateProfile(userId,
+        return APIFactory(token).updateProfile(userId,
           {
             username: username,
             email: email

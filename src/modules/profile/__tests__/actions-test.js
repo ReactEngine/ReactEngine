@@ -18,7 +18,7 @@
 jest.autoMockOff();
 
 jest.mock('../../../../lib/AppAuthToken');
-jest.mock('../../../../lib/BackendFactory');
+jest.mock('../../../../api');
 /**
  * ## Store
  * The mockStore will validate the actions are performed 

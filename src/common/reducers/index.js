@@ -13,7 +13,8 @@ import auth from '../../modules/auth/reducers';
 import device from '../../modules/device/reducers';
 import global from '../../modules/global/reducers';
 import profile from '../../modules/profile/reducers';
-import apiBot  from '../../rest/apiBot';
+import reduxCrud from 'redux-crud';
+import users from './users'
 
 import { combineReducers } from 'redux';
 
@@ -30,7 +31,7 @@ const rootReducer = combineReducers({
   device,
   global,
   profile,
-  restReducer
+  users
 });
 
 export default rootReducer;

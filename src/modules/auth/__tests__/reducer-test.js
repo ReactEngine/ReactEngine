@@ -49,7 +49,7 @@ const  authReducer = require('../reducers').default;
  */
 describe('authReducer', () => {
   /**
-   * ### SessionToken ...all requests in general
+   * ### AccessToken ...all requests in general
    * 
    * In general, all requests will have fetching true before
    * actually performing the request,and followed

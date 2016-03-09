@@ -1,9 +1,3 @@
-/**
- * # Login.js
- * 
- * This class is a little complicated as it handles 4 states. It's also
- * a container so there is boilerplate from Redux similiar to ```App```.
- */
 'use strict';
 
 /**
@@ -53,12 +47,6 @@ const passwordConstraints = {
       message: "have at least a number and a special character,"
           + " and between 6-12 in length"
     }
-  }
-};
-
-const passwordAgainConstraints = {
-  confirmPassword: {
-    equality: "password"
   }
 };
 
@@ -113,21 +101,6 @@ export default function fieldValidation(state, action ) {
     }
     break;
     
-    /**
-     * ### passwordAgain validation
-     * set the form field error 
-     */    
-  case('passwordAgain'):
-    var validPasswordAgain
-      = _.isUndefined(validate({password: state.form.fields.password,
-                                confirmPassword: value}, passwordAgainConstraints));
-    if (validPasswordAgain) {
-      return state.setIn(['form', 'fields', 'passwordAgainHasError'], false);
-    } else {
-      return  state.setIn(['form', 'fields', 'passwordAgainHasError'], true);
-    }
-    break;
-
     /**
      * ### showPassword
      * toggle the display of the password

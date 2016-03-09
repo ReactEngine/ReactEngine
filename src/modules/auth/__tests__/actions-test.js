@@ -13,7 +13,7 @@ jest.autoMockOff();
  * We don't want to use the devices storage, nor actually call Server
  */
 jest.mock('../../../../lib/AppAuthToken');
-jest.mock('../../../../lib/BackendFactory');
+jest.mock('../../../../api');
 
 /**
  * ## Mock Store
@@ -207,7 +207,7 @@ describe('authActions', () => {
     return store.dispatch(actions.login('foo','bar'));
   });
 
-  it('should getSessionToken', () => {
+  it('should getAccessToken', () => {
     const expectedActions = [
       {type: SESSION_TOKEN_REQUEST},      
       {type: LOGIN_STATE_LOGOUT},
@@ -215,7 +215,7 @@ describe('authActions', () => {
     ];
 
     const store = mockStore({}, expectedActions);
-    return store.dispatch(actions.getSessionToken());
+    return store.dispatch(actions.getAccessToken());
   });
 
   it('should signup', () => {
@@ -240,14 +240,14 @@ describe('authActions', () => {
     return store.dispatch(actions.resetPassword('email'));
   });
 
-  it('should deleteSessionToken', () => {
+  it('should deleteAccessToken', () => {
     const expectedActions = [
       {type: SESSION_TOKEN_REQUEST},
       {type: SESSION_TOKEN_SUCCESS}      
     ];
 
     const store = mockStore({}, expectedActions);
-    return store.dispatch(actions.deleteSessionToken());
+    return store.dispatch(actions.deleteAccessToken());
   });
 
 });

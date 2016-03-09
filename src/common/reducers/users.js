@@ -1,12 +1,11 @@
 import SI         from 'seamless-immutable';
-import reduxCrud  from '../redux-bot';
+import reduxCrud  from 'redux-crud';
 
-const standardReducers = reduxCrud.reducersFor('user');
+const standardReducers = reduxCrud.reducersFor('users');
 
 function reducers(state=SI([]), action) {
   switch(action.type) {
-    case 'POSTS_DELETE_SUCCESS':
-
+    case 'USERS_DELETE_SUCCESS':
       return state;
     default:
       // pass to the generated reducers

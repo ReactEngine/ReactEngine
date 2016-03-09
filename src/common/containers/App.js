@@ -114,7 +114,7 @@ let App = React.createClass({
    * the state will be changed to ```LOGIN_STATE_LOGOUT```
    */
   componentDidMount() {
-    this.props.actions.getSessionToken();
+    this.props.actions.getAccessToken();
   },
   /**
    * Display the ```Tabbar``` if we're logged in

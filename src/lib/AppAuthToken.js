@@ -23,24 +23,24 @@ export default class AppAuthToken {
   }
 
   /**
-   * ### storeSessionToken
+   * ### storeAccessToken
    * Store the session key 
    */
-  storeSessionToken(sessionToken) {
+  storeAccessToken(sessionToken) {
     return store.save(this.SESSION_TOKEN_KEY,{
       sessionToken: sessionToken
     });
 
   }
   /**
-   * ### getSessionToken
+   * ### getAccessToken
    * @param {Object} sessionToken the currentUser object from Server
    *
    * When Hot Loading, the sessionToken  will be passed in, and if so,
    * it needs to be stored on the device.  Remember, the store is a
    * promise so, have to be careful.
    */
-  getSessionToken(sessionToken) {
+  getAccessToken(sessionToken) {
     if (sessionToken) {
       return store.save(this.SESSION_TOKEN_KEY,{
           sessionToken: sessionToken
@@ -51,10 +51,10 @@ export default class AppAuthToken {
     return store.get(this.SESSION_TOKEN_KEY);
   }
   /**
-   * ### deleteSessionToken
+   * ### deleteAccessToken
    * Deleted during log out
    */
-  deleteSessionToken() {
+  deleteAccessToken() {
     return store.delete(this.SESSION_TOKEN_KEY);
   }
 }

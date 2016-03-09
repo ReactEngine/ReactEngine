@@ -12,13 +12,13 @@
 export function signup(username, email, password) {
   return dispatch => {
     dispatch(signupRequest());
-    return  BackendFactory().signup({
+    return  APIFactory().signup({
       username: username,
       email: email,
       password: password
     })
       .then(function (json) {
-	return saveSessionToken(json)
+	return saveAccessToken(json)
 	  .then(function () {
 	    dispatch(signupSuccess(
 	      Object.assign({},

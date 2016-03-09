@@ -15,7 +15,7 @@ jest.autoMockOff();
  * We don't want to use the devices storage, nor actually call Server
  */
 jest.mock('../../../../lib/AppAuthToken');
-jest.mock('../../../../lib/BackendFactory');
+jest.mock('../../../../api');
 
 /**
  * ## Mock Store
