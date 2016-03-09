@@ -1,7 +1,5 @@
-const baseUrl = "http://127.0.0.1:3000/api/"
+const apiConfig = {}
 
-const apiConfig = {
-    "users": baseUrl+"Users/"
-}
+apiConfig.baseUrl = "http://127.0.0.1:3000/api/"
 
 export default apiConfig

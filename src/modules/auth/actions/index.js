@@ -43,7 +43,6 @@ const {
 /**
  * Project requirements
  */
-const APIFactory = require('../../../api').default;
 
 const  AppAuthToken = require('../../../lib/AppAuthToken').default;
 
