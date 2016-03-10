@@ -15,12 +15,6 @@
  * The actions supported
  */
 const {
-  ACCESSTOKEN_REQUEST,
-  ACCESSTOKEN_SUCCESS,
-  ACCESSTOKEN_FAILURE,
-  
-  DELETE_TOKEN_REQUEST,
-  DELETE_TOKEN_SUCCESS,
 
   LOGOUT,
   REGISTER,
@@ -31,19 +25,16 @@ const {
 
 } = require('../../constants').default
 
-/**
- * Project requirements
- */
+const  _ = require('lodash')
+
 const ApiFactory = require('../../services/api').default
 
 import {Actions} from 'react-native-router-flux'
 import userActions from '../../actions/user'
 import accessTokenActions from '../../actions/accessToken'
 import userStateActions from '../../actions/state/user'
-
+debugger
 const  accessTokenStorage = require('../../services/storage/accessToken').default
-
-const  _ = require('lodash')
 
 /**
  * ## onAuthFormFieldChange
@@ -56,94 +47,6 @@ export function onAuthFormFieldChange(field,value) {
   }
 }
 
-/**
- * ## AccessToken actions
- */
-export function accessTokenRequest() {
-  return {
-    type: ACCESSTOKEN_REQUEST
-  }
-}
-export function accessTokenRequestSuccess(token) {
-  return {
-    type: ACCESSTOKEN_SUCCESS,
-    payload: token
-  }
-}
-export function accessTokenRequestFailure(error) {
-  return {
-    type: ACCESSTOKEN_FAILURE,
-    payload: _.isUndefined(error) ? null:error
-  }
-}
-
-/**
- * ## DeleteToken actions
- */
-export function deleteTokenRequest() {
-  return {
-    type: DELETE_TOKEN_REQUEST
-  }
-}
-export function deleteTokenRequestSuccess() {
-  return {
-    type: DELETE_TOKEN_SUCCESS
-  }
-}
-
-/**
- * ## Delete session token
- *
- * Call the accessTokenStorage deleteAccessToken 
- */
-export function deleteAccessToken() {
-  return dispatch => {
-    dispatch(deleteTokenRequest())
-    return new  accessTokenStorage().delete()
-      .then(() => {
-        dispatch(deleteTokenRequestSuccess())
-      })
-  }
-}
-/**
- * ## Token
- * If accessTokenStorage has the accessToken, the user is logged in
- * so set the state to logout.
- * Otherwise, the user will default to the login in screen.
- */
-export function getAccessToken() {
-  return dispatch => {
-    dispatch(accessTokenRequest())
-    
-    return new accessTokenStorage().get()
-
-      .then((token) => {
-        if (token) {
-          dispatch(accessTokenRequestSuccess(token))
-          dispatch(userStateActions.logout())
-          Actions.Tabbar()
-        } else {
-          dispatch(accessTokenRequestFailure())
-          Actions.Register()
-        }
-      })
-    
-      .catch((error) => {
-        dispatch(accessTokenRequestFailure(error))
-        dispatch(userStateActions.login())
-        Actions.Register()
-      })
-  }
-}
-
-/**
- * ## saveAccessToken
- * @param {Object} response - to return to keep the promise chain
- * @param {Object} json - object with accessToken
- */
-export function saveAccessToken(json) {
-  return new accessTokenStorage().save(json)
-}
 /**
  * ## signup
  * @param {string} username - name of user

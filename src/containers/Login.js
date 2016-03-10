@@ -33,7 +33,6 @@ import LoginRender from '../components/LoginRender'
  */
 import React from 'react-native'
 
-
 const {
   LOGIN,
   REGISTER, 

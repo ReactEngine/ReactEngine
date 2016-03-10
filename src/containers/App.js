@@ -26,6 +26,7 @@ import {Map} from 'immutable'
 import * as authActions from '../reducers/auth/authActions'
 import * as deviceActions from '../reducers/device/deviceActions'
 import * as globalActions from '../reducers/global/globalActions'
+import * as accessTokenAsyncActions from '../asyncActions/accessToken'
 
 /**
  * The components we need from ReactNative
@@ -45,7 +46,8 @@ from 'react-native'
 const actions = [
   authActions,
   deviceActions,
-  globalActions
+  globalActions,
+  accessTokenAsyncActions
 ]
 
 /**
