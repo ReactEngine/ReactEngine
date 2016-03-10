@@ -1,7 +1,7 @@
 /**
  * # accessTokenStorage.js
  * 
- * Simple mock of services/storage/accessToken.js
+ * Simple mock of storage/accessToken.js
  */
 'use strict'
 /**

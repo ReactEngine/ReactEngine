@@ -26,7 +26,7 @@ const {
  * accessTokenStorage for localStorage accessToken access 
  */
 const ApiFactory = require('../../services/api').default
-const accessTokenStorage = require('../../services/storage/accessToken').default
+const accessTokenStorage = require('../../storage/accessToken').default
 
 /**
  * ## retreiving profile actions

@@ -1,6 +1,7 @@
 import accessTokenActions from '../actions/accessToken'
-const  accessTokenStorage = require('../services/storage/accessToken').default
-
+import accessTokenStorage from '../storage/accessToken'
+import userStateActions from '../actions/state/user'
+import { Actions } from 'react-native-router-flux'
 /**
  * ## Token
  * If accessTokenStorage has the accessToken, the user is logged in

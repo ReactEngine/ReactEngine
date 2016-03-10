@@ -17,7 +17,7 @@
  */
 jest.autoMockOff()
 
-jest.mock('../../../services/storage/accessToken')
+jest.mock('../../../storage/accessToken')
 jest.mock('../../../services/api')
 /**
  * ## Store
