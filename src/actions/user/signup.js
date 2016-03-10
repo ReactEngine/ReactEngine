@@ -8,18 +8,18 @@ const {
 /**
  * ## Signup actions
  */
- signupRequest() {
+export function signupRequest() {
   return {
     type: USER_SIGNUP_REQUEST
   }
 }
- signupSuccess(json) {
+export function signupSuccess(json) {
   return {
     type: USER_SIGNUP_SUCCESS,
     payload: json
   }
 }
- signupFailure(error) {
+export function signupFailure(error) {
   return {
     type: USER_SIGNUP_FAILURE,
     payload: error

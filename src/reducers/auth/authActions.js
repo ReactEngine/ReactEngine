@@ -27,14 +27,7 @@ const {
   LOGIN,
   FORGOT_PASSWORD,
   
-  ON_AUTH_FORM_FIELD_CHANGE,
-  SIGNUP_REQUEST,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
-
-  RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_FAILURE
+  ON_AUTH_FORM_FIELD_CHANGE
 
 } = require('../../constants').default
 
@@ -44,84 +37,14 @@ const {
 const ApiFactory = require('../../services/api').default
 
 import {Actions} from 'react-native-router-flux'
-import * as loginActions from '../../actions/user/login'
-import * as userActions from '../../actions/user/index'
+import userActions from '../../actions/user'
+import accessTokenActions from '../../actions/accessToken'
+import userStateActions from '../../actions/state/user'
 
 const  accessTokenStorage = require('../../services/storage/accessToken').default
 
 const  _ = require('lodash')
 
-/**
- * ## State actions
- * controls which form is displayed to the user
- * as in login, register, logout or reset password
- */
-
-export function logoutState() {
-  return {
-    type: LOGOUT
-  }
-
-}
-export function registerState() {
-  return {
-    type: REGISTER
-  }
-}
-
-export function loginState() {
-  return {
-    type: LOGIN
-  }
-}
-
-export function forgotPasswordState() {
-  return {
-    type: FORGOT_PASSWORD
-  }
-}
-
-/**
- * ## Login 
- * After dispatching the logoutRequest, get the accessToken
- * and call Parse 
- *
- * When the response from Parse is received and it's valid
- * change the state to register and finish the logout
- * 
- * But if the call to Parse fails, like expired token or
- * no network connection, just send the failure
- *
- * And if you fail due to an invalid accessToken, be sure
- * to delete it so the user can log in.
- *
- * How could there be an invalid accessToken?  Maybe they
- * haven't used the app for a long time.  Or they used another
- * device and logged out there.
- */ 
-export function logout() {
-  return dispatch => {
-    dispatch(userActions.logoutRequest())
-    return new accessTokenStorage().get()
-
-      .then((token) => {
-        return ApiFactory(token).logout()
-      })
-    
-      .then(() => {
-        dispatch(loginState())          
-        dispatch(userActions.logoutSuccess())
-        dispatch(deleteAccessToken())   
-        Actions.Login()
-      })            		
-
-      .catch((error) => {
-        dispatch(loginState())        
-        dispatch(userActions.logoutFailure(error))
-        Actions.Login()
-      })
-  }
-}
 /**
  * ## onAuthFormFieldChange
  * Set the payload so the reducer can work on it
@@ -132,26 +55,7 @@ export function onAuthFormFieldChange(field,value) {
     payload: {field: field, value: value}
   }
 }
-/**
- * ## Signup actions
- */
-export function signupRequest() {
-  return {
-    type: SIGNUP_REQUEST
-  }
-} 
-export function signupSuccess(json) {
-  return {
-    type: SIGNUP_SUCCESS,
-    payload: json
-  }
-}
-export function signupFailure(error) {
-  return {
-    type: SIGNUP_FAILURE,
-    payload: error
-  }
-}
+
 /**
  * ## AccessToken actions
  */
@@ -216,7 +120,7 @@ export function getAccessToken() {
       .then((token) => {
         if (token) {
           dispatch(accessTokenRequestSuccess(token))
-          dispatch(logoutState())
+          dispatch(userStateActions.logout())
           Actions.Tabbar()
         } else {
           dispatch(accessTokenRequestFailure())
@@ -226,7 +130,7 @@ export function getAccessToken() {
     
       .catch((error) => {
         dispatch(accessTokenRequestFailure(error))
-        dispatch(loginState())
+        dispatch(userStateActions.login())
         Actions.Register()
       })
   }
@@ -254,7 +158,7 @@ export function saveAccessToken(json) {
 export function signup(username, email, password) {
   
   return dispatch => {
-    dispatch(signupRequest())
+    dispatch(userActions.signupRequest())
     return  ApiFactory().signup({
       username: username,
       email: email,
@@ -271,7 +175,7 @@ export function signup(username, email, password) {
 	)
         
           .then(() => {
-	    dispatch(signupSuccess(
+	    dispatch(userActions.signupSuccess(
 	      Object.assign({}, json,
 			    {
 			      username: username,
@@ -279,13 +183,13 @@ export function signup(username, email, password) {
 			    }
 			   )
 	    ))
-	    dispatch(logoutState())  
+	    dispatch(userStateActions.logout())  
 	    // navigate to Tabbar
 	    Actions.Tabbar()        
 	  })
       })
       .catch((error) => {
-	dispatch(signupFailure(error))
+	dispatch(userActions.signupFailure(error))
       })
 
   }
@@ -305,7 +209,7 @@ export function signup(username, email, password) {
 
 export function login(username,  password) {
   return dispatch => {
-    dispatch(loginRequest())
+    dispatch(userActions.loginRequest())
     return ApiFactory().login({
       username: username,
       password: password
@@ -314,38 +218,41 @@ export function login(username,  password) {
       .then(function (json) {
 	return saveAccessToken(json)
 	  .then(function () {
-	    dispatch(loginSuccess(json))  
-	    dispatch(logoutState())   
+	    dispatch(userActions.loginSuccess(json))  
+	    dispatch(userStateActions.logout())   
 	    Actions.Tabbar() 
 	  })
       })
       .catch((error) => {
-	dispatch(loginFailure(error))
+	dispatch(userActions.loginFailure(error))
       })
   }
 }
 
-/**
- * ## ResetPassword actions
- */
-export function resetPasswordRequest() {
-  return {
-    type: RESET_PASSWORD_REQUEST
+export function logout() {
+  return dispatch => {
+    dispatch(userActions.logoutRequest())
+    return new accessTokenStorage().get()
+
+      .then((token) => {
+        return ApiFactory(token).logout()
+      })
+    
+      .then(() => {
+        dispatch(userStateActions.login())          
+        dispatch(userActions.logoutSuccess())
+        dispatch(deleteAccessToken())   
+        Actions.Login()
+      })                
+
+      .catch((error) => {
+        dispatch(userStateActions.login())        
+        dispatch(userActions.logoutFailure(error))
+        Actions.Login()
+      })
   }
 }
 
-export function resetPasswordSuccess() {
-  return {
-    type: RESET_PASSWORD_SUCCESS
-  }
-}
-
-export function resetPasswordFailure(error) {
-  return {
-    type: RESET_PASSWORD_FAILURE,
-    payload: error
-  }
-}
 /**
  * ## ResetPassword 
  *
@@ -360,17 +267,17 @@ export function resetPasswordFailure(error) {
  */
 export function resetPassword(email) {
   return dispatch => {
-    dispatch(resetPasswordRequest())
+    dispatch(userActions.resetPasswordRequest())
     return ApiFactory().resetPassword({
       email: email
     })
       .then(() => {
-        dispatch(loginState())
-        dispatch(resetPasswordSuccess())
+        dispatch(userStateActions.login())
+        dispatch(userActions.resetPasswordSuccess())
         Actions.Login()
       })
       .catch((error) => {
-        dispatch(resetPasswordFailure(error))
+        dispatch(userActions.resetPasswordFailure(error))
       })
 
   }

@@ -1,12 +1,12 @@
 import _            from 'lodash'
 // import reduxCrud    from 'redux-crud'
-
 // const standardActionCreators = reduxCrud.actionCreatorsFor('user')
 import * as loginActions from './login'
 import * as logoutActions from './logout'
+import * as resetPasswordActions from './resetPassword'
+import * as signupActions from './signup'
 
-let user = {
-
+let userActions = {
 	/**
 	 * ## onAuthFormFieldChange
 	 * Set the payload so the reducer can work on it
@@ -19,8 +19,6 @@ let user = {
 	}
 }
 
+userActions = _.extend(userActions,loginActions, logoutActions,resetPasswordActions,signupActions)
 
-
-user = _.extend(user,loginActions, logoutActions);
-
-export default user;
+export default userActions
