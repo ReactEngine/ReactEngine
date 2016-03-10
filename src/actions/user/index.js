@@ -1,14 +1,17 @@
 import _            from 'lodash'
-import reduxCrud    from 'redux-crud'
+// import reduxCrud    from 'redux-crud'
 
-const standardActionCreators = reduxCrud.actionCreatorsFor('user')
+// const standardActionCreators = reduxCrud.actionCreatorsFor('user')
+import * as loginActions from './login'
+import * as logoutActions from './logout'
 
-let actionCreators = {
+let user = {
+
 	/**
 	 * ## onAuthFormFieldChange
 	 * Set the payload so the reducer can work on it
 	 */
-	export function onAuthFormFieldChange(field,value) {
+	 onAuthFormFieldChange(field,value) {
 	  return {
 	    type: ON_FORM_FIELD_CHANGE,
 	    payload: {field: field, value: value}
@@ -16,6 +19,8 @@ let actionCreators = {
 	}
 }
 
-actionCreators = _.extend(actionCreators, standardActionCreators);
 
-export default actionCreators;
+debugger
+user = _.extend(user,loginActions, logoutActions);
+
+export default user;

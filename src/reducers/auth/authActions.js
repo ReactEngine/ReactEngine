@@ -26,14 +26,6 @@ const {
   REGISTER,
   LOGIN,
   FORGOT_PASSWORD,
-
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAILURE,
-
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
   
   ON_AUTH_FORM_FIELD_CHANGE,
   SIGNUP_REQUEST,
@@ -52,6 +44,8 @@ const {
 const ApiFactory = require('../../services/api').default
 
 import {Actions} from 'react-native-router-flux'
+import * as loginActions from '../../actions/user/login'
+import * as userActions from '../../actions/user/index'
 
 const  AppAuthToken = require('../../lib/AppAuthToken').default
 
@@ -88,26 +82,6 @@ export function forgotPasswordState() {
 }
 
 /**
- * ## Logout actions
- */
-export function logoutRequest() {
-  return {
-    type: LOGOUT_REQUEST
-  }
-} 
-
-export function logoutSuccess() {
-  return {
-    type: LOGOUT_SUCCESS
-  }
-} 
-export function logoutFailure(error) {
-  return {
-    type: LOGOUT_FAILURE,
-    payload: error
-  }
-} 
-/**
  * ## Login 
  * After dispatching the logoutRequest, get the accessToken
  * and call Parse 
@@ -127,7 +101,7 @@ export function logoutFailure(error) {
  */ 
 export function logout() {
   return dispatch => {
-    dispatch(logoutRequest())
+    dispatch(userActions.logoutRequest())
     return new AppAuthToken().getAccessToken()
 
       .then((token) => {
@@ -136,14 +110,14 @@ export function logout() {
     
       .then(() => {
         dispatch(loginState())          
-        dispatch(logoutSuccess())
+        dispatch(userActions.logoutSuccess())
         dispatch(deleteAccessToken())   
         Actions.Login()
       })            		
 
       .catch((error) => {
         dispatch(loginState())        
-        dispatch(logoutFailure(error))
+        dispatch(userActions.logoutFailure(error))
         Actions.Login()
       })
   }
@@ -317,28 +291,6 @@ export function signup(username, email, password) {
   }
 }
 
-/**
- * ## Login actions
- */
-export function loginRequest() {
-  return {
-    type: LOGIN_REQUEST
-  }
-}
-
-export function loginSuccess(json) {
-  return {
-    type: LOGIN_SUCCESS,
-    payload: json
-  }
-}
-
-export function loginFailure(error) {
-  return {
-    type: LOGIN_FAILURE,
-    payload: error
-  }
-}
 /**
  * ## Login 
  * @param {string} username - user's name
