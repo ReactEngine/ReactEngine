@@ -205,7 +205,7 @@ class Profile extends Component {
 
     /**
      * When the button is pressed, send the users info including the
-     * ```currrentUser``` object as it contains the sessionToken and
+     * ```currrentUser``` object as it contains the accessToken and
      * user objectId which maxleap.cn requires
      */
     let profileButtonText = 'Update Profile'

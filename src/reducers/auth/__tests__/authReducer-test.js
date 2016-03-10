@@ -20,9 +20,9 @@ jest.autoMockOff()
  * case statements are shared amongst the actions.
  */
 const {
-  SESSION_TOKEN_REQUEST,
-  SESSION_TOKEN_SUCCESS,
-  SESSION_TOKEN_FAILURE,
+  ACCESSTOKEN_REQUEST,
+  ACCESSTOKEN_SUCCESS,
+  ACCESSTOKEN_FAILURE,
 
   LOGOUT,
   LOGIN,
@@ -49,7 +49,7 @@ const  authReducer = require('../authReducer').default
  */
 describe('authReducer', () => {
   /**
-   * ### SessionToken ...all requests in general
+   * ### AccessToken ...all requests in general
    * 
    * In general, all requests will have fetching true before
    * actually performing the request,and followed
@@ -64,7 +64,7 @@ describe('authReducer', () => {
 
     it('starts fetching', () => {
       const action = {
-        type: SESSION_TOKEN_REQUEST
+        type: ACCESSTOKEN_REQUEST
       }
       let next = authReducer(undefined, action)
 
@@ -74,7 +74,7 @@ describe('authReducer', () => {
     
     it('finishes fetching on success', () => {
       const action = {
-        type: SESSION_TOKEN_SUCCESS
+        type: ACCESSTOKEN_SUCCESS
       }
       let next = authReducer(undefined, action)
 
@@ -84,7 +84,7 @@ describe('authReducer', () => {
     
     it('finishes fetching on failure', () => {
       const action = {
-        type: SESSION_TOKEN_FAILURE
+        type: ACCESSTOKEN_FAILURE
       }
       let next = authReducer(undefined, action)
 

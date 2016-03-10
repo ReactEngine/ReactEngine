@@ -36,9 +36,9 @@ var actions = require('../authActions')
  * actions under test 
  */
 const {
-  SESSION_TOKEN_REQUEST,
-  SESSION_TOKEN_SUCCESS,
-  SESSION_TOKEN_FAILURE,
+  ACCESSTOKEN_REQUEST,
+  ACCESSTOKEN_SUCCESS,
+  ACCESSTOKEN_FAILURE,
 
   DELETE_TOKEN_REQUEST,
   
@@ -114,20 +114,20 @@ describe('authActions', () => {
     expect(actions.signupSuccess()).toEqual({type: SIGNUP_SUCCESS})
   })
 
-  it('should set sessionTokenRequest', () => {
-    expect(actions.sessionTokenRequest()).toEqual({type: SESSION_TOKEN_REQUEST})
+  it('should set accessTokenRequest', () => {
+    expect(actions.accessTokenRequest()).toEqual({type: ACCESSTOKEN_REQUEST})
   })
 
-  it('should set sessionTokenRequestSuccess', () => {
+  it('should set accessTokenRequestSuccess', () => {
     let token = {token: 'thisisthetoken'}
-    expect(actions.sessionTokenRequestSuccess(token)).toEqual({
-      type:SESSION_TOKEN_SUCCESS,payload:token})
+    expect(actions.accessTokenRequestSuccess(token)).toEqual({
+      type:ACCESSTOKEN_SUCCESS,payload:token})
   })
 
-  it('should set sessionTokenRequestFailure', () => {
+  it('should set accessTokenRequestFailure', () => {
     let error = {error: 'thisistheerror'}
-    expect(actions.sessionTokenRequestFailure(error)).toEqual({
-      type: SESSION_TOKEN_FAILURE,payload: error })
+    expect(actions.accessTokenRequestFailure(error)).toEqual({
+      type: ACCESSTOKEN_FAILURE,payload: error })
   })
 
   it('should set signupFailure', () => {
@@ -190,8 +190,8 @@ describe('authActions', () => {
       {type: LOGOUT_REQUEST},
       {type: REGISTER},
       {type: LOGOUT_SUCCESS},
-      {type: SESSION_TOKEN_REQUEST},
-      {type: SESSION_TOKEN_SUCCESS}
+      {type: ACCESSTOKEN_REQUEST},
+      {type: ACCESSTOKEN_SUCCESS}
     ]
 
     const store = mockStore({}, expectedActions)
@@ -209,15 +209,15 @@ describe('authActions', () => {
     return store.dispatch(actions.login('foo','bar'))
   })
 
-  it('should getSessionToken', () => {
+  it('should getAccessToken', () => {
     const expectedActions = [
-      {type: SESSION_TOKEN_REQUEST},      
+      {type: ACCESSTOKEN_REQUEST},      
       {type: LOGOUT},
-      {type: SESSION_TOKEN_SUCCESS}
+      {type: ACCESSTOKEN_SUCCESS}
     ]
 
     const store = mockStore({}, expectedActions)
-    return store.dispatch(actions.getSessionToken())
+    return store.dispatch(actions.getAccessToken())
   })
 
   it('should signup', () => {
@@ -242,15 +242,15 @@ describe('authActions', () => {
     return store.dispatch(actions.resetPassword('email'))
   })
 
-  it('should deleteSessionToken', () => {
+  it('should deleteAccessToken', () => {
     const expectedActions = [
       {type: DELETE_TOKEN_REQUEST},
-      {type: SESSION_TOKEN_REQUEST},
-      {type: SESSION_TOKEN_SUCCESS}      
+      {type: ACCESSTOKEN_REQUEST},
+      {type: ACCESSTOKEN_SUCCESS}      
     ]
 
     const store = mockStore({}, expectedActions)
-    return store.dispatch(actions.deleteSessionToken())
+    return store.dispatch(actions.deleteAccessToken())
   })
 
 })

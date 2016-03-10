@@ -26,10 +26,10 @@ export default class Strongloop {
    */
   constructor(token={}) {
     
-    if(_.has(token,'sessionToken')){
-      this._sessionToken = token.sessionToken
+    if(_.has(token,'accessToken')){
+      this._accessToken = token.accessToken
     }else{
-      this._sessionToken = ""
+      this._accessToken = ""
     }
     
     this.API_BASE_URL = ApiConfig.baseUrl
@@ -55,7 +55,7 @@ export default class Strongloop {
    * @return
    * if ok, {createdAt: "2015-12-30T15:17:05.379Z",
    *   objectId: "5TgExo2wBA", 
-   *   sessionToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
+   *   accessToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
    *
    * if error, {code: xxx, error: 'message'}
    */
@@ -82,7 +82,7 @@ export default class Strongloop {
    * updatedAt: "2015-12-30T16:08:50.419Z"
    * objectId: "Z4yvP19OeL"
    * email: "barton@foo.com"
-   * sessionToken: "r:Kt9wXIBWD0dNijNIq2u5rRllW"
+   * accessToken: "r:Kt9wXIBWD0dNijNIq2u5rRllW"
    * username: "barton"
    *
    */
@@ -143,7 +143,7 @@ export default class Strongloop {
   }  
   /**
    * ### getProfile
-   * Using the sessionToken, we'll get everything about
+   * Using the accessToken, we'll get everything about
    * the current user.
    *
    * @returns
@@ -152,7 +152,7 @@ export default class Strongloop {
    * {createdAt: "2015-12-30T15:29:36.611Z"
    *  email: "barton@acclivyx.com"
    *  objectId: "Z4yvP19OeL"
-   *  sessionToken: "r:uFeYONgIsZMPyxOWVJ6VqJGqv"
+   *  accessToken: "r:uFeYONgIsZMPyxOWVJ6VqJGqv"
    *  updatedAt: "2015-12-30T15:29:36.611Z"
    *  username: "barton"}
    *
@@ -202,8 +202,8 @@ export default class Strongloop {
       }
     }
     
-    if (this._sessionToken) {
-      reqOpts.headers['authorization'] = this._sessionToken
+    if (this._accessToken) {
+      reqOpts.headers['authorization'] = this._accessToken
     }
 
     if (opts.method === 'POST' || opts.method === 'PUT') {

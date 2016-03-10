@@ -1,54 +1,46 @@
-/**
- * # AppAuthToken.js
- * 
- * A thin wrapper over the react-native-simple-store
- *
- */
 'use strict'
-/**
- * ## Imports
- * 
- * Redux  & the config file
- */ 
+
 import store from 'react-native-simple-store'
 
+export default class AccessToken {
 
-export default class AppAuthToken {
+  constructor () {
+    this.STRORE_KEY = 'AccessToken';
+  }
 
   /**
-   * ### storeAccessToken
+   * ### store
    * Store the session key 
    */
-  storeAccessToken(accessToken) {
-    return store.save('ACCESSTOKEN',{
+  store(accessToken) {
+    return store.save(this.STRORE_KEY,{
       accessToken: accessToken
     })
-
   }
   /**
-   * ### getAccessToken
+   * ### get
    * @param {Object} accessToken the currentUser object from maxleap.cn
    *
    * When Hot Loading, the accessToken  will be passed in, and if so,
    * it needs to be stored on the device.  Remember, the store is a
    * promise so, have to be careful.
    */
-  getAccessToken(accessToken) {
+  get(accessToken) {
     if (accessToken) {
-      return store.save('ACCESSTOKEN',{
+      return store.save(this.STRORE_KEY,{
           accessToken: accessToken
       }).then(() => {
-        return store.get('ACCESSTOKEN')
+        return store.get(this.STRORE_KEY)
       })
     }
-    return store.get('ACCESSTOKEN')
+    return store.get(this.STRORE_KEY)
   }
   /**
-   * ### deleteAccessToken
+   * ### delete
    * Deleted during log out
    */
-  deleteAccessToken() {
-    return store.delete('ACCESSTOKEN')
+  delete() {
+    return store.delete(this.STRORE_KEY)
   }
 }
 

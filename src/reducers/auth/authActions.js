@@ -15,9 +15,9 @@
  * The actions supported
  */
 const {
-  SESSION_TOKEN_REQUEST,
-  SESSION_TOKEN_SUCCESS,
-  SESSION_TOKEN_FAILURE,
+  ACCESSTOKEN_REQUEST,
+  ACCESSTOKEN_SUCCESS,
+  ACCESSTOKEN_FAILURE,
   
   DELETE_TOKEN_REQUEST,
   DELETE_TOKEN_SUCCESS,
@@ -109,7 +109,7 @@ export function logoutFailure(error) {
 } 
 /**
  * ## Login 
- * After dispatching the logoutRequest, get the sessionToken
+ * After dispatching the logoutRequest, get the accessToken
  * and call Parse 
  *
  * When the response from Parse is received and it's valid
@@ -118,17 +118,17 @@ export function logoutFailure(error) {
  * But if the call to Parse fails, like expired token or
  * no network connection, just send the failure
  *
- * And if you fail due to an invalid sessionToken, be sure
+ * And if you fail due to an invalid accessToken, be sure
  * to delete it so the user can log in.
  *
- * How could there be an invalid sessionToken?  Maybe they
+ * How could there be an invalid accessToken?  Maybe they
  * haven't used the app for a long time.  Or they used another
  * device and logged out there.
  */ 
 export function logout() {
   return dispatch => {
     dispatch(logoutRequest())
-    return new AppAuthToken().getSessionToken()
+    return new AppAuthToken().getAccessToken()
 
       .then((token) => {
         return ApiFactory(token).logout()
@@ -137,7 +137,7 @@ export function logout() {
       .then(() => {
         dispatch(loginState())          
         dispatch(logoutSuccess())
-        dispatch(deleteSessionToken())   
+        dispatch(deleteAccessToken())   
         Actions.Login()
       })            		
 
@@ -179,22 +179,22 @@ export function signupFailure(error) {
   }
 }
 /**
- * ## SessionToken actions
+ * ## AccessToken actions
  */
-export function sessionTokenRequest() {
+export function accessTokenRequest() {
   return {
-    type: SESSION_TOKEN_REQUEST
+    type: ACCESSTOKEN_REQUEST
   }
 }
-export function sessionTokenRequestSuccess(token) {
+export function accessTokenRequestSuccess(token) {
   return {
-    type: SESSION_TOKEN_SUCCESS,
+    type: ACCESSTOKEN_SUCCESS,
     payload: token
   }
 }
-export function sessionTokenRequestFailure(error) {
+export function accessTokenRequestFailure(error) {
   return {
-    type: SESSION_TOKEN_FAILURE,
+    type: ACCESSTOKEN_FAILURE,
     payload: _.isUndefined(error) ? null:error
   }
 }
@@ -216,12 +216,12 @@ export function deleteTokenRequestSuccess() {
 /**
  * ## Delete session token
  *
- * Call the AppAuthToken deleteSessionToken 
+ * Call the AppAuthToken deleteAccessToken 
  */
-export function deleteSessionToken() {
+export function deleteAccessToken() {
   return dispatch => {
     dispatch(deleteTokenRequest())
-    return new  AppAuthToken().deleteSessionToken()
+    return new  AppAuthToken().deleteAccessToken()
       .then(() => {
         dispatch(deleteTokenRequestSuccess())
       })
@@ -229,29 +229,29 @@ export function deleteSessionToken() {
 }
 /**
  * ## Token
- * If AppAuthToken has the sessionToken, the user is logged in
+ * If AppAuthToken has the accessToken, the user is logged in
  * so set the state to logout.
  * Otherwise, the user will default to the login in screen.
  */
-export function getSessionToken() {
+export function getAccessToken() {
   return dispatch => {
-    dispatch(sessionTokenRequest())
+    dispatch(accessTokenRequest())
     debugger
-    return new AppAuthToken().getSessionToken()
+    return new AppAuthToken().getAccessToken()
 
       .then((token) => {
         if (token) {
-          dispatch(sessionTokenRequestSuccess(token))
+          dispatch(accessTokenRequestSuccess(token))
           dispatch(logoutState())
           Actions.Tabbar()
         } else {
-          dispatch(sessionTokenRequestFailure())
+          dispatch(accessTokenRequestFailure())
           Actions.Register()
         }
       })
     
       .catch((error) => {
-        dispatch(sessionTokenRequestFailure(error))
+        dispatch(accessTokenRequestFailure(error))
         dispatch(loginState())
         Actions.Register()
       })
@@ -259,12 +259,12 @@ export function getSessionToken() {
 }
 
 /**
- * ## saveSessionToken
+ * ## saveAccessToken
  * @param {Object} response - to return to keep the promise chain
- * @param {Object} json - object with sessionToken
+ * @param {Object} json - object with accessToken
  */
-export function saveSessionToken(json) {
-  return new AppAuthToken().storeSessionToken(json)
+export function saveAccessToken(json) {
+  return new AppAuthToken().storeAccessToken(json)
 }
 /**
  * ## signup
@@ -272,7 +272,7 @@ export function saveSessionToken(json) {
  * @param {string} email - user's email
  * @param {string} password - user's password
  *
- * Call Parse.signup and if good, save the sessionToken, 
+ * Call Parse.signup and if good, save the accessToken, 
  * set the state to logout and signal success
  *
  * Otherwise, dispatch the error so the user can see
@@ -288,7 +288,7 @@ export function signup(username, email, password) {
     })
 
       .then((json) => {
-	return saveSessionToken(
+	return saveAccessToken(
 	  Object.assign({}, json,
 			{
 			  username: username,
@@ -345,7 +345,7 @@ export function loginFailure(error) {
  * @param {string} password - user's password
  *
  * After calling Backend, if response is good, save the json
- * which is the currentUser which contains the sessionToken
+ * which is the currentUser which contains the accessToken
  *
  * If successful, set the state to logout
  * otherwise, dispatch a failure
@@ -360,7 +360,7 @@ export function login(username,  password) {
     })
 
       .then(function (json) {
-	return saveSessionToken(json)
+	return saveAccessToken(json)
 	  .then(function () {
 	    dispatch(loginSuccess(json))  
 	    dispatch(logoutState())   

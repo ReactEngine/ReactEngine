@@ -21,9 +21,9 @@ export default addPrefix({
   SET_PLATFORM: null,
   SET_VERSION: null,
 
-  SESSION_TOKEN_REQUEST: null,
-  SESSION_TOKEN_SUCCESS: null,
-  SESSION_TOKEN_FAILURE: null,
+  ACCESSTOKEN_REQUEST: null,
+  ACCESSTOKEN_SUCCESS: null,
+  ACCESSTOKEN_FAILURE: null,
   
   DELETE_TOKEN_REQUEST: null,
   DELETE_TOKEN_SUCCESS: null,
@@ -47,7 +47,7 @@ export default addPrefix({
   LOGGED_IN: null,
   LOGGED_OUT: null,
 
-  SET_SESSION_TOKEN: null,
+  SET_ACCESSTOKEN: null,
 
   RESET_PASSWORD_REQUEST: null,
   RESET_PASSWORD_SUCCESS: null,

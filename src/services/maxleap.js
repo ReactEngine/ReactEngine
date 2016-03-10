@@ -25,17 +25,17 @@ export default class Parse {
    * ## Parse
    *
    * constructor sets the default keys required by maxleap.cn
-   * if a user is logged in, we'll need the sessionToken
+   * if a user is logged in, we'll need the accessToken
    *
    * @throws tokenMissing if token is undefined
    */
   constructor( token) {
     super(token)
-    if (!_.isNull(token) && _.isUndefined(token.sessionToken)) {
+    if (!_.isNull(token) && _.isUndefined(token.accessToken)) {
       throw 'TokenMissing'
     }
-    this._sessionToken =
-      _.isNull(token) ?  null :  token.sessionToken.sessionToken
+    this._accessToken =
+      _.isNull(token) ?  null :  token.accessToken.accessToken
     
     this._applicationId = CONFIG.PARSE.APP_ID
     this._restAPIKey = CONFIG.PARSE.REST_API_KEY
@@ -53,7 +53,7 @@ export default class Parse {
    * @return
    * if ok, {createdAt: "2015-12-30T15:17:05.379Z",
    *   objectId: "5TgExo2wBA", 
-   *   sessionToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
+   *   accessToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
    *
    * if error, {code: xxx, error: 'message'}
    */
@@ -89,7 +89,7 @@ export default class Parse {
    * createdAt: "2015-12-30T15:29:36.611Z"
    * email: "barton@foo.com"
    * objectId: "Z4yvP19OeL"
-   * sessionToken: "r:Kt9wXIBWD0dNijNIq2u5rRllW"
+   * accessToken: "r:Kt9wXIBWD0dNijNIq2u5rRllW"
    * updatedAt: "2015-12-30T16:08:50.419Z"
    * username: "barton"
    *
@@ -176,7 +176,7 @@ export default class Parse {
   }  
   /**
    * ### getProfile
-   * Using the sessionToken, we'll get everything about
+   * Using the accessToken, we'll get everything about
    * the current user.
    *
    * @returns
@@ -185,7 +185,7 @@ export default class Parse {
    * {createdAt: "2015-12-30T15:29:36.611Z"
    *  email: "barton@acclivyx.com"
    *  objectId: "Z4yvP19OeL"
-   *  sessionToken: "r:uFeYONgIsZMPyxOWVJ6VqJGqv"
+   *  accessToken: "r:uFeYONgIsZMPyxOWVJ6VqJGqv"
    *  updatedAt: "2015-12-30T15:29:36.611Z"
    *  username: "barton"}
    *
@@ -255,8 +255,8 @@ export default class Parse {
         'X-Parse-REST-API-Key': this._restAPIKey
       }
     }
-    if (this._sessionToken) {
-      reqOpts.headers['X-Parse-Session-Token'] = this._sessionToken
+    if (this._accessToken) {
+      reqOpts.headers['X-Parse-Session-Token'] = this._accessToken
     }
     
     if (this._masterKey) {

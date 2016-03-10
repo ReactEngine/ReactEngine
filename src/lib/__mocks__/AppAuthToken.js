@@ -14,27 +14,27 @@ export default class AppAuthToken {
   /**
    * ## AppAuthToken
    *
-   * ### getSessionToken
-   * @returns {Object} sessionToken
+   * ### getAccessToken
+   * @returns {Object} accessToken
    */
-  async getSessionToken () {
+  async getAccessToken () {
     return await {
-      sessionToken: {
-        sessionToken: 'token'
+      accessToken: {
+        accessToken: 'token'
       }
     }
   }
   /**
-   * ### storeSessionToken
+   * ### storeAccessToken
    * @returns {Object} empty
    */
-  async storeSessionToken() {
+  async storeAccessToken() {
     return await {}
   }
   /**
-   * ### deleteSessionToken
+   * ### deleteAccessToken
    */  
-  async deleteSessionToken () {
+  async deleteAccessToken () {
     return await {}
   }
 }

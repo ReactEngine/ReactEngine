@@ -11,20 +11,20 @@
  * The actions supported
  */
 const {
-  SET_SESSION_TOKEN,
+  SET_ACCESSTOKEN,
   SET_STORE,
   SET_STATE,
   GET_STATE
 } = require('../../constants').default
 
 /**
- * ## set the sessionToken
+ * ## set the accessToken
  *
  */
-export function setSessionToken(sessionToken) {
+export function setAccessToken(accessToken) {
   return {
-    type: SET_SESSION_TOKEN,
-    payload: sessionToken
+    type: SET_ACCESSTOKEN,
+    payload: accessToken
   }
 }
 /**

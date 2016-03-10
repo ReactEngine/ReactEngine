@@ -23,7 +23,7 @@ const {
 
 /**
  * ApiFactory - base class for server implementation
- * AppAuthToken for localStorage sessionToken access 
+ * AppAuthToken for localStorage accessToken access 
  */
 const ApiFactory = require('../../services/api').default
 const AppAuthToken = require('../../lib/AppAuthToken').default
@@ -53,11 +53,11 @@ export function getProfileFailure(json) {
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getProfile(sessionToken) {
+export function getProfile(accessToken) {
   return dispatch => {
     dispatch(getProfileRequest())
-    //store or get a sessionToken
-    return new AppAuthToken().getSessionToken(sessionToken)
+    //store or get a accessToken
+    return new AppAuthToken().getAccessToken(accessToken)
       .then((token) => {
         return ApiFactory(token).getProfile()
       })
@@ -95,19 +95,19 @@ export function profileUpdateFailure(json) {
  * @param {string} userId -  objectId 
  * @param {string} username - the users name
  * @param {string] email - user's email
- * @param {Object} sessionToken - the sessionToken from maxleap.cn
+ * @param {Object} accessToken - the accessToken from maxleap.cn
  *
- * The sessionToken is provided when Hot Loading.
+ * The accessToken is provided when Hot Loading.
  *
- * With the sessionToken, maxleap.cn is called with the data to update
+ * With the accessToken, maxleap.cn is called with the data to update
  * If successful, get the profile so that the screen is updated with
  * the data as now persisted on maxleap.cn
  *
  */
-export function updateProfile(userId, username, email, sessionToken) {
+export function updateProfile(userId, username, email, accessToken) {
   return dispatch => {
     dispatch(profileUpdateRequest())
-    return new AppAuthToken().getSessionToken(sessionToken)
+    return new AppAuthToken().getAccessToken(accessToken)
       .then((token) => {
         return ApiFactory(token).updateProfile(userId,
           {

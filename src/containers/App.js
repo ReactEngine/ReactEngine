@@ -1,7 +1,7 @@
 /**
  * # app.js
  *  Display startup screen and 
- *  getSessionTokenAtStartup which will navigate upon completion 
+ *  getAccessTokenAtStartup which will navigate upon completion 
  *
  *   
  *  
@@ -94,11 +94,11 @@ var styles = StyleSheet.create({
  */
 let App = React.createClass({
   /**
-   * See if there's a sessionToken from a previous login
+   * See if there's a accessToken from a previous login
    * 
    */
   componentDidMount() {
-    this.props.actions.getSessionToken()
+    this.props.actions.getAccessToken()
   },
   
   render() {
