@@ -17,7 +17,12 @@ import { connect } from 'react-redux'
  * The actions we need
  */
 import * as authActions from '../actions'
-import apiBot from '../../../rest/apiBot'
+import * as signupActions from '../actions/signup'
+import * as loginActions from '../actions/login'
+import * as logoutActions from '../actions/logout'
+import * as resetPasswordActions from '../actions/resetPassword'
+import * as stateActions from '../actions/state'
+import * as accessTokenActions from '../actions/accessToken'
 import * as globalActions from '../../global/actions'
 
 /**
@@ -96,6 +101,12 @@ var styles = StyleSheet.create({
  */
 const actions = [
   authActions,
+  signupActions,
+  loginActions,
+  logoutActions,
+  resetPasswordActions,
+  stateActions,
+  accessTokenActions,
   globalActions
 ]
 
@@ -250,17 +261,9 @@ class Login extends Component {
     case(STATE_REGISTER):
       loginButtonText = 'Register'
       onButtonPress = () => {
-        // this.props.actions.signup(this.props.auth.form.fields.username,
-        //                           this.props.auth.form.fields.email,
-        //                           this.props.auth.form.fields.password)
-        this.props.dispatch(
-            apiBot.actions.users.create(
-              { "username":this.props.auth.form.fields.username,
-                "email":this.props.auth.form.fields.email,
-                "password":this.props.auth.form.fields.password
-              }
-            )
-          )
+        this.props.actions.signup(this.props.auth.form.fields.username,
+                                  this.props.auth.form.fields.email,
+                                  this.props.auth.form.fields.password)
       }
       passwordDisplay = itemCheckBox
       leftMessage = forgotPassword
