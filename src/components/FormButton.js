@@ -30,8 +30,8 @@ var styles = StyleSheet.create({
     marginRight: 10
   },
   button: {
-    backgroundColor: '#FF3366',
-    borderColor:  '#FF3366'
+    backgroundColor: '#3385ff',
+    borderColor:  '#3385ff'
   }
 
 })

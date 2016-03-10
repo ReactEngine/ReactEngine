@@ -167,10 +167,7 @@ var Header = React.createClass({
         <View style={styles.header}>
 
           <TouchableHighlight onPress={this._onPressMark}>
-
-            <Image style={styles.mark} source={{uri:
-                                                'http://i.imgur.com/da4G0Io.png'}}
-            />
+            <Image style={styles.mark} source={require('../images/logo.png')}/>
           </TouchableHighlight>
           {spinner}
         </View>
