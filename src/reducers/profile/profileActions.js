@@ -23,10 +23,10 @@ const {
 
 /**
  * ApiFactory - base class for server implementation
- * AppAuthToken for localStorage accessToken access 
+ * accessTokenStorage for localStorage accessToken access 
  */
 const ApiFactory = require('../../services/api').default
-const AppAuthToken = require('../../lib/AppAuthToken').default
+const accessTokenStorage = require('../../services/storage/accessToken').default
 
 /**
  * ## retreiving profile actions
@@ -57,7 +57,7 @@ export function getProfile(accessToken) {
   return dispatch => {
     dispatch(getProfileRequest())
     //store or get a accessToken
-    return new AppAuthToken().getAccessToken(accessToken)
+    return new accessTokenStorage().get(accessToken)
       .then((token) => {
         return ApiFactory(token).getProfile()
       })
@@ -107,7 +107,7 @@ export function profileUpdateFailure(json) {
 export function updateProfile(userId, username, email, accessToken) {
   return dispatch => {
     dispatch(profileUpdateRequest())
-    return new AppAuthToken().getAccessToken(accessToken)
+    return new accessTokenStorage().get(accessToken)
       .then((token) => {
         return ApiFactory(token).updateProfile(userId,
           {

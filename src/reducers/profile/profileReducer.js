@@ -140,7 +140,7 @@ export default function profileReducer(state = initialState, action) {
      *
      */    
   case SET_STATE:
-    debugger
+    
     var profile  = JSON.parse(action.payload).profile.form
     var next = state.setIn(['form','disabled'],profile.disabled)
           .setIn(['form','error'],profile.error)

@@ -20,7 +20,7 @@ let user = {
 }
 
 
-debugger
+
 user = _.extend(user,loginActions, logoutActions);
 
 export default user;

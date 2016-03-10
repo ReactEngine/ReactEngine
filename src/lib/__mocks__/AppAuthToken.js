@@ -1,7 +1,7 @@
 /**
- * # AppAuthToken.js
+ * # accessTokenStorage.js
  * 
- * Simple mock of lib/AppAuthToken.js
+ * Simple mock of services/storage/accessToken.js
  */
 'use strict'
 /**
@@ -10,9 +10,9 @@
  * Need to still treat as async
  */ 
 require('regenerator/runtime')
-export default class AppAuthToken {
+export default class accessTokenStorage {
   /**
-   * ## AppAuthToken
+   * ## accessTokenStorage
    *
    * ### getAccessToken
    * @returns {Object} accessToken

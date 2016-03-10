@@ -14,7 +14,7 @@ jest.autoMockOff()
  *
  * We don't want to use the devices storage, nor actually call maxleap.cn
  */
-jest.mock('../../../lib/AppAuthToken')
+jest.mock('../../../services/storage/accessToken')
 jest.mock('../../../services/api')
 
 /**

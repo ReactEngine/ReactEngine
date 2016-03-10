@@ -47,7 +47,7 @@ import {Actions} from 'react-native-router-flux'
 import * as loginActions from '../../actions/user/login'
 import * as userActions from '../../actions/user/index'
 
-const  AppAuthToken = require('../../lib/AppAuthToken').default
+const  accessTokenStorage = require('../../services/storage/accessToken').default
 
 const  _ = require('lodash')
 
@@ -102,7 +102,7 @@ export function forgotPasswordState() {
 export function logout() {
   return dispatch => {
     dispatch(userActions.logoutRequest())
-    return new AppAuthToken().getAccessToken()
+    return new accessTokenStorage().get()
 
       .then((token) => {
         return ApiFactory(token).logout()
@@ -190,12 +190,12 @@ export function deleteTokenRequestSuccess() {
 /**
  * ## Delete session token
  *
- * Call the AppAuthToken deleteAccessToken 
+ * Call the accessTokenStorage deleteAccessToken 
  */
 export function deleteAccessToken() {
   return dispatch => {
     dispatch(deleteTokenRequest())
-    return new  AppAuthToken().deleteAccessToken()
+    return new  accessTokenStorage().delete()
       .then(() => {
         dispatch(deleteTokenRequestSuccess())
       })
@@ -203,15 +203,15 @@ export function deleteAccessToken() {
 }
 /**
  * ## Token
- * If AppAuthToken has the accessToken, the user is logged in
+ * If accessTokenStorage has the accessToken, the user is logged in
  * so set the state to logout.
  * Otherwise, the user will default to the login in screen.
  */
 export function getAccessToken() {
   return dispatch => {
     dispatch(accessTokenRequest())
-    debugger
-    return new AppAuthToken().getAccessToken()
+    
+    return new accessTokenStorage().get()
 
       .then((token) => {
         if (token) {
@@ -238,7 +238,7 @@ export function getAccessToken() {
  * @param {Object} json - object with accessToken
  */
 export function saveAccessToken(json) {
-  return new AppAuthToken().storeAccessToken(json)
+  return new accessTokenStorage().save(json)
 }
 /**
  * ## signup

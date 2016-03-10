@@ -12,12 +12,12 @@
 /**
  * ## Mocks
  *
- * turn mocking off but mock AppAuthToken and Parse
+ * turn mocking off but mock accessTokenStorage and Parse
  *
  */
 jest.autoMockOff()
 
-jest.mock('../../../lib/AppAuthToken')
+jest.mock('../../../services/storage/accessToken')
 jest.mock('../../../services/api')
 /**
  * ## Store
