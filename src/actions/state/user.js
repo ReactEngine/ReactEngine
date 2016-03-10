@@ -2,7 +2,8 @@ const {
 
   STATE_LOGOUT,
   STATE_REGISTER,
-  STATE_LOGIN
+  STATE_LOGIN,
+  STATE_FORGOT_PASSWORD
 
 } = require('../../constants').default
 /**

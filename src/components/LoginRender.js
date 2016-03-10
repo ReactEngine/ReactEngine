@@ -18,6 +18,7 @@ import { connect } from 'react-redux'
  */
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
+import * as userStateActions from '../actions/state/user'
 
 /**
  * Immutable
@@ -104,6 +105,7 @@ var styles = StyleSheet.create({
  */
 const actions = [
   authActions,
+  userStateActions,
   globalActions
 ]
 
@@ -188,7 +190,7 @@ class LoginRender extends Component {
     let forgotPassword =
     <TouchableHighlight
         onPress={() => {
-            actions.forgotPasswordState()
+            userStateActions.forgotPassword()
             Actions.ForgotPassword()
           }} >
       <Text>Forgot Password?</Text>
@@ -197,7 +199,7 @@ class LoginRender extends Component {
     let alreadyHaveAccount =
     <TouchableHighlight
         onPress={() => {
-            actions.loginState()
+            userStateActions.login()
             Actions.Login()
           }} >
       <Text>Already have an account?</Text>
@@ -206,7 +208,7 @@ class LoginRender extends Component {
     let register =
     <TouchableHighlight 
         onPress={() => {
-            actions.registerState()
+            userStateActions.register()
             Actions.Register()
           }} >
       <Text>Register</Text>

@@ -1,7 +1,10 @@
 import accessTokenActions from '../actions/accessToken'
 import accessTokenStorage from '../storage/accessToken'
 import userStateActions from '../actions/state/user'
-import { Actions } from 'react-native-router-flux'
+import { Actions }  from 'react-native-router-flux'
+
+const RouterActions = Actions
+
 /**
  * ## Token
  * If accessTokenStorage has the accessToken, the user is logged in
@@ -18,17 +21,17 @@ export function getAccessToken() {
         if (token) {
           dispatch(accessTokenActions.GetSuccess(token))
           dispatch(userStateActions.logout())
-          Actions.Tabbar()
+         RouterActions.Tabbar()
         } else {
           dispatch(accessTokenActions.GetFailure())
-          Actions.Register()
+         RouterActions.Register()
         }
       })
     
       .catch((error) => {
         dispatch(accessTokenActions.GetFailure(error))
         dispatch(userStateActions.login())
-        Actions.Register()
+       RouterActions.Register()
       })
   }
 }
