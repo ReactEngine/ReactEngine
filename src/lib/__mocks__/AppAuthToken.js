@@ -1,7 +1,7 @@
 /**
- * # store.js
+ * # AppAuthToken.js
  * 
- * Simple mock of lib/store.js
+ * Simple mock of lib/AppAuthToken.js
  */
 'use strict'
 /**
@@ -10,31 +10,31 @@
  * Need to still treat as async
  */ 
 require('regenerator/runtime')
-export default class store {
+export default class AppAuthToken {
   /**
-   * ## store
+   * ## AppAuthToken
    *
-   * ### getAccessToken
-   * @returns {Object} accessToken
+   * ### getSessionToken
+   * @returns {Object} sessionToken
    */
-  async getAccessToken () {
+  async getSessionToken () {
     return await {
-      accessToken: {
-        accessToken: 'token'
+      sessionToken: {
+        sessionToken: 'token'
       }
     }
   }
   /**
-   * ### storeAccessToken
+   * ### storeSessionToken
    * @returns {Object} empty
    */
-  async storeAccessToken() {
+  async storeSessionToken() {
     return await {}
   }
   /**
-   * ### deleteAccessToken
+   * ### deleteSessionToken
    */  
-  async deleteAccessToken () {
+  async deleteSessionToken () {
     return await {}
   }
 }

@@ -1,7 +1,7 @@
 /**
- * # Maxleap.js
+ * # Parse.js
  * 
- * This class mocks lib/Maxleap.js
+ * This class mocks lib/Parse.js
  * 
  */
 'use strict'
@@ -14,7 +14,7 @@ require('regenerator/runtime')
 
 export default class Backend  {
   /**
-   * ## Maxleap
+   * ## Parse
    *
    * ### constructor
    * prepare the response for all the methods
