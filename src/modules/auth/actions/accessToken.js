@@ -1,3 +1,10 @@
+const {
+
+  ACCESSTOKEN_REQUEST,
+  ACCESSTOKEN_SUCCESS,
+  ACCESSTOKEN_FAILURE
+
+} = require('../../../common/constants').default
 /**
  * ## accessToken actions
  */
@@ -24,7 +31,7 @@
  *
  * Call the AppAuthToken deleteAccessToken
  */
- deleteAccessToken() {
+export default function  deleteAccessToken() {
   return dispatch => {
     dispatch(accessTokenRequest())
     return new  AppAuthToken().deleteAccessToken()
@@ -39,7 +46,7 @@
  * so set the state to logout.
  * Otherwise, the user will default to the login in screen.
  */
- getAccessToken() {
+export default function  getAccessToken() {
   return dispatch => {
     dispatch(accessTokenRequest())
     return store.getAccessToken()
@@ -62,6 +69,6 @@
  * @param {Object} response - to return to keep the promise chain
  * @param {Object} json - object with accessToken
  */
- saveaccessToken(json) {
+export default function  saveaccessToken(json) {
   return store.storeaccessToken(json)
 }

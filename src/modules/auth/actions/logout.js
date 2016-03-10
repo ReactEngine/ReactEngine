@@ -1,7 +1,14 @@
+const {
+
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGOUT_FAILURE
+
+} = require('../../../common/constants').default
 /**
  * ## Logout actions
  */
-export logoutRequest() {
+logoutRequest() {
   return {
     type: USER_LOGOUT_REQUEST
   }
@@ -20,7 +27,7 @@ export logoutRequest() {
   }
 }
 
-logout() {
+export default function logout() {
  return dispatch => {
    dispatch(logoutRequest())
    return store.getAccessToken()

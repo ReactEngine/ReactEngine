@@ -1,4 +1,10 @@
+const {
 
+  USER_RESETPASSWORD_REQUEST,
+  USER_RESETPASSWORD_SUCCESS,
+  USER_RESETPASSWORD_FAILURE
+
+} = require('../../../common/constants').default
   /**
    * ## ResetPassword actions
    */
@@ -32,7 +38,7 @@
    * With that enabled, an email can be sent w/ a
    * form for setting the new password.
    */
-   resetPassword(email) {
+ export default function resetPassword(email) {
     return dispatch => {
       dispatch(resetPasswordRequest())
       return APIFactory().resetPassword({
@@ -48,3 +54,4 @@
 
     }
   }
+

@@ -1,3 +1,10 @@
+const {
+
+  STATE_LOGOUT,
+  STATE_REGISTER,
+  STATE_LOGIN
+
+} = require('../../../common/constants').default
 /**
  * ## State actions
  * controls which form is displayed to the user
@@ -24,16 +31,5 @@ export function loginState() {
 export function forgotPasswordState() {
   return {
     type: STATE_FORGOT_PASSWORD
-  }
-}
-
-/**
- * ## onAuthFormFieldChange
- * Set the payload so the reducer can work on it
- */
-export function onAuthFormFieldChange(field,value) {
-  return {
-    type: ON_FORM_FIELD_CHANGE,
-    payload: {field: field, value: value}
   }
 }

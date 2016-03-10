@@ -1,3 +1,10 @@
+const {
+
+  USER_SIGNUP_REQUEST,
+  USER_SIGNUP_SUCCESS,
+  USER_SIGNUP_FAILURE
+
+} = require('../../../common/constants').default
 /**
  * ## Signup actions
  */
@@ -30,7 +37,7 @@
  *
  * Otherwise, dispatch the error so the user can see
  */
- signup(username, email, password) {
+ export default function signup(username, email, password) {
   return dispatch => {
     dispatch(signupRequest())
     return  APIFactory().signup({

@@ -56,7 +56,7 @@ const {
  * If successful, set the state to logout
  * otherwise, dispatch a failure
  */
- login(username,  password) {
+ export default function login(username,  password) {
   return dispatch => {
     dispatch(loginRequest())
     return BackendFactory().login({
