@@ -14,5 +14,5 @@
  * @param {Object} state - the Redux state object
  */
 export default function formValidation (state) {
-  return state.setIn(['form','isValid'],true)
+  return state
 }
