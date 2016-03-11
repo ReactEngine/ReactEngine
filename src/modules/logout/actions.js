@@ -2,8 +2,8 @@
 
 const {
 
-  LOGIN_MODULE_INIT,
-  LOGIN_FORMFIELD_CHANGE
+  LOGOUT_MODULE_INIT,
+  LOGOUT_FORMFIELD_CHANGE
 
 } = require('../../constants').default
 
@@ -12,18 +12,17 @@ const  _ = require('lodash')
 const ApiFactory = require('../../services/api').default
 
 import { Actions } from 'react-native-router-flux'
-const routerActions = Actions
-
 import userActions from '../../actions/user'
-import logoutActions from '../logout/actions'
 import accessTokenActions from '../../actions/accessToken'
+import loginActions from '../login/actions'
 
 import accessTokenStorage from '../../storage/accessToken'
+const routerActions = Actions
 
 //表单字段更新
-export function loginFormFieldChange(field,value) {
+export function logoutFormFieldChange(field,value) {
   return {
-    type: LOGIN_FORMFIELD_CHANGE,
+    type: LOGOUT_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -31,7 +30,7 @@ export function loginFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: LOGIN_MODULE_INIT
+    type: LOGOUT_MODULE_INIT
   }
 }
 
@@ -46,37 +45,36 @@ export function moduleInit() {
  * If successful, set the state to logout
  * otherwise, dispatch a failure
  */
-export function login(email, password) {
+export function logout(email, password) {
   
+  const logoutHandle = () {
+      //清除 AccessToken
+      dispatch(deleteAccessToken())
+      //下一个场景准备: 初始化
+      dispatch(loginActions.moduleInit())  
+      // 切换路由到下一个场景: Login
+      routerActions.Login()  
+  }
+
   return dispatch => {
     //请求开始
-    dispatch(userActions.loginStart())
+    dispatch(userActions.logoutStart())
 
-    const userData = {
-      email: username,
-      password: password
-    }
-
-    return  ApiFactory().login(userData)
-      .then((json) => {
-      		const data = Object.assign({}, json,
-						{
-						  email: email
-						})
-
-			return saveAccessToken(data)
-		          .then(() => {
-		          		//请求成功
-					    dispatch(userActions.loginSuccess(data))
-					    //下一个场景准备: 初始化
-					    dispatch(logoutActions.moduleInit())  
-					    // 切换路由到下一个场景: Tabbar
-					    routerActions.Tabbar()  
-			  		})
+    return new accessTokenStorage().get()
+      .then((token) => {
+        return ApiFactory(token).logout()
       })
+      .then(() => {
+          //请求成功
+         dispatch(userActions.logoutSuccess(data))
+         logoutHandle()
+       }
       .catch((error) => {
-			   dispatch(userActions.loginFailure(error))
+          //请求失败
+			   dispatch(userActions.logoutFailure(error))
+         logoutHandle()
       })
+
 
   }
 }

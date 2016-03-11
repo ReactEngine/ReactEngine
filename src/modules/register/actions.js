@@ -15,7 +15,7 @@ import { Actions } from 'react-native-router-flux'
 import userActions from '../../actions/user'
 import logoutActions from '../logout/actions'
 import accessTokenActions from '../../actions/accessToken'
-const  accessTokenStorage = require('../../storage/accessToken').default
+import accessTokenStorage from '../../storage/accessToken'
 const routerActions = Actions
 
 //表单字段更新

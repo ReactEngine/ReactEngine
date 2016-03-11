@@ -33,7 +33,7 @@ import {Actions} from 'react-native-router-flux'
 import userActions from '../../actions/user'
 import accessTokenActions from '../../actions/accessToken'
 import userStateActions from '../../actions/state/user'
-const  accessTokenStorage = require('../../storage/accessToken').default
+import accessTokenStorage from '../../storage/accessToken'
 
 /**
  * ## onAuthFormFieldChange
