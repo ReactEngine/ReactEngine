@@ -79,14 +79,13 @@ function mapDispatchToProps(dispatch) {
 
 var styles = StyleSheet.create({
   container: {
-    borderTopWidth: 2,
-    borderBottomWidth:2,
-    marginTop: 80,
-    padding: 10
+    flex:1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   summary: {
     fontFamily: 'BodoniSvtyTwoITCTT-Book',
-    fontSize: 18,
+    fontSize: 40,
     fontWeight: 'bold'
   }
 })
@@ -106,7 +105,7 @@ let App = React.createClass({
   render() {
     return(
       <View style={ styles.container }>
-	<Text style={ styles.summary }>App Startup Screen</Text>
+	<Text style={ styles.summary }>React Engine</Text>
       </View>
     )
   }

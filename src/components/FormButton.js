@@ -46,6 +46,7 @@ var FormButton = React.createClass({
     return (
       <View style={styles.signin}>
         <Button style={styles.button}
+            textStyle={{color: 'white'}}
             isDisabled={this.props.isDisabled}
             onPress={this.props.onPress}
         >
