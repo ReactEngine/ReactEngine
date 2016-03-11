@@ -1,10 +1,8 @@
 const {
-
-  STATE_LOGOUT,
-  STATE_REGISTER,
-  STATE_LOGIN,
-  STATE_FORGOT_PASSWORD
-
+  FORGOT_PASSWORD,
+  LOGIN,
+  REGISTER,
+  LOGOUT
 } = require('../../constants').default
 /**
  * ## State actions
@@ -13,24 +11,24 @@ const {
  */
 export function logout() {
   return {
-    type: STATE_LOGOUT
+    type: LOGOUT
   }
 
 }
 export function register() {
   return {
-    type: STATE_REGISTER
+    type: REGISTER
   }
 }
 
 export function login() {
   return {
-    type: STATE_LOGIN
+    type: LOGIN
   }
 }
 
 export function forgotPassword() {
   return {
-    type: STATE_FORGOT_PASSWORD
+    type: FORGOT_PASSWORD
   }
 }

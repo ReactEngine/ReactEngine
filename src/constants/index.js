@@ -29,7 +29,6 @@ export default addPrefix({
   DELETE_TOKEN_SUCCESS: null,
 
   ON_LOGIN_STATE_CHANGE: null,
-  LOGOUT: null,
 
   ON_AUTH_FORM_FIELD_CHANGE: null,
   SIGNUP_REQUEST: null,
@@ -70,10 +69,6 @@ export default addPrefix({
   FORGOT_PASSWORD: null,
   LOGIN: null,
   REGISTER: null,
-
-  STATE_LOGOUT:null,
-  STATE_REGISTER:null,
-  STATE_LOGIN:null,
-  STATE_FORGOT_PASSWORD:null
+  LOGOUT: null
 
 })
