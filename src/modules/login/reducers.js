@@ -11,7 +11,7 @@
  * formValidation for setting the form's valid flag
  */
 const InitialState = require('./initialState').default
-import fieldValidation from '../../lib/fieldValidation'
+const fieldValidation = require('../../lib/fieldValidation').default
 import formValidation from './formValidation'
 
 /**

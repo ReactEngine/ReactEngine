@@ -128,7 +128,7 @@ class Profile extends Component {
    * 
    */
   onChange(value) {
-    this.props.actions.onProfileFormFieldChange(value)
+    this.props.actions.profileFormFieldChange(value)
     this.setState({value})
   }
   /**

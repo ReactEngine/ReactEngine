@@ -11,7 +11,7 @@
  * fieldValidation for validating the fields
  * formValidation for setting the form's valid flag
  */
-import fieldValidation from '../../lib/fieldValidation'
+const fieldValidation = require('../../lib/fieldValidation').default
 const formValidation = require('./profileFormValidation').default
 
 /**
@@ -19,25 +19,26 @@ const formValidation = require('./profileFormValidation').default
  *
  */
 const {
-  ON_PROFILE_FORM_FIELD_CHANGE,
-  GET_PROFILE_REQUEST,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+  PROFILE_MODULE_INIT,
+  PROFILE_FORMFIELD_CHANGE,
 
-  PROFILE_UPDATE_REQUEST,
-  PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE,
+  USER_GET_START,
+  USER_GET_SUCCESS,
+  USER_GET_FAILURE,
+
+  USER_UPDATE_START,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILURE,
   
-  LOGOUT_SUCCESS,
+  USER_LOGOUT_SUCCESS,
 
-  SET_STATE
 } = require('../../constants').default
 
 /**
  * ## Initial State
  *
  */
-const InitialState = require('./profileInitialState').default
+const InitialState = require('./initialState').default
 const initialState = new InitialState
 
 /**
@@ -55,8 +56,8 @@ export default function profileReducer(state = initialState, action) {
      * ### Request starts
      * set the form to fetching and clear any errors
      */    
-  case GET_PROFILE_REQUEST:
-  case PROFILE_UPDATE_REQUEST:
+  case USER_GET_START:
+  case USER_UPDATE_START:
     return state.setIn(['form', 'isFetching'], true)
       .setIn(['form','error'],null)
 
@@ -64,7 +65,7 @@ export default function profileReducer(state = initialState, action) {
      * ### Request end successfully
      * set the form to fetching as done
      */    
-  case PROFILE_UPDATE_SUCCESS:
+  case USER_UPDATE_SUCCESS:
     return state.setIn(['form', 'isFetching'], false)
 
     /**
@@ -75,7 +76,7 @@ export default function profileReducer(state = initialState, action) {
      * Validate the data to make sure it's all good and someone didn't
      * mung it up through some other mechanism
      */    
-  case GET_PROFILE_SUCCESS:
+  case USER_GET_SUCCESS:
     nextProfileState = state.setIn(['form', 'isFetching'], false)
       .setIn(['form','fields','username'], action.payload.username)
       .setIn(['form','fields','email'], action.payload.email)
@@ -95,7 +96,7 @@ export default function profileReducer(state = initialState, action) {
      * User logged out, so reset form fields and original profile.
      * 
      */ 
-  case LOGOUT_SUCCESS:
+  case USER_LOGOUT_SUCCESS:
     nextProfileState = state.setIn(['form','fields','username'], '')   
       .setIn(['form','fields','email'], '')
       .setIn(['form','fields','emailVerified'], false)
@@ -110,8 +111,8 @@ export default function profileReducer(state = initialState, action) {
      * ### Request fails
      * we're done fetching and the error needs to be displayed to the user
      */
-  case GET_PROFILE_FAILURE:
-  case PROFILE_UPDATE_FAILURE:
+  case USER_GET_FAILURE:
+  case USER_UPDATE_FAILURE:
     return state.setIn(['form', 'isFetching'], false)
       .setIn(['form','error'], action.payload)
 
@@ -121,7 +122,7 @@ export default function profileReducer(state = initialState, action) {
      * Set the state with the fields, clear the form error
      * and perform field and form validation
      */    
-  case ON_PROFILE_FORM_FIELD_CHANGE:
+  case PROFILE_FORMFIELD_CHANGE:
     let nextFormState =
       state.setIn(['form', 'fields', 'username'],
                   action.payload.field.username)
@@ -132,39 +133,6 @@ export default function profileReducer(state = initialState, action) {
       fieldValidation( nextFormState, action)
       , action)
 
-    /**
-     * ### set the state
-     *
-     * This is in support of Hot Loading - take the payload
-     * and set the values into the state
-     *
-     */    
-  case SET_STATE:
-    
-    var profile  = JSON.parse(action.payload).profile.form
-    var next = state.setIn(['form','disabled'],profile.disabled)
-          .setIn(['form','error'],profile.error)
-          .setIn(['form','isValid'],profile.isValid)
-          .setIn(['form','isFetching'],profile.isFetching)
-          .setIn(['form','originalProfile',
-                  'username'],profile.originalProfile.username)
-          .setIn(['form','originalProfile',
-                  'email'],profile.originalProfile.email)
-          .setIn(['form','originalProfile',
-                  'objectId'],profile.originalProfile.objectId)
-          .setIn(['form','originalProfile',
-                  'emailVerified'],profile.originalProfile.emailVerified)
-          .setIn(['form','fields',
-                  'username'],profile.fields.username)
-          .setIn(['form','fields',
-                  'usernameHasError'],profile.fields.usernameHasError)
-          .setIn(['form','fields',
-                  'email'],profile.fields.email)
-          .setIn(['form','fields',
-                  'emailHasError'],profile.fields.emailHasError)
-          .setIn(['form','fields',
-                  'emailVerified'],profile.fields.emailVerified)
-    return next
     
   }//switch
   /**

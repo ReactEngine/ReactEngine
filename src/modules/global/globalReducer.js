@@ -13,7 +13,7 @@
 const {
   SET_ACCESSTOKEN,
 
-  GET_PROFILE_SUCCESS,
+  USER_GET_SUCCESS,
   USER_REGISTER_SUCCESS,
   USER_LOGIN_SUCCESS,
   ACCESSTOKEN_GET_SUCCESS,
@@ -53,7 +53,7 @@ export default function globalReducer(state = initialState, action) {
      */
   case USER_REGISTER_SUCCESS:
   case USER_LOGIN_SUCCESS:
-  case GET_PROFILE_SUCCESS:
+  case USER_GET_SUCCESS:
     return state.set('currentUser',action.payload)
     
   case ACCESSTOKEN_GET_SUCCESS:

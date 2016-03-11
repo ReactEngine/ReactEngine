@@ -10,15 +10,8 @@
  * The actions for profile
  */
 const {
-  GET_PROFILE_REQUEST,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
-
-  PROFILE_UPDATE_REQUEST,
-  PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE,
-
-  ON_PROFILE_FORM_FIELD_CHANGE
+  PROFILE_MODULE_INIT,
+  PROFILE_FORMFIELD_CHANGE
 } = require('../../constants').default
 
 /**
@@ -27,27 +20,26 @@ const {
  */
 const ApiFactory = require('../../services/api').default
 const accessTokenStorage = require('../../storage/accessToken').default
+import userActions from '../../actions/user'
+
+//模块初始化
+export function moduleInit() {
+  return {
+    type: PROFILE_MODULE_INIT
+  }
+}
 
 /**
- * ## retreiving profile actions
+ * ## profileFormFieldChange
+ * 
  */
-export function getProfileRequest() {
+export function profileFormFieldChange(field,value) {
   return {
-    type: GET_PROFILE_REQUEST
+    type: PROFILE_FORMFIELD_CHANGE,
+    payload: {field: field, value: value}
   }
 }
-export function getProfileSuccess(json) {
-  return {
-    type: GET_PROFILE_SUCCESS,
-    payload: json
-  }
-}
-export function getProfileFailure(json) {
-  return {
-    type: GET_PROFILE_FAILURE,
-    payload: json
-  }
-}
+
 /**
  * ## State actions
  * controls which form is displayed to the user
@@ -69,27 +61,7 @@ export function getProfile(accessToken) {
       })
   }
 }
-/**
- * ## State actions
- * controls which form is displayed to the user
- * as in login, register, logout or reset password
- */
-export function profileUpdateRequest() {
-  return {
-    type: PROFILE_UPDATE_REQUEST
-  }
-}
-export function profileUpdateSuccess() {
-  return {
-    type: PROFILE_UPDATE_SUCCESS
-  }
-}
-export function profileUpdateFailure(json) {
-  return {
-    type: PROFILE_UPDATE_FAILURE,
-    payload: json
-  }
-}
+
 /**
  * ## updateProfile
  * @param {string} userId -  objectId 
@@ -123,15 +95,5 @@ export function updateProfile(userId, username, email, accessToken) {
       .catch((error) => {
         dispatch(profileUpdateFailure(error))
       })
-  }
-}
-/**
- * ## onProfileFormFieldChange
- * 
- */
-export function onProfileFormFieldChange(field,value) {
-  return {
-    type: ON_PROFILE_FORM_FIELD_CHANGE,
-    payload: {field: field, value: value}
   }
 }
