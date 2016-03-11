@@ -35,8 +35,6 @@ const Form = Record({
     emailHasError: false,
     password: '',
     passwordHasError: false,
-    passwordAgain: '',
-    passwordAgainHasError: false,
     showPassword: false
   }))
 })

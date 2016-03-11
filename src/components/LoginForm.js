@@ -91,15 +91,6 @@ var LoginForm = React.createClass({
       error: 'Must have 6-12 characters with at least 1 number and 1 special character'
     }
 
-    let passwordAgain= {
-      label: 'Please enter password again',
-      secureTextEntry: secureTextEntry,
-      maxLength: 12,
-      editable: !this.props.form.isFetching,
-      hasError: this.props.form.fields.passwordAgainHasError,
-      error: 'Passwords must match'
-    }
-
     let loginForm
     switch(formType) {
       /**
@@ -111,12 +102,10 @@ var LoginForm = React.createClass({
         username: t.String,
         email: t.String,
         password: t.String,
-        passwordAgain: t.String
       })
       options.fields['username'] = username
       options.fields['email'] = email
       options.fields['password'] = password
-      options.fields['passwordAgain'] = passwordAgain
       break
 
       /**

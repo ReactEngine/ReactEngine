@@ -56,11 +56,6 @@ const passwordConstraints = {
   }
 }
 
-const passwordAgainConstraints = {
-  confirmPassword: {
-    equality: "password"
-  }
-}
 
 /**
  * ## Field Validation
@@ -110,21 +105,6 @@ export default function fieldValidation(state, action ) {
       return state.setIn(['form', 'fields', 'passwordHasError'], false)
     } else {
       return state.setIn(['form', 'fields', 'passwordHasError'], true)
-    }
-    break
-    
-    /**
-     * ### passwordAgain validation
-     * set the form field error 
-     */    
-  case('passwordAgain'):
-    var validPasswordAgain
-      = _.isUndefined(validate({password: state.form.fields.password,
-                                confirmPassword: value}, passwordAgainConstraints))
-    if (validPasswordAgain) {
-      return state.setIn(['form', 'fields', 'passwordAgainHasError'], false)
-    } else {
-      return  state.setIn(['form', 'fields', 'passwordAgainHasError'], true)
     }
     break
 

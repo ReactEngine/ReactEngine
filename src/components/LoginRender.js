@@ -135,7 +135,6 @@ class LoginRender extends Component {
         username: this.props.auth.form.fields.username,
         email: this.props.auth.form.fields.email,
         password: this.props.auth.form.fields.password,
-        passwordAgain: this.props.auth.form.fields.passwordAgain
       }
     }
   }
@@ -150,7 +149,6 @@ class LoginRender extends Component {
 	username: nextprops.auth.form.fields.username,
 	email: nextprops.auth.form.fields.email,
 	password: nextprops.auth.form.fields.password,
-	passwordAgain: nextprops.auth.form.fields.passwordAgain
       }
     })
   }
@@ -173,9 +171,6 @@ class LoginRender extends Component {
     }
     if (value.password != '') {
       this.props.actions.onAuthFormFieldChange('password',value.password)
-    }
-    if (value.passwordAgain != '') {
-      this.props.actions.onAuthFormFieldChange('passwordAgain',value.passwordAgain)
     }
     this.setState(
       {value}
