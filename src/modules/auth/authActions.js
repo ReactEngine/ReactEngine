@@ -47,21 +47,21 @@ export function onAuthFormFieldChange(field,value) {
 }
 
 /**
- * ## signup
+ * ## register
  * @param {string} username - name of user
  * @param {string} email - user's email
  * @param {string} password - user's password
  *
- * Call Parse.signup and if good, save the accessToken, 
+ * Call Parse.register and if good, save the accessToken, 
  * set the state to logout and signal success
  *
  * Otherwise, dispatch the error so the user can see
  */
-export function signup(username, email, password) {
+export function register(username, email, password) {
   
   return dispatch => {
-    dispatch(userActions.signupRequest())
-    return  ApiFactory().signup({
+    dispatch(userActions.registerStart())
+    return  ApiFactory().register({
       username: username,
       email: email,
       password: password
@@ -77,7 +77,7 @@ export function signup(username, email, password) {
 	)
         
           .then(() => {
-	    dispatch(userActions.signupSuccess(
+	    dispatch(userActions.registerSuccess(
 	      Object.assign({}, json,
 			    {
 			      username: username,
@@ -91,7 +91,7 @@ export function signup(username, email, password) {
 	  })
       })
       .catch((error) => {
-	dispatch(userActions.signupFailure(error))
+	dispatch(userActions.registerFailure(error))
       })
 
   }

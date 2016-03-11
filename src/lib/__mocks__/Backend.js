@@ -43,10 +43,10 @@ export default class Backend  {
     return await this.response
   }
   /**
-   * ### signup
+   * ### register
    * @returns {Object} response
    */
-  async signup() {    
+  async register() {    
     return await this.response
   }
   /**

@@ -9,18 +9,18 @@ const {
  */
 export function DeleteRequest() {
   return {
-    type: ACCESSTOKEN_REQUEST
+    type: ACCESSTOKEN_GET_START
   }
 }
 export function DeleteSuccess(token) {
   return {
-    type: ACCESSTOKEN_SUCCESS,
+    type: ACCESSTOKEN_GET_SUCCESS,
     payload: token
   }
 }
 export function DeleteFailure(error) {
   return {
-    type: ACCESSTOKEN_FAILURE,
+    type: ACCESSTOKEN_GET_FAILURE,
     payload: _.isUndefined(error) ? null:error
   }
 }

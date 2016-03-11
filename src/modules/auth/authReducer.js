@@ -18,9 +18,9 @@ const formValidation = require('./authFormValidation').default
  * ## Auth actions
  */
 const {
-  ACCESSTOKEN_REQUEST,
-  ACCESSTOKEN_SUCCESS,
-  ACCESSTOKEN_FAILURE,
+  ACCESSTOKEN_GET_START,
+  ACCESSTOKEN_GET_SUCCESS,
+  ACCESSTOKEN_GET_FAILURE,
 
   DELETE_TOKEN_REQUEST,
   DELETE_TOKEN_SUCCESS,
@@ -39,9 +39,9 @@ const {
   LOGIN_FAILURE,
 
   ON_AUTH_FORM_FIELD_CHANGE,
-  SIGNUP_REQUEST,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
+  USER_REGISTER_START,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAILURE,
 
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
@@ -64,8 +64,8 @@ export default function authReducer(state = initialState, action) {
      * ### Requests start
      * set the form to fetching and clear any errors
      */
-  case ACCESSTOKEN_REQUEST:
-  case SIGNUP_REQUEST:
+  case ACCESSTOKEN_GET_START:
+  case USER_REGISTER_START:
   case LOGOUT_REQUEST:
   case LOGIN_REQUEST:
   case RESET_PASSWORD_REQUEST:
@@ -126,9 +126,9 @@ export default function authReducer(state = initialState, action) {
      * ### Requests end, good or bad
      * Set the fetching flag so the forms will be enabled
      */
-  case ACCESSTOKEN_SUCCESS:
-  case ACCESSTOKEN_FAILURE:
-  case SIGNUP_SUCCESS:
+  case ACCESSTOKEN_GET_SUCCESS:
+  case ACCESSTOKEN_GET_FAILURE:
+  case USER_REGISTER_SUCCESS:
   case LOGIN_SUCCESS:
   case LOGOUT_SUCCESS:
   case RESET_PASSWORD_SUCCESS:
@@ -139,7 +139,7 @@ export default function authReducer(state = initialState, action) {
      * The fetching is done, but save the error
      * for display to the user
      */
-  case SIGNUP_FAILURE:
+  case USER_REGISTER_FAILURE:
   case LOGOUT_FAILURE:
   case LOGIN_FAILURE:
   case RESET_PASSWORD_FAILURE:

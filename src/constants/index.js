@@ -1,74 +1,67 @@
 // import Constant from '../lib/constant'
+import _ from 'lodash'
 
 //添加前缀
-function addPrefix(obj,prefix) {
-    var key
+function addPrefix(arr,prefix) {
     var mirrored = {}
     prefix = prefix || "$RE_$"
 
-    if (typeof obj === 'object' ) {
-        for (key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                mirrored[key] = prefix + key
-            }
-        }
+    _.each(arr,(val) => {
+      mirrored[val] = prefix + val
     }
 
     return mirrored
 }
 
-export default addPrefix({
-  SET_PLATFORM: null,
-  SET_VERSION: null,
+export default addPrefix([
+  SET_PLATFORM,
+  SET_VERSION,
 
-  ACCESSTOKEN_REQUEST: null,
-  ACCESSTOKEN_SUCCESS: null,
-  ACCESSTOKEN_FAILURE: null,
+  ACCESSTOKEN_GET_START,
+  ACCESSTOKEN_GET_SUCCESS,
+  ACCESSTOKEN_GET_FAILURE,
 
-  DELETE_TOKEN_REQUEST: null,
-  DELETE_TOKEN_SUCCESS: null,
+  DELETE_TOKEN_REQUEST,
+  DELETE_TOKEN_SUCCESS,
 
-  ON_LOGIN_STATE_CHANGE: null,
+  ON_LOGIN_STATE_CHANGE,
 
-  ON_AUTH_FORM_FIELD_CHANGE: null,
-  SIGNUP_REQUEST: null,
-  SIGNUP_SUCCESS: null,
-  SIGNUP_FAILURE: null,
+  ON_AUTH_FORM_FIELD_CHANGE,
+  USER_REGISTER_START,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAILURE,
 
-  LOGIN_REQUEST: null,
-  LOGIN_SUCCESS: null,
-  LOGIN_FAILURE: null,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
 
-  LOGOUT_REQUEST: null,
-  LOGOUT_SUCCESS: null,
-  LOGOUT_FAILURE: null,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
 
-  LOGGED_IN: null,
-  LOGGED_OUT: null,
+  LOGGED_IN,
+  LOGGED_OUT,
 
-  SET_ACCESSTOKEN: null,
+  SET_ACCESSTOKEN,
 
-  RESET_PASSWORD_REQUEST: null,
-  RESET_PASSWORD_SUCCESS: null,
-  RESET_PASSWORD_FAILURE: null,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
 
-  GET_PROFILE_REQUEST: null,
-  GET_PROFILE_SUCCESS: null,
-  GET_PROFILE_FAILURE: null,
+  GET_PROFILE_REQUEST,
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAILURE,
 
-  ON_PROFILE_FORM_FIELD_CHANGE: null,
+  ON_PROFILE_FORM_FIELD_CHANGE,
+  REGISTER_FORMFIELD_CHANGE,
+  REGISTER_MODULE_INIT,
 
-  PROFILE_UPDATE_REQUEST: null,
-  PROFILE_UPDATE_SUCCESS: null,
-  PROFILE_UPDATE_FAILURE: null,
+  PROFILE_UPDATE_REQUEST,
+  PROFILE_UPDATE_SUCCESS,
+  PROFILE_UPDATE_FAILURE,
 
-  SET_STATE: null,
-  GET_STATE: null,
-  SET_STORE: null,
+  SET_STATE,
+  GET_STATE,
+  SET_STORE
 
-  FORGOT_PASSWORD: null,
-  LOGIN: null,
-  REGISTER: null,
-  LOGOUT: null
-
-})
+])

@@ -14,9 +14,9 @@ const {
   SET_ACCESSTOKEN,
 
   GET_PROFILE_SUCCESS,
-  SIGNUP_SUCCESS,
+  USER_REGISTER_SUCCESS,
   LOGIN_SUCCESS,
-  ACCESSTOKEN_SUCCESS,
+  ACCESSTOKEN_GET_SUCCESS,
   
   LOGOUT_SUCCESS,
 
@@ -51,12 +51,12 @@ export default function globalReducer(state = initialState, action) {
      * maxleap.cn.  It contains the ```accessToken``` and the user's
      * ```objectId``` which will be needed for some calls to Parse
      */
-  case SIGNUP_SUCCESS:
+  case USER_REGISTER_SUCCESS:
   case LOGIN_SUCCESS:
   case GET_PROFILE_SUCCESS:
     return state.set('currentUser',action.payload)
     
-  case ACCESSTOKEN_SUCCESS:
+  case ACCESSTOKEN_GET_SUCCESS:
     return state.set('currentUser',action.payload.accessToken)
 
     /**

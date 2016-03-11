@@ -46,7 +46,7 @@ export default class Strongloop {
     throw(error)
   }
   /**
-   * ### signup
+   * ### register
    *
    * @param data object
    *
@@ -59,7 +59,7 @@ export default class Strongloop {
    *
    * if error, {code: xxx, error: 'message'}
    */
-  async signup(data) {
+  async register(data) {
     return await this._fetch({
       method: 'POST',
       url:  'Users/',

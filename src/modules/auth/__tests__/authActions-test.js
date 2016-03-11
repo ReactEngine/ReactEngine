@@ -36,9 +36,9 @@ var actions = require('../authActions')
  * actions under test 
  */
 const {
-  ACCESSTOKEN_REQUEST,
-  ACCESSTOKEN_SUCCESS,
-  ACCESSTOKEN_FAILURE,
+  ACCESSTOKEN_GET_START,
+  ACCESSTOKEN_GET_SUCCESS,
+  ACCESSTOKEN_GET_FAILURE,
 
   DELETE_TOKEN_REQUEST,
   
@@ -56,9 +56,9 @@ const {
   LOGIN_FAILURE,
   
   ON_AUTH_FORM_FIELD_CHANGE,
-  SIGNUP_REQUEST,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
+  USER_REGISTER_START,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAILURE,
 
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
@@ -106,34 +106,34 @@ describe('authActions', () => {
 
   })
   
-  it('should set signupRequest', () => {
-    expect(actions.signupRequest()).toEqual({type: SIGNUP_REQUEST})
+  it('should set registerStart', () => {
+    expect(actions.registerStart()).toEqual({type: USER_REGISTER_START})
   })
 
-  it('should set signupSuccess', () => {
-    expect(actions.signupSuccess()).toEqual({type: SIGNUP_SUCCESS})
+  it('should set registerSuccess', () => {
+    expect(actions.registerSuccess()).toEqual({type: USER_REGISTER_SUCCESS})
   })
 
   it('should set accessTokenRequest', () => {
-    expect(actions.accessTokenRequest()).toEqual({type: ACCESSTOKEN_REQUEST})
+    expect(actions.accessTokenRequest()).toEqual({type: ACCESSTOKEN_GET_START})
   })
 
   it('should set accessTokenRequestSuccess', () => {
     let token = {token: 'thisisthetoken'}
     expect(actions.accessTokenRequestSuccess(token)).toEqual({
-      type:ACCESSTOKEN_SUCCESS,payload:token})
+      type:ACCESSTOKEN_GET_SUCCESS,payload:token})
   })
 
   it('should set accessTokenRequestFailure', () => {
     let error = {error: 'thisistheerror'}
     expect(actions.accessTokenRequestFailure(error)).toEqual({
-      type: ACCESSTOKEN_FAILURE,payload: error })
+      type: ACCESSTOKEN_GET_FAILURE,payload: error })
   })
 
-  it('should set signupFailure', () => {
+  it('should set registerFailure', () => {
     let error = {error: 'thisistheerror'}
-    expect(actions.signupFailure(error)).toEqual({type:
-                                                  SIGNUP_FAILURE, payload:error})
+    expect(actions.registerFailure(error)).toEqual({type:
+                                                  USER_REGISTER_FAILURE, payload:error})
   })
 
   it('should set loginRequest', () => {
@@ -190,8 +190,8 @@ describe('authActions', () => {
       {type: LOGOUT_REQUEST},
       {type: REGISTER},
       {type: LOGOUT_SUCCESS},
-      {type: ACCESSTOKEN_REQUEST},
-      {type: ACCESSTOKEN_SUCCESS}
+      {type: ACCESSTOKEN_GET_START},
+      {type: ACCESSTOKEN_GET_SUCCESS}
     ]
 
     const store = mockStore({}, expectedActions)
@@ -211,24 +211,24 @@ describe('authActions', () => {
 
   it('should getAccessToken', () => {
     const expectedActions = [
-      {type: ACCESSTOKEN_REQUEST},      
+      {type: ACCESSTOKEN_GET_START},      
       {type: LOGOUT},
-      {type: ACCESSTOKEN_SUCCESS}
+      {type: ACCESSTOKEN_GET_SUCCESS}
     ]
 
     const store = mockStore({}, expectedActions)
     return store.dispatch(actions.getAccessToken())
   })
 
-  it('should signup', () => {
+  it('should register', () => {
     const expectedActions = [
-      {type: SIGNUP_REQUEST},      
+      {type: USER_REGISTER_START},      
       {type: LOGOUT},
-      {type: SIGNUP_SUCCESS}
+      {type: USER_REGISTER_SUCCESS}
     ]
 
     const store = mockStore({}, expectedActions)
-    return store.dispatch(actions.signup('user','email','password'))
+    return store.dispatch(actions.register('user','email','password'))
   })
 
   it('should resetPassword', () => {
@@ -245,8 +245,8 @@ describe('authActions', () => {
   it('should deleteAccessToken', () => {
     const expectedActions = [
       {type: DELETE_TOKEN_REQUEST},
-      {type: ACCESSTOKEN_REQUEST},
-      {type: ACCESSTOKEN_SUCCESS}      
+      {type: ACCESSTOKEN_GET_START},
+      {type: ACCESSTOKEN_GET_SUCCESS}      
     ]
 
     const store = mockStore({}, expectedActions)

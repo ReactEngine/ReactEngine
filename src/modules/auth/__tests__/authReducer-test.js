@@ -20,9 +20,9 @@ jest.autoMockOff()
  * case statements are shared amongst the actions.
  */
 const {
-  ACCESSTOKEN_REQUEST,
-  ACCESSTOKEN_SUCCESS,
-  ACCESSTOKEN_FAILURE,
+  ACCESSTOKEN_GET_START,
+  ACCESSTOKEN_GET_SUCCESS,
+  ACCESSTOKEN_GET_FAILURE,
 
   LOGOUT,
   LOGIN,
@@ -31,7 +31,7 @@ const {
   
   ON_AUTH_FORM_FIELD_CHANGE,
 
-  SIGNUP_FAILURE
+  USER_REGISTER_FAILURE
 } = require('../../../constants').default
 
 /**
@@ -64,7 +64,7 @@ describe('authReducer', () => {
 
     it('starts fetching', () => {
       const action = {
-        type: ACCESSTOKEN_REQUEST
+        type: ACCESSTOKEN_GET_START
       }
       let next = authReducer(undefined, action)
 
@@ -74,7 +74,7 @@ describe('authReducer', () => {
     
     it('finishes fetching on success', () => {
       const action = {
-        type: ACCESSTOKEN_SUCCESS
+        type: ACCESSTOKEN_GET_SUCCESS
       }
       let next = authReducer(undefined, action)
 
@@ -84,7 +84,7 @@ describe('authReducer', () => {
     
     it('finishes fetching on failure', () => {
       const action = {
-        type: ACCESSTOKEN_FAILURE
+        type: ACCESSTOKEN_GET_FAILURE
       }
       let next = authReducer(undefined, action)
 
@@ -98,11 +98,11 @@ describe('authReducer', () => {
    * ### Signup failure will have an error associated with it
    * 
    */
-  describe('SIGNUP_FAILURE', () => {
+  describe('USER_REGISTER_FAILURE', () => {
 
     it('Finish fetching with error', () => {
       const action = {
-        type: SIGNUP_FAILURE,
+        type: USER_REGISTER_FAILURE,
         payload: {error: 'error'}
       }
       let next = authReducer(undefined, action)
@@ -113,7 +113,7 @@ describe('authReducer', () => {
     })
 
 
-  })//SIGNUP_FAILURE
+  })//USER_REGISTER_FAILURE
   
   /**
    * ### The user logs out

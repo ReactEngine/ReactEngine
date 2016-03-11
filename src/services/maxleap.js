@@ -44,7 +44,7 @@ export default class Parse {
     this.API_BASE_URL= 'https://api.parse.com'
   }
   /**
-   * ### signup
+   * ### register
    *
    * @param data object
    *
@@ -57,7 +57,7 @@ export default class Parse {
    *
    * if error, {code: xxx, error: 'message'}
    */
-  async signup(data) {
+  async register(data) {
     return await this._fetch({
       method: 'POST',
       url: '/1/users',
