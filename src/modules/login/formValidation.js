@@ -19,19 +19,16 @@
  * @param {Object} state - the Redux state object
  */
 export default function formValidation (state) {
-  if (state.form.fields.username != ''
-      &&
-      state.form.fields.email !== ''
-      &&
-      state.form.fields.password !== ''
-      &&
-      !state.form.fields.usernameHasError
-      &&
-      !state.form.fields.emailHasError
-      &&
-      !state.form.fields.passwordHasError) {
-    return state.setIn(['form','isValid'],true)
-  } else {
-    return state.setIn(['form','isValid'],false)
-  }
+  if (state.form.fields.email !== ''
+        &&
+        state.form.fields.password !== ''
+        &&
+        !state.form.fields.emailHasError
+        &&
+        !state.form.fields.passwordHasError) {
+          console.log("login form is valid")
+      return state.setIn(['form','isValid'],true)
+    } else {
+      return state.setIn(['form','isValid'],false)
+    }
 }

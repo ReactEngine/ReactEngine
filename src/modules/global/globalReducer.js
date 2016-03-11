@@ -15,7 +15,7 @@ const {
 
   GET_PROFILE_SUCCESS,
   USER_REGISTER_SUCCESS,
-  LOGIN_SUCCESS,
+  USER_LOGIN_SUCCESS,
   ACCESSTOKEN_GET_SUCCESS,
   
   LOGOUT_SUCCESS,
@@ -52,7 +52,7 @@ export default function globalReducer(state = initialState, action) {
      * ```objectId``` which will be needed for some calls to Parse
      */
   case USER_REGISTER_SUCCESS:
-  case LOGIN_SUCCESS:
+  case USER_LOGIN_SUCCESS:
   case GET_PROFILE_SUCCESS:
     return state.set('currentUser',action.payload)
     

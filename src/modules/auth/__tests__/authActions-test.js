@@ -51,9 +51,9 @@ const {
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
 
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
+  USER_LOGIN_START,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILURE,
   
   ON_AUTH_FORM_FIELD_CHANGE,
   USER_REGISTER_START,
@@ -137,16 +137,16 @@ describe('authActions', () => {
   })
 
   it('should set loginRequest', () => {
-    expect(actions.loginRequest()).toEqual({type: LOGIN_REQUEST})
+    expect(actions.loginRequest()).toEqual({type: USER_LOGIN_START})
   })
 
   it('should set loginSuccess', () => {
-    expect(actions.loginSuccess()).toEqual({type: LOGIN_SUCCESS})
+    expect(actions.loginSuccess()).toEqual({type: USER_LOGIN_SUCCESS})
   })
 
   it('should set loginFailure', () => {
     let error = {error: 'thisistheerror'}
-    expect(actions.loginFailure(error)).toEqual({type: LOGIN_FAILURE,
+    expect(actions.loginFailure(error)).toEqual({type: USER_LOGIN_FAILURE,
                                                  payload: error})
   })
 
@@ -200,9 +200,9 @@ describe('authActions', () => {
 
   it('should login', () => {
     const expectedActions = [
-      {type: LOGIN_REQUEST},
+      {type: USER_LOGIN_START},
       {type: LOGOUT},
-      {type: LOGIN_SUCCESS}
+      {type: USER_LOGIN_SUCCESS}
     ]
 
     const store = mockStore({}, expectedActions)

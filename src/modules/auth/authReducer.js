@@ -34,9 +34,9 @@ const {
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
 
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
+  USER_LOGIN_START,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILURE,
 
   ON_AUTH_FORM_FIELD_CHANGE,
   USER_REGISTER_START,
@@ -67,7 +67,7 @@ export default function authReducer(state = initialState, action) {
   case ACCESSTOKEN_GET_START:
   case USER_REGISTER_START:
   case LOGOUT_REQUEST:
-  case LOGIN_REQUEST:
+  case USER_LOGIN_START:
   case RESET_PASSWORD_REQUEST:
     let nextState =  state.setIn(['form', 'isFetching'], true)
       .setIn(['form','error'],null)
@@ -129,7 +129,7 @@ export default function authReducer(state = initialState, action) {
   case ACCESSTOKEN_GET_SUCCESS:
   case ACCESSTOKEN_GET_FAILURE:
   case USER_REGISTER_SUCCESS:
-  case LOGIN_SUCCESS:
+  case USER_LOGIN_SUCCESS:
   case LOGOUT_SUCCESS:
   case RESET_PASSWORD_SUCCESS:
     return state.setIn(['form', 'isFetching'], false)
@@ -141,7 +141,7 @@ export default function authReducer(state = initialState, action) {
      */
   case USER_REGISTER_FAILURE:
   case LOGOUT_FAILURE:
-  case LOGIN_FAILURE:
+  case USER_LOGIN_FAILURE:
   case RESET_PASSWORD_FAILURE:
     return state.setIn(['form', 'isFetching'], false)
       .setIn(['form', 'error'], action.payload)

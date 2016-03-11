@@ -2,8 +2,8 @@
 
 const {
 
-  REGISTER_MODULE_INIT,
-  REGISTER_FORMFIELD_CHANGE
+  LOGIN_MODULE_INIT,
+  LOGIN_FORMFIELD_CHANGE
 
 } = require('../../constants').default
 
@@ -19,9 +19,9 @@ const  accessTokenStorage = require('../../storage/accessToken').default
 const routerActions = Actions
 
 //表单字段更新
-export function registerFormFieldChange(field,value) {
+export function loginFormFieldChange(field,value) {
   return {
-    type: REGISTER_FORMFIELD_CHANGE,
+    type: LOGIN_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -29,45 +29,43 @@ export function registerFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: REGISTER_MODULE_INIT
+    type: LOGIN_MODULE_INIT
   }
 }
 
 /**
- * ## register
- * @param {string} username - name of user
+ * ## Login 
  * @param {string} email - user's email
  * @param {string} password - user's password
  *
- * Call Parse.register and if good, save the accessToken, 
- * set the state to logout and signal success
+ * After calling Backend, if response is good, save the json
+ * which is the currentUser which contains the accessToken
  *
- * Otherwise, dispatch the error so the user can see
+ * If successful, set the state to logout
+ * otherwise, dispatch a failure
  */
-export function register(username, email, password) {
+export function login(email, password) {
   
   return dispatch => {
     //请求开始
-    dispatch(userActions.registerStart())
+    dispatch(userActions.loginStart())
 
     const userData = {
-      username: username,
-      email: email,
+      email: username,
       password: password
     }
 
-    return  ApiFactory().register(userData)
+    return  ApiFactory().login(userData)
       .then((json) => {
       		const data = Object.assign({}, json,
 						{
-						  username: username,
 						  email: email
 						})
 
 			return saveAccessToken(data)
 		          .then(() => {
 		          		//请求成功
-					    dispatch(userActions.registerSuccess(data))
+					    dispatch(userActions.loginSuccess(data))
 					    //下一个场景准备: 初始化
 					    dispatch(logoutActions.moduleInit())  
 					    // 切换路由到下一个场景: Tabbar
@@ -75,7 +73,7 @@ export function register(username, email, password) {
 			  		})
       })
       .catch((error) => {
-			dispatch(userActions.registerFailure(error))
+			   dispatch(userActions.loginFailure(error))
       })
 
   }
