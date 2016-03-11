@@ -78,10 +78,13 @@ import {setStore} from './modules/global/globalActions'
  * AppComponent explicitly defines initial state
  *
  */
-import authInitialState from './modules/auth/authInitialState'
+import registerInitialState from './modules/register/initialState'
+import loginInitialState from './modules/login/initialState'
+import logoutInitialState from './modules/logout/initialState'
+import forgotPasswordInitialState from './modules/forgotPassword/initialState'
 import deviceInitialState from './modules/device/deviceInitialState'
 import globalInitialState from './modules/global/globalInitialState'
-import profileInitialState from './modules/profile/profileInitialState'
+import profileInitialState from './modules/profile/initialState'
 
 /**
  *  The version of the app but not  displayed yet
@@ -96,7 +99,10 @@ var VERSION='0.0.12'
  */
 function getInitialState() {
   const _initState = {
-    auth: new authInitialState,
+    register: new registerInitialState,
+    login: new loginInitialState,
+    logout: new logoutInitialState,
+    forgotPassword: new forgotPasswordInitialState,
     device: (new deviceInitialState).set('isMobile',true),
     global: (new globalInitialState),
     profile: new profileInitialState

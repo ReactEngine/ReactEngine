@@ -16,9 +16,12 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as authActions from '../modules/auth/authActions'
+import * as registerActions from '../modules/register/actions'
+import * as loginActions from '../modules/login/actions'
+import * as logoutActions from '../modules/logout/actions'
+import * as forgotPasswordActions from '../modules/forgotPassword/actions'
 import * as globalActions from '../modules/global/globalActions'
-import * as userStateActions from '../actions/state/user'
+
 
 /**
  * Immutable
@@ -104,8 +107,10 @@ var styles = StyleSheet.create({
  * ## Redux boilerplate
  */
 const actions = [
-  authActions,
-  userStateActions,
+  registerActions,
+  loginActions,
+  logoutActions,
+  forgotPasswordActions,
   globalActions
 ]
 
@@ -185,7 +190,7 @@ class LoginRender extends Component {
     let forgotPassword =
     <TouchableHighlight
         onPress={() => {
-            userStateActions.forgotPassword()
+            // userStateActions.forgotPassword()
             Actions.ForgotPassword()
           }} >
       <Text>Forgot Password?</Text>
@@ -194,7 +199,7 @@ class LoginRender extends Component {
     let alreadyHaveAccount =
     <TouchableHighlight
         onPress={() => {
-            userStateActions.login()
+            // userStateActions.login()
             Actions.Login()
           }} >
       <Text>Already have an account?</Text>
@@ -203,7 +208,7 @@ class LoginRender extends Component {
     let register =
     <TouchableHighlight 
         onPress={() => {
-            userStateActions.register()
+            // userStateActions.register()
             Actions.Register()
           }} >
       <Text>Register</Text>

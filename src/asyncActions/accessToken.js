@@ -1,6 +1,5 @@
 import accessTokenActions from '../actions/accessToken'
 import accessTokenStorage from '../storage/accessToken'
-import userStateActions from '../actions/state/user'
 import { Actions }  from 'react-native-router-flux'
 
 const RouterActions = Actions

@@ -17,7 +17,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as authActions from '../modules/auth/authActions'
+import * as logoutActions from '../modules/logout/actions'
 import * as globalActions from '../modules/global/globalActions'
 
 /**
@@ -58,7 +58,7 @@ var styles = StyleSheet.create({
  * ## Redux boilerplate
  */
 const actions = [
-  authActions,
+  logoutActions,
   globalActions
 ]
 

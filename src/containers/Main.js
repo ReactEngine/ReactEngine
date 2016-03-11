@@ -15,7 +15,6 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as authActions from '../modules/auth/authActions'
 import * as globalActions from '../modules/global/globalActions'
 
 /**
@@ -55,7 +54,6 @@ const  Button = require('apsl-react-native-button')
  * 
  */
 const actions = [
-  authActions,
   globalActions  
 ]
 

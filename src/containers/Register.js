@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as authActions from '../modules/auth/authActions'
+import * as registerActions from '../modules/register/actions'
 
 /**
  * Immutable
@@ -42,7 +42,7 @@ const {
  * ## Redux boilerplate
  */
 const actions = [
-  authActions
+  registerActions
 ]
 
 function mapStateToProps(state) {

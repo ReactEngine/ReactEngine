@@ -23,9 +23,14 @@ import {Map} from 'immutable'
 /**
  * Project actions
  */
-import * as authActions from '../modules/auth/authActions'
+import * as registerActions from '../modules/register/actions'
+import * as loginActions from '../modules/login/actions'
+import * as logoutActions from '../modules/logout/actions'
+import * as forgotPasswordActions from '../modules/forgotPassword/actions'
+
 import * as deviceActions from '../modules/device/deviceActions'
 import * as globalActions from '../modules/global/globalActions'
+
 import * as accessTokenAsyncActions from '../asyncActions/accessToken'
 
 /**
@@ -44,7 +49,10 @@ from 'react-native'
  * 3 of our actions will be available as ```actions```
  */
 const actions = [
-  authActions,
+  registerActions,
+  loginActions,
+  logoutActions,
+  forgotPasswordActions,
   deviceActions,
   globalActions,
   accessTokenAsyncActions

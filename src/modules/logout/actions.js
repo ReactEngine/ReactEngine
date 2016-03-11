@@ -47,7 +47,7 @@ export function moduleInit() {
  */
 export function logout(email, password) {
   
-  const logoutHandle = () {
+  const logoutHandle = () => {
       //清除 AccessToken
       dispatch(deleteAccessToken())
       //下一个场景准备: 初始化
@@ -60,7 +60,8 @@ export function logout(email, password) {
     //请求开始
     dispatch(userActions.logoutStart())
 
-    return new accessTokenStorage().get()
+    return 
+    new accessTokenStorage().get()
       .then((token) => {
         return ApiFactory(token).logout()
       })
@@ -68,13 +69,11 @@ export function logout(email, password) {
           //请求成功
          dispatch(userActions.logoutSuccess(data))
          logoutHandle()
-       }
+       })
       .catch((error) => {
           //请求失败
 			   dispatch(userActions.logoutFailure(error))
          logoutHandle()
       })
-
-
   }
 }

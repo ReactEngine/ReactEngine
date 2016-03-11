@@ -12,7 +12,7 @@
  * formValidation for setting the form's valid flag
  */
 const fieldValidation = require('../../lib/fieldValidation').default
-const formValidation = require('./profileFormValidation').default
+const formValidation = require('./formValidation').default
 
 /**
  * ## Actions

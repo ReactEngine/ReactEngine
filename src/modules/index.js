@@ -10,10 +10,13 @@
  * 
  * our 4 reducers
  */ 
-import auth from './auth/authReducer'
+import register from './register/reducers'
+import login from './login/reducers'
+import logout from './logout/reducers'
+import forgotPassword from './forgotPassword/reducers'
 import device from './device/deviceReducer'
 import global from './global/globalReducer'
-import profile from './profile/profileReducer'
+import profile from './profile/reducers'
 
 import { combineReducers } from 'redux'
 
@@ -24,7 +27,10 @@ import { combineReducers } from 'redux'
  * EVERY TIME there is a basic action
  */ 
 const rootReducer = combineReducers({
-  auth,
+  register,
+  login,
+  logout,
+  forgotPassword,
   device,
   global,
   profile
