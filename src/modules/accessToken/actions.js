@@ -1,6 +1,7 @@
-import accessTokenActions from '../actions/accessToken'
-import accessTokenStorage from '../storage/accessToken'
+import accessTokenActions from '../../actions/accessToken'
+import accessTokenStorage from '../../storage/accessToken'
 import { Actions }  from 'react-native-router-flux'
+import logoutActions from '../logout/actions'
 
 const RouterActions = Actions
 
@@ -19,7 +20,8 @@ export function getAccessToken() {
       .then((token) => {
         if (token) {
           dispatch(accessTokenActions.GetSuccess(token))
-          dispatch(userStateActions.logout())
+          //下一个场景准备: 初始化
+          // dispatch(logoutActions.moduleInit()) 
          RouterActions.Tabbar()
         } else {
           dispatch(accessTokenActions.GetFailure())
@@ -29,7 +31,8 @@ export function getAccessToken() {
     
       .catch((error) => {
         dispatch(accessTokenActions.GetFailure(error))
-        dispatch(userStateActions.login())
+        //下一个场景准备: 初始化
+        // dispatch(logoutActions.moduleInit()) 
        RouterActions.Register()
       })
   }

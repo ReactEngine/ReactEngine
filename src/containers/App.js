@@ -31,7 +31,7 @@ import * as forgotPasswordActions from '../modules/forgotPassword/actions'
 import * as deviceActions from '../modules/device/deviceActions'
 import * as globalActions from '../modules/global/globalActions'
 
-import * as accessTokenAsyncActions from '../asyncActions/accessToken'
+import * as accessTokenAsyncActions from '../modules/accessToken/actions'
 
 /**
  * The components we need from ReactNative

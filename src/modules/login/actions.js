@@ -66,7 +66,7 @@ export function login(email, password) {
 
 			return saveAccessToken(data)
 		          .then(() => {
-		          		//请求成功
+		          //请求成功
 					    dispatch(userActions.loginSuccess(data))
 					    //下一个场景准备: 初始化
 					    dispatch(logoutActions.moduleInit())  
