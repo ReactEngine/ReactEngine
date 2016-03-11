@@ -18,8 +18,8 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as profileActions from '../reducers/profile/profileActions'
-import * as globalActions from '../reducers/global/globalActions'
+import * as profileActions from '../modules/profile/profileActions'
+import * as globalActions from '../modules/global/globalActions'
 
 /**
  * Immutable Mapn

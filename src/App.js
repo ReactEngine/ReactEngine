@@ -70,18 +70,18 @@ import Icon from 'react-native-vector-icons/FontAwesome'
  * ## Actions
  *  The necessary actions for dispatching our bootstrap values
  */
-import {setPlatform, setVersion} from './reducers/device/deviceActions'
-import {setStore} from './reducers/global/globalActions'
+import {setPlatform, setVersion} from './modules/device/deviceActions'
+import {setStore} from './modules/global/globalActions'
 
 /**
  * ## States
  * AppComponent explicitly defines initial state
  *
  */
-import authInitialState from './reducers/auth/authInitialState'
-import deviceInitialState from './reducers/device/deviceInitialState'
-import globalInitialState from './reducers/global/globalInitialState'
-import profileInitialState from './reducers/profile/profileInitialState'
+import authInitialState from './modules/auth/authInitialState'
+import deviceInitialState from './modules/device/deviceInitialState'
+import globalInitialState from './modules/global/globalInitialState'
+import profileInitialState from './modules/profile/profileInitialState'
 
 /**
  *  The version of the app but not  displayed yet

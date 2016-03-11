@@ -23,9 +23,9 @@ import {Map} from 'immutable'
 /**
  * Project actions
  */
-import * as authActions from '../reducers/auth/authActions'
-import * as deviceActions from '../reducers/device/deviceActions'
-import * as globalActions from '../reducers/global/globalActions'
+import * as authActions from '../modules/auth/authActions'
+import * as deviceActions from '../modules/device/deviceActions'
+import * as globalActions from '../modules/global/globalActions'
 import * as accessTokenAsyncActions from '../asyncActions/accessToken'
 
 /**

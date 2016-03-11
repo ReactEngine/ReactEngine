@@ -17,8 +17,8 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as authActions from '../reducers/auth/authActions'
-import * as globalActions from '../reducers/global/globalActions'
+import * as authActions from '../modules/auth/authActions'
+import * as globalActions from '../modules/global/globalActions'
 
 /**
  * Immutable
