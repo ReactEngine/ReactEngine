@@ -1,6 +1,6 @@
 /**
  * # authReducer.js
- * 
+ *
  * The reducer for all the actions from the various log states
  */
 'use strict'
@@ -21,7 +21,7 @@ const {
   ACCESSTOKEN_REQUEST,
   ACCESSTOKEN_SUCCESS,
   ACCESSTOKEN_FAILURE,
-  
+
   DELETE_TOKEN_REQUEST,
   DELETE_TOKEN_SUCCESS,
 
@@ -37,7 +37,7 @@ const {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  
+
   ON_AUTH_FORM_FIELD_CHANGE,
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,
@@ -53,7 +53,7 @@ const {
 const initialState = new InitialState
 /**
  * ## authReducer function
- * @param {Object} state - initialState 
+ * @param {Object} state - initialState
  * @param {Object} action - type and payload
  */
 export default function authReducer(state = initialState, action) {
@@ -87,12 +87,12 @@ export default function authReducer(state = initialState, action) {
         .setIn(['form','fields','password'],'')
         .setIn(['form','fields','passwordAgain'],'')
     )
-    
+
     /**
      * ### Loggin in state
-     * The user isn't logged in, and needs to 
+     * The user isn't logged in, and needs to
      * login, register or reset password
-     * 
+     *
      * Set the form state and clear any errors
      */
   case LOGIN:
@@ -102,7 +102,7 @@ export default function authReducer(state = initialState, action) {
       state.setIn(['form', 'state'], action.type)
         .setIn(['form','error'],null)
     )
-    
+
     /**
      * ### Auth form field change
      *
@@ -138,7 +138,7 @@ export default function authReducer(state = initialState, action) {
      * ### Access to maxleap.cn denied or failed
      * The fetching is done, but save the error
      * for display to the user
-     */    
+     */
   case SIGNUP_FAILURE:
   case LOGOUT_FAILURE:
   case LOGIN_FAILURE:
@@ -148,13 +148,13 @@ export default function authReducer(state = initialState, action) {
 
     /**
      * ### Hot Loading support
-     * 
+     *
      * Set all the field values from the payload
-     */    
+     */
   case SET_STATE:
-    
+
     var form = JSON.parse(action.payload).auth.form
-    
+
     var next = state.setIn(['form','state'],form.state)
           .setIn(['form','disabled'],form.disabled)
           .setIn(['form','error'], form.error)
@@ -165,20 +165,20 @@ export default function authReducer(state = initialState, action) {
           .setIn(['form','fields','email'],form.fields.email)
           .setIn(['form','fields','emailHasError'],form.fields.emailHasError)
           .setIn(['form','fields','password'],form.fields.password)
-          .setIn(['form','fields','passwordHasError'],form.fields.passwordHasError)      
+          .setIn(['form','fields','passwordHasError'],form.fields.passwordHasError)
           .setIn(['form','fields','passwordAgain'],form.fields.passwordAgain)
           .setIn(['form','fields','passwordAgainHasError'],form.fields.passwordAgainHasError)
-    
+
     return next
-  
+
     case DELETE_TOKEN_REQUEST:
     case DELETE_TOKEN_SUCCESS:
         /**
          * no state change, just an ability to track action requests...
          */
         return state
-        
-  }    
+
+  }
   /**
    * ## Default
    */

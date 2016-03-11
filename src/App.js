@@ -58,11 +58,11 @@ import Profile from './containers/Profile'
 import Main from './containers/Main'
 import Subview from './containers/Subview'
 
-/** 
+/**
  * ### icons
  *
  * Add icon support for use in Tabbar
- * 
+ *
  */
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -104,8 +104,8 @@ function getInitialState() {
   return _initState
 }
 /**
-* ## TabIcon 
-* 
+* ## TabIcon
+*
 * Displays the icon for the tab w/ color dependent upon selection
 */
 class TabIcon extends React.Component {
@@ -116,7 +116,7 @@ class TabIcon extends React.Component {
       <View style={{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center'}}>
 	<Icon style={{color: color}} name={this.props.iconName} size={30} />
 	<Text style={{color: color}}>{this.props.title}</Text>
-      </View>	
+      </View>
     )
   }
 }
@@ -134,70 +134,70 @@ export default function native(platform) {
 
   let AppComponent = React.createClass( {
     render() {
-      
+
       const store = configureStore(getInitialState())
 
       //Connect w/ the Router
       const Router = connect()(RNRF.Router)
-      
+
       // configureStore will combine reducers and main application
       // it will then create the store based on aggregate state from all reducers
       store.dispatch(setPlatform(platform))
       store.dispatch(setVersion(VERSION))
       store.dispatch(setStore(store))
-      
+
       // setup the router table with App selected as the initial component
       return (
         <Provider store={store}>
 	  <Router hideNavBar={true}>
 	    <Schema name="modal"
                     sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
-            
+
 	    <Schema name="floatFromRight"
                     sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
-            
+
 	    <Schema name="default"/>
-            
+
 	    <Schema name="tab"
                     type="switch"
                     icon={TabIcon} />
-	    
+
 	    <Route name="App"
                    component={App}
                    title="App"
                    initial={true}/>
-            
+
 	    <Route name="Login"
                    component={Login}
                    title="Login"
                    type="replace"/>
-	    
+
 	    <Route name="Register"
                    component={Register}
                    title="Register"
                    type="replace"/>
-	    
+
 	    <Route name="ForgotPassword"
                    component={ForgotPassword}
                    title="ForgotPassword"
                    type="replace" />
-	    
+
 	    <Route name="Subview"
                    component={Subview}
                    title="Subview"
-                   Schema="floatFromRight"	/> 
+                   Schema="floatFromRight"	/>
 
 	    <Route name="Tabbar" type="replace">
 	      <Router footer={TabBar}
                       showNavigationBar={false}>
-                
+
 	        <Route name="Logout"
                        schema="tab"
                        title="logout"
                        iconName={"sign-out"}
                        hideNavBar={true}
                        component={Logout}/>
-                
+
 	        <Route name="Main"
                        schema="tab"
                        title="main"
@@ -214,7 +214,7 @@ export default function native(platform) {
                        component={Profile}/>
 	      </Router>
 	    </Route>
-	    
+
 	  </Router>
         </Provider>
       )
