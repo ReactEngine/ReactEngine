@@ -11,7 +11,7 @@
  * formValidation for setting the form's valid flag
  */
 const InitialState = require('./initialState').default
-const fieldValidation = require('../../lib/fieldValidation').default
+import fieldValidation from '../../lib/fieldValidation'
 import formValidation from './formValidation'
 
 /**
@@ -64,16 +64,6 @@ export default function reducer(state = initialState, action) {
         case USER_LOGOUT_FAILURE:
           return state.setIn(['form', 'isFetching'], false)
             .setIn(['form', 'error'], action.payload)
-
-        case LOGOUT_FORMFIELD_CHANGE: {
-          const {field, value} = action.payload
-          let nextState =  state.setIn(['form', 'fields', field], value)
-                .setIn(['form','error'],null)
-
-          return formValidation(
-            fieldValidation( nextState, action)
-            , action)
-        }
     }
   /**
    * ## Default

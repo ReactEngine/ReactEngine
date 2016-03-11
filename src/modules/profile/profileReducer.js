@@ -11,7 +11,7 @@
  * fieldValidation for validating the fields
  * formValidation for setting the form's valid flag
  */
-const fieldValidation = require('../../lib/fieldValidation').default
+import fieldValidation from '../../lib/fieldValidation'
 const formValidation = require('./profileFormValidation').default
 
 /**

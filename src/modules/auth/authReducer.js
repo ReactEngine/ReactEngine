@@ -11,7 +11,7 @@
  * formValidation for setting the form's valid flag
  */
 const InitialState = require('./authInitialState').default
-const fieldValidation = require('../../lib/fieldValidation').default
+import fieldValidation from '../../lib/fieldValidation'
 const formValidation = require('./authFormValidation').default
 
 /**
