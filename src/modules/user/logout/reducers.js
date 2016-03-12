@@ -22,9 +22,9 @@ const {
   ACCESSTOKEN_GET_SUCCESS,
   ACCESSTOKEN_GET_FAILURE,
 
-  USER_LOGOUT_START,
-  USER_LOGOUT_SUCCESS,
-  USER_LOGOUT_FAILURE,
+  USER_LOGOUT_REQUEST_START,
+  USER_LOGOUT_REQUEST_SUCCESS,
+  USER_LOGOUT_REQUEST_FAILURE,
 
   USER_LOGOUT_INIT_START,
   USER_LOGOUT_FORMFIELD_CHANGE
@@ -52,16 +52,16 @@ export default function reducer(state = initialState, action) {
           )
 
         case ACCESSTOKEN_GET_START:
-        case USER_LOGOUT_START:
+        case USER_LOGOUT_REQUEST_START:
           return state.setIn(['form', 'isFetching'], true)
             .setIn(['form','error'],null)
 
         case ACCESSTOKEN_GET_SUCCESS:
         case ACCESSTOKEN_GET_FAILURE:
-        case USER_LOGOUT_SUCCESS:
+        case USER_LOGOUT_REQUEST_SUCCESS:
           return state.setIn(['form', 'isFetching'], false)
 
-        case USER_LOGOUT_FAILURE:
+        case USER_LOGOUT_REQUEST_FAILURE:
           return state.setIn(['form', 'isFetching'], false)
             .setIn(['form', 'error'], action.payload)
     }

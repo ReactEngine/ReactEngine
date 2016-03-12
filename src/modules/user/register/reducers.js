@@ -22,9 +22,9 @@ const {
   ACCESSTOKEN_GET_SUCCESS,
   ACCESSTOKEN_GET_FAILURE,
 
-  USER_REGISTER_START,
-  USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAILURE,
+  USER_REGISTER_REQUEST_START,
+  USER_REGISTER_REQUEST_SUCCESS,
+  USER_REGISTER_REQUEST_FAILURE,
 
   USER_REGISTER_INIT_START,
   USER_REGISTER_FORMFIELD_CHANGE
@@ -55,7 +55,7 @@ export default function reducer(state = initialState, action) {
          * set the form to fetching and clear any errors
          */
     case ACCESSTOKEN_GET_START:
-    case USER_REGISTER_START:
+    case USER_REGISTER_REQUEST_START:
       return state.setIn(['form', 'isFetching'], true)
         .setIn(['form', 'error'], null)
 
@@ -66,7 +66,7 @@ export default function reducer(state = initialState, action) {
        */
     case ACCESSTOKEN_GET_SUCCESS:
     case ACCESSTOKEN_GET_FAILURE:
-    case USER_REGISTER_SUCCESS:
+    case USER_REGISTER_REQUEST_SUCCESS:
       return state.setIn(['form', 'isFetching'], false)
 
       /**
@@ -74,7 +74,7 @@ export default function reducer(state = initialState, action) {
        * The fetching is done, but save the error
        * for display to the user
        */
-    case USER_REGISTER_FAILURE:
+    case USER_REGISTER_REQUEST_FAILURE:
       return state.setIn(['form', 'isFetching'], false)
         .setIn(['form', 'error'], action.payload)
 

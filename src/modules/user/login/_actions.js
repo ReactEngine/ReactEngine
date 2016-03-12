@@ -1,8 +1,8 @@
 const {
 
-  USER_LOGIN_START,
-  USER_LOGIN_SUCCESS,
-  USER_LOGIN_FAILURE
+  USER_LOGIN_REQUEST_START,
+  USER_LOGIN_REQUEST_SUCCESS,
+  USER_LOGIN_REQUEST_FAILURE
 
 } = require('../constants').default
 /**
@@ -28,20 +28,20 @@ const {
  */
 export function loginRequest() {
   return {
-    type: USER_LOGIN_START
+    type: USER_LOGIN_REQUEST_START
   }
 }
 
 export function loginSuccess(json) {
   return {
-    type: USER_LOGIN_SUCCESS,
+    type: USER_LOGIN_REQUEST_SUCCESS,
     payload: json
   }
 }
 
 export function loginFailure(error) {
   return {
-    type: USER_LOGIN_FAILURE,
+    type: USER_LOGIN_REQUEST_FAILURE,
     payload: error
   }
 }

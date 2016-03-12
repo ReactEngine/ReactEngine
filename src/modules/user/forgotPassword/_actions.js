@@ -1,8 +1,8 @@
 const {
 
   RESETPASSWORD_REQUEST,
-  RESETPASSWORD_SUCCESS,
-  RESETPASSWORD_FAILURE
+  RESETPASSWORD_REQUEST_SUCCESS,
+  RESETPASSWORD_REQUEST_FAILURE
 
 } = require('../constants').default
   /**
@@ -16,13 +16,13 @@ export function   resetPasswordRequest() {
 
 export function   resetPasswordSuccess() {
     return {
-      type: RESETPASSWORD_SUCCESS
+      type: RESETPASSWORD_REQUEST_SUCCESS
     }
   }
 
 export function   resetPasswordFailure(error) {
     return {
-      type: RESETPASSWORD_FAILURE,
+      type: RESETPASSWORD_REQUEST_FAILURE,
       payload: error
     }
   }
