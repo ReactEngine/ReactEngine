@@ -2,8 +2,8 @@
 
 const {
 
-  LOGOUT_INIT_START,
-  LOGOUT_FORMFIELD_CHANGE
+  USER_LOGOUT_INIT_START,
+  USER_LOGOUT_FORMFIELD_CHANGE
 
 } = require('../constants').default
 
@@ -22,7 +22,7 @@ const routerActions = Actions
 //表单字段更新
 export function logoutFormFieldChange(field,value) {
   return {
-    type: LOGOUT_FORMFIELD_CHANGE,
+    type: USER_LOGOUT_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -30,7 +30,7 @@ export function logoutFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: LOGOUT_INIT_START
+    type: USER_LOGOUT_INIT_START
   }
 }
 

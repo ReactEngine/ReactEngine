@@ -22,12 +22,12 @@ const {
   ACCESSTOKEN_GET_SUCCESS,
   ACCESSTOKEN_GET_FAILURE,
 
-  LOGOUT_START,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAILURE,
+  USER_LOGOUT_START,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGOUT_FAILURE,
 
-  LOGOUT_INIT_START,
-  LOGOUT_FORMFIELD_CHANGE
+  USER_LOGOUT_INIT_START,
+  USER_LOGOUT_FORMFIELD_CHANGE
 
 } = require('../constants').default
 
@@ -46,22 +46,22 @@ export default function reducer(state = initialState, action) {
 
     switch (action.type) {
 
-        case LOGOUT_INIT_START:
+        case USER_LOGOUT_INIT_START:
           return formValidation(
             state.setIn(['form','error'],null)
           )
 
         case ACCESSTOKEN_GET_START:
-        case LOGOUT_START:
+        case USER_LOGOUT_START:
           return state.setIn(['form', 'isFetching'], true)
             .setIn(['form','error'],null)
 
         case ACCESSTOKEN_GET_SUCCESS:
         case ACCESSTOKEN_GET_FAILURE:
-        case LOGOUT_SUCCESS:
+        case USER_LOGOUT_SUCCESS:
           return state.setIn(['form', 'isFetching'], false)
 
-        case LOGOUT_FAILURE:
+        case USER_LOGOUT_FAILURE:
           return state.setIn(['form', 'isFetching'], false)
             .setIn(['form', 'error'], action.payload)
     }

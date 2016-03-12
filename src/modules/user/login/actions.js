@@ -2,8 +2,8 @@
 
 const {
 
-  LOGIN_INIT_START,
-  LOGIN_FORMFIELD_CHANGE
+  USER_LOGIN_INIT_START,
+  USER_LOGIN_FORMFIELD_CHANGE
 
 } = require('../constants').default
 
@@ -23,7 +23,7 @@ import accessTokenStorage from '../../../storage/accessToken'
 //表单字段更新
 export function loginFormFieldChange(field,value) {
   return {
-    type: LOGIN_FORMFIELD_CHANGE,
+    type: USER_LOGIN_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -31,7 +31,7 @@ export function loginFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: LOGIN_INIT_START
+    type: USER_LOGIN_INIT_START
   }
 }
 

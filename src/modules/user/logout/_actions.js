@@ -1,8 +1,8 @@
 const {
 
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAILURE
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGOUT_FAILURE
 
 } = require('../constants').default
 /**
@@ -10,19 +10,19 @@ const {
  */
 export function logoutRequest() {
   return {
-    type: LOGOUT_REQUEST
+    type: USER_LOGOUT_REQUEST
   }
 }
 
 export function logoutSuccess() {
   return {
-    type: LOGOUT_SUCCESS
+    type: USER_LOGOUT_SUCCESS
   }
 }
 
 export function logoutFailure(error) {
   return {
-    type: LOGOUT_FAILURE,
+    type: USER_LOGOUT_FAILURE,
     payload: error
   }
 }

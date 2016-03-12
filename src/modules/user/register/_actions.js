@@ -1,8 +1,8 @@
 const {
 
-  REGISTER_START,
-  REGISTER_SUCCESS,
-  REGISTER_FAILURE
+  USER_REGISTER_START,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAILURE
 
 } = require('../constants').default
 /**
@@ -10,18 +10,18 @@ const {
  */
 export function registerStart() {
   return {
-    type: REGISTER_START
+    type: USER_REGISTER_START
   }
 }
 export function registerSuccess(json) {
   return {
-    type: REGISTER_SUCCESS,
+    type: USER_REGISTER_SUCCESS,
     payload: json
   }
 }
 export function registerFailure(error) {
   return {
-    type: REGISTER_FAILURE,
+    type: USER_REGISTER_FAILURE,
     payload: error
   }
 }
