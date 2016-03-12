@@ -26,20 +26,20 @@ const {
 /**
  * ## Login actions
  */
-export function loginRequest() {
+export function requestStart() {
   return {
     type: USER_LOGIN_REQUEST_START
   }
 }
 
-export function loginSuccess(json) {
+export function requestSuccess(json) {
   return {
     type: USER_LOGIN_REQUEST_SUCCESS,
     payload: json
   }
 }
 
-export function loginFailure(error) {
+export function requestFailure(error) {
   return {
     type: USER_LOGIN_REQUEST_FAILURE,
     payload: error

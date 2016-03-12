@@ -58,7 +58,7 @@ export function logout(email, password) {
 
   return dispatch => {
     //请求开始
-    dispatch(privateActions.logoutStart())
+    dispatch(privateActions.requestStart())
 
     return 
     new accessTokenStorage().get()
@@ -67,12 +67,12 @@ export function logout(email, password) {
       })
       .then(() => {
           //请求成功
-         dispatch(privateActions.logoutSuccess(data))
+         dispatch(privateActions.requestSuccess(data))
          logoutHandle()
        })
       .catch((error) => {
           //请求失败
-			   dispatch(privateActions.logoutFailure(error))
+			   dispatch(privateActions.requestFailure(error))
          logoutHandle()
       })
   }

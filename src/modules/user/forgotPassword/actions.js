@@ -50,7 +50,7 @@ export function forgotPassword(email) {
   
   return dispatch => {
     //请求开始
-    dispatch(privateActions.forgotPasswordStart())
+    dispatch(privateActions.requestStart())
 
     const userData = {
       email: username
@@ -59,14 +59,14 @@ export function forgotPassword(email) {
     return  ApiFactory().forgotPassword(userData)
       .then((json) => {
           //请求成功
-          dispatch(privateActions.forgotPasswordSuccess())
+          dispatch(privateActions.requestSuccess())
           //下一个场景准备: 初始化
           dispatch(loginActions.moduleInit())  
           // 切换路由到下一个场景: Login
           routerActions.Login()  
       })
       .catch((error) => {
-			   dispatch(privateActions.forgotPasswordFailure(error))
+			   dispatch(privateActions.requestFailure(error))
       })
 
   }

@@ -48,7 +48,7 @@ export function register(username, email, password) {
   
   return dispatch => {
     //请求开始
-    dispatch(privateActions.registerStart())
+    dispatch(privateActions.requestStart())
 
     const userData = {
       username: username,
@@ -66,8 +66,8 @@ export function register(username, email, password) {
 
 			return saveAccessToken(data)
 		          .then(() => {
-		          		//请求成功
-					    dispatch(privateActions.registerSuccess(data))
+		          //请求成功
+					    dispatch(privateActions.requestSuccess(data))
 					    //下一个场景准备: 初始化
 					    dispatch(logoutActions.moduleInit())  
 					    // 切换路由到下一个场景: Tabbar
@@ -75,7 +75,7 @@ export function register(username, email, password) {
 			  		})
       })
       .catch((error) => {
-			dispatch(privateActions.registerFailure(error))
+			   dispatch(privateActions.requestFailure(error))
       })
 
   }

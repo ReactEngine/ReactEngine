@@ -8,19 +8,19 @@ const {
 /**
  * ## Logout actions
  */
-export function logoutRequest() {
+export function requestRequest() {
   return {
     type: USER_LOGOUT_REQUEST
   }
 }
 
-export function logoutSuccess() {
+export function requestSuccess() {
   return {
     type: USER_LOGOUT_REQUEST_SUCCESS
   }
 }
 
-export function logoutFailure(error) {
+export function requestFailure(error) {
   return {
     type: USER_LOGOUT_REQUEST_FAILURE,
     payload: error

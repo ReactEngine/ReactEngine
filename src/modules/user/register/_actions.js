@@ -8,18 +8,18 @@ const {
 /**
  * ## Signup actions
  */
-export function registerStart() {
+export function requestStart() {
   return {
     type: USER_REGISTER_REQUEST_START
   }
 }
-export function registerSuccess(json) {
+export function requestSuccess(json) {
   return {
     type: USER_REGISTER_REQUEST_SUCCESS,
     payload: json
   }
 }
-export function registerFailure(error) {
+export function requestFailure(error) {
   return {
     type: USER_REGISTER_REQUEST_FAILURE,
     payload: error

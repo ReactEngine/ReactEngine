@@ -8,19 +8,19 @@ const {
   /**
    * ## ResetPassword actions
    */
-export function   resetPasswordRequest() {
+export function requestStart() {
     return {
       type: RESETPASSWORD_REQUEST
     }
   }
 
-export function   resetPasswordSuccess() {
+export function requestSuccess() {
     return {
       type: RESETPASSWORD_REQUEST_SUCCESS
     }
   }
 
-export function   resetPasswordFailure(error) {
+export function requestFailure(error) {
     return {
       type: RESETPASSWORD_REQUEST_FAILURE,
       payload: error
