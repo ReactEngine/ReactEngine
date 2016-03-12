@@ -1,19 +1,6 @@
-// import Constant from '../lib/constant'
-import _ from 'lodash'
+import * as constantUtils from '../utils/constants'
 
-//添加前缀
-function addPrefix(arr,prefix) {
-    var mirrored = {}
-    prefix = prefix || "$RE_$"
-
-    _.each(arr, (val) => { 
-      mirrored[val] = prefix + val
-    })
-
-    return mirrored
-}
-
-export default addPrefix([
+export default constantUtils.addPrefix([
   "SET_PLATFORM",
   "SET_VERSION",
 
