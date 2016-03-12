@@ -1,10 +1,10 @@
 const {
 
-  USER_LOGIN_START,
-  USER_LOGIN_SUCCESS,
-  USER_LOGIN_FAILURE
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE
 
-} = require('../../constants').default
+} = require('../constants').default
 /**
   * ## Login
   * After dispatching the logoutRequest, get the accessToken
@@ -28,20 +28,20 @@ const {
  */
 export function loginRequest() {
   return {
-    type: USER_LOGIN_START
+    type: LOGIN_START
   }
 }
 
 export function loginSuccess(json) {
   return {
-    type: USER_LOGIN_SUCCESS,
+    type: LOGIN_SUCCESS,
     payload: json
   }
 }
 
 export function loginFailure(error) {
   return {
-    type: USER_LOGIN_FAILURE,
+    type: LOGIN_FAILURE,
     payload: error
   }
 }

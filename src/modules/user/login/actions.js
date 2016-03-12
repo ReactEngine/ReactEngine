@@ -2,10 +2,10 @@
 
 const {
 
-  USER_LOGIN_VIEW_INIT,
-  USER_LOGIN_FORMFIELD_CHANGE
+  LOGIN_INIT_START,
+  LOGIN_FORMFIELD_CHANGE
 
-} = require('../../../constants').default
+} = require('../constants').default
 
 const  _ = require('lodash')
 
@@ -14,7 +14,7 @@ const ApiFactory = require('../../../services/api').default
 import { Actions } from 'react-native-router-flux'
 const routerActions = Actions
 
-import userActions from '../../../actions/user'
+import privateActions from './_actions'
 import logoutActions from '../logout/actions'
 import accessTokenActions from '../../../actions/accessToken'
 
@@ -23,7 +23,7 @@ import accessTokenStorage from '../../../storage/accessToken'
 //表单字段更新
 export function loginFormFieldChange(field,value) {
   return {
-    type: USER_LOGIN_FORMFIELD_CHANGE,
+    type: LOGIN_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -31,7 +31,7 @@ export function loginFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: USER_LOGIN_VIEW_INIT
+    type: LOGIN_INIT_START
   }
 }
 
@@ -50,7 +50,7 @@ export function login(email, password) {
   
   return dispatch => {
     //请求开始
-    dispatch(userActions.loginStart())
+    dispatch(privateActions.loginStart())
 
     const userData = {
       email: username,
@@ -67,7 +67,7 @@ export function login(email, password) {
 			return saveAccessToken(data)
 		          .then(() => {
 		          //请求成功
-					    dispatch(userActions.loginSuccess(data))
+					    dispatch(privateActions.loginSuccess(data))
 					    //下一个场景准备: 初始化
 					    dispatch(logoutActions.moduleInit())  
 					    // 切换路由到下一个场景: Tabbar
@@ -75,7 +75,7 @@ export function login(email, password) {
 			  		})
       })
       .catch((error) => {
-			   dispatch(userActions.loginFailure(error))
+			   dispatch(privateActions.loginFailure(error))
       })
 
   }

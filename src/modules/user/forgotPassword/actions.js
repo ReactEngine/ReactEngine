@@ -2,10 +2,10 @@
 
 const {
 
-  USER_FORGOTPASSWORD_VIEW_INIT,
-  USER_FORGOTPASSWORD_FORMFIELD_CHANGE
+  FORGOTPASSWORD_INIT_START,
+  FORGOTPASSWORD_FORMFIELD_CHANGE
 
-} = require('../../../constants').default
+} = require('../constants').default
 
 const  _ = require('lodash')
 
@@ -14,7 +14,7 @@ const ApiFactory = require('../../../services/api').default
 import { Actions } from 'react-native-router-flux'
 const routerActions = Actions
 
-import userActions from '../../../actions/user'
+import privateActions from './_actions'
 import loginActions from '../login/actions'
 import accessTokenActions from '../../../actions/accessToken'
 
@@ -23,7 +23,7 @@ import accessTokenStorage from '../../../storage/accessToken'
 //表单字段更新
 export function forgotPasswordFormFieldChange(field,value) {
   return {
-    type: USER_FORGOTPASSWORD_FORMFIELD_CHANGE,
+    type: FORGOTPASSWORD_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -31,7 +31,7 @@ export function forgotPasswordFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: USER_FORGOTPASSWORD_VIEW_INIT
+    type: FORGOTPASSWORD_INIT_START
   }
 }
 
@@ -50,7 +50,7 @@ export function forgotPassword(email) {
   
   return dispatch => {
     //请求开始
-    dispatch(userActions.forgotPasswordStart())
+    dispatch(privateActions.forgotPasswordStart())
 
     const userData = {
       email: username
@@ -59,14 +59,14 @@ export function forgotPassword(email) {
     return  ApiFactory().forgotPassword(userData)
       .then((json) => {
           //请求成功
-          dispatch(userActions.forgotPasswordSuccess())
+          dispatch(privateActions.forgotPasswordSuccess())
           //下一个场景准备: 初始化
           dispatch(loginActions.moduleInit())  
           // 切换路由到下一个场景: Login
           routerActions.Login()  
       })
       .catch((error) => {
-			   dispatch(userActions.forgotPasswordFailure(error))
+			   dispatch(privateActions.forgotPasswordFailure(error))
       })
 
   }

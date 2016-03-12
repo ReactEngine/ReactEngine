@@ -2,17 +2,17 @@
 
 const {
 
-  USER_REGISTER_VIEW_INIT,
-  USER_REGISTER_FORMFIELD_CHANGE
+  REGISTER_INIT_START,
+  REGISTER_FORMFIELD_CHANGE
 
-} = require('../../../constants').default
+} = require('../constants').default
 
 const  _ = require('lodash')
 
 const ApiFactory = require('../../../services/api').default
 
 import { Actions } from 'react-native-router-flux'
-import userActions from '../../../actions/user'
+import privateActions from './_actions'
 import logoutActions from '../logout/actions'
 import accessTokenActions from '../../../actions/accessToken'
 import accessTokenStorage from '../../../storage/accessToken'
@@ -21,7 +21,7 @@ const routerActions = Actions
 //表单字段更新
 export function registerFormFieldChange(field,value) {
   return {
-    type: USER_REGISTER_FORMFIELD_CHANGE,
+    type: REGISTER_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -29,7 +29,7 @@ export function registerFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: USER_REGISTER_VIEW_INIT
+    type: REGISTER_INIT_START
   }
 }
 
@@ -48,7 +48,7 @@ export function register(username, email, password) {
   
   return dispatch => {
     //请求开始
-    dispatch(userActions.registerStart())
+    dispatch(privateActions.registerStart())
 
     const userData = {
       username: username,
@@ -67,7 +67,7 @@ export function register(username, email, password) {
 			return saveAccessToken(data)
 		          .then(() => {
 		          		//请求成功
-					    dispatch(userActions.registerSuccess(data))
+					    dispatch(privateActions.registerSuccess(data))
 					    //下一个场景准备: 初始化
 					    dispatch(logoutActions.moduleInit())  
 					    // 切换路由到下一个场景: Tabbar
@@ -75,7 +75,7 @@ export function register(username, email, password) {
 			  		})
       })
       .catch((error) => {
-			dispatch(userActions.registerFailure(error))
+			dispatch(privateActions.registerFailure(error))
       })
 
   }

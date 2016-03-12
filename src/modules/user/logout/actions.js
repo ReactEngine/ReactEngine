@@ -2,17 +2,17 @@
 
 const {
 
-  USER_LOGOUT_VIEW_INIT,
-  USER_LOGOUT_FORMFIELD_CHANGE
+  LOGOUT_INIT_START,
+  LOGOUT_FORMFIELD_CHANGE
 
-} = require('../../../constants').default
+} = require('../constants').default
 
 const  _ = require('lodash')
 
 const ApiFactory = require('../../../services/api').default
 
 import { Actions } from 'react-native-router-flux'
-import userActions from '../../../actions/user'
+import privateActions from './_actions'
 import accessTokenActions from '../../../actions/accessToken'
 import loginActions from '../login/actions'
 
@@ -22,7 +22,7 @@ const routerActions = Actions
 //表单字段更新
 export function logoutFormFieldChange(field,value) {
   return {
-    type: USER_LOGOUT_FORMFIELD_CHANGE,
+    type: LOGOUT_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -30,7 +30,7 @@ export function logoutFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: USER_LOGOUT_VIEW_INIT
+    type: LOGOUT_INIT_START
   }
 }
 
@@ -58,7 +58,7 @@ export function logout(email, password) {
 
   return dispatch => {
     //请求开始
-    dispatch(userActions.logoutStart())
+    dispatch(privateActions.logoutStart())
 
     return 
     new accessTokenStorage().get()
@@ -67,12 +67,12 @@ export function logout(email, password) {
       })
       .then(() => {
           //请求成功
-         dispatch(userActions.logoutSuccess(data))
+         dispatch(privateActions.logoutSuccess(data))
          logoutHandle()
        })
       .catch((error) => {
           //请求失败
-			   dispatch(userActions.logoutFailure(error))
+			   dispatch(privateActions.logoutFailure(error))
          logoutHandle()
       })
   }

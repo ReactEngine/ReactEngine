@@ -1,27 +1,27 @@
 const {
 
-  USER_USER_REGISTER_START,
-  USER_USER_REGISTER_SUCCESS,
-  USER_USER_REGISTER_FAILURE
+  REGISTER_START,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE
 
-} = require('../../constants').default
+} = require('../constants').default
 /**
  * ## Signup actions
  */
 export function registerStart() {
   return {
-    type: USER_USER_REGISTER_START
+    type: REGISTER_START
   }
 }
 export function registerSuccess(json) {
   return {
-    type: USER_USER_REGISTER_SUCCESS,
+    type: REGISTER_SUCCESS,
     payload: json
   }
 }
 export function registerFailure(error) {
   return {
-    type: USER_USER_REGISTER_FAILURE,
+    type: REGISTER_FAILURE,
     payload: error
   }
 }

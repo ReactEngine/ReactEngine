@@ -22,14 +22,14 @@ const {
   ACCESSTOKEN_GET_SUCCESS,
   ACCESSTOKEN_GET_FAILURE,
 
-  USER_FORGOTPASSWORD_START,
-  USER_FORGOTPASSWORD_SUCCESS,
-  USER_FORGOTPASSWORD_FAILURE,
+  FORGOTPASSWORD_START,
+  FORGOTPASSWORD_SUCCESS,
+  FORGOTPASSWORD_FAILURE,
 
-  USER_FORGOTPASSWORD_VIEW_INIT,
-  USER_FORGOTPASSWORD_FORMFIELD_CHANGE
+  FORGOTPASSWORD_INIT_START,
+  FORGOTPASSWORD_FORMFIELD_CHANGE
 
-} = require('../../../constants').default
+} = require('../constants').default
 
 const initialState = new InitialState
 
@@ -46,26 +46,26 @@ export default function reducer(state = initialState, action) {
 
     switch (action.type) {
 
-        case USER_FORGOTPASSWORD_VIEW_INIT:
+        case FORGOTPASSWORD_INIT_START:
           return formValidation(
             state.setIn(['form','error'],null)
           )
 
         case ACCESSTOKEN_GET_START:
-        case USER_FORGOTPASSWORD_START:
+        case FORGOTPASSWORD_START:
           return state.setIn(['form', 'isFetching'], true)
             .setIn(['form','error'],null)
 
         case ACCESSTOKEN_GET_SUCCESS:
         case ACCESSTOKEN_GET_FAILURE:
-        case USER_FORGOTPASSWORD_SUCCESS:
+        case FORGOTPASSWORD_SUCCESS:
           return state.setIn(['form', 'isFetching'], false)
 
-        case USER_FORGOTPASSWORD_FAILURE:
+        case FORGOTPASSWORD_FAILURE:
           return state.setIn(['form', 'isFetching'], false)
             .setIn(['form', 'error'], action.payload)
 
-        case USER_FORGOTPASSWORD_FORMFIELD_CHANGE: {
+        case FORGOTPASSWORD_FORMFIELD_CHANGE: {
           const {field, value} = action.payload
           let nextState =  state.setIn(['form', 'fields', field], value)
                 .setIn(['form','error'],null)

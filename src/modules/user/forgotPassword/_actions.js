@@ -1,28 +1,28 @@
 const {
 
-  USER_RESETPASSWORD_REQUEST,
-  USER_RESETPASSWORD_SUCCESS,
-  USER_RESETPASSWORD_FAILURE
+  RESETPASSWORD_REQUEST,
+  RESETPASSWORD_SUCCESS,
+  RESETPASSWORD_FAILURE
 
-} = require('../../constants').default
+} = require('../constants').default
   /**
    * ## ResetPassword actions
    */
 export function   resetPasswordRequest() {
     return {
-      type: USER_RESETPASSWORD_REQUEST
+      type: RESETPASSWORD_REQUEST
     }
   }
 
 export function   resetPasswordSuccess() {
     return {
-      type: USER_RESETPASSWORD_SUCCESS
+      type: RESETPASSWORD_SUCCESS
     }
   }
 
 export function   resetPasswordFailure(error) {
     return {
-      type: USER_RESETPASSWORD_FAILURE,
+      type: RESETPASSWORD_FAILURE,
       payload: error
     }
   }
