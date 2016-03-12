@@ -1,5 +1,7 @@
 import * as constantUtils from '../utils/constants'
 
+const prefix = "SYS"
+
 export default constantUtils.addPrefix([
   "SET_PLATFORM",
   "SET_VERSION",
@@ -50,4 +52,4 @@ export default constantUtils.addPrefix([
   "GET_STATE",
   "SET_STORE"
 
-])
+],prefix)
