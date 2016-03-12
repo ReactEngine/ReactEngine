@@ -14,7 +14,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as forgotPasswordActions from '../modules/user/forgotPassword/actions'
+import * as forgotPasswordActions from '../actions'
 
 /**
  * Immutable
@@ -24,7 +24,7 @@ import {Map} from 'immutable'
 /**
  *   LoginRender
  */
-import LoginRender from '../components/LoginRender'
+import LoginRender from '../../components'
 
 /**
  * Need React
@@ -32,10 +32,10 @@ import LoginRender from '../components/LoginRender'
 import React from 'react-native'
 
 const {
-  REGISTER, 
-  LOGIN,
-  FORGOT_PASSWORD
-} = require('../constants').default
+  userLogin,
+  userRegister,
+  userForgotPassword
+} = require('../../constants/router').default
 
 /**
   * ## Redux boilerplate

@@ -29,7 +29,7 @@ const logger = createLogger({
 * The reducer contains the 4 reducers from 
 * device, global, auth, profile
 */
-import moduleReducers from '../modules/reducers'
+import moduleReducers from './reducers'
 
 /**
  * ## configureStore

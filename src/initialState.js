@@ -17,7 +17,7 @@ import userProfileInitialState from './modules/user/profile/initialState'
  * Create instances for the keys of each structure
  * @returns {Object}
  */
-export default const initialState {
+export default {
 	userRegister: (new userRegisterInitialState),
 	userLogin: (new userLoginInitialState),
 	userLogout: (new userLogoutInitialState),

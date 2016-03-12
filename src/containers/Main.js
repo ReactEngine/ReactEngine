@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as globalActions from '../modules/global/globalActions'
+import * as globalActions from '../modules/global/actions'
 
 /**
  * Immutable

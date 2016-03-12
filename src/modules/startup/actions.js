@@ -1,4 +1,10 @@
 import * as accessTokenActions from '../accessToken/actions/sync'
+
+import accessTokenStorage from '../../storage/accessToken'
+
+import { Actions }  from 'react-native-router-flux'
+const  routerActions = Actions
+
 /**
  * ## Token
  * If accessTokenStorage has the accessToken, the user is logged in
@@ -16,7 +22,8 @@ export function checkAccessToken() {
         //下一个场景准备: 初始化
         // dispatch(logoutActions.moduleInit()) 
         //路由切换
-        routerActions.Register()
+        debugger
+        routerActions.userRegister()
     }
 
     return new accessTokenStorage().get()

@@ -34,10 +34,10 @@ import LoginRender from '../../components'
 import React from 'react-native'
 
 const {
-  LOGIN,
-  REGISTER,
-  FORGOT_PASSWORD
-} = require('../../constants').default
+  userLogin,
+  userRegister,
+  userForgotPassword
+} = require('../../constants/router').default
 
 /**
  * ## Redux boilerplate

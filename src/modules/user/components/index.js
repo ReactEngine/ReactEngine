@@ -20,7 +20,7 @@ import * as registerActions from '../register/actions'
 import * as loginActions from '../login/actions'
 import * as logoutActions from '../logout/actions'
 import * as forgotPasswordActions from '../forgotPassword/actions'
-import * as globalActions from '../modules/global/globalActions'
+import * as globalActions from '../../global/actions'
 
 
 /**
@@ -36,24 +36,24 @@ import { Actions } from 'react-native-router-flux'
 /**
  * The Header will display a Image and support Hot Loading
  */
-import Header from '../components/Header'
+import Header from '../../common/components/Header'
 /**
  * The ErrorAlert displays an alert for both ios & android
  */
-import ErrorAlert from '../components/ErrorAlert'
+import ErrorAlert from '../../common/components/ErrorAlert'
 /**
  * The FormButton will change it's text between the 4 states as necessary
  */
-import FormButton from '../components/FormButton'
+import FormButton from '../../common/components/FormButton'
 /**
  *  The LoginForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import LoginForm from '../components/LoginForm'
+import LoginForm from './form'
 /**
  * The itemCheckbox will toggle the display of the password fields 
  */
-import ItemCheckbox from '../components/ItemCheckbox'
+import ItemCheckbox from '../../common/components/ItemCheckbox'
 
 /**
  * The necessary React components
@@ -76,10 +76,10 @@ var {height, width} = Dimensions.get('window') // Screen dimensions in current o
  * The states were interested in
  */
 const {
-  LOGIN,
-  REGISTER,
-  FORGOT_PASSWORD
-} = require('../constants').default
+  userLogin,
+  userRegister,
+  userForgotPassword
+} = require('../constants/router').default
 
 /**
  * ## Styles
@@ -215,11 +215,11 @@ class LoginRender extends Component {
     </TouchableHighlight>
     
     switch(messageType) {
-    case FORGOT_PASSWORD:
+    case userForgotPassword:
       return forgotPassword
-    case LOGIN:
+    case userLogin:
       return alreadyHaveAccount
-    case REGISTER:	
+    case userRegister:	
       return register
     }
   }

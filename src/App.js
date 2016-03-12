@@ -41,7 +41,7 @@ import {
  *
  */
 import configureStore from './configureStore'
-import initialState from './modules/initialState'
+import initialState from './initialState'
 
 /**
  * ### containers

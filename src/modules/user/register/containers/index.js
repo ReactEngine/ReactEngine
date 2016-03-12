@@ -25,7 +25,7 @@ import {Map} from 'immutable'
 /**
  *   LoginRender
  */
-import LoginRender from '../components/LoginRender'
+import LoginRender from '../../components'
 
 /**
  * The necessary React 
@@ -33,10 +33,10 @@ import LoginRender from '../components/LoginRender'
 import React from 'react-native'
 
 const {
-  LOGIN, 
-  REGISTER,
-  FORGOT_PASSWORD
-} = require('../constants').default
+  userLogin,
+  userRegister,
+  userForgotPassword
+} = require('../../constants/router').default
 
 /**
  * ## Redux boilerplate
@@ -84,12 +84,12 @@ let Register = React.createClass({
 
     return(
       <LoginRender 
-          formType={ REGISTER }
+          formType={ userRegister }
           loginButtonText={ loginButtonText }
           onButtonPress={ onButtonPress }				
           displayPasswordCheckbox ={ true }
-          leftMessageType={ FORGOT_PASSWORD }
-          rightMessageType={ LOGIN }
+          leftMessageType={ userForgotPassword }
+          rightMessageType={ userLogin }
           auth={ this.props.auth }
           global={ this.props.global }
       />

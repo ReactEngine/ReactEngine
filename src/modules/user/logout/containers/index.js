@@ -17,8 +17,8 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as logoutActions from '../modules/user/logout/actions'
-import * as globalActions from '../modules/global/globalActions'
+import * as logoutActions from '../actions'
+import * as globalActions from '../../../global/actions'
 
 /**
  * Immutable
@@ -28,11 +28,11 @@ import {Map} from 'immutable'
 /**
  * The Header will display a Image and support Hot Loading
  */
-import Header from '../components/Header'
+import Header from '../../../common/components/Header'
 /**
  * The FormButton will change it's text between the 4 states as necessary
  */
-import FormButton from '../components/FormButton'
+import FormButton from '../../../common/components/FormButton'
 
 /**
  * The necessary React components
