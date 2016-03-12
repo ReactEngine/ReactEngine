@@ -151,9 +151,9 @@ class LoginRender extends Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-	username: nextprops.auth.form.fields.username,
-	email: nextprops.auth.form.fields.email,
-	password: nextprops.auth.form.fields.password,
+      	username: nextprops.auth.form.fields.username,
+      	email: nextprops.auth.form.fields.email,
+      	password: nextprops.auth.form.fields.password,
       }
     })
   }

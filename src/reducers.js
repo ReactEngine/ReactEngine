@@ -8,15 +8,16 @@
 /**
  * ## Imports
  * 
- * our 4 reducers
+ * our reducers
  */ 
-import register from './user/register/reducers'
-import login from './user/login/reducers'
-import logout from './user/logout/reducers'
-import forgotPassword from './user/forgotPassword/reducers'
-import device from './device/deviceReducer'
-import global from './global/globalReducer'
-import profile from './user/profile/reducers'
+import register from './modules/user/register/reducers'
+import login from './modules/user/login/reducers'
+import logout from './modules/user/logout/reducers'
+import forgotPassword from './modules/user/forgotPassword/reducers'
+import profile from './modules/user/profile/reducers'
+
+import device from './modules/device/deviceReducer'
+import global from './modules/global/globalReducer'
 
 import { combineReducers } from 'redux'
 

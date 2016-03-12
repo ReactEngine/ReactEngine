@@ -1,4 +1,4 @@
-import * as constantUtils from '../utils/constants'
+import * as constantUtils from 'utils/constants'
 
 const prefix = "SYS"
 

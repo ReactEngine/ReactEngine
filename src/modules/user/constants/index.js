@@ -1,6 +1,6 @@
 import * as constantUtils from '../../../utils/constants'
 
-const prefix = "MODULE$"
+const prefix = "RE$MODULE$"
 
 export default constantUtils.addPrefix([
 

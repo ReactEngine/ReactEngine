@@ -40,7 +40,7 @@ import {
  *  ```configureStore``` will connect the ```reducers```, the
  *
  */
-import configureStore from './store/configureStore'
+import configureStore from './configureStore'
 import initialState from './modules/initialState'
 
 /**

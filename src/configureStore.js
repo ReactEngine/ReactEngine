@@ -29,7 +29,7 @@ const logger = createLogger({
 * The reducer contains the 4 reducers from 
 * device, global, auth, profile
 */
-import reducer from '../modules'
+import moduleReducers from '../modules/reducers'
 
 /**
  * ## configureStore
@@ -43,5 +43,5 @@ export default function configureStore(initialState) {
     devTools()
   )
   // Note: passing enhancer as last argument requires redux@>=3.1.0
-  return createStore(reducer, initialState, enhancer)
+  return createStore(moduleReducers, initialState, enhancer)
 }
