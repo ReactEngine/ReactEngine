@@ -1,9 +1,6 @@
 import * as syncActions from './sync'
 import logoutActions from '../../user/logout/actions'
 
-import { Actions }  from 'react-native-router-flux'
-const  routerActions = Actions
-
 import accessTokenStorage from '../../../storage/accessToken'
 
 

@@ -11,8 +11,7 @@ const  _ = require('lodash')
 
 const ApiFactory = require('../../../../services/api').default
 
-import { Actions } from 'react-native-router-flux'
-const routerActions = Actions
+import { Actions as routerActions }  from 'react-native-router-flux'
 
 import syncActions from './sync'
 import logoutActions from '../../logout/actions'

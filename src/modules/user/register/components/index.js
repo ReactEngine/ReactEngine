@@ -27,8 +27,7 @@ import {Map} from 'immutable'
 /**
  * Router actions
  */
-import { Actions } from 'react-native-router-flux'
-const routerActions = Actions
+import { Actions as routerActions }  from 'react-native-router-flux'
 /**
  * The Header will display a Image and support Hot Loading
  */

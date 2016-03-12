@@ -27,7 +27,7 @@ import {Map} from 'immutable'
 /**
  * Router actions
  */
-import { Actions } from 'react-native-router-flux'
+import { routerActions as routerActions }  from 'react-native-router-flux'
 
 /**
  * The Header will display a Image and support Hot Loading
@@ -171,7 +171,7 @@ class Login extends Component {
     <TouchableHighlight
         onPress={() => {
             // userStateActions.forgotPassword()
-            Actions.ForgotPassword()
+            routerActions.ForgotPassword()
           }} >
       <Text>Forgot Password?</Text>
     </TouchableHighlight>
@@ -180,7 +180,7 @@ class Login extends Component {
     <TouchableHighlight
         onPress={() => {
             // userStateActions.login()
-            Actions.Login()
+            routerActions.Login()
           }} >
       <Text>Already have an account?</Text>
     </TouchableHighlight>
@@ -189,7 +189,7 @@ class Login extends Component {
     <TouchableHighlight 
         onPress={() => {
             // userStateActions.register()
-            Actions.Register()
+            routerActions.Register()
           }} >
       <Text>Register</Text>
     </TouchableHighlight>

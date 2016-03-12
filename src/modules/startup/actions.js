@@ -2,8 +2,7 @@ import * as accessTokenActions from '../accessToken/actions/sync'
 
 import accessTokenStorage from '../../storage/accessToken'
 
-import { Actions }  from 'react-native-router-flux'
-const  routerActions = Actions
+import { Actions as routerActions }  from 'react-native-router-flux'
 
 /**
  * ## Token

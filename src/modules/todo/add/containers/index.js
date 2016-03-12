@@ -21,7 +21,7 @@ import {Map} from 'immutable'
 /**
  * Router
  */
-import {Actions} from 'react-native-router-flux'
+import { Actions as routerActions }  from 'react-native-router-flux'
 
 /**
  * Navigation Bar
