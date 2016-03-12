@@ -22,7 +22,6 @@ export function checkAccessToken() {
         //下一个场景准备: 初始化
         // dispatch(logoutActions.moduleInit()) 
         //路由切换
-        debugger
         routerActions.userRegister()
     }
 

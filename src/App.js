@@ -55,8 +55,8 @@ import userLogout from './modules/user/logout/containers'
 import userRegister from './modules/user/register/containers'
 import userForgotPassword from './modules/user/forgotPassword/containers'
 import userProfile from './modules/user/profile/containers'
-import Main from './containers/Main'
-import Subview from './containers/Subview'
+import todoList from './modules/todo/list/containers'
+import todoAdd from './modules/todo/add/containers'
 
 /**
  * ### icons
@@ -133,7 +133,7 @@ export default function native(platform) {
       	    <Schema name="floatFromRight"
                           sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
 
-      	    <Schema name="default"/>
+      	    <Schema name="default" />
 
       	    <Schema name="tab"
                           type="switch"
@@ -142,53 +142,57 @@ export default function native(platform) {
       	    <Route name="startUp"
                          component={startUp}
                          title="startUp"
-                         initial={true}/>
+                         initial={true}
+            />
 
       	    <Route name="userLogin"
                          component={userLogin}
                          title="userLogin"
-                         type="replace"/>
+                         type="replace" />
 
       	    <Route name="userRegister"
                          component={userRegister}
                          title="userRegister"
-                         type="replace"/>
+                         type="replace" />
 
       	    <Route name="userForgotPassword"
                          component={userForgotPassword}
                          title="userForgotPassword"
                          type="replace" />
 
-      	    <Route name="Subview"
-                         component={Subview}
-                         title="Subview"
+      	    <Route name="todoAdd"
+                         component={todoAdd}
+                         title="todoAdd"
                          Schema="floatFromRight"	/>
 
       	    <Route name="Tabbar" type="replace">
-      	      <Router footer={TabBar}
-                            showNavigationBar={false}>
+      	      <Router footer={TabBar} showNavigationBar={false}>
 
       	        <Route name="userLogout"
-                             schema="tab"
-                             title="logout"
-                             iconName={"sign-out"}
-                             hideNavBar={true}
-                             component={userLogout}/>
+                     schema="tab"
+                     title="logout"
+                     iconName={"sign-out"}
+                     hideNavBar={true}
+                     component={userLogout}
+                />
 
-      	        <Route name="Main"
-                             schema="tab"
-                             title="main"
-                             iconName={"home"}
-                             hideNavBar={true}
-                             component={Main}
-                             initial={true}/>
+      	        <Route name="todoList"
+                     schema="tab"
+                     title="main"
+                     iconName={"home"}
+                     hideNavBar={true}
+                     component={todoList}
+                     initial={true}
+                />
 
-                      <Route name="userProfile"
-                             schema="tab"
-                             title="profile"
-                             iconName={"gear"}
-                             hideNavBar={true}
-                             component={userProfile}/>
+                <Route name="userProfile"
+                     schema="tab"
+                     title="profile"
+                     iconName={"gear"}
+                     hideNavBar={true}
+                     component={userProfile}
+                />
+
       	      </Router>
       	    </Route>
 

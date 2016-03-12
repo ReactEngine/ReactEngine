@@ -22,7 +22,7 @@ export default {
 	userLogin: (new userLoginInitialState),
 	userLogout: (new userLogoutInitialState),
 	userForgotPassword: (new userForgotPasswordInitialState),
+	userProfile: (new userProfileInitialState),
 	device: (new deviceInitialState).set('isMobile',true),
 	global: (new globalInitialState),
-	userProfile: (new userProfileInitialState)
 }

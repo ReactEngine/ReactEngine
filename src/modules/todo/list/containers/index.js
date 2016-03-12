@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as globalActions from '../modules/global/actions'
+import * as globalActions from '../../../global/actions'
 
 /**
  * Immutable
@@ -30,7 +30,7 @@ import {Actions} from 'react-native-router-flux'
 /**
  * The Header will display a Image and support Hot Loading
  */
-import Header from '../components/Header'
+import Header from '../../../common/components/Header'
 
 /**
  * The components needed from React

@@ -10,11 +10,14 @@
  * 
  * our reducers
  */ 
-import register from './modules/user/register/reducers'
-import login from './modules/user/login/reducers'
-import logout from './modules/user/logout/reducers'
-import forgotPassword from './modules/user/forgotPassword/reducers'
-import profile from './modules/user/profile/reducers'
+import userRegister from './modules/user/register/reducers'
+import userLogin from './modules/user/login/reducers'
+import userLogout from './modules/user/logout/reducers'
+import userForgotPassword from './modules/user/forgotPassword/reducers'
+import userProfile from './modules/user/profile/reducers'
+
+// import todoAdd from './modules/todo/add/reducers'
+// import todoList from './modules/todo/list/reducers'
 
 import device from './modules/device/deviceReducer'
 import global from './modules/global/globalReducer'
@@ -28,13 +31,13 @@ import { combineReducers } from 'redux'
  * EVERY TIME there is a basic action
  */ 
 const rootReducer = combineReducers({
-  register,
-  login,
-  logout,
-  forgotPassword,
+  userRegister,
+  userLogin,
+  userLogout,
+  userForgotPassword,
+  userProfile,
   device,
-  global,
-  profile
+  global
 })
 
 export default rootReducer
