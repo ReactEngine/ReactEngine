@@ -16,8 +16,12 @@ cd ReactEngine-Client
 npm install -d
 ```
 #### 3. 运行
-iOS: 用 XCode 打开```ios/ReactEngine.xcodeproj```,编译运行
-Android: react-native run-android
+iOS:    
+用 XCode 打开```ios/ReactEngine.xcodeproj```,编译运行.    
+Android:   
+```
+react-native run-android
+```
 
 ## 截图
 iOS:  
