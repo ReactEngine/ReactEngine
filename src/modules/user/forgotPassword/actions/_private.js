@@ -4,7 +4,7 @@ const {
   RESETPASSWORD_REQUEST_SUCCESS,
   RESETPASSWORD_REQUEST_FAILURE
 
-} = require('../constants').default
+} = require('../../constants').default
   /**
    * ## ResetPassword actions
    */

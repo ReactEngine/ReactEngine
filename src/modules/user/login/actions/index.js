@@ -2,26 +2,28 @@
 
 const {
 
-  USER_REGISTER_INIT_START,
-  USER_REGISTER_FORMFIELD_CHANGE
+  USER_LOGIN_INIT_START,
+  USER_LOGIN_FORMFIELD_CHANGE
 
-} = require('../constants').default
+} = require('../../constants').default
 
 const  _ = require('lodash')
 
-const ApiFactory = require('../../../services/api').default
+const ApiFactory = require('../../../../services/api').default
 
 import { Actions } from 'react-native-router-flux'
-import privateActions from './_actions'
-import logoutActions from '../logout/actions'
-import accessTokenActions from '../../../actions/accessToken'
-import accessTokenStorage from '../../../storage/accessToken'
 const routerActions = Actions
 
+import privateActions from './_private'
+import logoutActions from '../logout/actions'
+import accessTokenActions from '../../../accessToken/actions'
+
+import accessTokenStorage from '../../../../storage/accessToken'
+
 //表单字段更新
-export function registerFormFieldChange(field,value) {
+export function loginFormFieldChange(field,value) {
   return {
-    type: USER_REGISTER_FORMFIELD_CHANGE,
+    type: USER_LOGIN_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -29,38 +31,36 @@ export function registerFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: USER_REGISTER_INIT_START
+    type: USER_LOGIN_INIT_START
   }
 }
 
 /**
- * ## register
- * @param {string} username - name of user
+ * ## Login 
  * @param {string} email - user's email
  * @param {string} password - user's password
  *
- * Call Parse.register and if good, save the accessToken, 
- * set the state to logout and signal success
+ * After calling Backend, if response is good, save the json
+ * which is the currentUser which contains the accessToken
  *
- * Otherwise, dispatch the error so the user can see
+ * If successful, set the state to logout
+ * otherwise, dispatch a failure
  */
-export function register(username, email, password) {
+export function login(email, password) {
   
   return dispatch => {
     //请求开始
     dispatch(privateActions.requestStart())
 
     const userData = {
-      username: username,
-      email: email,
+      email: username,
       password: password
     }
 
-    return  ApiFactory().register(userData)
+    return  ApiFactory().login(userData)
       .then((json) => {
       		const data = Object.assign({}, json,
 						{
-						  username: username,
 						  email: email
 						})
 

@@ -4,7 +4,7 @@ const {
   USER_LOGOUT_REQUEST_SUCCESS,
   USER_LOGOUT_REQUEST_FAILURE
 
-} = require('../constants').default
+} = require('../../constants').default
 /**
  * ## Logout actions
  */

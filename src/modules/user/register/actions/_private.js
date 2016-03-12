@@ -4,7 +4,7 @@ const {
   USER_REGISTER_REQUEST_SUCCESS,
   USER_REGISTER_REQUEST_FAILURE
 
-} = require('../constants').default
+} = require('../../constants').default
 /**
  * ## Signup actions
  */

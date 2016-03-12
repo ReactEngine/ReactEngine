@@ -5,20 +5,20 @@ const {
   USER_FORGOTPASSWORD_INIT_START,
   USER_FORGOTPASSWORD_FORMFIELD_CHANGE
 
-} = require('../constants').default
+} = require('../../constants').default
 
 const  _ = require('lodash')
 
-const ApiFactory = require('../../../services/api').default
+const ApiFactory = require('../../../../services/api').default
 
 import { Actions } from 'react-native-router-flux'
 const routerActions = Actions
 
-import privateActions from './_actions'
+import privateActions from './_private'
 import loginActions from '../login/actions'
-import accessTokenActions from '../../../actions/accessToken'
+import accessTokenActions from '../../../accessToken/actions'
 
-import accessTokenStorage from '../../../storage/accessToken'
+import accessTokenStorage from '../../../../storage/accessToken'
 
 //表单字段更新
 export function forgotPasswordFormFieldChange(field,value) {

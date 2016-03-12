@@ -5,18 +5,18 @@ const {
   USER_LOGOUT_INIT_START,
   USER_LOGOUT_FORMFIELD_CHANGE
 
-} = require('../constants').default
+} = require('../../constants').default
 
 const  _ = require('lodash')
 
-const ApiFactory = require('../../../services/api').default
+const ApiFactory = require('../../../../services/api').default
 
 import { Actions } from 'react-native-router-flux'
-import privateActions from './_actions'
-import accessTokenActions from '../../../actions/accessToken'
+import privateActions from './_private'
+import accessTokenActions from '../../../accessToken/actions'
 import loginActions from '../login/actions'
 
-import accessTokenStorage from '../../../storage/accessToken'
+import accessTokenStorage from '../../../../storage/accessToken'
 const routerActions = Actions
 
 //表单字段更新
