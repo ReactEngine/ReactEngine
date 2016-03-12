@@ -14,7 +14,7 @@ const ApiFactory = require('../../../../services/api').default
 import { Actions } from 'react-native-router-flux'
 const routerActions = Actions
 
-import privateActions from './_private'
+import syncActions from './sync'
 import loginActions from '../../login/actions'
 import accessTokenActions from '../../../accessToken/actions'
 
@@ -50,7 +50,7 @@ export function forgotPassword(email) {
   
   return dispatch => {
     //请求开始
-    dispatch(privateActions.requestStart())
+    dispatch(syncActions.requestStart())
 
     const userData = {
       email: username
@@ -59,14 +59,14 @@ export function forgotPassword(email) {
     return  ApiFactory().forgotPassword(userData)
       .then((json) => {
           //请求成功
-          dispatch(privateActions.requestSuccess())
+          dispatch(syncActions.requestSuccess())
           //下一个场景准备: 初始化
           dispatch(loginActions.moduleInit())  
           // 切换路由到下一个场景: Login
           routerActions.Login()  
       })
       .catch((error) => {
-			   dispatch(privateActions.requestFailure(error))
+			   dispatch(syncActions.requestFailure(error))
       })
 
   }

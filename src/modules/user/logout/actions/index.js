@@ -12,7 +12,7 @@ const  _ = require('lodash')
 const ApiFactory = require('../../../../services/api').default
 
 import { Actions } from 'react-native-router-flux'
-import privateActions from './_private'
+import syncActions from './sync'
 import accessTokenActions from '../../../accessToken/actions'
 import loginActions from '../../login/actions'
 
@@ -58,7 +58,7 @@ export function logout(email, password) {
 
   return dispatch => {
     //请求开始
-    dispatch(privateActions.requestStart())
+    dispatch(syncActions.requestStart())
 
     return 
     new accessTokenStorage().get()
@@ -67,12 +67,12 @@ export function logout(email, password) {
       })
       .then(() => {
           //请求成功
-         dispatch(privateActions.requestSuccess(data))
+         dispatch(syncActions.requestSuccess(data))
          logoutHandle()
        })
       .catch((error) => {
           //请求失败
-			   dispatch(privateActions.requestFailure(error))
+			   dispatch(syncActions.requestFailure(error))
          logoutHandle()
       })
   }

@@ -23,15 +23,7 @@ import {Map} from 'immutable'
 /**
  * Project actions
  */
-import * as registerActions from '../modules/user/register/actions'
-import * as loginActions from '../modules/user/login/actions'
-import * as logoutActions from '../modules/user/logout/actions'
-import * as forgotPasswordActions from '../modules/user/forgotPassword/actions'
-
-import * as deviceActions from '../modules/device/deviceActions'
-import * as globalActions from '../modules/global/globalActions'
-
-import * as accessTokenAsyncActions from '../modules/accessToken/actions'
+import * as appActions from './actions'
 
 /**
  * The components we need from ReactNative
@@ -46,16 +38,10 @@ from 'react-native'
 
 /**
  * ## Actions
- * 3 of our actions will be available as ```actions```
+ * our actions will be available as ```actions```
  */
 const actions = [
-  registerActions,
-  loginActions,
-  logoutActions,
-  forgotPasswordActions,
-  deviceActions,
-  globalActions,
-  accessTokenAsyncActions
+  appActions
 ]
 
 /**
@@ -84,7 +70,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-
 var styles = StyleSheet.create({
   container: {
     flex:1,
@@ -107,13 +92,13 @@ let App = React.createClass({
    * 
    */
   componentDidMount() {
-    this.props.actions.getAccessToken()
+    this.props.actions.checkAccessToken()
   },
   
   render() {
     return(
       <View style={ styles.container }>
-	<Text style={ styles.summary }>React Engine</Text>
+	       <Text style={ styles.summary }>React Engine</Text>
       </View>
     )
   }

@@ -16,10 +16,10 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as registerActions from '../modules/user/register/actions'
-import * as loginActions from '../modules/user/login/actions'
-import * as logoutActions from '../modules/user/logout/actions'
-import * as forgotPasswordActions from '../modules/user/forgotPassword/actions'
+import * as registerActions from '../register/actions'
+import * as loginActions from '../login/actions'
+import * as logoutActions from '../logout/actions'
+import * as forgotPasswordActions from '../forgotPassword/actions'
 import * as globalActions from '../modules/global/globalActions'
 
 

@@ -14,7 +14,7 @@ const ApiFactory = require('../../../../services/api').default
 import { Actions } from 'react-native-router-flux'
 const routerActions = Actions
 
-import privateActions from './_private'
+import syncActions from './sync'
 import logoutActions from '../../logout/actions'
 import accessTokenActions from '../../../accessToken/actions'
 
@@ -50,7 +50,7 @@ export function login(email, password) {
   
   return dispatch => {
     //请求开始
-    dispatch(privateActions.requestStart())
+    dispatch(syncActions.requestStart())
 
     const userData = {
       email: username,
@@ -67,7 +67,7 @@ export function login(email, password) {
 			return saveAccessToken(data)
 		          .then(() => {
 		          //请求成功
-					    dispatch(privateActions.requestSuccess(data))
+					    dispatch(syncActions.requestSuccess(data))
 					    //下一个场景准备: 初始化
 					    dispatch(logoutActions.moduleInit())  
 					    // 切换路由到下一个场景: Tabbar
@@ -75,7 +75,7 @@ export function login(email, password) {
 			  		})
       })
       .catch((error) => {
-			   dispatch(privateActions.requestFailure(error))
+			   dispatch(syncActions.requestFailure(error))
       })
 
   }

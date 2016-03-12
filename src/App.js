@@ -41,7 +41,7 @@ import {
  *
  */
 import configureStore from './store/configureStore'
-
+import initialState from './modules/initialState'
 
 /**
  * ### containers
@@ -49,12 +49,12 @@ import configureStore from './store/configureStore'
  * All the top level containers
  *
  */
-import App from './containers/App'
-import Login from './containers/Login'
-import Logout from './containers/Logout'
-import Register from './containers/Register'
-import ForgotPassword from './containers/ForgotPassword'
-import Profile from './containers/Profile'
+import startUp from './modules/startup/containers'
+import userLogin from './modules/user/login/containers'
+import userLogout from './modules/user/logout/containers'
+import userRegister from './modules/user/register/containers'
+import userForgotPassword from './modules/user/forgotPassword/containers'
+import userProfile from './modules/user/profile/containers'
 import Main from './containers/Main'
 import Subview from './containers/Subview'
 
@@ -71,44 +71,16 @@ import Icon from 'react-native-vector-icons/FontAwesome'
  *  The necessary actions for dispatching our bootstrap values
  */
 import {setPlatform, setVersion} from './modules/device/deviceActions'
-import {setStore} from './modules/global/globalActions'
+import {setStore} from './modules/global/actions'
 
-/**
- * ## States
- * AppComponent explicitly defines initial state
- *
- */
-import registerInitialState from './modules/user/register/initialState'
-import loginInitialState from './modules/user/login/initialState'
-import logoutInitialState from './modules/user/logout/initialState'
-import forgotPasswordInitialState from './modules/user/forgotPassword/initialState'
-import deviceInitialState from './modules/device/deviceInitialState'
-import globalInitialState from './modules/global/globalInitialState'
-import profileInitialState from './modules/user/profile/initialState'
+
 
 /**
  *  The version of the app but not  displayed yet
  */
-var VERSION='0.0.12'
+var VERSION='0.0.1'
 
-/**
- *
- * ## Initial state
- * Create instances for the keys of each structure
- * @returns {Object} object with 4 keys
- */
-function getInitialState() {
-  const _initState = {
-    register: new registerInitialState,
-    login: new loginInitialState,
-    logout: new logoutInitialState,
-    forgotPassword: new forgotPasswordInitialState,
-    device: (new deviceInitialState).set('isMobile',true),
-    global: (new globalInitialState),
-    profile: new profileInitialState
-  }
-  return _initState
-}
+
 /**
 * ## TabIcon
 *
@@ -117,11 +89,10 @@ function getInitialState() {
 class TabIcon extends React.Component {
   render() {
     var color = this.props.selected ? 'FF3366' : 'FFB3B3'
-
     return (
       <View style={{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center'}}>
-	<Icon style={{color: color}} name={this.props.iconName} size={30} />
-	<Text style={{color: color}}>{this.props.title}</Text>
+      	<Icon style={{color: color}} name={this.props.iconName} size={30} />
+      	<Text style={{color: color}}>{this.props.title}</Text>
       </View>
     )
   }
@@ -141,7 +112,7 @@ export default function native(platform) {
   let AppComponent = React.createClass( {
     render() {
 
-      const store = configureStore(getInitialState())
+      const store = configureStore(initialState)
 
       //Connect w/ the Router
       const Router = connect()(RNRF.Router)
@@ -155,80 +126,77 @@ export default function native(platform) {
       // setup the router table with App selected as the initial component
       return (
         <Provider store={store}>
-	  <Router hideNavBar={true}>
-	    <Schema name="modal"
-                    sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
+      	  <Router hideNavBar={true}>
+      	    <Schema name="modal"
+                          sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
 
-	    <Schema name="floatFromRight"
-                    sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
+      	    <Schema name="floatFromRight"
+                          sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
 
-	    <Schema name="default"/>
+      	    <Schema name="default"/>
 
-	    <Schema name="tab"
-                    type="switch"
-                    icon={TabIcon} />
+      	    <Schema name="tab"
+                          type="switch"
+                          icon={TabIcon} />
 
-	    <Route name="App"
-                   component={App}
-                   title="App"
-                   initial={true}/>
+      	    <Route name="startUp"
+                         component={startUp}
+                         title="startUp"
+                         initial={true}/>
 
-	    <Route name="Login"
-                   component={Login}
-                   title="Login"
-                   type="replace"/>
+      	    <Route name="userLogin"
+                         component={userLogin}
+                         title="userLogin"
+                         type="replace"/>
 
-	    <Route name="Register"
-                   component={Register}
-                   title="Register"
-                   type="replace"/>
+      	    <Route name="userRegister"
+                         component={userRegister}
+                         title="userRegister"
+                         type="replace"/>
 
-	    <Route name="ForgotPassword"
-                   component={ForgotPassword}
-                   title="ForgotPassword"
-                   type="replace" />
+      	    <Route name="userForgotPassword"
+                         component={userForgotPassword}
+                         title="userForgotPassword"
+                         type="replace" />
 
-	    <Route name="Subview"
-                   component={Subview}
-                   title="Subview"
-                   Schema="floatFromRight"	/>
+      	    <Route name="Subview"
+                         component={Subview}
+                         title="Subview"
+                         Schema="floatFromRight"	/>
 
-	    <Route name="Tabbar" type="replace">
-	      <Router footer={TabBar}
-                      showNavigationBar={false}>
+      	    <Route name="Tabbar" type="replace">
+      	      <Router footer={TabBar}
+                            showNavigationBar={false}>
 
-	        <Route name="Logout"
-                       schema="tab"
-                       title="logout"
-                       iconName={"sign-out"}
-                       hideNavBar={true}
-                       component={Logout}/>
+      	        <Route name="userLogout"
+                             schema="tab"
+                             title="logout"
+                             iconName={"sign-out"}
+                             hideNavBar={true}
+                             component={userLogout}/>
 
-	        <Route name="Main"
-                       schema="tab"
-                       title="main"
-                       iconName={"home"}
-                       hideNavBar={true}
-                       component={Main}
-                       initial={true}/>
+      	        <Route name="Main"
+                             schema="tab"
+                             title="main"
+                             iconName={"home"}
+                             hideNavBar={true}
+                             component={Main}
+                             initial={true}/>
 
-                <Route name="Profile"
-                       schema="tab"
-                       title="profile"
-                       iconName={"gear"}
-                       hideNavBar={true}
-                       component={Profile}/>
-	      </Router>
-	    </Route>
+                      <Route name="userProfile"
+                             schema="tab"
+                             title="profile"
+                             iconName={"gear"}
+                             hideNavBar={true}
+                             component={userProfile}/>
+      	      </Router>
+      	    </Route>
 
-	  </Router>
+      	  </Router>
         </Provider>
       )
     }
   })
-  /**
-   * registerComponent to the AppRegistery and off we go....
-   */
 
   AppRegistry.registerComponent('App', () => AppComponent)
 }
