@@ -16,7 +16,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as loginActions from '../modules/login/actions'
+import * as loginActions from '../modules/user/login/actions'
 
 /**
  * Immutable

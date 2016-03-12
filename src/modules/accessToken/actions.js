@@ -1,7 +1,7 @@
 import accessTokenActions from '../../actions/accessToken'
 import accessTokenStorage from '../../storage/accessToken'
 import { Actions }  from 'react-native-router-flux'
-import logoutActions from '../logout/actions'
+import logoutActions from '../user/logout/actions'
 
 const RouterActions = Actions
 

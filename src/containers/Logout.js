@@ -17,7 +17,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as logoutActions from '../modules/logout/actions'
+import * as logoutActions from '../modules/user/logout/actions'
 import * as globalActions from '../modules/global/globalActions'
 
 /**

@@ -11,7 +11,7 @@
  * formValidation for setting the form's valid flag
  */
 const InitialState = require('./initialState').default
-const fieldValidation = require('../../lib/fieldValidation').default
+const fieldValidation = require('../../common/reducers/fieldValidation').default
 import formValidation from './formValidation'
 
 /**
@@ -29,7 +29,7 @@ const {
   REGISTER_MODULE_INIT,
   REGISTER_FORMFIELD_CHANGE
 
-} = require('../../constants').default
+} = require('../../../constants').default
 
 const initialState = new InitialState
 

@@ -78,13 +78,13 @@ import {setStore} from './modules/global/globalActions'
  * AppComponent explicitly defines initial state
  *
  */
-import registerInitialState from './modules/register/initialState'
-import loginInitialState from './modules/login/initialState'
-import logoutInitialState from './modules/logout/initialState'
-import forgotPasswordInitialState from './modules/forgotPassword/initialState'
+import registerInitialState from './modules/user/register/initialState'
+import loginInitialState from './modules/user/login/initialState'
+import logoutInitialState from './modules/user/logout/initialState'
+import forgotPasswordInitialState from './modules/user/forgotPassword/initialState'
 import deviceInitialState from './modules/device/deviceInitialState'
 import globalInitialState from './modules/global/globalInitialState'
-import profileInitialState from './modules/profile/initialState'
+import profileInitialState from './modules/user/profile/initialState'
 
 /**
  *  The version of the app but not  displayed yet

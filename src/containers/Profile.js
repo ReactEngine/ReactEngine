@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as profileActions from '../modules/profile/actions'
+import * as profileActions from '../modules/user/profile/actions'
 import * as globalActions from '../modules/global/globalActions'
 
 /**

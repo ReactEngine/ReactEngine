@@ -5,17 +5,17 @@ const {
   REGISTER_MODULE_INIT,
   REGISTER_FORMFIELD_CHANGE
 
-} = require('../../constants').default
+} = require('../../../constants').default
 
 const  _ = require('lodash')
 
-const ApiFactory = require('../../services/api').default
+const ApiFactory = require('../../../services/api').default
 
 import { Actions } from 'react-native-router-flux'
-import userActions from '../../actions/user'
+import userActions from '../../../actions/user'
 import logoutActions from '../logout/actions'
-import accessTokenActions from '../../actions/accessToken'
-import accessTokenStorage from '../../storage/accessToken'
+import accessTokenActions from '../../../actions/accessToken'
+import accessTokenStorage from '../../../storage/accessToken'
 const routerActions = Actions
 
 //表单字段更新

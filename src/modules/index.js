@@ -10,13 +10,13 @@
  * 
  * our 4 reducers
  */ 
-import register from './register/reducers'
-import login from './login/reducers'
-import logout from './logout/reducers'
-import forgotPassword from './forgotPassword/reducers'
+import register from './user/register/reducers'
+import login from './user/login/reducers'
+import logout from './user/logout/reducers'
+import forgotPassword from './user/forgotPassword/reducers'
 import device from './device/deviceReducer'
 import global from './global/globalReducer'
-import profile from './profile/reducers'
+import profile from './user/profile/reducers'
 
 import { combineReducers } from 'redux'
 

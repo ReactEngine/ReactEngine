@@ -5,20 +5,20 @@ const {
   LOGIN_MODULE_INIT,
   LOGIN_FORMFIELD_CHANGE
 
-} = require('../../constants').default
+} = require('../../../constants').default
 
 const  _ = require('lodash')
 
-const ApiFactory = require('../../services/api').default
+const ApiFactory = require('../../../services/api').default
 
 import { Actions } from 'react-native-router-flux'
 const routerActions = Actions
 
-import userActions from '../../actions/user'
+import userActions from '../../../actions/user'
 import logoutActions from '../logout/actions'
-import accessTokenActions from '../../actions/accessToken'
+import accessTokenActions from '../../../actions/accessToken'
 
-import accessTokenStorage from '../../storage/accessToken'
+import accessTokenStorage from '../../../storage/accessToken'
 
 //表单字段更新
 export function loginFormFieldChange(field,value) {

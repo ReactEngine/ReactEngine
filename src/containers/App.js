@@ -23,10 +23,10 @@ import {Map} from 'immutable'
 /**
  * Project actions
  */
-import * as registerActions from '../modules/register/actions'
-import * as loginActions from '../modules/login/actions'
-import * as logoutActions from '../modules/logout/actions'
-import * as forgotPasswordActions from '../modules/forgotPassword/actions'
+import * as registerActions from '../modules/user/register/actions'
+import * as loginActions from '../modules/user/login/actions'
+import * as logoutActions from '../modules/user/logout/actions'
+import * as forgotPasswordActions from '../modules/user/forgotPassword/actions'
 
 import * as deviceActions from '../modules/device/deviceActions'
 import * as globalActions from '../modules/global/globalActions'

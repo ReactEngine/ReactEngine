@@ -14,7 +14,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as forgotPasswordActions from '../modules/forgotPassword/actions'
+import * as forgotPasswordActions from '../modules/user/forgotPassword/actions'
 
 /**
  * Immutable
