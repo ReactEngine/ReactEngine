@@ -74,7 +74,6 @@ import {setPlatform, setVersion} from './modules/device/deviceActions'
 import {setStore} from './modules/global/actions'
 
 
-
 /**
  *  The version of the app but not  displayed yet
  */
