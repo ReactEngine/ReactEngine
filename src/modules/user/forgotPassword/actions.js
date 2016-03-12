@@ -2,8 +2,8 @@
 
 const {
 
-  FORGOTPASSWORD_MODULE_INIT,
-  FORGOTPASSWORD_FORMFIELD_CHANGE
+  USER_FORGOTPASSWORD_VIEW_INIT,
+  USER_FORGOTPASSWORD_FORMFIELD_CHANGE
 
 } = require('../../../constants').default
 
@@ -23,7 +23,7 @@ import accessTokenStorage from '../../../storage/accessToken'
 //表单字段更新
 export function forgotPasswordFormFieldChange(field,value) {
   return {
-    type: FORGOTPASSWORD_FORMFIELD_CHANGE,
+    type: USER_FORGOTPASSWORD_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -31,7 +31,7 @@ export function forgotPasswordFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: FORGOTPASSWORD_MODULE_INIT
+    type: USER_FORGOTPASSWORD_VIEW_INIT
   }
 }
 

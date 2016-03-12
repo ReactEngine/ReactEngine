@@ -26,8 +26,8 @@ const {
   USER_LOGOUT_SUCCESS,
   USER_LOGOUT_FAILURE,
 
-  LOGOUT_MODULE_INIT,
-  LOGOUT_FORMFIELD_CHANGE
+  USER_LOGOUT_VIEW_INIT,
+  USER_LOGOUT_FORMFIELD_CHANGE
 
 } = require('../../../constants').default
 
@@ -46,7 +46,7 @@ export default function reducer(state = initialState, action) {
 
     switch (action.type) {
 
-        case LOGOUT_MODULE_INIT:
+        case USER_LOGOUT_VIEW_INIT:
           return formValidation(
             state.setIn(['form','error'],null)
           )

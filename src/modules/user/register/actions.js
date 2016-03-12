@@ -2,8 +2,8 @@
 
 const {
 
-  REGISTER_MODULE_INIT,
-  REGISTER_FORMFIELD_CHANGE
+  USER_REGISTER_VIEW_INIT,
+  USER_REGISTER_FORMFIELD_CHANGE
 
 } = require('../../../constants').default
 
@@ -21,7 +21,7 @@ const routerActions = Actions
 //表单字段更新
 export function registerFormFieldChange(field,value) {
   return {
-    type: REGISTER_FORMFIELD_CHANGE,
+    type: USER_REGISTER_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
   }
 }
@@ -29,7 +29,7 @@ export function registerFormFieldChange(field,value) {
 //模块初始化
 export function moduleInit() {
   return {
-    type: REGISTER_MODULE_INIT
+    type: USER_REGISTER_VIEW_INIT
   }
 }
 

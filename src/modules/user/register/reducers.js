@@ -26,8 +26,8 @@ const {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILURE,
 
-  REGISTER_MODULE_INIT,
-  REGISTER_FORMFIELD_CHANGE
+  USER_REGISTER_VIEW_INIT,
+  USER_REGISTER_FORMFIELD_CHANGE
 
 } = require('../../../constants').default
 
@@ -46,7 +46,7 @@ export default function reducer(state = initialState, action) {
 
   switch (action.type) {
 
-    case REGISTER_MODULE_INIT:
+    case USER_REGISTER_VIEW_INIT:
       return formValidation(
           state.setIn(['form', 'error'], null)
         )
@@ -85,7 +85,7 @@ export default function reducer(state = initialState, action) {
        * Pass the fieldValidation results to the
        * the formValidation
        */
-    case REGISTER_FORMFIELD_CHANGE:
+    case USER_REGISTER_FORMFIELD_CHANGE:
       {
         const {
           field, value

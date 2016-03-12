@@ -26,8 +26,8 @@ const {
   USER_FORGOTPASSWORD_SUCCESS,
   USER_FORGOTPASSWORD_FAILURE,
 
-  FORGOTPASSWORD_MODULE_INIT,
-  FORGOTPASSWORD_FORMFIELD_CHANGE
+  USER_FORGOTPASSWORD_VIEW_INIT,
+  USER_FORGOTPASSWORD_FORMFIELD_CHANGE
 
 } = require('../../../constants').default
 
@@ -46,7 +46,7 @@ export default function reducer(state = initialState, action) {
 
     switch (action.type) {
 
-        case FORGOTPASSWORD_MODULE_INIT:
+        case USER_FORGOTPASSWORD_VIEW_INIT:
           return formValidation(
             state.setIn(['form','error'],null)
           )
@@ -65,7 +65,7 @@ export default function reducer(state = initialState, action) {
           return state.setIn(['form', 'isFetching'], false)
             .setIn(['form', 'error'], action.payload)
 
-        case FORGOTPASSWORD_FORMFIELD_CHANGE: {
+        case USER_FORGOTPASSWORD_FORMFIELD_CHANGE: {
           const {field, value} = action.payload
           let nextState =  state.setIn(['form', 'fields', field], value)
                 .setIn(['form','error'],null)
