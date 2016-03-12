@@ -2,6 +2,9 @@
 一个基于 [Reac Native](https://facebook.github.io/react-native) + [Redux](https://github.com/reactjs/redux) + [Strongloop](https://strongloop.com) 的快速开发框架.  
 目的: 快速开发,原则上一个 JS 工程师可以搞定 iOS/Android/Server 开发.
 
+# Client
+ReactEngine 客户端部分,基于 [Reac Native](https://facebook.github.io/react-native) + [Redux](https://github.com/reactjs/redux) 的工程模板.
+
 ## 如何运行
 ### 1. 环境准备
 安装**最新版** Nodejs: 详见 [nodejs.org](https://nodejs.org/en/download/)   
