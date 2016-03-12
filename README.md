@@ -1,5 +1,5 @@
 # ReactEngine
-一个基于 [Reac Native](https://facebook.github.io/react-native) + [Redux](https://github.com/reactjs/redux) + [Strongloop](https://strongloop.com) 的完整开发框架.  
+一个基于 [Reac Native](https://facebook.github.io/react-native) + [Redux](https://github.com/reactjs/redux) + [Strongloop](https://strongloop.com) 的快速开发框架.  
 目的: 快速开发,原则上一个 JS 工程师可以搞定 iOS/Android/Server 开发.
 
 ## 如何运行
