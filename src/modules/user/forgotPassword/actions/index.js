@@ -15,7 +15,7 @@ import { Actions } from 'react-native-router-flux'
 const routerActions = Actions
 
 import privateActions from './_private'
-import loginActions from '../login/actions'
+import loginActions from '../../login/actions'
 import accessTokenActions from '../../../accessToken/actions'
 
 import accessTokenStorage from '../../../../storage/accessToken'

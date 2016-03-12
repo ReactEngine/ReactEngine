@@ -6,7 +6,7 @@ const {
   ACCESSTOKEN_DELETE_START,
   ACCESSTOKEN_DELETE_SUCCESS,
   ACCESSTOKEN_DELETE_FAILURE
-} = require('../../constants').default
+} = require('../constants').default
 
 /**
  * ## get

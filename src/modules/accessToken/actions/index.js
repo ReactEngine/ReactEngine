@@ -1,4 +1,4 @@
-import privateActions from './_private'
+import * as privateActions from './_private'
 import logoutActions from '../../user/logout/actions'
 
 import { Actions }  from 'react-native-router-flux'

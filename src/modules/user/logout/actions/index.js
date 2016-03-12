@@ -14,7 +14,7 @@ const ApiFactory = require('../../../../services/api').default
 import { Actions } from 'react-native-router-flux'
 import privateActions from './_private'
 import accessTokenActions from '../../../accessToken/actions'
-import loginActions from '../login/actions'
+import loginActions from '../../login/actions'
 
 import accessTokenStorage from '../../../../storage/accessToken'
 const routerActions = Actions
