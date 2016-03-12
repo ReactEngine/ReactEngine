@@ -70,17 +70,12 @@ function buttonPressHandler(register, username, email, password) {
 let Register = React.createClass({
 
   render() {
-
     let loginButtonText = 'Register'
-    let onButtonPress = buttonPressHandler.bind(null,
-					        this.props.actions.register,
-					        this.props.auth.form.fields.username,
-					        this.props.auth.form.fields.email,
-					        this.props.auth.form.fields.password
-		                               )
-    
-
-
+    let onButtonPress = buttonPressHandler.bind(this.props.actions.register,
+					        this.props.userRegister.form.fields.username,
+					        this.props.userRegister.form.fields.email,
+					        this.props.userRegister.form.fields.password
+		        )
 
     return(
       <LoginRender 
@@ -90,7 +85,7 @@ let Register = React.createClass({
           displayPasswordCheckbox ={ true }
           leftMessageType={ userForgotPassword }
           rightMessageType={ userLogin }
-          auth={ this.props.auth }
+          auth={ this.props.this.props.userRegister }
           global={ this.props.global }
       />
 

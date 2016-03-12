@@ -74,19 +74,19 @@ let Login = React.createClass({
     let loginButtonText = 'Log in'
     let onButtonPress = buttonPressHandler.bind(null,
 				                this.props.actions.login,
-				                this.props.auth.form.fields.username,
-				                this.props.auth.form.fields.password
+				                this.props.userLogin.form.fields.username,
+				                this.props.userLogin.form.fields.password
 		                               )
 
     return(
       <LoginRender
-          formType={ LOGIN }
+          formType={ userLogin }
           loginButtonText={ loginButtonText }
           onButtonPress={ onButtonPress }
           displayPasswordCheckbox={ true }
-          leftMessageType={ REGISTER }
-          rightMessageType={ FORGOT_PASSWORD }
-          auth={ this.props.auth }
+          leftMessageType={ userRegister }
+          rightMessageType={ userForgotPassword }
+          auth={ this.props.userLogin }
           global={ this.props.global }
       />
     )

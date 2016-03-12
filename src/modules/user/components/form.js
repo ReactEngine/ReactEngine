@@ -31,7 +31,6 @@ const {
  */
 const t = require('tcomb-form-native')
 let Form = t.form.Form
-
 var LoginForm = React.createClass({
   /**
    * ## LoginForm class
@@ -54,7 +53,6 @@ var LoginForm = React.createClass({
    *
    */
   render() {
-
     let formType = this.props.formType
 
     let options = {

@@ -72,18 +72,18 @@ let ForgotPassword = React.createClass({
     let loginButtonText = 'Reset password'
     let onButtonPress = buttonPressHandler.bind(null,
 					        this.props.actions.resetPassword,
-					        this.props.auth.form.fields.email
+					        this.props.userForgotPassword.form.fields.email
 		                               )
 
     return(
       <LoginRender 
-          formType={ FORGOT_PASSWORD }
+          formType={ userForgotPassword }
           loginButtonText={ loginButtonText }
           onButtonPress={ onButtonPress }
           displayPasswordCheckbox={ false }
-          leftMessageType = { REGISTER }
-          rightMessageType = { LOGIN }
-          auth={ this.props.auth }
+          leftMessageType = { userRegister }
+          rightMessageType = { userLogin }
+          auth={ this.props.userForgotPassword }
           global={ this.props.global }
       />
     )

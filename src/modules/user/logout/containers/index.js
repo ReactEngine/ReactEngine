@@ -97,14 +97,14 @@ class Logout extends Component {
      return (
         <View style={styles.container}>
           <View>
-            <Header isFetching={this.props.auth.form.isFetching}
+            <Header isFetching={this.props.userLogout.form.isFetching}
                     showState={this.props.global.showState}
                     currentState={this.props.global.currentState}
                     onGetState={this.props.actions.getState}
                     onSetState={this.props.actions.setState}
             />
             <FormButton
-                isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
+                isDisabled={!this.props.userLogout.form.isValid || this.props.userLogout.form.isFetching}
                 onPress={onButtonPress.bind(self)}
                 buttonText={'Log out'}/>
           </View>

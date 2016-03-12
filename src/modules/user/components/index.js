@@ -135,11 +135,12 @@ class LoginRender extends Component {
   constructor(props) {
     super(props)
     this.errorAlert = new ErrorAlert()
+    
     this.state ={
       value: {
-        username: this.props.auth.form.fields.username,
-        email: this.props.auth.form.fields.email,
-        password: this.props.auth.form.fields.password,
+        username: this.props.userRegister.form.fields.username,
+        email: this.props.userRegister.form.fields.email,
+        password: this.props.userRegister.form.fields.password,
       }
     }
   }
@@ -149,6 +150,7 @@ class LoginRender extends Component {
    * As the properties are validated they will be set here.
    */
   componentWillReceiveProps(nextprops) {
+    
     this.setState({
       value: {
       	username: nextprops.auth.form.fields.username,
@@ -243,7 +245,8 @@ class LoginRender extends Component {
     let self = this
 
     // display the login / register / change password screens
-    this.errorAlert.checkError(this.props.auth.form.error)
+    
+    this.errorAlert.checkError(this.props.userRegister.form.error)
     
     /**
      * Toggle the display of the Password and PasswordAgain fields
@@ -252,7 +255,7 @@ class LoginRender extends Component {
       passwordCheckbox =
       <ItemCheckbox
           text="Show Password"
-          disabled={this.props.auth.form.isFetching}
+          disabled={this.props.userRegister.form.isFetching}
           onCheck={() => {
 	      this.props.actions.onAuthFormFieldChange('showPassword',true)
             }}
@@ -274,7 +277,9 @@ class LoginRender extends Component {
       <View style={styles.container}>
 	<ScrollView horizontal={false} width={width} height={height}>
 	  <View>
-	    <Header isFetching={this.props.auth.form.isFetching}
+    
+    
+	    <Header isFetching={this.props.userRegister.form.isFetching}
                     showState={this.props.global.showState}
                     currentState={this.props.global.currentState}
                     onGetState={this.props.actions.getState}
@@ -284,7 +289,7 @@ class LoginRender extends Component {
 	    <View style={styles.inputs}>
 	      <LoginForm
                   formType={formType}
-                  form={this.props.auth.form}
+                  form={this.props.userRegister.form}
                   value={this.state.value}
                   onChange={self.onChange.bind(self)}
 	      />
@@ -292,7 +297,7 @@ class LoginRender extends Component {
             </View>
 	    
 	    <FormButton
-                isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
+                isDisabled={!this.props.userRegister.form.isValid || this.props.userRegister.form.isFetching}
                 onPress={onButtonPress}
                 buttonText={loginButtonText}/>
 	    

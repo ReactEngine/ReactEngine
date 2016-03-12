@@ -120,9 +120,9 @@ class Login extends Component {
     this.errorAlert = new ErrorAlert()
     this.state ={
       value: {
-        username: this.props.auth.form.fields.username,
-        email: this.props.auth.form.fields.email,
-        password: this.props.auth.form.fields.password,
+        username: this.props.userLogin.form.fields.username,
+        email: this.props.userLogin.form.fields.email,
+        password: this.props.userLogin.form.fields.password,
       }
     }
   }
@@ -134,9 +134,9 @@ class Login extends Component {
   componentWillReceiveProps(nextprops) {
     this.setState({
       value: {
-      	username: nextprops.auth.form.fields.username,
-      	email: nextprops.auth.form.fields.email,
-      	password: nextprops.auth.form.fields.password,
+      	username: nextprops.userLogin.form.fields.username,
+      	email: nextprops.userLogin.form.fields.email,
+      	password: nextprops.userLogin.form.fields.password,
       }
     })
   }
@@ -223,7 +223,7 @@ class Login extends Component {
     let self = this
 
     // display the login / register / change password screens
-    this.errorAlert.checkError(this.props.auth.form.error)
+    this.errorAlert.checkError(this.props.userLogin.form.error)
     
     /**
      * Toggle the display of the Password and PasswordAgain fields
@@ -232,7 +232,7 @@ class Login extends Component {
       passwordCheckbox =
       <ItemCheckbox
           text="Show Password"
-          disabled={this.props.auth.form.isFetching}
+          disabled={this.props.userLogin.form.isFetching}
           onCheck={() => {
 	      this.props.actions.onAuthFormFieldChange('showPassword',true)
             }}
@@ -254,7 +254,7 @@ class Login extends Component {
       <View style={styles.container}>
 	<ScrollView horizontal={false} width={width} height={height}>
 	  <View>
-	    <Header isFetching={this.props.auth.form.isFetching}
+	    <Header isFetching={this.props.userLogin.form.isFetching}
                     showState={this.props.global.showState}
                     currentState={this.props.global.currentState}
                     onGetState={this.props.actions.getState}
@@ -264,7 +264,7 @@ class Login extends Component {
 	    <View style={styles.inputs}>
 	      <LoginForm
                   formType={formType}
-                  form={this.props.auth.form}
+                  form={this.props.userLogin.form}
                   value={this.state.value}
                   onChange={self.onChange.bind(self)}
 	      />
@@ -272,7 +272,7 @@ class Login extends Component {
             </View>
 	    
 	    <FormButton
-                isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
+                isDisabled={!this.props.userLogin.form.isValid || this.props.userLogin.form.isFetching}
                 onPress={onButtonPress}
                 buttonText={loginButtonText}/>
 	    
