@@ -53,7 +53,7 @@ var styles = StyleSheet.create({
     margin: 20
   },
   header: {
-    marginTop: 10,
+    marginTop: 80,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent'
@@ -167,7 +167,7 @@ var Header = React.createClass({
         <View style={styles.header}>
 
           <TouchableHighlight onPress={this._onPressMark}> 
-            <Image style={styles.mark} source={{ uri: '../images/logo.png', isStatic: true }} />
+            <Image style={styles.mark} source={{ uri: 'http://cdn5.raywenderlich.com/wp-content/uploads/2015/03/logo-250x250.png', isStatic: true }} />
           </TouchableHighlight>
           {spinner}
         </View>
