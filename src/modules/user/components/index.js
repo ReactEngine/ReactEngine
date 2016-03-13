@@ -131,7 +131,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-class LoginRender extends Component {
+class UserComponent extends Component {
   constructor(props) {
     super(props)
     this.errorAlert = new ErrorAlert()
@@ -193,7 +193,8 @@ class LoginRender extends Component {
     <TouchableHighlight
         onPress={() => {
             // userStateActions.forgotPassword()
-            Actions.ForgotPassword()
+            //路由切换
+            routerActions.userForgotPassword()
           }} >
       <Text>Forgot Password?</Text>
     </TouchableHighlight>
@@ -202,7 +203,8 @@ class LoginRender extends Component {
     <TouchableHighlight
         onPress={() => {
             // userStateActions.login()
-            Actions.Login()
+            //路由切换
+            routerActions.userLogin()
           }} >
       <Text>Already have an account?</Text>
     </TouchableHighlight>
@@ -211,7 +213,8 @@ class LoginRender extends Component {
     <TouchableHighlight 
         onPress={() => {
             // userStateActions.register()
-            Actions.Register()
+            //路由切换
+            routerActions.userRegister()
           }} >
       <Text>Register</Text>
     </TouchableHighlight>
@@ -314,4 +317,4 @@ class LoginRender extends Component {
     )
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(LoginRender)
+export default connect(mapStateToProps, mapDispatchToProps)(UserComponent)

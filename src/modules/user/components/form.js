@@ -21,17 +21,18 @@ const {
  * States of login display
  */
 const {
-  REGISTER,
-  LOGIN,
-  FORGOT_PASSWORD
-} = require('../constants').default
+  userLogin,
+  userRegister,
+  userForgotPassword
+} = require('../constants/router').default
 
 /**
  *  The fantastic little form library
  */
 const t = require('tcomb-form-native')
 let Form = t.form.Form
-var LoginForm = React.createClass({
+
+module.exports = React.createClass({
   /**
    * ## LoginForm class
    *
@@ -89,14 +90,14 @@ var LoginForm = React.createClass({
       error: 'Must have 6-12 characters with at least 1 number and 1 special character'
     }
 
-    let loginForm
+    let userForm
     switch(formType) {
       /**
        * ### Registration
        * The registration form has 4 fields
        */
-    case(REGISTER):
-      loginForm = t.struct({
+    case(userRegister):
+      userForm = t.struct({
         username: t.String,
         email: t.String,
         password: t.String,
@@ -110,8 +111,8 @@ var LoginForm = React.createClass({
        * ### Login
        * The login form has only 2 fields
        */
-    case(LOGIN):
-      loginForm = t.struct({
+    case(userLogin):
+      userForm = t.struct({
         username: t.String,
         password: t.String
       })
@@ -123,8 +124,8 @@ var LoginForm = React.createClass({
        * ### Reset password
        * The password reset form has only 1 field
        */
-    case(FORGOT_PASSWORD):
-      loginForm = t.struct({
+    case(userForgotPassword):
+      userForm = t.struct({
         email: t.String
       })
       options.fields['email'] = email
@@ -137,14 +138,12 @@ var LoginForm = React.createClass({
      */
     return (
         <Form ref="form"
-      type={loginForm}
-      options={options}
-      value={this.props.value}
-      onChange={this.props.onChange}
+          type={userForm}
+          options={options}
+          value={this.props.value}
+          onChange={this.props.onChange}
         />
 
     )
   }
 })
-
-module.exports = LoginForm

@@ -246,4 +246,4 @@ class Login extends Component {
     )
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(LoginRender)
+export default connect(mapStateToProps, mapDispatchToProps)(UserComponent)

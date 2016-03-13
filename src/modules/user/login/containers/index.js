@@ -24,9 +24,9 @@ import * as viewActions from '../actions'
 import {Map} from 'immutable'
 
 /**
- *   LoginRender
+ *   UserComponent
  */
-import LoginRender from '../../components'
+import UserComponent from '../../components'
 
 /**
  * The necessary React components
@@ -79,14 +79,14 @@ let Login = React.createClass({
 		                               )
 
     return(
-      <LoginRender
+      <UserComponent
           formType={ userLogin }
           loginButtonText={ loginButtonText }
           onButtonPress={ onButtonPress }
           displayPasswordCheckbox={ true }
           leftMessageType={ userRegister }
           rightMessageType={ userForgotPassword }
-          auth={ this.props.userLogin }
+          userMod={ this.props.userLogin }
           global={ this.props.global }
       />
     )

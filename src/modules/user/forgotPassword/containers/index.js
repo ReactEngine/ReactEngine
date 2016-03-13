@@ -22,9 +22,9 @@ import * as forgotPasswordActions from '../actions'
 import {Map} from 'immutable'
 
 /**
- *   LoginRender
+ *   UserComponent
  */
-import LoginRender from '../../components'
+import UserComponent from '../../components'
 
 /**
  * Need React
@@ -76,14 +76,14 @@ let ForgotPassword = React.createClass({
 		                               )
 
     return(
-      <LoginRender 
+      <UserComponent 
           formType={ userForgotPassword }
           loginButtonText={ loginButtonText }
           onButtonPress={ onButtonPress }
           displayPasswordCheckbox={ false }
           leftMessageType = { userRegister }
           rightMessageType = { userLogin }
-          auth={ this.props.userForgotPassword }
+          userMod={ this.props.userForgotPassword }
           global={ this.props.global }
       />
     )

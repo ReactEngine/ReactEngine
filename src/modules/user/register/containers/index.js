@@ -23,9 +23,9 @@ import * as viewActions from '../actions'
 import {Map} from 'immutable'
 
 /**
- *   LoginRender
+ *   UserComponent
  */
-import LoginRender from '../../components'
+import UserComponent from '../../components'
 
 /**
  * The necessary React 
@@ -78,7 +78,7 @@ let Register = React.createClass({
 		        )
 
     return(
-      <LoginRender 
+      <UserComponent 
           formType={ userRegister }
           loginButtonText={ loginButtonText }
           onButtonPress={ onButtonPress }				
