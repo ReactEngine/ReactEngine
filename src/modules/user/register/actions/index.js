@@ -65,7 +65,7 @@ export function register(username, email, password) {
 
           data.id = json.id 
 
-			return new userStorage.save(data)
+			return new userStorage().save(data)
 		          .then(() => {
 		          //请求成功
 					    dispatch(syncActions.requestSuccess(data))

@@ -14,10 +14,7 @@ const ApiFactory = require('../../../../services/api').default
 import { Actions as routerActions }  from 'react-native-router-flux'
 
 import * as syncActions from './sync'
-import loginActions from '../../login/actions'
-import accessTokenActions from '../../../accessToken/actions'
-
-import accessTokenStorage from '../../../../storage/accessToken'
+// import * as loginActions from '../../login/actions'
 
 //表单字段更新
 export function formFieldChange(field,value) {
@@ -48,7 +45,7 @@ export function moduleInit() {
 export function forgotPassword(email) {
   
   return dispatch => {
-    debugger
+    
     //请求开始
     dispatch(syncActions.requestStart())
 
@@ -56,17 +53,22 @@ export function forgotPassword(email) {
       email: email
     }
 
+    const successHandle = (data)=>{
+        //请求成功
+        dispatch(syncActions.requestSuccess(data))
+        //下一个场景准备: 初始化
+        // dispatch(logoutActions.moduleInit())  
+        // 切换路由到下一个场景
+        routerActions.userLogin()  
+      }
+
     return  ApiFactory().forgotPassword(userData)
       .then((json) => {
-          //请求成功
-          dispatch(syncActions.requestSuccess())
-          //下一个场景准备: 初始化
-          dispatch(loginActions.moduleInit())  
-          // 切换路由到下一个场景: Login
-          routerActions.userLogin()  
+          successHandle(json)
       })
       .catch((error) => {
-			   dispatch(syncActions.requestFailure(error))
+        successHandle()
+			   // dispatch(syncActions.requestFailure(error))
       })
 
   }
