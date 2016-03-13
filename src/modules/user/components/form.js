@@ -1,5 +1,4 @@
 /**
- * # LoginForm.js
  *
  * This class utilizes the ```tcomb-form-native``` library and just
  * sets up the options required for the 3 states of Login, namely
@@ -92,44 +91,44 @@ module.exports = React.createClass({
 
     let userForm
     switch(formType) {
-      /**
-       * ### Registration
-       * The registration form has 4 fields
-       */
-    case(USER_REGISTER):
-      userForm = t.struct({
-        username: t.String,
-        email: t.String,
-        password: t.String,
-      })
-      options.fields['username'] = username
-      options.fields['email'] = email
-      options.fields['password'] = password
-      break
+        /**
+         * ### Registration
+         * The registration form has 4 fields
+         */
+      case(USER_REGISTER):
+        userForm = t.struct({
+          username: t.String,
+          email: t.String,
+          password: t.String,
+        })
+        options.fields['username'] = username
+        options.fields['email'] = email
+        options.fields['password'] = password
+        break
 
-      /**
-       * ### Login
-       * The login form has only 2 fields
-       */
-    case(USER_LOGIN):
-      userForm = t.struct({
-        username: t.String,
-        password: t.String
-      })
-      options.fields['username'] = username
-      options.fields['password'] = password
-      break
+        /**
+         * ### Login
+         * The login form has only 2 fields
+         */
+      case(USER_LOGIN):
+        userForm = t.struct({
+          username: t.String,
+          password: t.String
+        })
+        options.fields['username'] = username
+        options.fields['password'] = password
+        break
 
-      /**
-       * ### Reset password
-       * The password reset form has only 1 field
-       */
-    case(USER_FORGOTPASSWORD):
-      userForm = t.struct({
-        email: t.String
-      })
-      options.fields['email'] = email
-      break
+        /**
+         * ### Reset password
+         * The password reset form has only 1 field
+         */
+      case(USER_FORGOTPASSWORD):
+        userForm = t.struct({
+          email: t.String
+        })
+        options.fields['email'] = email
+        break
     } //switch
 
     /**
