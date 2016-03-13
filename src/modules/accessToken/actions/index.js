@@ -1,9 +1,5 @@
 import * as syncActions from './sync'
-import logoutActions from '../../user/logout/actions'
-
 import accessTokenStorage from '../../../storage/accessToken'
-
-
 
 /**
  * ## saveAccessToken

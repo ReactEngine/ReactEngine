@@ -62,7 +62,7 @@ export function forgotPassword(email) {
           //下一个场景准备: 初始化
           dispatch(loginActions.moduleInit())  
           // 切换路由到下一个场景: Login
-          routerActions.Login()  
+          routerActions.userLogin()  
       })
       .catch((error) => {
 			   dispatch(syncActions.requestFailure(error))

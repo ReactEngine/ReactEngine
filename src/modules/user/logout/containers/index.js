@@ -18,7 +18,6 @@ import { connect } from 'react-redux'
  * The actions we need
  */
 import * as logoutActions from '../actions'
-import * as globalActions from '../../../global/actions'
 
 /**
  * Immutable
@@ -58,8 +57,7 @@ var styles = StyleSheet.create({
  * ## Redux boilerplate
  */
 const actions = [
-  logoutActions,
-  globalActions
+  logoutActions
 ]
 
 function mapStateToProps(state) {
@@ -87,13 +85,11 @@ class Logout extends Component {
    * Setup some default presentations and render 
    */
   render() {
-            
     let self = this
     
     let onButtonPress = () => {
 			this.props.actions.logout()
 		}
-
      return (
         <View style={styles.container}>
           <View>

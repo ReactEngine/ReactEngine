@@ -13,10 +13,10 @@ const ApiFactory = require('../../../../services/api').default
 
 import { Actions as routerActions }  from 'react-native-router-flux'
 import * as syncActions from './sync'
-import accessTokenActions from '../../../accessToken/actions'
-import loginActions from '../../login/actions'
+import * as accessTokenActions from '../../../accessToken/actions'
+// import * as loginActions from '../../login/actions'
 
-import accessTokenStorage from '../../../../storage/accessToken'
+// import accessTokenStorage from '../../../../storage/accessToken'
 
 //表单字段更新
 export function formFieldChange(field,value) {
@@ -45,34 +45,34 @@ export function moduleInit() {
  * otherwise, dispatch a failure
  */
 export function logout(email, password) {
-  
-  const logoutHandle = () => {
-      //清除 AccessToken
-      dispatch(deleteAccessToken())
-      //下一个场景准备: 初始化
-      dispatch(loginActions.moduleInit())  
-      // 切换路由到下一个场景: Login
-      routerActions.Login()  
-  }
-
   return dispatch => {
     //请求开始
-    dispatch(syncActions.requestStart())
+    // dispatch(syncActions.requestStart())
 
-    return 
-    new accessTokenStorage().get()
-      .then((token) => {
-        return ApiFactory(token).logout()
-      })
-      .then(() => {
-          //请求成功
-         dispatch(syncActions.requestSuccess(data))
-         logoutHandle()
-       })
-      .catch((error) => {
-          //请求失败
-			   dispatch(syncActions.requestFailure(error))
-         logoutHandle()
-      })
+    // const logoutHandle = () => {
+      debugger
+        //清除 AccessToken
+        dispatch(accessTokenActions.deleteAccessToken())
+        //下一个场景准备: 初始化
+        // dispatch(loginActions.moduleInit())  
+        // 切换路由到下一个场景: Login
+        routerActions.userLogin()  
+    // }
+
+    return logoutHandle
+    // new accessTokenStorage().get()
+    //   .then((token) => {
+    //     return ApiFactory(token).logout()
+    //   })
+    //   .then(() => {
+    //       //请求成功
+    //      dispatch(syncActions.requestSuccess(data))
+    //      logoutHandle()
+    //    })
+    //   .catch((error) => {
+    //       //请求失败
+			 //   dispatch(syncActions.requestFailure(error))
+    //      logoutHandle()
+    //   })
   }
 }
