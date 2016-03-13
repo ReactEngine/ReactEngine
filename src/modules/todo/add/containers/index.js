@@ -83,7 +83,6 @@ var styles = StyleSheet.create({
     padding: 10
   },
   summary: {
-    fontFamily: 'BodoniSvtyTwoITCTT-Book',
     fontSize: 18,
     fontWeight: 'bold'
   }
@@ -96,7 +95,7 @@ let Subview = React.createClass({
   
   render() {
     var titleConfig = {
-      title: "todoAdd View"
+      title: "Add View"
     }
     
     var leftButtonConfig = {
@@ -111,7 +110,7 @@ let Subview = React.createClass({
             leftButton={ leftButtonConfig }
 	/>
 	<View style={ styles.container }>
-	  <Text style={ styles.summary }>Add Todo</Text>
+	  <Text style={ styles.summary }>Module Add View</Text>
 	</View>
       </View>
     )

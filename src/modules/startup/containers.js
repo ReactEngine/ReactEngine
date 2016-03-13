@@ -77,7 +77,6 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   summary: {
-    fontFamily: 'BodoniSvtyTwoITCTT-Book',
     fontSize: 40,
     fontWeight: 'bold'
   }

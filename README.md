@@ -29,11 +29,11 @@ react-native run-android
 ## 截图
 iOS:  
 <p align="center">
-  <img src="./ScreenShots/Register.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/Login.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/LoginError.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/Logout.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/ForgotPassword.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/Todos.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/AddTodo.png" alt="App Screenshot" width="200">
+  <img src="./ScreenShots/Register.png" alt="App Screenshot" width="300">
+  <img src="./ScreenShots/Login.png" alt="App Screenshot" width="300">
+  <img src="./ScreenShots/LoginError.png" alt="App Screenshot" width="300">
+  <img src="./ScreenShots/Logout.png" alt="App Screenshot" width="300">
+  <img src="./ScreenShots/ForgotPassword.png" alt="App Screenshot" width="300">
+  <img src="./ScreenShots/ListView.png" alt="App Screenshot" width="300">
+  <img src="./ScreenShots/AddView.png" alt="App Screenshot" width="300">
 </p>

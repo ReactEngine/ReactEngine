@@ -39,7 +39,8 @@ import React,
 { 	
   Component,
   StyleSheet,
-  View
+  View,
+  Text
 }
 from 'react-native'
 
@@ -89,12 +90,17 @@ function mapDispatchToProps(dispatch) {
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 1    
+    flex: 1,
+  
   },
   summary: {
-    fontFamily: 'BodoniSvtyTwoITCTT-Book',
+    marginBottom:10,
+    alignItems: 'center',
+    justifyContent: 'center'  
+  },
+  summaryText:{
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   button: {
     backgroundColor: '#3385ff',
@@ -111,7 +117,7 @@ class Main extends Component {
   
   handlePress() {
     routerActions.todoAdd({
-      title: 'todoAdd'
+      title: 'Add'
       // you can add additional props to be passed to Subview here...
     })
   }
@@ -125,11 +131,14 @@ class Main extends Component {
                 currentState={this.props.global.currentState}
                 onGetState={this.props.actions.getState}
                 onSetState={this.props.actions.setState}
-        />        
+        />
+        <View style={ styles.summary }>
+        <Text style={ styles.summaryText }>Module List View</Text>   
+        </View>     
     	<Button style={ styles.button } 
       textStyle={{color: 'white'}}
       onPress={ this.handlePress.bind(this) }>
-	         {'Add todo'}
+	         {'Go to Add View'}
         </Button>
         </View>
       </View>
