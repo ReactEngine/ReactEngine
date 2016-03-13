@@ -21,10 +21,10 @@ const {
  * States of login display
  */
 const {
-  userLogin,
-  userRegister,
-  userForgotPassword
-} = require('../constants/router').default
+  USER_REGISTER,
+  USER_LOGIN,
+  USER_FORGOTPASSWORD
+} = require('../constants').default
 
 /**
  *  The fantastic little form library
@@ -96,7 +96,7 @@ module.exports = React.createClass({
        * ### Registration
        * The registration form has 4 fields
        */
-    case(userRegister):
+    case(USER_REGISTER):
       userForm = t.struct({
         username: t.String,
         email: t.String,
@@ -111,7 +111,7 @@ module.exports = React.createClass({
        * ### Login
        * The login form has only 2 fields
        */
-    case(userLogin):
+    case(USER_LOGIN):
       userForm = t.struct({
         username: t.String,
         password: t.String
@@ -124,7 +124,7 @@ module.exports = React.createClass({
        * ### Reset password
        * The password reset form has only 1 field
        */
-    case(userForgotPassword):
+    case(USER_FORGOTPASSWORD):
       userForm = t.struct({
         email: t.String
       })

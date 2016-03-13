@@ -32,10 +32,10 @@ import UserComponent from '../../components'
 import React from 'react-native'
 
 const {
-  userLogin,
-  userRegister,
-  userForgotPassword
-} = require('../../constants/router').default
+  USER_REGISTER,
+  USER_LOGIN,
+  USER_FORGOTPASSWORD
+} = require('../../constants').default
 
 /**
   * ## Redux boilerplate
@@ -77,13 +77,13 @@ let ForgotPassword = React.createClass({
 
     return(
       <UserComponent 
-          formType={ userForgotPassword }
+          formType={ USER_FORGOTPASSWORD }
           loginButtonText={ loginButtonText }
           onButtonPress={ onButtonPress }
           displayPasswordCheckbox={ false }
-          leftMessageType = { userRegister }
-          rightMessageType = { userLogin }
-          userMod={ this.props.userForgotPassword }
+          leftMessageType = { USER_REGISTER }
+          rightMessageType = { USER_LOGIN }
+          currentViewState={ this.props.userForgotPassword }
           global={ this.props.global }
       />
     )

@@ -76,10 +76,10 @@ var {height, width} = Dimensions.get('window') // Screen dimensions in current o
  * The states were interested in
  */
 const {
-  userLogin,
-  userRegister,
-  userForgotPassword
-} = require('../constants/router').default
+  USER_REGISTER,
+  USER_LOGIN,
+  USER_FORGOTPASSWORD
+} = require('../constants').default
 
 /**
  * ## Styles
@@ -138,9 +138,9 @@ class UserComponent extends Component {
     
     this.state ={
       value: {
-        username: this.props.userMod.form.fields.username,
-        email: this.props.userMod.form.fields.email,
-        password: this.props.userMod.form.fields.password,
+        username: this.props.currentViewState.form.fields.username,
+        email: this.props.currentViewState.form.fields.email,
+        password: this.props.currentViewState.form.fields.password,
       }
     }
   }
@@ -220,12 +220,12 @@ class UserComponent extends Component {
     </TouchableHighlight>
     
     switch(messageType) {
-    case userForgotPassword:
-      return forgotPassword
-    case userLogin:
-      return alreadyHaveAccount
-    case userRegister:	
-      return register
+      case USER_FORGOTPASSWORD:
+        return forgotPassword
+      case USER_LOGIN:
+        return alreadyHaveAccount
+      case USER_REGISTER:	
+        return register
     }
   }
   
@@ -249,7 +249,7 @@ class UserComponent extends Component {
 
     // display the login / register / change password screens
     
-    this.errorAlert.checkError(this.props.userMod.form.error)
+    this.errorAlert.checkError(this.props.currentViewState.form.error)
     
     /**
      * Toggle the display of the Password and PasswordAgain fields
@@ -258,7 +258,7 @@ class UserComponent extends Component {
       passwordCheckbox =
       <ItemCheckbox
           text="Show Password"
-          disabled={this.props.userMod.form.isFetching}
+          disabled={this.props.currentViewState.form.isFetching}
           onCheck={() => {
 	      this.props.actions.onAuthFormFieldChange('showPassword',true)
             }}
@@ -282,7 +282,7 @@ class UserComponent extends Component {
 	  <View>
     
     
-	    <Header isFetching={this.props.userMod.form.isFetching}
+	    <Header isFetching={this.props.currentViewState.form.isFetching}
                     showState={this.props.global.showState}
                     currentState={this.props.global.currentState}
                     onGetState={this.props.actions.getState}
@@ -292,7 +292,7 @@ class UserComponent extends Component {
 	    <View style={styles.inputs}>
 	      <LoginForm
                   formType={formType}
-                  form={this.props.userMod.form}
+                  form={this.props.currentViewState.form}
                   value={this.state.value}
                   onChange={self.onChange.bind(self)}
 	      />
@@ -300,7 +300,7 @@ class UserComponent extends Component {
             </View>
 	    
 	    <FormButton
-                isDisabled={!this.props.userMod.form.isValid || this.props.userMod.form.isFetching}
+                isDisabled={!this.props.currentViewState.form.isValid || this.props.currentViewState.form.isFetching}
                 onPress={onButtonPress}
                 buttonText={loginButtonText}/>
 	    

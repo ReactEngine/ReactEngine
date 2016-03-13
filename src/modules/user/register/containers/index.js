@@ -33,10 +33,10 @@ import UserComponent from '../../components'
 import React from 'react-native'
 
 const {
-  userLogin,
-  userRegister,
-  userForgotPassword
-} = require('../../constants/router').default
+  USER_REGISTER,
+  USER_LOGIN,
+  USER_FORGOTPASSWORD
+} = require('../../constants').default
 
 /**
  * ## Redux boilerplate
@@ -79,17 +79,18 @@ let Register = React.createClass({
 
     return(
       <UserComponent 
-          formType={ userRegister }
+          formType={ USER_REGISTER }
           loginButtonText={ loginButtonText }
           onButtonPress={ onButtonPress }				
-          displayPasswordCheckbox ={ true }
-          leftMessageType={ userForgotPassword }
-          rightMessageType={ userLogin }
-          userMod={ this.props.userRegister }
+          displayPasswordCheckbox ={ false }
+          leftMessageType={ USER_FORGOTPASSWORD }
+          rightMessageType={ USER_LOGIN }
+          currentViewState={ this.props.userRegister }
           global={ this.props.global }
       />
 
     )
   }
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(Register)
