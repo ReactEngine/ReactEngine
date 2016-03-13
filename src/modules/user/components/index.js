@@ -138,9 +138,9 @@ class LoginRender extends Component {
     
     this.state ={
       value: {
-        username: this.props.userRegister.form.fields.username,
-        email: this.props.userRegister.form.fields.email,
-        password: this.props.userRegister.form.fields.password,
+        username: this.props.userMod.form.fields.username,
+        email: this.props.userMod.form.fields.email,
+        password: this.props.userMod.form.fields.password,
       }
     }
   }
@@ -246,7 +246,7 @@ class LoginRender extends Component {
 
     // display the login / register / change password screens
     
-    this.errorAlert.checkError(this.props.userRegister.form.error)
+    this.errorAlert.checkError(this.props.userMod.form.error)
     
     /**
      * Toggle the display of the Password and PasswordAgain fields
@@ -255,7 +255,7 @@ class LoginRender extends Component {
       passwordCheckbox =
       <ItemCheckbox
           text="Show Password"
-          disabled={this.props.userRegister.form.isFetching}
+          disabled={this.props.userMod.form.isFetching}
           onCheck={() => {
 	      this.props.actions.onAuthFormFieldChange('showPassword',true)
             }}
@@ -279,7 +279,7 @@ class LoginRender extends Component {
 	  <View>
     
     
-	    <Header isFetching={this.props.userRegister.form.isFetching}
+	    <Header isFetching={this.props.userMod.form.isFetching}
                     showState={this.props.global.showState}
                     currentState={this.props.global.currentState}
                     onGetState={this.props.actions.getState}
@@ -289,7 +289,7 @@ class LoginRender extends Component {
 	    <View style={styles.inputs}>
 	      <LoginForm
                   formType={formType}
-                  form={this.props.userRegister.form}
+                  form={this.props.userMod.form}
                   value={this.state.value}
                   onChange={self.onChange.bind(self)}
 	      />
@@ -297,7 +297,7 @@ class LoginRender extends Component {
             </View>
 	    
 	    <FormButton
-                isDisabled={!this.props.userRegister.form.isValid || this.props.userRegister.form.isFetching}
+                isDisabled={!this.props.userMod.form.isValid || this.props.userMod.form.isFetching}
                 onPress={onButtonPress}
                 buttonText={loginButtonText}/>
 	    

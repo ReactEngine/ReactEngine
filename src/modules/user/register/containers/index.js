@@ -85,7 +85,7 @@ let Register = React.createClass({
           displayPasswordCheckbox ={ true }
           leftMessageType={ userForgotPassword }
           rightMessageType={ userLogin }
-          auth={ this.props.this.props.userRegister }
+          userMod={ this.props.userRegister }
           global={ this.props.global }
       />
 
