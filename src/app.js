@@ -87,7 +87,7 @@ var VERSION='0.0.1'
 */
 class TabIcon extends React.Component {
   render() {
-    var color = this.props.selected ? 'FF3366' : 'FFB3B3'
+    var color = this.props.selected ? '#3385ff' : '#428bca'
     return (
       <View style={{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center'}}>
       	<Icon style={{color: color}} name={this.props.iconName} size={30} />

@@ -97,8 +97,8 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   button: {
-    backgroundColor: '#FF3366',
-    borderColor:  '#FF3366',
+    backgroundColor: '#3385ff',
+    borderColor:  '#3385ff',
     marginLeft: 10,
     marginRight: 10    
   }
@@ -126,8 +126,10 @@ class Main extends Component {
                 onGetState={this.props.actions.getState}
                 onSetState={this.props.actions.setState}
         />        
-    	<Button style={ styles.button } onPress={ this.handlePress.bind(this) }>
-	  {'Navigate to Subview'}
+    	<Button style={ styles.button } 
+      textStyle={{color: 'white'}}
+      onPress={ this.handlePress.bind(this) }>
+	         {'Add todo'}
         </Button>
         </View>
       </View>
