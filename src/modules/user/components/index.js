@@ -13,15 +13,6 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-/**
- * The actions we need
- */
-import * as registerActions from '../register/actions'
-import * as loginActions from '../login/actions'
-import * as logoutActions from '../logout/actions'
-import * as forgotPasswordActions from '../forgotPassword/actions'
-import * as globalActions from '../../global/actions'
-
 
 /**
  * Immutable
@@ -107,11 +98,6 @@ var styles = StyleSheet.create({
  * ## Redux boilerplate
  */
 const actions = [
-  registerActions,
-  loginActions,
-  logoutActions,
-  forgotPasswordActions,
-  globalActions
 ]
 
 function mapStateToProps(state) {
@@ -135,7 +121,6 @@ class UserComponent extends Component {
   constructor(props) {
     super(props)
     this.errorAlert = new ErrorAlert()
-    
     this.state ={
       value: {
         username: this.props.currentViewState.form.fields.username,
@@ -150,12 +135,11 @@ class UserComponent extends Component {
    * As the properties are validated they will be set here.
    */
   componentWillReceiveProps(nextprops) {
-    
     this.setState({
       value: {
-      	username: nextprops.auth.form.fields.username,
-      	email: nextprops.auth.form.fields.email,
-      	password: nextprops.auth.form.fields.password,
+      	username: nextprops.currentViewState.form.fields.username,
+      	email: nextprops.currentViewState.form.fields.email,
+      	password: nextprops.currentViewState.form.fields.password,
       }
     })
   }
@@ -171,13 +155,13 @@ class UserComponent extends Component {
    */
   onChange(value) {
     if (value.username != '') {
-      this.props.actions.onAuthFormFieldChange('username',value.username)
+      this.props.formFieldChange('username',value.username)
     }    
     if (value.email != '') {
-      this.props.actions.onAuthFormFieldChange('email',value.email)
+      this.props.formFieldChange('email',value.email)
     }
     if (value.password != '') {
-      this.props.actions.onAuthFormFieldChange('password',value.password)
+      this.props.formFieldChange('password',value.password)
     }
     this.setState(
       {value}
@@ -260,10 +244,10 @@ class UserComponent extends Component {
           text="Show Password"
           disabled={this.props.currentViewState.form.isFetching}
           onCheck={() => {
-	      this.props.actions.onAuthFormFieldChange('showPassword',true)
+	           this.props.formFieldChange('showPassword',true)
             }}
           onUncheck={() => {
-	      this.props.actions.onAuthFormFieldChange('showPassword',false)
+	           this.props.formFieldChange('showPassword',false)
             }}
       />
     }

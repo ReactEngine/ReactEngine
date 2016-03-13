@@ -71,7 +71,8 @@ let Register = React.createClass({
 
   render() {
     let loginButtonText = 'Register'
-    let onButtonPress = buttonPressHandler.bind(this.props.actions.register,
+    let onButtonPress = buttonPressHandler.bind(null,
+                  this.props.actions.register,
 					        this.props.userRegister.form.fields.username,
 					        this.props.userRegister.form.fields.email,
 					        this.props.userRegister.form.fields.password
@@ -86,6 +87,7 @@ let Register = React.createClass({
           leftMessageType={ USER_FORGOTPASSWORD }
           rightMessageType={ USER_LOGIN }
           currentViewState={ this.props.userRegister }
+          formFieldChange={ this.props.actions.formFieldChange }
           global={ this.props.global }
       />
 

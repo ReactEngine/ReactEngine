@@ -12,14 +12,14 @@ const  _ = require('lodash')
 const ApiFactory = require('../../../../services/api').default
 
 import { Actions as routerActions }  from 'react-native-router-flux'
-import syncActions from './sync'
+import * as syncActions from './sync'
 import accessTokenActions from '../../../accessToken/actions'
 import loginActions from '../../login/actions'
 
 import accessTokenStorage from '../../../../storage/accessToken'
 
 //表单字段更新
-export function logoutFormFieldChange(field,value) {
+export function formFieldChange(field,value) {
   return {
     type: USER_LOGOUT_FORMFIELD_CHANGE,
     payload: {field: field, value: value}

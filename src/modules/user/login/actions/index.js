@@ -13,14 +13,14 @@ const ApiFactory = require('../../../../services/api').default
 
 import { Actions as routerActions }  from 'react-native-router-flux'
 
-import syncActions from './sync'
+import * as syncActions from './sync'
 import logoutActions from '../../logout/actions'
 import accessTokenActions from '../../../accessToken/actions'
 
 import accessTokenStorage from '../../../../storage/accessToken'
 
 //表单字段更新
-export function loginFormFieldChange(field,value) {
+export function formFieldChange(field,value) {
   return {
     type: USER_LOGIN_FORMFIELD_CHANGE,
     payload: {field: field, value: value}
@@ -63,7 +63,7 @@ export function login(email, password) {
 						  email: email
 						})
 
-			return saveAccessToken(data)
+			return accessTokenStorage.save(data)
 		          .then(() => {
 		          //请求成功
 					    dispatch(syncActions.requestSuccess(data))

@@ -20,7 +20,7 @@ const {
  */
 const ApiFactory = require('../../../../services/api').default
 const accessTokenStorage = require('../../../../storage/accessToken').default
-import syncActions from './sync'
+import * as syncActions from './sync'
 
 //模块初始化
 export function moduleInit() {
@@ -33,7 +33,7 @@ export function moduleInit() {
  * ## profileFormFieldChange
  * 
  */
-export function profileFormFieldChange(field,value) {
+export function formFieldChange(field,value) {
   return {
     type: USER_PROFILE_FORMFIELD_CHANGE,
     payload: {field: field, value: value}

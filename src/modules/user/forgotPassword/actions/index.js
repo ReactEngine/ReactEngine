@@ -13,14 +13,14 @@ const ApiFactory = require('../../../../services/api').default
 
 import { Actions as routerActions }  from 'react-native-router-flux'
 
-import syncActions from './sync'
+import * as syncActions from './sync'
 import loginActions from '../../login/actions'
 import accessTokenActions from '../../../accessToken/actions'
 
 import accessTokenStorage from '../../../../storage/accessToken'
 
 //表单字段更新
-export function forgotPasswordFormFieldChange(field,value) {
+export function formFieldChange(field,value) {
   return {
     type: USER_FORGOTPASSWORD_FORMFIELD_CHANGE,
     payload: {field: field, value: value}

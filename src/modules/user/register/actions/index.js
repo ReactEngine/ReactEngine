@@ -12,7 +12,7 @@ const  _ = require('lodash')
 const ApiFactory = require('../../../../services/api').default
 
 import { Actions as routerActions }  from 'react-native-router-flux'
-import syncActions from './sync'
+import * as syncActions from './sync'
 import logoutActions from '../../logout/actions'
 import accessTokenActions from '../../../accessToken/actions'
 import accessTokenStorage from '../../../../storage/accessToken'
@@ -63,7 +63,7 @@ export function register(username, email, password) {
 						  email: email
 						})
 
-			return saveAccessToken(data)
+			return accessTokenStorage.save(data)
 		          .then(() => {
 		          //请求成功
 					    dispatch(syncActions.requestSuccess(data))
