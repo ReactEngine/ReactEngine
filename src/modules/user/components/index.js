@@ -37,10 +37,10 @@ import ErrorAlert from '../../common/components/ErrorAlert'
  */
 import FormButton from '../../common/components/FormButton'
 /**
- *  The LoginForm does the heavy lifting of displaying the fields for
+ *  The UserForm does the heavy lifting of displaying the fields for
  * textinput and displays the error messages
  */
-import LoginForm from './form'
+import UserForm from './form'
 /**
  * The itemCheckbox will toggle the display of the password fields 
  */
@@ -253,7 +253,7 @@ class UserComponent extends Component {
     }
 
     /**
-     * The LoginForm is now defined with the required fields.  Just
+     * The Form is now defined with the required fields.  Just
      * surround it with the Header and the navigation messages
      * Note how the button too is disabled if we're fetching. The 
      * header props are mostly for support of Hot reloading. 
@@ -262,41 +262,42 @@ class UserComponent extends Component {
     
     return(
       <View style={styles.container}>
-	<ScrollView horizontal={false} width={width} height={height}>
-	  <View>
-    
-    
-	    <Header isFetching={this.props.currentViewState.form.isFetching}
-                    showState={this.props.global.showState}
-                    currentState={this.props.global.currentState}
-                    onGetState={this.props.actions.getState}
-                    onSetState={this.props.actions.setState}                      
-	    />
-	    
-	    <View style={styles.inputs}>
-	      <LoginForm
-                  formType={formType}
-                  form={this.props.currentViewState.form}
-                  value={this.state.value}
-                  onChange={self.onChange.bind(self)}
-	      />
-	      {passwordCheckbox}
-            </View>
-	    
-	    <FormButton
-                isDisabled={!this.props.currentViewState.form.isValid || this.props.currentViewState.form.isFetching}
-                onPress={onButtonPress}
-                buttonText={loginButtonText}/>
-	    
-	    <View >
-	      <View style={styles.forgotContainer}>
-	        {leftMessage}
-                {rightMessage}
+      	<ScrollView horizontal={false} width={width} height={height}>
+        	<View>
+            
+            
+        	    <Header isFetching={this.props.currentViewState.form.isFetching}
+                            showState={this.props.global.showState}
+                            currentState={this.props.global.currentState}
+                            onGetState={this.props.actions.getState}
+                            onSetState={this.props.actions.setState}                      
+        	    />
+        	    
+        	    <View style={styles.inputs}>
+        	      <UserForm
+                          formType={formType}
+                          form={this.props.currentViewState.form}
+                          value={this.state.value}
+                          onChange={self.onChange.bind(self)}
+        	      />
+
+        	      {passwordCheckbox}
               </View>
-	    </View>	 
-	    
-	  </View>
-	</ScrollView>
+        	    
+        	    <FormButton
+                        isDisabled={!this.props.currentViewState.form.isValid || this.props.currentViewState.form.isFetching}
+                        onPress={onButtonPress}
+                        buttonText={loginButtonText}/>
+        	    
+        	    <View >
+        	      <View style={styles.forgotContainer}>
+        	        {leftMessage}
+                  {rightMessage}
+                </View>
+      	   </View>	 
+      	    
+      	  </View>
+      	</ScrollView>
       </View>
     )
   }

@@ -13,7 +13,7 @@ const ApiFactory = require('../../../../services/api').default
 
 import { Actions as routerActions }  from 'react-native-router-flux'
 import * as syncActions from './sync'
-import logoutActions from '../../logout/actions'
+// import * as logoutActions from '../../logout/actions'
 import accessTokenActions from '../../../accessToken/actions'
 import accessTokenStorage from '../../../../storage/accessToken'
 
@@ -68,7 +68,7 @@ export function register(username, email, password) {
 		          //请求成功
 					    dispatch(syncActions.requestSuccess(data))
 					    //下一个场景准备: 初始化
-					    dispatch(logoutActions.moduleInit())  
+					    // dispatch(logoutActions.moduleInit())  
 					    // 切换路由到下一个场景: Tabbar
 					    routerActions.Tabbar()  
 			  		})

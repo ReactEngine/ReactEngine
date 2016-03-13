@@ -84,6 +84,7 @@ let ForgotPassword = React.createClass({
           leftMessageType = { USER_REGISTER }
           rightMessageType = { USER_LOGIN }
           currentViewState={ this.props.userForgotPassword }
+          formFieldChange={ this.props.actions.formFieldChange }
           global={ this.props.global }
       />
     )

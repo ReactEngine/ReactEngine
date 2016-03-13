@@ -95,7 +95,7 @@ var Header = React.createClass({
    * Call the onGetState action passing the state prop
    */
   _onPressMark() {
-    this.props.onGetState(!this.props.showState)
+    // this.props.onGetState(!this.props.showState)
   },
   /**
    * ### _onChangeText

@@ -14,11 +14,11 @@ const Form = Record({
   isValid: false,
   isFetching: false,
   fields: new (Record({
-    username: '',
+    username: 'User05',
     usernameHasError: false,
-    email: '',
+    email: 'User05@gmail.com',
     emailHasError: false,
-    password: '',
+    password: 'User@05',
     passwordHasError: false,
     showPassword: false
   }))

@@ -64,8 +64,8 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-function buttonPressHandler(login, username, password) {
-  login (username, password)
+function buttonPressHandler(login, email, password) {
+  login (email, password)
 }
 
 let Login = React.createClass({
@@ -74,7 +74,7 @@ let Login = React.createClass({
     let loginButtonText = 'Log in'
     let onButtonPress = buttonPressHandler.bind(null,
 				                this.props.actions.login,
-				                this.props.userLogin.form.fields.username,
+				                this.props.userLogin.form.fields.email,
 				                this.props.userLogin.form.fields.password
 		                               )
 
@@ -87,6 +87,7 @@ let Login = React.createClass({
           leftMessageType={ USER_REGISTER }
           rightMessageType={ USER_FORGOTPASSWORD }
           currentViewState={ this.props.userLogin }
+          formFieldChange={ this.props.actions.formFieldChange }
           global={ this.props.global }
       />
     )

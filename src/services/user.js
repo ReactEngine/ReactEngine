@@ -9,7 +9,7 @@ export default User {
 
   const props = ['accessToken', 'currentUserId', 'currentUserData']
 
-  Class _User() {
+  Class User() {
       constructor{
         this.load()
       }
@@ -61,6 +61,8 @@ export default User {
       }
     }
 
-  global.ReacEngine.User = new _User()
-  return global.ReacEngine.User
+  global.$RE = global.$RE || {}
+  global.$RE.currentUser = global.$RE.currentUser || (new User())
+
+  return global.$RE.currentUser
 }

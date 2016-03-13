@@ -112,10 +112,10 @@ module.exports = React.createClass({
          */
       case(USER_LOGIN):
         userForm = t.struct({
-          username: t.String,
+          email: t.String,
           password: t.String
         })
-        options.fields['username'] = username
+        options.fields['email'] = email
         options.fields['password'] = password
         break
 
