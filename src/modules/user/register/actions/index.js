@@ -15,7 +15,7 @@ import { Actions as routerActions }  from 'react-native-router-flux'
 import * as syncActions from './sync'
 // import * as logoutActions from '../../logout/actions'
 import accessTokenActions from '../../../accessToken/actions'
-import accessTokenStorage from '../../../../storage/accessToken'
+import userStorage from '../../../../storage/accessToken'
 
 //表单字段更新
 export function formFieldChange(field,value) {
@@ -57,20 +57,22 @@ export function register(username, email, password) {
 
     return  ApiFactory().register(userData)
       .then((json) => {
-      		const data = Object.assign({}, json,
-						{
-						  username: username,
-						  email: email
-						})
 
-			return accessTokenStorage.save(data)
+      		const data = {
+            username: username,
+            email: email
+          }
+
+          data.id = json.id 
+
+			return new userStorage.save(data)
 		          .then(() => {
 		          //请求成功
 					    dispatch(syncActions.requestSuccess(data))
 					    //下一个场景准备: 初始化
 					    // dispatch(logoutActions.moduleInit())  
-					    // 切换路由到下一个场景: Tabbar
-					    routerActions.Tabbar()  
+					    // 切换路由到下一个场景
+					    routerActions.userLogin()  
 			  		})
       })
       .catch((error) => {

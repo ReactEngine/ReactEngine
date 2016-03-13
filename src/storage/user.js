@@ -9,8 +9,7 @@ export default class User {
   }
   
   save(user) {
-    if(_.has(user,'id')){
-      user.accessToken = user.id
+    if(_.has(user,'accessToken')){
       new accessTokenStorage().save(user.accessToken)
     }
     return storage.save(this.STRORE_KEY,user)

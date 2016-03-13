@@ -15,7 +15,6 @@ import { Actions as routerActions }  from 'react-native-router-flux'
 
 import * as syncActions from './sync'
 // import * as logoutActions from '../../logout/actions'
-import accessTokenActions from '../../../accessToken/actions'
 
 import userStorage from '../../../../storage/user'
 
@@ -59,10 +58,12 @@ export function login(email, password) {
     return  ApiFactory().login(userData)
       .then((json) => {
   		
-      const data = Object.assign({}, json,
-			{
-			  email: email
-			})
+      let data = {
+        email: email
+      }
+      data.accessToken = json.id
+      data.ttl = json.ttl
+      data.id = json.userId
 
 			return new userStorage().save(data)
 		          .then(() => {
