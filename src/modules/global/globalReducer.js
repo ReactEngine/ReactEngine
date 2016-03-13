@@ -94,7 +94,7 @@ export default function globalReducer(state = initialState, action) {
 
     if (action.payload) {
       let newState = {}
-      newState['auth'] = _state.auth.toJS()
+      // newState['auth'] = _state.auth.toJS()
       newState['device'] = _state.device.toJS()
       newState['profile'] = _state.profile.toJS()
 

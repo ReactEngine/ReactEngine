@@ -110,8 +110,8 @@ var styles = StyleSheet.create({
 class Main extends Component {
   
   handlePress() {
-    Actions.Subview({
-      title: 'Subview'
+    routerActions.todoAdd({
+      title: 'todoAdd'
       // you can add additional props to be passed to Subview here...
     })
   }
@@ -120,7 +120,7 @@ class Main extends Component {
     return(
       <View style={styles.container}>
         <View>
-        <Header isFetching={this.props.auth.form.isFetching}
+        <Header isFetching={ false }
                 showState={this.props.global.showState}
                 currentState={this.props.global.currentState}
                 onGetState={this.props.actions.getState}

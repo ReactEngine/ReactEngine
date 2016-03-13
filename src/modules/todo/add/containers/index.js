@@ -96,12 +96,12 @@ let Subview = React.createClass({
   
   render() {
     var titleConfig = {
-      title: "Subview"
+      title: "todoAdd View"
     }
     
     var leftButtonConfig = {
       title: 'Back',
-      handler: Actions.pop
+      handler: routerActions.pop
     }
     
     return(
@@ -111,7 +111,7 @@ let Subview = React.createClass({
             leftButton={ leftButtonConfig }
 	/>
 	<View style={ styles.container }>
-	  <Text style={ styles.summary }>Subview</Text>
+	  <Text style={ styles.summary }>Add Todo</Text>
 	</View>
       </View>
     )
