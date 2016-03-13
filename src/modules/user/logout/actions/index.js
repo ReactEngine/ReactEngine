@@ -49,16 +49,16 @@ export function logout(email, password) {
     //请求开始
     // dispatch(syncActions.requestStart())
 
-    const logoutHandle = () => {
+    // const logoutHandle = () => {
         //清除 AccessToken
         dispatch(accessTokenActions.deleteAccessToken())
         //下一个场景准备: 初始化
         // dispatch(loginActions.moduleInit())  
         // 切换路由到下一个场景: Login
         routerActions.userLogin()  
-    }
+    // }
 
-    return logoutHandle
+    // return logoutHandle
     // new accessTokenStorage().get()
     //   .then((token) => {
     //     return ApiFactory(token).logout()

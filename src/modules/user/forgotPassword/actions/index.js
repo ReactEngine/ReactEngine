@@ -48,11 +48,12 @@ export function moduleInit() {
 export function forgotPassword(email) {
   
   return dispatch => {
+    debugger
     //请求开始
     dispatch(syncActions.requestStart())
 
     const userData = {
-      email: username
+      email: email
     }
 
     return  ApiFactory().forgotPassword(userData)

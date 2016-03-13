@@ -1,8 +1,7 @@
 const {
-
-  RESETPASSWORD_REQUEST,
-  RESETPASSWORD_REQUEST_SUCCESS,
-  RESETPASSWORD_REQUEST_FAILURE
+  USER_FORGOTPASSWORD_REQUEST_START,
+  USER_FORGOTPASSWORD_REQUEST_SUCCESS,
+  USER_FORGOTPASSWORD_REQUEST_FAILURE,
 
 } = require('../../constants').default
   /**
@@ -10,19 +9,19 @@ const {
    */
 export function requestStart() {
     return {
-      type: RESETPASSWORD_REQUEST
+      type: USER_FORGOTPASSWORD_REQUEST_START
     }
   }
 
 export function requestSuccess() {
     return {
-      type: RESETPASSWORD_REQUEST_SUCCESS
+      type: USER_FORGOTPASSWORD_REQUEST_SUCCESS
     }
   }
 
 export function requestFailure(error) {
     return {
-      type: RESETPASSWORD_REQUEST_FAILURE,
+      type: USER_FORGOTPASSWORD_REQUEST_FAILURE,
       payload: error
     }
   }

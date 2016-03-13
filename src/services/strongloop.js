@@ -62,7 +62,7 @@ export default class Strongloop {
   async register(data) {
     return await this._fetch({
       method: 'POST',
-      url:  'Users/',
+      url:  'Users',
       body: data
     })
     .then(this.successHandle)
@@ -132,7 +132,7 @@ export default class Strongloop {
    *
    * if error:  {code: xxx, error: 'message'}
    */
-  async resetPassword(data) {
+  async forgotPassword(data) {
     return await this._fetch({
       method: 'POST',
       url:  'Users/reset',

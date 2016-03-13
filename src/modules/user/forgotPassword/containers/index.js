@@ -71,7 +71,7 @@ let ForgotPassword = React.createClass({
   render() {
     let loginButtonText = 'Reset password'
     let onButtonPress = buttonPressHandler.bind(null,
-					        this.props.actions.resetPassword,
+					        this.props.actions.forgotPassword,
 					        this.props.userForgotPassword.form.fields.email
 		                               )
 
