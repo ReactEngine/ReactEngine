@@ -177,8 +177,8 @@ export default function native(platform) {
 
       	        <Route name="todoList"
                      schema="tab"
-                     title="main"
-                     iconName={"home"}
+                     title="Todos"
+                     iconName={"tasks"}
                      hideNavBar={true}
                      component={todoList}
                      initial={true}
