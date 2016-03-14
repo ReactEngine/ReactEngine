@@ -13,8 +13,6 @@ const Form = Record({
   isValid: true,
   isFetching: false,
   fields: new (Record({
-    email: '',
-    emailHasError: false
   }))
 })
 
