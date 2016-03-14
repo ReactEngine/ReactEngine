@@ -26,18 +26,12 @@ import {Map} from 'immutable'
 /**
  *   UserComponent
  */
-import UserComponent from '../../components'
+import UserComponent from '../components'
 
 /**
  * The necessary React components
  */
 import React from 'react-native'
-
-const {
-  USER_REGISTER,
-  USER_LOGIN,
-  USER_FORGOTPASSWORD
-} = require('../../constants').default
 
 /**
  * ## Redux boilerplate
@@ -80,12 +74,9 @@ let Login = React.createClass({
 
     return(
       <UserComponent
-          formType={ USER_LOGIN }
           loginButtonText={ loginButtonText }
           onButtonPress={ onButtonPress }
           displayPasswordCheckbox={ false }
-          leftMessageType={ USER_REGISTER }
-          rightMessageType={ USER_FORGOTPASSWORD }
           currentViewState={ this.props.userLogin }
           formFieldChange={ this.props.actions.formFieldChange }
           global={ this.props.global }
