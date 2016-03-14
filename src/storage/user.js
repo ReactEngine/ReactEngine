@@ -15,7 +15,7 @@ export default class User {
     return storage.save(this.STRORE_KEY,user)
   }
 
-  get(user) {
+  get() {
     return storage.get(this.STRORE_KEY)
   }
 

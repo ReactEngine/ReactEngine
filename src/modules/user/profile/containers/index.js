@@ -14,6 +14,8 @@
 */
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import _ from 'lodash'
+const userStorage = require('../../../../storage/user').default
 
 /**
  * The actions we need
@@ -156,15 +158,31 @@ class Profile extends Component {
   componentDidMount() {
     const username = this.props.userProfile.form.fields.username
     const email = this.props.userProfile.form.fields.email
+
     if ( username == '' &&  email == '') {
-      this.props.actions.getCurrentUser()
-    } else {
-      this.setState({
-        formValues: {
-          username: username,
-          email: email
+      //获取用户信息
+      new userStorage().get()
+      .then((user)=>{
+        if(_.has(user,'username') && _.has(user,'email')){
+          this.setState({
+            formValues: {
+              username: user.username,
+              email: user.email
+            }
+          })
+        }else{
+          console.log("try getCurrentUser")
+          this.props.actions.getCurrentUser()
         }
-      })
+      })//get
+    } else {
+      //用户信息不为空
+      // this.setState({
+      //   formValues: {
+      //     username: username,
+      //     email: email
+      //   }
+      // })
     }      
   }
 

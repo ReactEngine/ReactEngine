@@ -4,15 +4,6 @@
  * The actions to support the users profile
  */
 'use strict'
-/**
- * ## Imports
- * 
- * The actions for profile
- */
-const {
-  USER_PROFILE_INIT_START,
-  USER_PROFILE_FORMFIELD_CHANGE
-} = require('../../constants').default
 
 /**
  * ApiFactory - base class for server implementation
@@ -29,10 +20,9 @@ import * as syncActions from './index'
  */
 export function getCurrentUser() {
   return dispatch => {
-    debugger
     return new userStorage().get()
       .then((user) => {
-        debugger
+        
         const token = user.accessToken
         const userId = user.id
         if(!token || !userId){
@@ -40,7 +30,7 @@ export function getCurrentUser() {
         }else{
           //GET 请求开始
           dispatch(syncActions.getStart())
-          return ApiFactory(token).getProfile(id)
+          return ApiFactory(token).getProfile(userId)
         }
       })
       .then((json) => {
@@ -68,29 +58,34 @@ export function getCurrentUser() {
  * the data as now persisted on maxleap.cn
  *
  */
-export function updateCurrentUser(userId, username, email) {
-  return dispatch => {
+// export function updateCurrentUser(userId, username, email) {
+//   
+//   console.log("updateCurrentUser")
+//   return dispatch => {
 
-    return new accessTokenStorage().get(accessToken)
-      .then((token) => {
-        //更新请求开始
-        dispatch(syncActions.updateStart())
+//     return new userStorage().get()
+//       .then((user) => {
+//         const token = user.accessToken
+//         const userId = user.id
 
-        return ApiFactory(token).updateProfile(userId,
-          {
-            username: username,
-            email: email
-          }
-        )
-      })
-      .then(() => {
-          //更新请求成功
-          dispatch(syncActions.updateSuccess())
-          dispatch(getProfile())
-      })
-      .catch((error) => {
-        //更新请求失败
-        dispatch(syncActions.updateFailure(error))
-      })
-  }
-}
+//         //更新请求开始
+//         dispatch(syncActions.updateStart())
+
+//         return ApiFactory(token).updateProfile(userId,
+//           {
+//             username: username,
+//             email: email
+//           }
+//         )
+//       })
+//       .then(() => {
+//           //更新请求成功
+//           dispatch(syncActions.updateSuccess())
+//           dispatch(getProfile())
+//       })
+//       .catch((error) => {
+//         //更新请求失败
+//         dispatch(syncActions.updateFailure(error))
+//       })
+//   }
+// }
