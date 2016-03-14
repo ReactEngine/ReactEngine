@@ -186,7 +186,7 @@ export default function native(platform) {
                 
                 <Route name="userProfile"
                      schema="tab"
-                     title="profile"
+                     title="Profile"
                      iconName={"gear"}
                      hideNavBar={true}
                      component={userProfile}
