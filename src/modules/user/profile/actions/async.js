@@ -13,6 +13,12 @@ const ApiFactory = require('../../../../services/api').default
 const userStorage = require('../../../../storage/user').default
 import * as syncActions from './index'
 
+const {
+
+  USER_PROFILE_FORMFIELD_CHANGE
+
+} = require('../../constants').default
+
 /**
  * ## get
  * controls which form is displayed to the user
@@ -89,3 +95,14 @@ export function getCurrentUser() {
 //       })
 //   }
 // }
+
+/**
+ * ## profileFormFieldChange
+ * 
+ */
+export function formFieldChange(field,value) {
+  return {
+    type: USER_PROFILE_FORMFIELD_CHANGE,
+    payload: {field: field, value: value}
+  }
+}

@@ -64,14 +64,3 @@ export function moduleInit() {
     type: USER_PROFILE_INIT_START
   }
 }
-
-/**
- * ## profileFormFieldChange
- * 
- */
-export function formFieldChange(field,value) {
-  return {
-    type: USER_PROFILE_FORMFIELD_CHANGE,
-    payload: {field: field, value: value}
-  }
-}
