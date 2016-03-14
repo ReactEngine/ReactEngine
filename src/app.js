@@ -183,6 +183,14 @@ export default function native(platform) {
                      component={todoList}
                      initial={true}
                 />
+                
+                <Route name="userProfile"
+                     schema="tab"
+                     title="profile"
+                     iconName={"gear"}
+                     hideNavBar={true}
+                     component={userProfile}
+                />
 
 
       	      </Router>

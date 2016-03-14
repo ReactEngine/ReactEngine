@@ -18,8 +18,8 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as profileActions from '../actions/async'
-import * as globalActions from '../../../global/actions'
+// import * as profileActions from '../actions'
+import * as profileAsyncActions from '../actions/async'
 
 /**
  * Immutable Mapn
@@ -68,7 +68,8 @@ var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    marginTop:80
   },
   inputs: {
     marginTop: 10,
@@ -82,8 +83,7 @@ var styles = StyleSheet.create({
 * ## Redux boilerplate
 */
 const actions = [
-  profileActions,
-  globalActions
+  profileAsyncActions
 ]
 
 function mapStateToProps(state) {
@@ -128,7 +128,7 @@ class Profile extends Component {
    * 
    */
   onChange(value) {
-    this.props.actions.profileFormFieldChange(value)
+    this.props.actions.formFieldChange(value)
     this.setState({value})
   }
   /**
@@ -140,8 +140,8 @@ class Profile extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       formValues: {
-        username: props.profile.form.fields.username,
-        email: props.profile.form.fields.email
+        username: props.userProfile.form.fields.username,
+        email: props.userProfile.form.fields.email
       }
     })
 
@@ -154,13 +154,15 @@ class Profile extends Component {
    * form fields.  Otherwise, we need to go fetch the fields
    */
   componentDidMount() {
-    if (this.props.profile.form.fields.username == '' && this.props.profile.form.fields.email == '') {
-      this.props.actions.getProfile(this.props.global.currentUser)
+    const username = this.props.userProfile.form.fields.username
+    const email = this.props.userProfile.form.fields.email
+    if ( username == '' &&  email == '') {
+      this.props.actions.getCurrentUser()
     } else {
       this.setState({
         formValues: {
-          username: this.props.profile.form.fields.username,
-          email: this.props.profile.form.fields.email
+          username: username,
+          email: email
         }
       })
     }      
@@ -171,7 +173,7 @@ class Profile extends Component {
    * display the form wrapped with the header and button
    */
   render() {
-    this.errorAlert.checkError(this.props.profile.form.error)
+    this.errorAlert.checkError(this.props.userProfile.form.error)
 
     let self = this
     
@@ -189,15 +191,15 @@ class Profile extends Component {
         username: {
           label: 'Username',
           maxLength: 12,
-          editable: !this.props.profile.form.isFetching,
-          hasError: this.props.profile.form.fields.usernameHasError,
+          editable: !this.props.userProfile.form.isFetching,
+          hasError: this.props.userProfile.form.fields.usernameHasError,
           error: 'Must have 6-12 characters and/or numbers'
         },
         email: {
           label: 'Email',
           keyboardType: 'email-address',
-          editable: !this.props.profile.form.isFetching,
-          hasError: this.props.profile.form.fields.emailHasError,
+          editable: !this.props.userProfile.form.isFetching,
+          hasError: this.props.userProfile.form.fields.emailHasError,
           error: 'Please enter valid email'
         }
       }
@@ -210,11 +212,10 @@ class Profile extends Component {
      */
     let profileButtonText = 'Update Profile'
     let onButtonPress = () => {
-      this.props.actions.updateProfile(
-        this.props.profile.form.originalProfile.objectId,
-        this.props.profile.form.fields.username,
-        this.props.profile.form.fields.email,
-        this.props.global.currentUser)
+      this.props.actions.updateCurrentUser(
+        this.props.userProfile.form.originalProfile.objectId,
+        this.props.userProfile.form.fields.username,
+        this.props.userProfile.form.fields.email)
     }
     /**
      * Wrap the form with the header and button.  The header props are
@@ -223,12 +224,6 @@ class Profile extends Component {
      */
     return (
       <View style={styles.container}>
-        <Header isFetching={this.props.profile.form.isFetching}
-                showState={this.props.global.showState}
-                currentState={this.props.global.currentState}
-                onGetState={this.props.actions.getState}
-                onSetState={this.props.actions.setState}
-        />
         <View style={styles.inputs}>
           <Form
               ref="form"
@@ -239,15 +234,14 @@ class Profile extends Component {
           />
           <ItemCheckbox text="Email verified (display only)"
                         disabled={true}
-                        checked={this.props.profile.form.fields.emailVerified}
+                        checked={this.props.userProfile.form.fields.emailVerified}
           />
         </View>
 
         <FormButton
-            isDisabled={!this.props.profile.form.isValid || this.props.profile.form.isFetching}
+            isDisabled={!this.props.userProfile.form.isValid || this.props.userProfile.form.isFetching}
             onPress={onButtonPress.bind(self)}
             buttonText={profileButtonText}/>
-
 
       </View>
     )

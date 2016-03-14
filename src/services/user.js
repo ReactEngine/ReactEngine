@@ -14,11 +14,14 @@ export default User {
         this.load()
       }
 
-      load(){
+      load(cb){
         const self = this
         _.each(props,(name)={
           self[name] = store.get(name) || ''
         })
+        if(cb){
+          cb()
+        }
       }
 
       save() {
@@ -29,11 +32,13 @@ export default User {
       }
 
       getCurrent() {
-        return {
-          "accessToken" : this.accessToken
-          "currentUserId" : this.userId
-          "currentUserData" : this.userData
-        }
+        this.load(()=>{
+            return {
+              "accessToken" : this.accessToken
+              "currentUserId" : this.userId
+              "currentUserData" : this.userData
+            }
+        })
       }
 
       setCurrent(user) {

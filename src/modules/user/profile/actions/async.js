@@ -19,47 +19,36 @@ const {
  * accessTokenStorage for localStorage accessToken access 
  */
 const ApiFactory = require('../../../../services/api').default
-const accessTokenStorage = require('../../../../storage/accessToken').default
+const userStorage = require('../../../../storage/user').default
 import * as syncActions from './index'
-
-//模块初始化
-export function moduleInit() {
-  return {
-    type: USER_PROFILE_INIT_START
-  }
-}
-
-/**
- * ## profileFormFieldChange
- * 
- */
-export function formFieldChange(field,value) {
-  return {
-    type: USER_PROFILE_FORMFIELD_CHANGE,
-    payload: {field: field, value: value}
-  }
-}
 
 /**
  * ## get
  * controls which form is displayed to the user
  * as in login, register, logout or reset password
  */
-export function getProfile(accessToken) {
+export function getCurrentUser() {
   return dispatch => {
-    //store or get a accessToken
-    return new accessTokenStorage().get(accessToken)
-      .then((token) => {
-        //GET 请求开始
-        dispatch(syncActions.getStart())
-        return ApiFactory(token).getProfile()
+    debugger
+    return new userStorage().get()
+      .then((user) => {
+        debugger
+        const token = user.accessToken
+        const userId = user.id
+        if(!token || !userId){
+          throw("get token or userId failed!")
+        }else{
+          //GET 请求开始
+          dispatch(syncActions.getStart())
+          return ApiFactory(token).getProfile(id)
+        }
       })
       .then((json) => {
           //GET 请求成功
           dispatch(syncActions.getSuccess(json))
       })
-      .catch((error) => {
-        //GET 请求失败
+      .catch((error)=>{
+         //GET 请求失败
         dispatch(syncActions.getFailure(error))
       })
   }
@@ -79,7 +68,7 @@ export function getProfile(accessToken) {
  * the data as now persisted on maxleap.cn
  *
  */
-export function updateProfile(userId, username, email, accessToken) {
+export function updateCurrentUser(userId, username, email) {
   return dispatch => {
 
     return new accessTokenStorage().get(accessToken)
