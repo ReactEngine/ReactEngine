@@ -16,7 +16,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as viewActions from '../actions'
+import * as viewActions from '../actions/async'
 
 /**
  * Immutable

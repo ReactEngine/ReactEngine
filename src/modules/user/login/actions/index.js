@@ -1,83 +1,47 @@
-'use strict'
-
 const {
 
-  USER_LOGIN_INIT_START,
-  USER_LOGIN_FORMFIELD_CHANGE
+  USER_LOGIN_REQUEST_START,
+  USER_LOGIN_REQUEST_SUCCESS,
+  USER_LOGIN_REQUEST_FAILURE
 
 } = require('../../constants').default
-
-const  _ = require('lodash')
-
-const ApiFactory = require('../../../../services/api').default
-
-import { Actions as routerActions }  from 'react-native-router-flux'
-
-import * as syncActions from './sync'
-// import * as logoutActions from '../../logout/actions'
-
-import userStorage from '../../../../storage/user'
-
-//表单字段更新
-export function formFieldChange(field,value) {
-  return {
-    type: USER_LOGIN_FORMFIELD_CHANGE,
-    payload: {field: field, value: value}
-  }
-}
-
-//模块初始化
-export function moduleInit() {
-  return {
-    type: USER_LOGIN_INIT_START
-  }
-}
-
 /**
- * ## Login 
- * @param {string} email - user's email
- * @param {string} password - user's password
- *
- * After calling Backend, if response is good, save the json
- * which is the currentUser which contains the accessToken
- *
- * If successful, set the state to logout
- * otherwise, dispatch a failure
+  * ## Login
+  * After dispatching the logoutRequest, get the accessToken
+  * and call Parse
+  *
+  * When the response from Parse is received and it's valid
+  * change the state to register and finish the logout
+  *
+  * But if the call to Parse fails, like expired token or
+  * no network connection, just send the failure
+  *
+  * And if you fail due to an invalid accessToken, be sure
+  * to delete it so the user can log in.
+  *
+  * How could there be an invalid accessToken?  Maybe they
+  * haven't used the app for a long time.  Or they used another
+  * device and logged out there.
+  */
+/**
+ * ## Login actions
  */
-export function login(email, password) {
-  
-  return dispatch => {
-    //请求开始
-    dispatch(syncActions.requestStart())
+export function requestStart() {
+  return {
+    type: USER_LOGIN_REQUEST_START
+  }
+}
 
-    const userData = {
-      email: email,
-      password: password
-    }
+export function requestSuccess(json) {
+  return {
+    type: USER_LOGIN_REQUEST_SUCCESS,
+    payload: json
+  }
+}
 
-    return  ApiFactory().login(userData)
-      .then((json) => {
-  		
-      let data = {
-        email: email
-      }
-      data.accessToken = json.id
-      data.ttl = json.ttl
-      data.id = json.userId
-
-			return new userStorage().save(data)
-		          .then(() => {
-		          //请求成功
-					    dispatch(syncActions.requestSuccess(data))
-					    //下一个场景准备: 初始化
-					    // dispatch(logoutActions.moduleInit())  
-					    // 切换路由到下一个场景: Tabbar
-					    routerActions.Tabbar()
-			  		})
-      })
-      .catch((error) => {
-			   dispatch(syncActions.requestFailure(error))
-      })
-
+export function requestFailure(error) {
+  return {
+    type: USER_LOGIN_REQUEST_FAILURE,
+    payload: error
   }
 }

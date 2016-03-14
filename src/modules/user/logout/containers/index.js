@@ -17,7 +17,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as logoutActions from '../actions'
+import * as logoutActions from '../actions/async'
 
 /**
  * Immutable
