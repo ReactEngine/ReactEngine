@@ -20,7 +20,7 @@ const userStorage = require('../../../../storage/user').default
 /**
  * The actions we need
  */
-// import * as profileActions from '../actions'
+import * as profileActions from '../actions'
 import * as profileAsyncActions from '../actions/async'
 
 /**
@@ -85,6 +85,7 @@ var styles = StyleSheet.create({
 * ## Redux boilerplate
 */
 const actions = [
+  profileActions,
   profileAsyncActions
 ]
 
@@ -231,7 +232,6 @@ class Profile extends Component {
     let profileButtonText = 'Update Profile'
     let onButtonPress = () => {
       this.props.actions.updateCurrentUser(
-        this.props.userProfile.form.originalProfile.objectId,
         this.props.userProfile.form.fields.username,
         this.props.userProfile.form.fields.email)
     }

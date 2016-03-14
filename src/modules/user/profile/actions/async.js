@@ -13,12 +13,6 @@ const ApiFactory = require('../../../../services/api').default
 const userStorage = require('../../../../storage/user').default
 import * as syncActions from './index'
 
-const {
-
-  USER_PROFILE_FORMFIELD_CHANGE
-
-} = require('../../constants').default
-
 /**
  * ## get
  * controls which form is displayed to the user
@@ -64,45 +58,33 @@ export function getCurrentUser() {
  * the data as now persisted on maxleap.cn
  *
  */
-// export function updateCurrentUser(userId, username, email) {
-//   
-//   console.log("updateCurrentUser")
-//   return dispatch => {
+export function updateCurrentUser(username, email) {
+  
+  return dispatch => {
 
-//     return new userStorage().get()
-//       .then((user) => {
-//         const token = user.accessToken
-//         const userId = user.id
+    return new userStorage().get()
+      .then((user) => {
+        const token = user.accessToken
+        const userId = user.id
+        //更新请求开始
+        dispatch(syncActions.updateStart())
 
-//         //更新请求开始
-//         dispatch(syncActions.updateStart())
-
-//         return ApiFactory(token).updateProfile(userId,
-//           {
-//             username: username,
-//             email: email
-//           }
-//         )
-//       })
-//       .then(() => {
-//           //更新请求成功
-//           dispatch(syncActions.updateSuccess())
-//           dispatch(getProfile())
-//       })
-//       .catch((error) => {
-//         //更新请求失败
-//         dispatch(syncActions.updateFailure(error))
-//       })
-//   }
-// }
-
-/**
- * ## profileFormFieldChange
- * 
- */
-export function formFieldChange(field,value) {
-  return {
-    type: USER_PROFILE_FORMFIELD_CHANGE,
-    payload: {field: field, value: value}
+        return ApiFactory(token).updateProfile(userId,
+          {
+            username: username,
+            email: email
+          }
+        )
+      })
+      .then((json) => {
+          console.log("updateCurrentUser resp:",json)
+          //更新请求成功
+          dispatch(syncActions.updateSuccess())
+          dispatch(getCurrentUser())
+      })
+      .catch((error) => {
+        //更新请求失败
+        dispatch(syncActions.updateFailure(error))
+      })
   }
 }
