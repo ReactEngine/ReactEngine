@@ -2,11 +2,13 @@
 
 import _ from 'lodash'
 import User from './user'
+import defaultConfig from './config'
 
 export default class Strongloop {
 
-  constructor(token = "") {
-    this.user = new User(token)
+  constructor(config = {}) {
+  	config = _.assign({},defaultConfig,config)
+    this.user = new User(config)
   }
 
 }

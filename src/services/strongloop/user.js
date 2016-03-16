@@ -1,25 +1,32 @@
 require('regenerator/runtime')
 import * as utils from './utils'
+import Model from './model'
 
-export default class {
-  /**
-   * ### register
-   *
-   * @param data object
-   *
-   * {username: "barton", email: "foo@gmail.com", password: "Passw0rd!"}
-   *
-   * @return
-   * if ok, {createdAt: "2015-12-30T15:17:05.379Z",
-   *   objectId: "5TgExo2wBA", 
-   *   accessToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
-   *
-   * if error, {code: xxx, error: 'message'}
-   */
+export default class extends Model {
+
+  constructor(config = {}) {
+      super()
+      this.modelName = "Users"
+      this.urlBase = config.urlBase
+    }
+    /**
+     * ### register
+     *
+     * @param data object
+     *
+     * {username: "barton", email: "foo@gmail.com", password: "Passw0rd!"}
+     *
+     * @return
+     * if ok, {createdAt: "2015-12-30T15:17:05.379Z",
+     *   objectId: "5TgExo2wBA", 
+     *   accessToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
+     *
+     * if error, {code: xxx, error: 'message'}
+     */
   async register(data) {
       return await utils.request({
           method: 'POST',
-          url: 'Users',
+          url: this.urlBase + this.modelName,
           body: data
         })
         .then(utils.successHandle)
@@ -46,7 +53,7 @@ export default class {
   async login(data) {
       return await utils.request({
           method: 'POST',
-          url: 'Users/login',
+          url: this.urlBase + this.modelName + '/login',
           body: data
         })
         .then(utils.successHandle)
@@ -59,7 +66,7 @@ export default class {
   async logout() {
       return await utils.request({
           method: 'POST',
-          url: 'Users/logout',
+          url: this.urlBase + this.modelName + '/logout',
           body: {}
         })
         .then((response) => {
@@ -93,7 +100,7 @@ export default class {
   async forgotPassword(data) {
       return await utils.request({
           method: 'POST',
-          url: 'Users/reset',
+          url: this.urlBase + this.modelName + '/reset',
           body: data
         })
         .then(utils.successHandle)
@@ -119,7 +126,7 @@ export default class {
   async getProfile(userId) {
       return await utils.request({
           method: 'GET',
-          url: 'Users/' + userId,
+          url: this.urlBase + this.modelName + '/' + userId,
         })
         .then(utils.successHandle)
         .catch(utils.errorHandle)
@@ -136,7 +143,7 @@ export default class {
   async updateProfile(userId, data) {
     return await utils.request({
         method: 'PUT',
-        url: 'Users/' + userId,
+        url: this.urlBase + this.modelName + '/' + userId,
         body: data
       })
       .then(utils.successHandle)

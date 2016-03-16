@@ -1,6 +1,5 @@
 require('regenerator/runtime')
 import _ from 'lodash'
-import CONFIG from './config'
 
 export function successHandle(response) {
   var json = JSON.parse(response._bodyInit)
@@ -39,5 +38,5 @@ export async function request(opts) {
   if (opts.body) {
     reqOpts.body = JSON.stringify(opts.body)
   }
-  return await fetch(CONFIG.baseUrl + opts.url, reqOpts)
+  return await fetch(opts.url, reqOpts)
 }
