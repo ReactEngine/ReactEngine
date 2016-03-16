@@ -1,6 +1,6 @@
 require('regenerator/runtime')
-import * as utils from './utils'
-import Model from './model'
+import * as utils from '../utils'
+import Model from '../model'
 
 export default class extends Model {
 
@@ -24,7 +24,7 @@ export default class extends Model {
      *
      * if error, {code: xxx, error: 'message'}
      */
-    async register(data) {
+  async register(data) {
       return this.create(data)
     }
     /**
@@ -93,23 +93,23 @@ export default class extends Model {
      * if error:  {code: xxx, error: 'message'}
      */
   async resetPassword(data) {
-      return await utils.request({
-          method: 'POST',
-          url: this.urlBase + this.modelNamePlural + '/reset',
-          body: data
-        })
-        .then(utils.successHandle)
-        .catch(utils.errorHandle)
-    }
-
-  async confirm() {
     return await utils.request({
-        method: 'GET',
-        url: this.urlBase + this.modelNamePlural + '/confirm'
+        method: 'POST',
+        url: this.urlBase + this.modelNamePlural + '/reset',
+        body: data
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
   }
+
+  async confirm() {
+      return await utils.request({
+          method: 'GET',
+          url: this.urlBase + this.modelNamePlural + '/confirm'
+        })
+        .then(utils.successHandle)
+        .catch(utils.errorHandle)
+    }
     /**
      * ### getCurrent
      * Using the accessToken, we'll get everything about
