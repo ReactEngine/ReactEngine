@@ -4,7 +4,8 @@ import * as utils from './utils'
 export default class {
 
   constructor(config = {}) {
-      this.modelName = "Models"
+      this.modelName = "Model"
+      this.modelNamePlural = this.modelName + "s"
       this.urlBase = config.urlBase
     }
     /**

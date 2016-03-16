@@ -6,7 +6,8 @@ export default class extends Model {
 
   constructor(config = {}) {
       super()
-      this.modelName = "Users"
+      this.modelName = "User"
+      this.modelNamePlural = this.modelName + "s"
       this.urlBase = config.urlBase
     }
     /**
@@ -47,7 +48,7 @@ export default class extends Model {
   async login(data) {
       return await utils.request({
           method: 'POST',
-          url: this.urlBase + this.modelName + '/login',
+          url: this.urlBase + this.modelNamePlural + '/login',
           body: data
         })
         .then(utils.successHandle)
@@ -60,7 +61,7 @@ export default class extends Model {
   async logout() {
       return await utils.request({
           method: 'POST',
-          url: this.urlBase + this.modelName + '/logout',
+          url: this.urlBase + this.modelNamePlural + '/logout',
           body: {}
         })
         .then((response) => {
@@ -94,7 +95,7 @@ export default class extends Model {
   async resetPassword(data) {
       return await utils.request({
           method: 'POST',
-          url: this.urlBase + this.modelName + '/reset',
+          url: this.urlBase + this.modelNamePlural + '/reset',
           body: data
         })
         .then(utils.successHandle)
@@ -104,7 +105,7 @@ export default class extends Model {
   async confirm() {
     return await utils.request({
         method: 'GET',
-        url: this.urlBase + this.modelName + '/confirm'
+        url: this.urlBase + this.modelNamePlural + '/confirm'
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
@@ -130,7 +131,7 @@ export default class extends Model {
     
       return await utils.request({
           method: 'GET',
-          url: this.urlBase + this.modelName + '/' + userId,
+          url: this.urlBase + this.modelNamePlural + '/' + userId,
         })
         .then(utils.successHandle)
         .catch(utils.errorHandle)
@@ -147,7 +148,7 @@ export default class extends Model {
   async updateProfile(userId, data) {
     return await utils.request({
         method: 'PUT',
-        url: this.urlBase + this.modelName + '/' + userId,
+        url: this.urlBase + this.modelNamePlural + '/' + userId,
         body: data
       })
       .then(utils.successHandle)
