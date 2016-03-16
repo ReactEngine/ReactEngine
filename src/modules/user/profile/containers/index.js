@@ -172,7 +172,6 @@ class Profile extends Component {
             }
           })
         }else{
-          console.log("try getCurrentUser")
           this.props.actions.getCurrentUser()
         }
       })//get

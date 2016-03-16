@@ -22,7 +22,6 @@ export function getCurrentUser() {
   return dispatch => {
     return new userStorage().get()
       .then((user) => {
-        
         const token = user.accessToken
         const userId = user.id
         if(!token || !userId){
@@ -30,7 +29,7 @@ export function getCurrentUser() {
         }else{
           //GET 请求开始
           dispatch(syncActions.getStart())
-          return ApiFactory(token).user.getProfile(userId)
+          return ApiFactory(token).user.getCurrent(userId)
         }
       })
       .then((json) => {

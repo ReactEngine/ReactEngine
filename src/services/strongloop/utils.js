@@ -18,17 +18,18 @@ export async function request(opts) {
     method: 'GET',
     url: null,
     body: null,
-    callback: null
+    callback: null,
+    headers:{}
   }, opts)
 
   var reqOpts = {
     method: opts.method,
-    headers: {}
+    headers: opts.headers
   }
 
-  if (global.$RE && global.$RE.currentUser && global.$RE.currentUser.accessToken) {
-    reqOpts.headers['authorization'] =  global.$RE.currentUser.accessToken
-  }
+  // if (global.$RE && global.$RE.currentUser && global.$RE.currentUser.accessToken) {
+  //   reqOpts.headers['authorization'] =  global.$RE.currentUser.accessToken
+  // }
 
   if (opts.method === 'POST' || opts.method === 'PUT') {
     reqOpts.headers['Accept'] = 'application/json'

@@ -23,14 +23,8 @@ export default class extends Model {
      *
      * if error, {code: xxx, error: 'message'}
      */
-  async register(data) {
-      return await utils.request({
-          method: 'POST',
-          url: this.urlBase + this.modelName,
-          body: data
-        })
-        .then(utils.successHandle)
-        .catch(utils.errorHandle)
+    async register(data) {
+      return this.create(data)
     }
     /**
      * ### login
@@ -97,7 +91,7 @@ export default class extends Model {
      *
      * if error:  {code: xxx, error: 'message'}
      */
-  async forgotPassword(data) {
+  async resetPassword(data) {
       return await utils.request({
           method: 'POST',
           url: this.urlBase + this.modelName + '/reset',
@@ -106,8 +100,17 @@ export default class extends Model {
         .then(utils.successHandle)
         .catch(utils.errorHandle)
     }
+
+  async confirm() {
+    return await utils.request({
+        method: 'GET',
+        url: this.urlBase + this.modelName + '/confirm'
+      })
+      .then(utils.successHandle)
+      .catch(utils.errorHandle)
+  }
     /**
-     * ### getProfile
+     * ### getCurrent
      * Using the accessToken, we'll get everything about
      * the current user.
      *
@@ -123,7 +126,8 @@ export default class extends Model {
      *
      * if error, {code: xxx, error: 'message'}
      */
-  async getProfile(userId) {
+  async getCurrent(userId) {
+    
       return await utils.request({
           method: 'GET',
           url: this.urlBase + this.modelName + '/' + userId,
