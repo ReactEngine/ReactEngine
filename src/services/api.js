@@ -7,7 +7,6 @@
  */
 'use strict'
 
-import CONFIG from './config'
 import Strongloop from './strongloop'
 
 export default function ApiFactory(token = null) {

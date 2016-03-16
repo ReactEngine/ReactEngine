@@ -48,7 +48,7 @@ export function logout(email, password) {
     // return logoutHandle
     // new accessTokenStorage().get()
     //   .then((token) => {
-    //     return ApiFactory(token).logout()
+    //     return ApiFactory(token).user.logout()
     //   })
     //   .then(() => {
     //       //请求成功

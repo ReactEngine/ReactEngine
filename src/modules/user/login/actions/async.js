@@ -55,7 +55,7 @@ export function login(email, password) {
       password: password
     }
 
-    return  ApiFactory().login(userData)
+    return  ApiFactory().user.login(userData)
       .then((json) => {
   		
       let data = {

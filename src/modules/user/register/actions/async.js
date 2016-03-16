@@ -55,7 +55,7 @@ export function register(username, email, password) {
       password: password
     }
 
-    return  ApiFactory().register(userData)
+    return  ApiFactory().user.register(userData)
       .then((json) => {
 
       		const data = {

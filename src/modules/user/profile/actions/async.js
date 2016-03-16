@@ -30,7 +30,7 @@ export function getCurrentUser() {
         }else{
           //GET 请求开始
           dispatch(syncActions.getStart())
-          return ApiFactory(token).getProfile(userId)
+          return ApiFactory(token).user.getProfile(userId)
         }
       })
       .then((json) => {
@@ -69,7 +69,7 @@ export function updateCurrentUser(username, email) {
         //更新请求开始
         dispatch(syncActions.updateStart())
 
-        return ApiFactory(token).updateProfile(userId,
+        return ApiFactory(token).user.updateProfile(userId,
           {
             username: username,
             email: email

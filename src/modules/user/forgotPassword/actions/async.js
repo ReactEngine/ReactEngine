@@ -62,7 +62,7 @@ export function forgotPassword(email) {
         routerActions.userLogin()  
       }
 
-    return  ApiFactory().forgotPassword(userData)
+    return  ApiFactory().user.forgotPassword(userData)
       .then((json) => {
           successHandle(json)
       })
