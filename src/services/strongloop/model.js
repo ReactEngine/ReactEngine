@@ -5,7 +5,7 @@ export default class {
 
   constructor(config = {}) {
       this.modelName = "Model"
-      this.modelNamePlural = this.modelName + "s"
+      this.modelNamePlural = this.modelNamePlural + "s"
       this.urlBase = config.urlBase
     }
     /**
@@ -14,7 +14,7 @@ export default class {
   async exists(id) {
     return await utils.request({
         method: 'GET',
-        url: this.urlBase + this.modelName + '/' + id
+        url: this.urlBase + this.modelNamePlural + '/' + id
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
@@ -23,7 +23,7 @@ export default class {
   async findById(id) {
     return await utils.request({
         method: 'GET',
-        url: this.urlBase + this.modelName + '/' + id
+        url: this.urlBase + this.modelNamePlural + '/' + id
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
@@ -32,7 +32,7 @@ export default class {
   async findById() {
     return await utils.request({
         method: 'GET',
-        url: this.urlBase + this.modelName
+        url: this.urlBase + this.modelNamePlural
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
@@ -41,7 +41,7 @@ export default class {
   async findOne() {
     return await utils.request({
         method: 'GET',
-        url: this.urlBase + this.modelName + '/findOne'
+        url: this.urlBase + this.modelNamePlural + '/findOne'
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
@@ -50,7 +50,7 @@ export default class {
   async count() {
       return await utils.request({
           method: 'GET',
-          url: this.urlBase + this.modelName + '/count'
+          url: this.urlBase + this.modelNamePlural + '/count'
         })
         .then(utils.successHandle)
         .catch(utils.errorHandle)
@@ -61,7 +61,7 @@ export default class {
   async create(data) {
     return await utils.request({
         method: 'POST',
-        url: this.modelName,
+        url: this.urlBase + this.modelNamePlural,
         body: data
       })
       .then(utils.successHandle)
@@ -71,7 +71,7 @@ export default class {
   async updateAll(data) {
     return await utils.request({
         method: 'POST',
-        url: this.urlBase + this.modelName + '/update',
+        url: this.urlBase + this.modelNamePlural + '/update',
         body: data
       })
       .then(utils.successHandle)
@@ -87,7 +87,7 @@ export default class {
   async createChangeStream(id) {
     return await utils.request({
         method: 'POST',
-        url: this.urlBase + this.modelName + '/change-stream'
+        url: this.urlBase + this.modelNamePlural + '/change-stream'
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
@@ -99,7 +99,7 @@ export default class {
   async upsert(data) {
     return await utils.request({
         method: 'PUT',
-        url: this.urlBase + this.modelName,
+        url: this.urlBase + this.modelNamePlural,
         body: data
       })
       .then(utils.successHandle)
@@ -113,7 +113,7 @@ export default class {
   async updateAttributes(id) {
     return await utils.request({
         method: 'PUT',
-        url: this.urlBase + this.modelName + '/' + id
+        url: this.urlBase + this.modelNamePlural + '/' + id
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
@@ -125,7 +125,7 @@ export default class {
   async deleteById(id) {
     return await utils.request({
         method: 'DELETE',
-        url: this.urlBase + this.modelName + '/' + id
+        url: this.urlBase + this.modelNamePlural + '/' + id
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)

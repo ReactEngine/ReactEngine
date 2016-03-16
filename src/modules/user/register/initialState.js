@@ -11,14 +11,14 @@ const {Record} = require('immutable')
 const Form = Record({
   disabled: false,
   error: null,
-  isValid: false,
+  isValid: true,
   isFetching: false,
   fields: new (Record({
-    username: '',
+    username: 'User11',
     usernameHasError: false,
-    email: '',
+    email: 'User11@gmail.com',
     emailHasError: false,
-    password: '',
+    password: 'User@11',
     passwordHasError: false,
     showPassword: false
   }))

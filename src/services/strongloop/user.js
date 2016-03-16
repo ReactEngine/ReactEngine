@@ -128,7 +128,6 @@ export default class extends Model {
      * if error, {code: xxx, error: 'message'}
      */
   async getCurrent(userId) {
-    
       return await utils.request({
           method: 'GET',
           url: this.urlBase + this.modelNamePlural + '/' + userId,
