@@ -7,6 +7,11 @@ import React,{
 	Text
 } from 'react-native'
 
+import Swipeout from 'react-native-swipeout'
+
+
+// Swipeout component
+
 
 var Row = React.createClass({
 	getInitialState() {
@@ -18,22 +23,40 @@ var Row = React.createClass({
 		    "updatedAt": "2016-03-17T03:29:01.000Z"
 		  }
 	},
-	/**
-	 * When a row is touched
-	 * @param {object} rowData Row data
-	 */
-	_onPress(text) {
-	  console.log(text+' pressed')
+	_onPress(item) {
+	  console.log(item.text+' pressed')
 	},
 	render() {
+		// Buttons
+		const self = this;
+		const swipeoutBtns = [
+		  {
+		    text: 'Delete',
+		    backgroundColor:'red',
+		    color:'#fff',
+		    type: 'primary',
+		    autoClose: true,
+		    onPress:()=>{debugger
+		    	self.props.deleteItem(self.props.item.id)
+		    }
+		  }
+		]
+
 		return (
-		  <TouchableHighlight 
-		    style={styles.row} 
-		    underlayColor='#c8c7cc'
-		    onPress={() => this._onPress(this.props.item.text)}
-		  >  
-		    <Text>{this.props.item.text}</Text>
-		  </TouchableHighlight>
+		  <Swipeout right={swipeoutBtns}
+		  autoClose={true}
+		  backgroundColor={'#fff'}
+		  >
+		    <TouchableHighlight 
+    		    style={styles.row} 
+    		    underlayColor='#c8c7cc'
+    		    onPress={() => this._onPress(this.props.item)}
+    		  >  
+    		    <Text>{this.props.item.text}</Text>
+    		  </TouchableHighlight>
+		  </Swipeout>
+
+		  
 		)
 	}
 })

@@ -24,7 +24,9 @@ var ListComponent = React.createClass({
    */
  _renderRowView(item) {
     return (
-      <ItemComponent item={item}/>
+      <ItemComponent item={item}
+      deleteItem={this.props.deleteItem}
+      />
     )
   },
   
@@ -33,7 +35,9 @@ var ListComponent = React.createClass({
    */
   _renderSeparatorView() {
     return (
-      <View style={customStyles.separator} />
+      <View 
+      style={customStyles.separator} 
+      />
     )
   },
   

@@ -10,4 +10,7 @@ export default constantUtils.addPrefix([
   "TODO_LIST_REQUEST_FAILURE",
   "TODO_LIST_INIT_START",
 
+  "TODO_ITEM_DELETE_START",
+  "TODO_ITEM_DELETE_SUCCESS",
+  "TODO_ITEM_DELETE_FAILURE"
 ],prefix)

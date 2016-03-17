@@ -119,6 +119,7 @@ class ListContainer extends Component {
       title: 'Add',
       handler: routerActions.todoAdd
     }
+    debugger
     return(
       <View style={styles.container}>
           <NavigationBar
@@ -127,6 +128,7 @@ class ListContainer extends Component {
           />
         <ListComponent  
           onFetch={this.onFetch}
+          deleteItem={this.props.actions.deleteById}
          />
         
       </View>

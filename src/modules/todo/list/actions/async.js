@@ -22,3 +22,20 @@ export function find(username, email, password) {
 
   }
 }
+
+export function deleteById(id="") {
+  
+  return dispatch => {
+    //请求开始
+    dispatch(syncActions.deleteStart())
+    return  ApiFactory().todo.deleteById(id)
+      .then((json) => {
+          //请求成功
+          dispatch(syncActions.deleteSuccess(json))
+      })
+      .catch((error) => {
+         dispatch(syncActions.deleteFailure(error))
+      })
+
+  }
+}

@@ -2,6 +2,7 @@ require('regenerator/runtime')
 import _ from 'lodash'
 
 export function successHandle(response) {
+  console.log("request success,response:",response)
   var json = JSON.parse(response._bodyInit)
   if (response.status === 200 || response.status === 201) {
     return json
@@ -10,6 +11,7 @@ export function successHandle(response) {
   }
 }
 export function errorHandle(error) {
+  console.log("request error:",error)
   throw (error)
 }
 
