@@ -55,8 +55,6 @@ var Row = React.createClass({
     		    <Text>{this.props.item.text}</Text>
     		  </TouchableHighlight>
 		  </Swipeout>
-
-		  
 		)
 	}
 })
