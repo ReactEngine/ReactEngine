@@ -2,16 +2,16 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
-'use strict';
+'use strict'
 
-var React = require('react-native');
+var React = require('react-native')
 var {
   StyleSheet,
   Text,
   View,
   TouchableHighlight,
   Platform
-} = React;
+} = React
 
 import GiftedListView from '../../../common/components/GiftedListView'
 import ItemComponent from './Item'
@@ -27,17 +27,17 @@ var ListComponent = React.createClass({
    */
   _onFetch(page = 1, callback, options) {
     setTimeout(() => {
-      var header = 'Header '+page;
-      var rows = {};
-      rows[header] = ['row '+((page - 1) * 3 + 1), 'row '+((page - 1) * 3 + 2), 'row '+((page - 1) * 3 + 3)];
+      var header = 'Header '+page
+      var rows = {}
+      rows[header] = ['row '+((page - 1) * 3 + 1), 'row '+((page - 1) * 3 + 2), 'row '+((page - 1) * 3 + 3)]
       if (page === 2) {
         callback(rows, {
           allLoaded: true, // the end of the list is reached
-        });        
+        })        
       } else {
-        callback(rows);
+        callback(rows)
       }
-    }, 1000); // simulating network fetching
+    }, 1000) // simulating network fetching
   },
   
   /**
@@ -47,7 +47,7 @@ var ListComponent = React.createClass({
  _renderRowView(item) {
     return (
       <ItemComponent item={{text:item}}/>
-    );
+    )
   },
   
   /**
@@ -56,7 +56,7 @@ var ListComponent = React.createClass({
   _renderSeparatorView() {
     return (
       <View style={customStyles.separator} />
-    );
+    )
   },
   
   render() {
@@ -85,9 +85,9 @@ var ListComponent = React.createClass({
             progressBackgroundColor: '#003e82',
           }}
         />
-    );
+    )
   }
-});
+})
 
 
 var customStyles = {
@@ -95,6 +95,6 @@ var customStyles = {
     height: 1,
     backgroundColor: '#CCC'
   }
-};
+}
 
-module.exports = ListComponent;
+module.exports = ListComponent
