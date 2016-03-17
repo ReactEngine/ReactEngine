@@ -4,7 +4,7 @@ import React,{
 	View,
 	StyleSheet,
 	TouchableHighlight
-} from 'react-native';
+} from 'react-native'
 
 
 class Row extends Component {
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row'
 	}
-});
+})
 
 
-export default Row;
+export default Row

@@ -2,7 +2,7 @@ import store from './store'
 import _ from 'lodash'
 
 export default User {
-  global.ReacEngine = global.ReacEngine || {};
+  global.ReacEngine = global.ReacEngine || {}
   if(global.ReacEngine.User){
     return global.ReacEngine.User
   }

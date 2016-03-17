@@ -11,7 +11,7 @@ export default class {
     /**
      GET
      */
-  async exists(id) {
+  async exists(id="") {
     return await utils.request({
         method: 'GET',
         url: this.urlBase + this.modelNamePlural + '/' + id
@@ -20,7 +20,7 @@ export default class {
       .catch(utils.errorHandle)
   }
 
-  async find(filter) {
+  async find(filter={}) {
     return await utils.request({
         method: 'GET',
         url: this.urlBase + this.modelNamePlural +'?filter='+JSON.stringify(filter)
@@ -58,7 +58,7 @@ export default class {
     /**
      POST
      */
-  async create(data) {
+  async create(data={}) {
     return await utils.request({
         method: 'POST',
         url: this.urlBase + this.modelNamePlural,
@@ -68,7 +68,7 @@ export default class {
       .catch(utils.errorHandle)
   }
 
-  async updateAll(data) {
+  async updateAll(data={}) {
     return await utils.request({
         method: 'POST',
         url: this.urlBase + this.modelNamePlural + '/update',
@@ -79,12 +79,12 @@ export default class {
   }
 
 
-  async update(data) {
+  async update(data={}) {
     return this.updateAll(data)
   }
 
 
-  async createChangeStream(id) {
+  async createChangeStream(id="") {
     return await utils.request({
         method: 'POST',
         url: this.urlBase + this.modelNamePlural + '/change-stream'
@@ -96,7 +96,7 @@ export default class {
   /**
    PUT
    */
-  async upsert(data) {
+  async upsert(data={}) {
     return await utils.request({
         method: 'PUT',
         url: this.urlBase + this.modelNamePlural,
@@ -106,11 +106,11 @@ export default class {
       .catch(utils.errorHandle)
   }
 
-  async updateOrCreate(data) {
+  async updateOrCreate(data={}) {
     return this.upsert(data)
   }
 
-  async updateAttributes(id) {
+  async updateAttributes(id="") {
     return await utils.request({
         method: 'PUT',
         url: this.urlBase + this.modelNamePlural + '/' + id
@@ -122,7 +122,7 @@ export default class {
   /**
    DELETE
    */
-  async deleteById(id) {
+  async deleteById(id="") {
     return await utils.request({
         method: 'DELETE',
         url: this.urlBase + this.modelNamePlural + '/' + id
@@ -131,11 +131,11 @@ export default class {
       .catch(utils.errorHandle)
   }
 
-  async destroyById(id) {
+  async destroyById(id="") {
     return this.deleteById(id)
   }
 
-  async removeById(id) {
+  async removeById(id="") {
     return this.deleteById(id)
   }
 }

@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
  */
 import * as asyncActions from '../actions/async'
 import NavigationBar from 'react-native-navbar'
+const ApiFactory = require('../../../../services/api').default
 
 /**
  * Immutable
@@ -94,7 +95,22 @@ function mapDispatchToProps(dispatch) {
  * ## App class
  */
 class ListContainer extends Component {
-  
+  onFetch(page = 1, callback, options) {
+    ApiFactory().todo.find()
+      .then((data) => {
+        
+      var rows = {}
+      var header = 'Page_'+page
+      rows[header] = data
+      if (page === 2) {
+        callback(rows, {
+          allLoaded: true, // the end of the list is reached
+        })        
+      } else {
+        callback(rows)
+      }
+    })
+  }
   render() {
     var titleConfig = {
       title: "Todos"
@@ -109,34 +125,8 @@ class ListContainer extends Component {
             title={ titleConfig }
             rightButton={ rightButtonConfig }
           />
-        <ListComponent 
-           items={[
-              {
-                "completed": true,
-                "text": "todo1",
-                "id": "644ca090-ebf0-11e5-81e1-a53b29f0d75f",
-                "createdAt": "2016-03-17T03:29:01.000Z",
-                "updatedAt": "2016-03-17T03:29:01.000Z"
-              },
-              {
-                "completed": true,
-                "text": "todo2",
-                "id": "6fd5f740-ebf0-11e5-81e1-a53b29f0d75f",
-                "createdAt": "2016-03-17T03:29:20.000Z",
-                "updatedAt": "2016-03-17T03:29:20.000Z"
-              },
-              {
-                "completed": true,
-                "text": "todo3",
-                "id": "72111a30-ebf0-11e5-81e1-a53b29f0d75f",
-                "createdAt": "2016-03-17T03:29:24.000Z",
-                "updatedAt": "2016-03-17T03:29:24.000Z"
-              }
-            ]}
-           isRefreshingItems={false}
-           refreshItems={()=>{debugger
-              dispatch(this.props.actions.find())
-           }}
+        <ListComponent  
+          onFetch={this.onFetch}
          />
         
       </View>

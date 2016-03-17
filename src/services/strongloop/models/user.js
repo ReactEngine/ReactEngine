@@ -24,7 +24,7 @@ export default class extends Model {
      *
      * if error, {code: xxx, error: 'message'}
      */
-  async register(data) {
+  async register(data={}) {
       return this.create(data)
     }
     /**
@@ -45,7 +45,7 @@ export default class extends Model {
      * username: "barton"
      *
      */
-  async login(data) {
+  async login(data={}) {
       return await utils.request({
           method: 'POST',
           url: this.urlBase + this.modelNamePlural + '/login',
@@ -92,7 +92,7 @@ export default class extends Model {
      *
      * if error:  {code: xxx, error: 'message'}
      */
-  async resetPassword(data) {
+  async resetPassword(data={}) {
     return await utils.request({
         method: 'POST',
         url: this.urlBase + this.modelNamePlural + '/reset',
@@ -144,7 +144,7 @@ export default class extends Model {
      * @param data object:
      * {username: "barton", email: "barton@foo.com"}
      */
-  async updateProfile(userId, data) {
+  async updateProfile(userId, data={}) {
     return await utils.request({
         method: 'PUT',
         url: this.urlBase + this.modelNamePlural + '/' + userId,

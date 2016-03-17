@@ -5,7 +5,7 @@ import storage from 'react-native-simple-store'
 export default class AccessToken {
 
   constructor () {
-    this.STRORE_KEY = 'AccessToken';
+    this.STRORE_KEY = 'AccessToken'
   }
 
   /**

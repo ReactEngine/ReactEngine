@@ -5,7 +5,7 @@ import accessTokenStorage from './accessToken'
 export default class User {
 
   constructor () {
-    this.STRORE_KEY = 'currentUser';
+    this.STRORE_KEY = 'currentUser'
   }
   
   save(user) {

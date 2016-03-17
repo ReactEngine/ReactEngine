@@ -5,22 +5,26 @@ import React,{
 	StyleSheet,
 	TouchableHighlight,
 	Text
-} from 'react-native';
+} from 'react-native'
 
 
-class Row extends Component {
+var Row = React.createClass({
 	getInitialState() {
 	  return {
-	  	text:'todo'
-	  }
-	}
+		    "completed": true,
+		    "text": "todo1",
+		    "id": "644ca090-ebf0-11e5-81e1-a53b29f0d75f",
+		    "createdAt": "2016-03-17T03:29:01.000Z",
+		    "updatedAt": "2016-03-17T03:29:01.000Z"
+		  }
+	},
 	/**
 	 * When a row is touched
 	 * @param {object} rowData Row data
 	 */
 	_onPress(text) {
-	  console.log(text+' pressed');
-	}
+	  console.log(text+' pressed')
+	},
 	render() {
 		return (
 		  <TouchableHighlight 
@@ -30,9 +34,9 @@ class Row extends Component {
 		  >  
 		    <Text>{this.props.item.text}</Text>
 		  </TouchableHighlight>
-		);
+		)
 	}
-}
+})
 
 
 const styles = StyleSheet.create({
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
 	  padding: 10,
 	  height: 44,
 	},
-});
+})
 
 
-export default Row;
+export default Row
