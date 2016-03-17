@@ -10,14 +10,14 @@ export function find(username, email, password) {
   
   return dispatch => {
     //请求开始
-    dispatch(syncActions.requestStart())
+    dispatch(syncActions.getStart())
     return  ApiFactory().todo.find()
       .then((json) => {
           //请求成功
-			    dispatch(syncActions.requestSuccess(json))
+			    dispatch(syncActions.getSuccess(json))
       })
       .catch((error) => {
-			   dispatch(syncActions.requestFailure(error))
+			   dispatch(syncActions.getFailure(error))
       })
 
   }

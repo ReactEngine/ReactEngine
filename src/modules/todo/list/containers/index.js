@@ -119,7 +119,6 @@ class ListContainer extends Component {
       title: 'Add',
       handler: routerActions.todoAdd
     }
-    debugger
     return(
       <View style={styles.container}>
           <NavigationBar

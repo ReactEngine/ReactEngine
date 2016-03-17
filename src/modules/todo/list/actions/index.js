@@ -1,8 +1,8 @@
 const {
 
-  TODO_LIST_REQUEST_START,
-  TODO_LIST_REQUEST_SUCCESS,
-  TODO_LIST_REQUEST_FAILURE,
+  TODO_LIST_GET_START,
+  TODO_LIST_GET_SUCCESS,
+  TODO_LIST_GET_FAILURE,
 
   TODO_ITEM_DELETE_START,
   TODO_ITEM_DELETE_SUCCESS,
@@ -10,20 +10,20 @@ const {
 
 } = require('../../constants').default
 
-export function requestStart() {
+export function getStart() {
   return {
-    type: TODO_LIST_REQUEST_START
+    type: TODO_LIST_GET_START
   }
 }
-export function requestSuccess(json) {
+export function getSuccess(json) {
   return {
-    type: TODO_LIST_REQUEST_SUCCESS,
+    type: TODO_LIST_GET_SUCCESS,
     payload: json
   }
 }
-export function requestFailure(error) {
+export function getFailure(error) {
   return {
-    type: TODO_LIST_REQUEST_FAILURE,
+    type: TODO_LIST_GET_FAILURE,
     payload: error
   }
 }
