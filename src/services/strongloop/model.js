@@ -29,10 +29,10 @@ export default class {
       .catch(utils.errorHandle)
   }
 
-  async findById() {
+  async findById(id="") {
     return await utils.request({
         method: 'GET',
-        url: this.urlBase + this.modelNamePlural
+        url: this.urlBase + this.modelNamePlural+'/'+id
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
@@ -68,10 +68,10 @@ export default class {
       .catch(utils.errorHandle)
   }
 
-  async updateAll(data={}) {
+  async updateAll(where={},data={}) {
     return await utils.request({
         method: 'POST',
-        url: this.urlBase + this.modelNamePlural + '/update',
+        url: this.urlBase + this.modelNamePlural + '/update?where='+JSON.stringify(where),
         body: data
       })
       .then(utils.successHandle)
@@ -79,10 +79,9 @@ export default class {
   }
 
 
-  async update(data={}) {
-    return this.updateAll(data)
+  async update(where={},data={}) {
+    return this.updateAll(where,data)
   }
-
 
   async createChangeStream(id="") {
     return await utils.request({

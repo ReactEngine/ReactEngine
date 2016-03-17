@@ -1,47 +1,175 @@
 const {
+  TODO_LIST_FIND_REQUEST_START,
+  TODO_LIST_FIND_REQUEST_SUCCESS,
+  TODO_LIST_FIND_REQUEST_FAILURE,
 
-  TODO_LIST_GET_START,
-  TODO_LIST_GET_SUCCESS,
-  TODO_LIST_GET_FAILURE,
+  TODO_LIST_CREATE_REQUEST_START,
+  TODO_LIST_CREATE_REQUEST_SUCCESS,
+  TODO_LIST_CREATE_REQUEST_FAILURE,
 
-  TODO_ITEM_DELETE_START,
-  TODO_ITEM_DELETE_SUCCESS,
-  TODO_ITEM_DELETE_FAILURE
+  TODO_LIST_COUNT_REQUEST_START,
+  TODO_LIST_COUNT_REQUEST_SUCCESS,
+  TODO_LIST_COUNT_REQUEST_FAILURE,
+
+  TODO_LIST_UPDATE_REQUEST_START,
+  TODO_LIST_UPDATE_REQUEST_SUCCESS,
+  TODO_LIST_UPDATE_REQUEST_FAILURE,
+
+  TODO_LIST_GETCHANGESTREAM_REQUEST_START,
+  TODO_LIST_GETCHANGESTREAM_REQUEST_SUCCESS,
+  TODO_LIST_GETCHANGESTREAM_REQUEST_FAILURE,
+
+  TODO_LIST_CREATECHANGESTREAM_REQUEST_START,
+  TODO_LIST_CREATECHANGESTREAM_REQUEST_SUCCESS,
+  TODO_LIST_CREATECHANGESTREAM_REQUEST_FAILURE,
+
+  TODO_LIST_UPSERT_REQUEST_START,
+  TODO_LIST_UPSERT_REQUEST_SUCCESS,
+  TODO_LIST_UPSERT_REQUEST_FAILURE,
 
 } = require('../../constants').default
 
-export function getStart() {
+//find
+export function findRequestStart() {
   return {
-    type: TODO_LIST_GET_START
+    type: TODO_LIST_FIND_REQUEST_START
   }
 }
-export function getSuccess(json) {
+
+export function findRequestSuccess(json) {
   return {
-    type: TODO_LIST_GET_SUCCESS,
+    type: TODO_LIST_FIND_REQUEST_SUCCESS,
     payload: json
   }
 }
-export function getFailure(error) {
+
+export function findRequestFailure(error) {
   return {
-    type: TODO_LIST_GET_FAILURE,
+    type: TODO_LIST_FIND_REQUEST_FAILURE,
     payload: error
   }
 }
 
-export function deleteStart() {
+//create
+export function createRequestStart() {
   return {
-    type: TODO_ITEM_DELETE_START
+    type: TODO_LIST_CREATE_REQUEST_START
   }
 }
-export function deleteSuccess(json) {
+
+export function createRequestSuccess(json) {
   return {
-    type: TODO_ITEM_DELETE_SUCCESS,
+    type: TODO_LIST_CREATE_REQUEST_SUCCESS,
     payload: json
   }
 }
-export function deleteFailure(error) {
+
+export function createRequestFailure(error) {
   return {
-    type: TODO_ITEM_DELETE_FAILURE,
+    type: TODO_LIST_CREATE_REQUEST_FAILURE,
+    payload: error
+  }
+}
+
+//count
+export function countRequestStart() {
+  return {
+    type: TODO_LIST_COUNT_REQUEST_START
+  }
+}
+
+export function countRequestSuccess(json) {
+  return {
+    type: TODO_LIST_COUNT_REQUEST_SUCCESS,
+    payload: json
+  }
+}
+
+export function countRequestFailure(error) {
+  return {
+    type: TODO_LIST_COUNT_REQUEST_FAILURE,
+    payload: error
+  }
+}
+
+//update
+export function updateRequestStart() {
+  return {
+    type: TODO_LIST_UPDATE_REQUEST_START
+  }
+}
+export function updateRequestSuccess(json) {
+  return {
+    type: TODO_LIST_UPDATE_REQUEST_SUCCESS,
+    payload: json
+  }
+}
+
+export function updateRequestFailure(error) {
+  return {
+    type: TODO_LIST_UPDATE_REQUEST_FAILURE,
+    payload: error
+  }
+}
+
+//createChangeStream
+export function createChangeStreamRequestStart() {
+  return {
+    type: TODO_LIST_GETCHANGESTREAM_REQUEST_START
+  }
+}
+export function createChangeStreamRequestSuccess(json) {
+  return {
+    type: TODO_LIST_GETCHANGESTREAM_REQUEST_SUCCESS,
+    payload: json
+  }
+}
+
+export function createChangeStreamRequestFailure(error) {
+  return {
+    type: TODO_LIST_GETCHANGESTREAM_REQUEST_FAILURE,
+    payload: error
+  }
+}
+
+
+//createChangeStream
+export function createChangeStreamRequestStart() {
+  return {
+    type: TODO_LIST_CREATECHANGESTREAM_REQUEST_START
+  }
+}
+export function createChangeStreamRequestSuccess(json) {
+  return {
+    type: TODO_LIST_CREATECHANGESTREAM_REQUEST_SUCCESS,
+    payload: json
+  }
+}
+
+export function createChangeStreamRequestFailure(error) {
+  return {
+    type: TODO_LIST_CREATECHANGESTREAM_REQUEST_FAILURE,
+    payload: error
+  }
+}
+
+
+//upsert
+export function upsertRequestStart() {
+  return {
+    type: TODO_LIST_UPSERT_REQUEST_START
+  }
+}
+export function upsertRequestSuccess(json) {
+  return {
+    type: TODO_LIST_UPSERT_REQUEST_SUCCESS,
+    payload: json
+  }
+}
+
+export function upsertRequestFailure(error) {
+  return {
+    type: TODO_LIST_UPSERT_REQUEST_FAILURE,
     payload: error
   }
 }
