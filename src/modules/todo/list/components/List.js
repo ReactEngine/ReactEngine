@@ -141,7 +141,7 @@ var Example = React.createClass({
     return (
       <View style={customStyles.paginationView}>
         <Text style={customStyles.actionsLabel}>
-          ~
+          No More...
         </Text>
       </View>
     );
@@ -181,10 +181,6 @@ var Example = React.createClass({
   
   render() {
     return (
-      <View style={screenStyles.container}>
-        <View style={screenStyles.navBar}>
-          <Text style={screenStyles.navBarTitle}>Gifted ListView</Text>
-        </View>
         <GiftedListView
           rowView={this._renderRowView}
           
@@ -217,7 +213,6 @@ var Example = React.createClass({
             progressBackgroundColor: '#003e82',
           }}
         />
-      </View>
     );
   }
 });
@@ -253,32 +248,6 @@ var customStyles = {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 15,
-  },
-  header: {
-    backgroundColor: '#50a4ff',
-    padding: 10,
-  },
-  headerTitle: {
-    color: '#fff',
-  },
-};
-
-var screenStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-  },
-  navBar: {
-    height: 64,
-    backgroundColor: '#007aff',
-
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  navBarTitle: {
-    color: '#fff',
-    fontSize: 16,
-    marginTop: 12,
   }
 };
 

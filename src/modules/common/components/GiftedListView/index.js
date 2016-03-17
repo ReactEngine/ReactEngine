@@ -112,7 +112,7 @@ var GiftedListView = React.createClass({
     return (
       <View style={[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}>
         <Text style={[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
-          ~
+          No More...
         </Text>
       </View>
     );
@@ -463,12 +463,13 @@ var GiftedListView = React.createClass({
     },
     refreshableView: {
       height: 50,
-      backgroundColor: '#DDD',
+      backgroundColor: '#fff',
       justifyContent: 'center',
       alignItems: 'center',
     },
     actionsLabel: {
       fontSize: 20,
+      color: '#007aff'
     },
     paginationView: {
       height: 44,
