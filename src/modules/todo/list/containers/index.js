@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 /**
  * The actions we need
  */
-import * as globalActions from '../../../global/actions'
+import * as asyncActions from '../actions/async'
 
 /**
  * Immutable
@@ -31,6 +31,7 @@ import { Actions as routerActions }  from 'react-native-router-flux'
  * The Header will display a Image and support Hot Loading
  */
 import Header from '../../../common/components/Header'
+import ListComponent from '../components/List'
 
 /**
  * The components needed from React
@@ -55,7 +56,7 @@ const  Button = require('apsl-react-native-button')
  * 
  */
 const actions = [
-  globalActions  
+  asyncActions  
 ]
 
 /**
@@ -91,7 +92,7 @@ var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-  
+    marginTop:80
   },
   summary: {
     marginBottom:10,
@@ -125,22 +126,41 @@ class Main extends Component {
   render() {
     return(
       <View style={styles.container}>
-        <View>
-        <Header isFetching={ false }
-                showState={this.props.global.showState}
-                currentState={this.props.global.currentState}
-                onGetState={this.props.actions.getState}
-                onSetState={this.props.actions.setState}
-        />
-        <View style={ styles.summary }>
-        <Text style={ styles.summaryText }>Module List View</Text>   
-        </View>     
-    	<Button style={ styles.button } 
-      textStyle={{color: 'white'}}
-      onPress={ this.handlePress.bind(this) }>
-	         {'Go to Add View'}
-        </Button>
-        </View>
+          <Button style={ styles.button } 
+            textStyle={{color: 'white'}}
+            onPress={ this.handlePress.bind(this) }>
+                 {'Go to Add View'}
+          </Button>
+        <ListComponent 
+           items={[
+              {
+                "completed": true,
+                "text": "todo1",
+                "id": "644ca090-ebf0-11e5-81e1-a53b29f0d75f",
+                "createdAt": "2016-03-17T03:29:01.000Z",
+                "updatedAt": "2016-03-17T03:29:01.000Z"
+              },
+              {
+                "completed": true,
+                "text": "todo2",
+                "id": "6fd5f740-ebf0-11e5-81e1-a53b29f0d75f",
+                "createdAt": "2016-03-17T03:29:20.000Z",
+                "updatedAt": "2016-03-17T03:29:20.000Z"
+              },
+              {
+                "completed": true,
+                "text": "todo3",
+                "id": "72111a30-ebf0-11e5-81e1-a53b29f0d75f",
+                "createdAt": "2016-03-17T03:29:24.000Z",
+                "updatedAt": "2016-03-17T03:29:24.000Z"
+              }
+            ]}
+           isRefreshingItems={false}
+           refreshItems={()=>{debugger
+              dispatch(this.props.actions.find())
+           }}
+         />
+
       </View>
     )
   }
