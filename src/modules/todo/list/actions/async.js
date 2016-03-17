@@ -11,14 +11,14 @@ export function find(username, email, password) {
   
   return dispatch => {
     //请求开始
-    dispatch(syncActions.getStart())
+    dispatch(syncActions.findRequestStart())
     return  ApiFactory().todo.find()
       .then((json) => {
           //请求成功
-			    dispatch(syncActions.getSuccess(json))
+			    dispatch(syncActions.findRequestSuccess(json))
       })
       .catch((error) => {
-			   dispatch(syncActions.getFailure(error))
+			   dispatch(syncActions.findRequestFailure(error))
       })
 
   }
@@ -28,14 +28,14 @@ export function deleteById(id="") {
   
   return dispatch => {
     //请求开始
-    dispatch(syncActions.deleteStart())
+    dispatch(itemSyncActions.deleteRequestStart())
     return  ApiFactory().todo.deleteById(id)
       .then((json) => {
           //请求成功
-          dispatch(syncActions.deleteSuccess(json))
+          dispatch(itemSyncActions.deleteRequestSuccess(json))
       })
       .catch((error) => {
-         dispatch(syncActions.deleteFailure(error))
+         dispatch(itemSyncActions.deleteRequestFailure(error))
       })
 
   }

@@ -56,7 +56,7 @@ import userRegister from './modules/user/register/containers'
 import userForgotPassword from './modules/user/forgotPassword/containers'
 import userProfile from './modules/user/profile/containers'
 import todoList from './modules/todo/list/containers'
-import todoAdd from './modules/todo/add/containers'
+import todoAdd from './modules/todo/item/containers'
 
 /**
  * ### icons
