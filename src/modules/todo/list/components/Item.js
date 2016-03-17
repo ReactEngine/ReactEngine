@@ -14,33 +14,32 @@ class Row extends Component {
 	  	text:'todo'
 	  }
 	}
+	/**
+	 * When a row is touched
+	 * @param {object} rowData Row data
+	 */
+	_onPress(text) {
+	  console.log(text+' pressed');
+	}
 	render() {
 		return (
-			<TouchableHighlight {...this.props} style={[styles.container, this.props.style]}>
-				<View style={[styles.content, this.props.contentStyle]}>
-					<View style={{height: 40, backgroundColor: '#ffffff', borderWidth: 0.5, borderColor: '#d6d7da'}}>
-					  <Text>
-					    {this.props.item}
-					  </Text>
-					</View>
-				</View>
-			</TouchableHighlight>
-		)
+		  <TouchableHighlight 
+		    style={styles.row} 
+		    underlayColor='#c8c7cc'
+		    onPress={() => this._onPress(this.props.item.text)}
+		  >  
+		    <Text>{this.props.item.text}</Text>
+		  </TouchableHighlight>
+		);
 	}
 }
 
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center'
+	row: {
+	  padding: 10,
+	  height: 44,
 	},
-	content: {
-		flex: 1,
-		flexDirection: 'row'
-	}
 });
 
 

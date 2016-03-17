@@ -6,7 +6,7 @@ var {
   TouchableHighlight
 } = React;
 
-var GiftedListView = require('../../../common/components/GiftedListView');
+import GiftedListView from '../../../common/components/GiftedListView'
 import ItemComponent from './Item'
 
 var Example = React.createClass({

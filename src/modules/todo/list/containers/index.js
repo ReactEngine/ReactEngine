@@ -31,7 +31,7 @@ import { Actions as routerActions }  from 'react-native-router-flux'
  * The Header will display a Image and support Hot Loading
  */
 import Header from '../../../common/components/Header'
-import ListComponent from '../components/List2'
+import ListComponent from '../components/List'
 
 /**
  * The components needed from React
