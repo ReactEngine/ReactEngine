@@ -5,6 +5,7 @@ const  _ = require('lodash')
 const ApiFactory = require('../../../../services/api').default
 
 import * as syncActions from './index'
+import * as itemSyncActions from '../../item/actions'
 
 export function find(username, email, password) {
   

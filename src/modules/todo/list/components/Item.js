@@ -36,7 +36,7 @@ var Row = React.createClass({
 		    color:'#fff',
 		    type: 'primary',
 		    autoClose: true,
-		    onPress:()=>{debugger
+		    onPress:()=>{
 		    	self.props.deleteItem(self.props.item.id)
 		    }
 		  }
