@@ -20,10 +20,10 @@ export default class {
       .catch(utils.errorHandle)
   }
 
-  async findById(id) {
+  async find(filter) {
     return await utils.request({
         method: 'GET',
-        url: this.urlBase + this.modelNamePlural + '/' + id
+        url: this.urlBase + this.modelNamePlural +'?filter='+JSON.stringify(filter)
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)

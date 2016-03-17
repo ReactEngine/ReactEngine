@@ -31,7 +31,7 @@ import { Actions as routerActions }  from 'react-native-router-flux'
  * The Header will display a Image and support Hot Loading
  */
 import Header from '../../../common/components/Header'
-import ListComponent from '../components/List'
+import ListComponent from '../components/List2'
 
 /**
  * The components needed from React
@@ -92,7 +92,6 @@ var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    marginTop:80
   },
   summary: {
     marginBottom:10,
@@ -126,11 +125,6 @@ class Main extends Component {
   render() {
     return(
       <View style={styles.container}>
-          <Button style={ styles.button } 
-            textStyle={{color: 'white'}}
-            onPress={ this.handlePress.bind(this) }>
-                 {'Go to Add View'}
-          </Button>
         <ListComponent 
            items={[
               {
@@ -160,7 +154,11 @@ class Main extends Component {
               dispatch(this.props.actions.find())
            }}
          />
-
+         <Button style={ styles.button } 
+           textStyle={{color: 'white'}}
+           onPress={ this.handlePress.bind(this) }>
+                {'Go to Add View'}
+         </Button>
       </View>
     )
   }
