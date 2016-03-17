@@ -308,7 +308,7 @@ var GiftedListView = React.createClass({
        this.setState({
          paginationStatus: 'fetching',
        });
-       this.props.onFetch(this._getPage() 1, this._postPaginate, {});
+       this.props.onFetch(this._getPage() + 1, this._postPaginate, {});
      }
   },
 
