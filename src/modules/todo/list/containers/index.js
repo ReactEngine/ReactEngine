@@ -19,7 +19,7 @@ import * as asyncActions from '../actions/async'
 import NavigationBar from 'react-native-navbar'
 const ApiFactory = require('../../../../services/api').default
 import GiftedListView from '../../../common/components/GiftedListView'
-import ItemComponent from '../components/Item'
+import RowComponent from '../components/Row'
 /**
  * Immutable
  */ 
@@ -128,9 +128,9 @@ class ListContainer extends Component {
     * Render a row
     * @param {object} rowData Row data
     */
-  _renderRowView(item) {
+  _renderRowView(row) {
      return (
-       <ItemComponent item={item}
+       <RowComponent item={row}
        deleteById={this.props.actions.deleteById}
        />
      )
