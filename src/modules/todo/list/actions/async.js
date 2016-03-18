@@ -14,12 +14,12 @@ export function find(filter,options) {
     dispatch(syncActions.findRequestStart())
     return  ApiFactory().todo.find(filter)
       .then((data) => {
-          let rows = {}
-          const page = options.page || '1'
-          const header = 'Page_'+ page
-          rows[header] = data
+          // let rows = {}
+          // const page = options.page || '1'
+          // const header = 'Page_'+ page
+          // rows[header] = data
           //请求成功
-			    dispatch(syncActions.findRequestSuccess(rows,options))
+			    dispatch(syncActions.findRequestSuccess(data,options))
       })
       .catch((error) => {
 			   dispatch(syncActions.findRequestFailure(error))

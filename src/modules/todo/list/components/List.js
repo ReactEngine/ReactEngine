@@ -63,7 +63,7 @@ var ListComponent = React.createClass({
             
             renderSeparator={this._renderSeparatorView}
             
-            withSections={true}
+            withSections={false}
             
             PullToRefreshViewAndroidProps={{
               colors: ['#fff'],
