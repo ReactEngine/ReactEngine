@@ -10,7 +10,7 @@ const List = Record({
 })
 
 var InitialState = Record({
-  list:List
+  list:new List
 })
 
 export default InitialState

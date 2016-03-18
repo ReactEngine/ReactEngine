@@ -63,6 +63,7 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
 
      case TODO_LIST_FIND_REQUEST_START:
+     debugger
       return state.setIn(['list', 'error'], null)
         .setIn(['list', 'isFetching'], true)
 
@@ -71,6 +72,7 @@ export default function reducer(state = initialState, action) {
         return state.setIn(['list', 'isFetching'], false)
 
       case TODO_LIST_FIND_REQUEST_FAILURE:
+      debugger
       return state.setIn(['list', 'isFetching'], false)
         .setIn(['list', 'error'], action.payload)
 

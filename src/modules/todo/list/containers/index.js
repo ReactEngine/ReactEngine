@@ -18,7 +18,8 @@ import { connect } from 'react-redux'
 import * as asyncActions from '../actions/async'
 import NavigationBar from 'react-native-navbar'
 const ApiFactory = require('../../../../services/api').default
-
+import GiftedListView from '../../../common/components/GiftedListView'
+import ItemComponent from '../components/Item'
 /**
  * Immutable
  */ 
@@ -30,12 +31,6 @@ import {Map} from 'immutable'
 import { Actions as routerActions }  from 'react-native-router-flux'
 
 /**
- * The Header will display a Image and support Hot Loading
- */
-import Header from '../../../common/components/Header'
-import ListComponent from '../components/List'
-
-/**
  * The components needed from React
  */
 import React,
@@ -43,7 +38,9 @@ import React,
   Component,
   StyleSheet,
   View,
-  Text
+  Text,
+  TouchableHighlight,
+  Platform
 }
 from 'react-native'
 
@@ -95,22 +92,56 @@ function mapDispatchToProps(dispatch) {
  * ## App class
  */
 class ListContainer extends Component {
-  onFetch(page = 1, callback, options) {
-    ApiFactory().todo.find()
-      .then((data) => {
+
+  _onFetch(page = 1, callback, options) {
+    debugger
+    const pageLength = 10 //每一个 page 有多少 item
+    const skip = pageLength * page
+    const filter = {
+      skip:skip,
+      limit:10,
+      order:'updatedAt DESC'
+    }
+
+    this.find(filter)
+    // ApiFactory().todo.find()
+    //   .then((data) => {
         
-      var rows = {}
-      var header = 'Page_'+page
-      rows[header] = data
-      if (page === 2) {
-        callback(rows, {
-          allLoaded: true, // the end of the list is reached
-        })        
-      } else {
-        callback(rows)
-      }
-    })
+    //   var rows = {}
+    //   var header = 'Page_'+page
+    //   rows[header] = data
+    //   if (page === 2) {
+    //     callback(rows, {
+    //       allLoaded: true, // the end of the list is reached
+    //     })        
+    //   } else {
+    //     callback(rows)
+    //   }
+    // })
   }
+   /**
+    * Render a row
+    * @param {object} rowData Row data
+    */
+  _renderRowView(item) {debugger
+     return (
+       <ItemComponent item={item}
+       deleteById={this.props.actions.deleteById}
+       />
+     )
+   }
+   
+   /**
+    * Render a separator between rows
+    */
+   _renderSeparatorView() {
+     return (
+       <View 
+       style={styles.separator} 
+       />
+     )
+   }
+
   render() {
     debugger
     var titleConfig = {
@@ -126,11 +157,31 @@ class ListContainer extends Component {
             title={ titleConfig }
             rightButton={ rightButtonConfig }
           />
-        <ListComponent  
-          onFetch={this.onFetch}
-          deleteItem={this.props.actions.deleteById}
-         />
-        
+          <GiftedListView
+            rowView={this._renderRowView}
+            
+            onFetch={this._onFetch}
+            find={this.props.actions.find}
+            initialListSize={12} // the maximum number of rows displayable without scrolling (height of the listview / height of row)
+
+            firstLoader={true} // display a loader for the first fetching
+          
+            pagination={false} // enable infinite scrolling using touch to load more
+
+            refreshable={true} // enable pull-to-refresh for iOS and touch-to-refresh for Android
+            refreshableViewHeight={50} // correct height is mandatory
+            refreshableDistance={40} // the distance to trigger the pull-to-refresh - better to have it lower than refreshableViewHeight
+            
+            renderSeparator={this._renderSeparatorView}
+            
+            withSections={true} // enable sections
+            sectionHeaderView={this._renderSeparatorView}
+            
+            PullToRefreshViewAndroidProps={{
+              colors: ['#fff'],
+              progressBackgroundColor: '#003e82',
+            }}
+          />        
       </View>
     )
   }
@@ -170,6 +221,10 @@ var styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     marginTop: 12,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#CCC'
   }
 })
 /**

@@ -7,12 +7,12 @@ const ApiFactory = require('../../../../services/api').default
 import * as syncActions from './index'
 import * as itemSyncActions from '../../item/actions'
 
-export function find(username, email, password) {
+export function find(filter) {
   
   return dispatch => {
     //请求开始
     dispatch(syncActions.findRequestStart())
-    return  ApiFactory().todo.find()
+    return  ApiFactory().todo.find(filter)
       .then((json) => {
           //请求成功
 			    dispatch(syncActions.findRequestSuccess(json))

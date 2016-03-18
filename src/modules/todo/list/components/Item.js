@@ -37,7 +37,7 @@ var Row = React.createClass({
 		    type: 'primary',
 		    autoClose: true,
 		    onPress:()=>{
-		    	self.props.deleteItem(self.props.item.id)
+		    	self.props.deleteById(self.props.item.id)
 		    }
 		  }
 		]
