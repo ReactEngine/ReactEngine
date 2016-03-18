@@ -1,3 +1,9 @@
+
+// var React = require('react-native')
+// var {
+//   StyleSheet,
+// } = React
+
 const Styles = {
   separator: {
     height: 1,

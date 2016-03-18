@@ -13,7 +13,7 @@
 const InitialState = require('../initialState').default
 
 const {
-  
+
 
   TODO_LIST,
   TODO_LIST_INIT_START,
@@ -62,17 +62,17 @@ export default function reducer(state = initialState, action) {
 
   switch (action.type) {
 
-     // case TODO_LIST_FIND_REQUEST_START:
-     //  return state.setIn(['error'], null)
-     //    .setIn(['isFetching'], true)
+    // case TODO_LIST_FIND_REQUEST_START:
+    //  return state.setIn(['error'], null)
+    //    .setIn(['isFetching'], true)
 
-      case TODO_LIST_FIND_REQUEST_SUCCESS:
-        return state.setIn(['isFetching'], false)
+    case TODO_LIST_FIND_REQUEST_SUCCESS:
+      return state.setIn(['isFetching'], false)
         .setIn(['isFetching'], true)
         .setIn(['data'], action.payload)
         .setIn(['options'], action.options)
 
-      case TODO_LIST_FIND_REQUEST_FAILURE:
+    case TODO_LIST_FIND_REQUEST_FAILURE:
       return state.setIn(['isFetching'], false)
         .setIn(['error'], action.payload)
 
