@@ -36,7 +36,7 @@ export function deleteById(id="") {
     return  ApiFactory().todo.deleteById(id)
       .then((json) => {
           //请求成功
-          dispatch(itemSyncActions.deleteRequestSuccess(json))
+          dispatch(itemSyncActions.deleteRequestSuccess(json,{id:id}))
       })
       .catch((error) => {
          dispatch(itemSyncActions.deleteRequestFailure(error))

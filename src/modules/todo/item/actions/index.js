@@ -95,10 +95,11 @@ export function deleteRequestStart() {
     type: TODO_ITEM_DELETE_REQUEST_START
   }
 }
-export function deleteRequestSuccess(json) {
+export function deleteRequestSuccess(json,options) {
   return {
     type: TODO_ITEM_DELETE_REQUEST_SUCCESS,
-    payload: json
+    payload: json,
+    options:options
   }
 }
 
