@@ -6,7 +6,8 @@ const {Record} = require('immutable')
 
 const List = Record({
   error: null,
-  isFetching: false
+  isFetching: false,
+  data:[]
 })
 
 var InitialState = Record({

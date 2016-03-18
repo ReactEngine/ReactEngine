@@ -11,6 +11,7 @@ var {
   PullToRefreshViewAndroid
 } = React
 
+import defaultStyles from './default.styles'
 
 // small helper function which merged two objects into one
 function MergeRecursive(obj1, obj2) {
@@ -101,7 +102,7 @@ var GiftedListView = React.createClass({
     }
 
     return (
-      <View style={[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}>
+      <View style={[defaultStyles.paginationView, this.props.customStyles.paginationView]}>
         <GiftedSpinner />
       </View>
     )
@@ -112,8 +113,8 @@ var GiftedListView = React.createClass({
     }
 
     return (
-      <View style={[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}>
-        <Text style={[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
+      <View style={[defaultStyles.paginationView, this.props.customStyles.paginationView]}>
+        <Text style={[defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
           No More...
         </Text>
       </View>
@@ -128,9 +129,9 @@ var GiftedListView = React.createClass({
       <TouchableHighlight
         underlayColor='#c8c7cc'
         onPress={paginateCallback}
-        style={[this.defaultStyles.paginationView, this.props.customStyles.paginationView]}
+        style={[defaultStyles.paginationView, this.props.customStyles.paginationView]}
       >
-        <Text style={[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
+        <Text style={[defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
           Load more
         </Text>
       </TouchableHighlight>
@@ -148,7 +149,7 @@ var GiftedListView = React.createClass({
     }
     return (
       <View>
-        <View style={[this.defaultStyles.refreshableView, this.props.customStyles.refreshableView]}>
+        <View style={[defaultStyles.refreshableView, this.props.customStyles.refreshableView]}>
           <GiftedSpinner />
         </View>
         {this.headerView()}
@@ -162,8 +163,8 @@ var GiftedListView = React.createClass({
 
     return (
       <View>
-        <View style={[this.defaultStyles.refreshableView, this.props.customStyles.refreshableView]}>
-          <Text style={[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
+        <View style={[defaultStyles.refreshableView, this.props.customStyles.refreshableView]}>
+          <Text style={[defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
             ↻
           </Text>
         </View>
@@ -178,8 +179,8 @@ var GiftedListView = React.createClass({
 
     return (
       <View>
-          <View style={[this.defaultStyles.refreshableView, this.props.customStyles.refreshableView]}>
-            <Text style={[this.defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
+          <View style={[defaultStyles.refreshableView, this.props.customStyles.refreshableView]}>
+            <Text style={[defaultStyles.actionsLabel, this.props.customStyles.actionsLabel]}>
               ↓
             </Text>
           </View>
@@ -193,8 +194,8 @@ var GiftedListView = React.createClass({
     }
 
     return (
-      <View style={[this.defaultStyles.defaultView, this.props.customStyles.defaultView]}>
-        <Text style={[this.defaultStyles.defaultViewTitle, this.props.customStyles.defaultViewTitle]}>
+      <View style={[defaultStyles.defaultView, this.props.customStyles.defaultView]}>
+        <Text style={[defaultStyles.defaultViewTitle, this.props.customStyles.defaultViewTitle]}>
           Sorry, there is no content to display
         </Text>
 
@@ -215,7 +216,7 @@ var GiftedListView = React.createClass({
     }
 
     return (
-      <View style={[this.defaultStyles.separator, this.props.customStyles.separator]} />
+      <View style={[defaultStyles.separator, this.props.customStyles.separator]} />
     )
   },
   onEndReached() {
@@ -455,7 +456,7 @@ var GiftedListView = React.createClass({
     )
   },
 
-  render() {
+  render() {debugger
     if (Platform.OS === 'android' && this.props.refreshable === true) {
       return (
         <PullToRefreshViewAndroid
@@ -474,38 +475,7 @@ var GiftedListView = React.createClass({
     }
   },
 
-  defaultStyles: {
-    separator: {
-      height: 1,
-      backgroundColor: '#CCC'
-    },
-    refreshableView: {
-      height: 50,
-      backgroundColor: '#fff',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    actionsLabel: {
-      fontSize: 20,
-      color: '#007aff'
-    },
-    paginationView: {
-      height: 44,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#FFF',
-    },
-    defaultView: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 20,
-    },
-    defaultViewTitle: {
-      fontSize: 16,
-      fontWeight: 'bold',
-      marginBottom: 15,
-    },
-  },
+
 })
 
 

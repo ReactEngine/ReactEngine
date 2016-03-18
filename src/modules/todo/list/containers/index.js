@@ -93,10 +93,15 @@ function mapDispatchToProps(dispatch) {
  */
 class ListContainer extends Component {
 
+  componentWillReceiveProps(props) {
+    this.setState({
+      list: props.todoList.list
+    })
+  }
+
   _onFetch(page = 1, callback, options) {
-    debugger
     const pageLength = 10 //每一个 page 有多少 item
-    const skip = pageLength * page
+    const skip = pageLength * (page-1)
     const filter = {
       skip:skip,
       limit:10,
@@ -123,7 +128,7 @@ class ListContainer extends Component {
     * Render a row
     * @param {object} rowData Row data
     */
-  _renderRowView(item) {debugger
+  _renderRowView(item) {
      return (
        <ItemComponent item={item}
        deleteById={this.props.actions.deleteById}
@@ -142,8 +147,7 @@ class ListContainer extends Component {
      )
    }
 
-  render() {
-    debugger
+  render() { 
     var titleConfig = {
       title: "Todos"
     }
@@ -159,9 +163,9 @@ class ListContainer extends Component {
           />
           <GiftedListView
             rowView={this._renderRowView}
-            
             onFetch={this._onFetch}
             find={this.props.actions.find}
+
             initialListSize={12} // the maximum number of rows displayable without scrolling (height of the listview / height of row)
 
             firstLoader={true} // display a loader for the first fetching
@@ -186,8 +190,6 @@ class ListContainer extends Component {
     )
   }
 }
-
-
 
 var styles = StyleSheet.create({
   container: {
@@ -227,6 +229,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#CCC'
   }
 })
+
 /**
  * Connect the properties
  */
