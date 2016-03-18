@@ -16,8 +16,8 @@ import userLogout from './modules/user/logout/reducers'
 import userForgotPassword from './modules/user/forgotPassword/reducers'
 import userProfile from './modules/user/profile/reducers'
 
-// import todoAdd from './modules/todo/add/reducers'
-// import todoList from './modules/todo/list/reducers'
+import todoItem from './modules/todo/item/reducers'
+import todoList from './modules/todo/list/reducers'
 
 import device from './modules/device/deviceReducer'
 import global from './modules/global/globalReducer'
@@ -37,7 +37,9 @@ const rootReducer = combineReducers({
   userForgotPassword,
   userProfile,
   device,
-  global
+  global,
+  todoList,
+  todoItem
 })
 
 export default rootReducer

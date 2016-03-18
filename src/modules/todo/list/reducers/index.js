@@ -46,7 +46,7 @@ const {
   TODO_LIST_UPSERT_REQUEST_SUCCESS,
   TODO_LIST_UPSERT_REQUEST_FAILURE
 
-} = require('../constants').default
+} = require('../../constants').default
 
 const initialState = new InitialState
 
@@ -62,8 +62,17 @@ export default function reducer(state = initialState, action) {
 
   switch (action.type) {
 
-    // case TODO_ITEM_DELETE_START:
-     
+     case TODO_LIST_FIND_REQUEST_START:
+      return state.setIn(['list', 'error'], null)
+        .setIn(['list', 'isFetching'], true)
+
+      case TODO_LIST_FIND_REQUEST_SUCCESS:
+      debugger
+        return state.setIn(['list', 'isFetching'], false)
+
+      case TODO_LIST_FIND_REQUEST_FAILURE:
+      return state.setIn(['list', 'isFetching'], false)
+        .setIn(['list', 'error'], action.payload)
 
   }
   /**

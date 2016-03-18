@@ -112,6 +112,7 @@ class ListContainer extends Component {
     })
   }
   render() {
+    debugger
     var titleConfig = {
       title: "Todos"
     }

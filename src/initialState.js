@@ -10,6 +10,9 @@ import userForgotPasswordInitialState from './modules/user/forgotPassword/initia
 import deviceInitialState from './modules/device/deviceInitialState'
 import globalInitialState from './modules/global/globalInitialState'
 import userProfileInitialState from './modules/user/profile/initialState'
+//todo
+import todoListInitialState from './modules/todo/list/initialState'
+import todoItemInitialState from './modules/todo/item/initialState'
 
 /**
  *
@@ -25,4 +28,6 @@ export default {
 	userProfile: (new userProfileInitialState),
 	device: (new deviceInitialState).set('isMobile',true),
 	global: (new globalInitialState),
+	todoList:(new todoListInitialState),
+	todoItem:(new todoItemInitialState)
 }
