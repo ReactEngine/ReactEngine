@@ -95,7 +95,7 @@ class ListContainer extends Component {
 
   componentWillReceiveProps(props) {
     console.log("container/setState:",props.todoList)
-    this.setState(props.todoList)
+    // this.setState(props.todoList)
   }
 
   _onFetch(page = 1, options) {
@@ -107,7 +107,9 @@ class ListContainer extends Component {
       limit:10,
       order:'updatedAt DESC'
     }
-
+    options = _.assign({},options,{
+      page:page
+    })
     this.find(filter,options)
     // ApiFactory().todo.find()
     //   .then((data) => {
@@ -130,9 +132,9 @@ class ListContainer extends Component {
     * @param {object} rowData Row data
     */
   _renderRowView(row) {
+     // var deleteById = this.props.deleteById
      return (
        <RowComponent item={row}
-       deleteById={this.props.actions.deleteById}
        />
      )
    }
@@ -149,7 +151,7 @@ class ListContainer extends Component {
    }
 
   render() { 
-    console.log("container render,state:",this.state)
+    console.log("container render,state:",this.state," props:",this.props)
     var titleConfig = {
       title: "Todos"
     }
@@ -165,9 +167,11 @@ class ListContainer extends Component {
           />
           <GiftedListView
             rowView={this._renderRowView}
+            deleteById={this.props.actions.deleteById}
             onFetch={this._onFetch}
             find={this.props.actions.find}
-            value={this.state}
+            fetchedData={this.props.todoList.data}
+            fetchOptions={this.props.todoList.options}
             initialListSize={12} // the maximum number of rows displayable without scrolling (height of the listview / height of row)
 
             firstLoader={true} // display a loader for the first fetching
@@ -180,7 +184,7 @@ class ListContainer extends Component {
             
             renderSeparator={this._renderSeparatorView}
             
-            withSections={false} // enable sections
+            withSections={true} // enable sections
             
             PullToRefreshViewAndroidProps={{
               colors: ['#fff'],

@@ -62,9 +62,9 @@ export default function reducer(state = initialState, action) {
 
   switch (action.type) {
 
-     case TODO_LIST_FIND_REQUEST_START:
-      return state.setIn(['error'], null)
-        .setIn(['isFetching'], true)
+     // case TODO_LIST_FIND_REQUEST_START:
+     //  return state.setIn(['error'], null)
+     //    .setIn(['isFetching'], true)
 
       case TODO_LIST_FIND_REQUEST_SUCCESS:
         return state.setIn(['isFetching'], false)

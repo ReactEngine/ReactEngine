@@ -34,12 +34,13 @@ var GiftedSpinner = require('react-native-gifted-spinner')
 var GiftedListView = React.createClass({
 
   componentWillReceiveProps(props) {
-    const value = props.value
-    console.log("listview/componentWillReceiveProps value:",value)
-    if(value.options && value.options.paginate){
-      this._postPaginate(value.data,value.options)
+    const fetchedData = props.fetchedData || {}
+    const fetchOptions = props.fetchOptions || {}
+    console.log("listview/componentWillReceiveProps fetchedData:",fetchedData," fetchOptions:",fetchOptions)
+    if(fetchOptions.paginate){
+      this._postPaginate(fetchedData,fetchOptions)
     }else{
-      this._postRefresh(value.data,value.options)
+      this._postRefresh(fetchedData,fetchOptions)
     }
   },
 

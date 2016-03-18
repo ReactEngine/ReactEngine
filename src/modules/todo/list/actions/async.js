@@ -13,9 +13,13 @@ export function find(filter,options) {
     //请求开始
     dispatch(syncActions.findRequestStart())
     return  ApiFactory().todo.find(filter)
-      .then((json) => {
+      .then((data) => {
+          let rows = {}
+          const page = options.page || '1'
+          const header = 'Page_'+ page
+          rows[header] = data
           //请求成功
-			    dispatch(syncActions.findRequestSuccess(json,options))
+			    dispatch(syncActions.findRequestSuccess(rows,options))
       })
       .catch((error) => {
 			   dispatch(syncActions.findRequestFailure(error))
