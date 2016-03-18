@@ -36,10 +36,11 @@ export function findRequestStart() {
   }
 }
 
-export function findRequestSuccess(json) {
+export function findRequestSuccess(json,options) {
   return {
     type: TODO_LIST_FIND_REQUEST_SUCCESS,
-    payload: json
+    payload: json,
+    options:options
   }
 }
 

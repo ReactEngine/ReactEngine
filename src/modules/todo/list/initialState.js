@@ -4,14 +4,11 @@
  */
 const {Record} = require('immutable')
 
-const List = Record({
+const InitialState = Record({
   error: null,
   isFetching: false,
-  data:[]
-})
-
-var InitialState = Record({
-  list:new List
+  data:[],
+  options:{}
 })
 
 export default InitialState

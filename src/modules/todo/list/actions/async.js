@@ -7,16 +7,15 @@ const ApiFactory = require('../../../../services/api').default
 import * as syncActions from './index'
 import * as itemSyncActions from '../../item/actions'
 
-export function find(filter) {
+export function find(filter,options) {
   
   return dispatch => {
     //请求开始
     dispatch(syncActions.findRequestStart())
     return  ApiFactory().todo.find(filter)
       .then((json) => {
-        
           //请求成功
-			    dispatch(syncActions.findRequestSuccess(json))
+			    dispatch(syncActions.findRequestSuccess(json,options))
       })
       .catch((error) => {
 			   dispatch(syncActions.findRequestFailure(error))

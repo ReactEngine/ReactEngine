@@ -94,12 +94,12 @@ function mapDispatchToProps(dispatch) {
 class ListContainer extends Component {
 
   componentWillReceiveProps(props) {
-    this.setState({
-      list: props.todoList.list
-    })
+    console.log("container/setState:",props.todoList)
+    this.setState(props.todoList)
   }
 
-  _onFetch(page = 1, callback, options) {
+  _onFetch(page = 1, options) {
+    console.log("container/_onFetch page:",page," options:",options)
     const pageLength = 10 //每一个 page 有多少 item
     const skip = pageLength * (page-1)
     const filter = {
@@ -108,7 +108,7 @@ class ListContainer extends Component {
       order:'updatedAt DESC'
     }
 
-    this.find(filter)
+    this.find(filter,options)
     // ApiFactory().todo.find()
     //   .then((data) => {
         
@@ -120,6 +120,7 @@ class ListContainer extends Component {
     //       allLoaded: true, // the end of the list is reached
     //     })        
     //   } else {
+    //     console.log("rows",rows)
     //     callback(rows)
     //   }
     // })
@@ -148,6 +149,7 @@ class ListContainer extends Component {
    }
 
   render() { 
+    console.log("container render,state:",this.state)
     var titleConfig = {
       title: "Todos"
     }
@@ -165,21 +167,20 @@ class ListContainer extends Component {
             rowView={this._renderRowView}
             onFetch={this._onFetch}
             find={this.props.actions.find}
-
+            value={this.state}
             initialListSize={12} // the maximum number of rows displayable without scrolling (height of the listview / height of row)
 
             firstLoader={true} // display a loader for the first fetching
           
             pagination={false} // enable infinite scrolling using touch to load more
 
-            refreshable={true} // enable pull-to-refresh for iOS and touch-to-refresh for Android
-            refreshableViewHeight={50} // correct height is mandatory
-            refreshableDistance={40} // the distance to trigger the pull-to-refresh - better to have it lower than refreshableViewHeight
+            refreshable={true} 
+            refreshableViewHeight={50} 
+            refreshableDistance={40} 
             
             renderSeparator={this._renderSeparatorView}
             
-            withSections={true} // enable sections
-            sectionHeaderView={this._renderSeparatorView}
+            withSections={false} // enable sections
             
             PullToRefreshViewAndroidProps={{
               colors: ['#fff'],

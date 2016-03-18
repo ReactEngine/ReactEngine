@@ -33,6 +33,16 @@ var GiftedSpinner = require('react-native-gifted-spinner')
 
 var GiftedListView = React.createClass({
 
+  componentWillReceiveProps(props) {
+    const value = props.value
+    console.log("listview/componentWillReceiveProps value:",value)
+    if(value.options && value.options.paginate){
+      this._postPaginate(value.data,value.options)
+    }else{
+      this._postRefresh(value.data,value.options)
+    }
+  },
+
   getDefaultProps() {
     return {
       customStyles: {},
@@ -265,7 +275,7 @@ var GiftedListView = React.createClass({
 
   componentDidMount() {
     this._scrollResponder = this.refs.listview.getScrollResponder()
-    this.props.onFetch(this._getPage(), this._postRefresh, {firstLoad: true})
+    this.props.onFetch(this._getPage(), {firstLoad: true})
   },
 
   setNativeProps(props) {
@@ -284,11 +294,12 @@ var GiftedListView = React.createClass({
         isRefreshing: true,
       })
       this._setPage(1)
-      this.props.onFetch(this._getPage(), this._postRefresh, options)      
+      this.props.onFetch(this._getPage(), options)      
     }
   },
 
   _postRefresh(rows = [], options = {}) {
+    console.log("listview/_postRefresh rows:",rows," options:",options)
     if (this.isMounted()) {
       this._updateRows(rows, options)
       if (this.props.refreshable === true && Platform.OS !== 'android') {
@@ -309,7 +320,7 @@ var GiftedListView = React.createClass({
        this.setState({
          paginationStatus: 'fetching',
        });
-       this.props.onFetch(this._getPage() + 1, this._postPaginate, {});
+       this.props.onFetch(this._getPage() + 1, { paginate:true});
      }
   },
 
@@ -456,7 +467,8 @@ var GiftedListView = React.createClass({
     )
   },
 
-  render() {debugger
+  render() {
+    console.log("listview render,state:",this.state)
     if (Platform.OS === 'android' && this.props.refreshable === true) {
       return (
         <PullToRefreshViewAndroid
