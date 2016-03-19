@@ -4,7 +4,7 @@
  */
 const {Record} = require('immutable')
 
-const Item = Record({
+const Form = Record({
   error: null,
   isFetching: false,
   fields: new (Record({
@@ -16,7 +16,7 @@ const Item = Record({
 })
 
 var InitialState = Record({
-  item:new Item
+  form:new Form
 })
 
 export default InitialState

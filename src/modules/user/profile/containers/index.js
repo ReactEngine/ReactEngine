@@ -152,6 +152,7 @@ class Profile extends Component {
    * form fields.  Otherwise, we need to go fetch the fields
    */
   componentDidMount() {
+    console.log("profile componentDidMount")
     const username = this.props.userProfile.form.fields.username
     const email = this.props.userProfile.form.fields.email
 
@@ -186,6 +187,7 @@ class Profile extends Component {
    * display the form wrapped with the header and button
    */
   render() {
+    console.log("profile render")
     this.errorAlert.checkError(this.props.userProfile.form.error)
 
     let self = this
@@ -201,11 +203,6 @@ class Profile extends Component {
         this.props.userProfile.form.fields.username,
         this.props.userProfile.form.fields.email)
     }
-    /**
-     * Wrap the form with the header and button.  The header props are
-     * mostly for support of Hot reloading. See the docs for Header
-     * for more info.
-     */
     return (
       <View style={styles.container}>
         <View style={styles.inputs}>
