@@ -25,12 +25,12 @@ var Row = React.createClass({
 		  }
 	},
 	onRowPress(row){
+	  //切换路由
+	  routerActions.todoDetail()
 	  //改 detail 的 state
 	  this.props.changeDetailState({
 	    fields:row, title:row.text
 	  })
-	  //切换路由
-	  routerActions.todoDetail()
 	},
 	render() {
 		// Buttons

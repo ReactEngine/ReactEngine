@@ -52,7 +52,7 @@ class ListContainer extends Component {
   }
   
   render() {
-    console.log("======== container render,state:",this.state," props:",this.props)
+    console.log("======== list container render,state:",this.state," props:",this.props)
     var titleConfig = {
       title: "Todos"
     }

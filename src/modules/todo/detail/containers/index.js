@@ -45,7 +45,7 @@ var styles = StyleSheet.create({
 
 let DetailContainer = React.createClass({
   render() {
-
+    console.log("DetailContainer render,props:",this.props.todoDetail)
     var titleConfig = {
       title: this.props.title || "Detail View"
     }

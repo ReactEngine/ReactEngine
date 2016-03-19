@@ -44,7 +44,7 @@ module.exports = React.createClass({
    *
    */
   render() {
-
+    
     let options = {
       auto: 'placeholders',
       fields: {
@@ -62,12 +62,12 @@ module.exports = React.createClass({
           label: 'Completed',
           editable: !this.props.form.isFetching
         },
-        created: {
-          label: 'Created',
+        createdAt: {
+          label: 'Created At',
           editable: false
         },
-        lastUpdated: {
-          label: 'Last Updated',
+        updatedAt: {
+          label: 'Updated At',
           editable: false
         }
       }
@@ -77,8 +77,8 @@ module.exports = React.createClass({
         id: t.String,
         text: t.String,
         completed: t.Boolean,
-        created: t.String,
-        lastUpdated: t.String
+        createdAt: t.String,
+        updatedAt: t.String
       })
       /**
        * ### Return
@@ -96,7 +96,7 @@ module.exports = React.createClass({
       }
       onChange = {
         () => {
-          this.prop.formFieldChangeAction()
+          this.props.formFieldChangeAction()
         }
       }
       />

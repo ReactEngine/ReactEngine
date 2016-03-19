@@ -61,7 +61,7 @@ export default function reducer(state = initialState, action) {
 
     // case TODO_ITEM_DELETE_START:
     case TODO_ITEM:
-    debugger
+    
      let newState = state.setIn(['form','isFetching'], false)
         .setIn(['form','fields','id'], action.payload.fields.id)
         .setIn(['form','fields','text'], action.payload.fields.text)
