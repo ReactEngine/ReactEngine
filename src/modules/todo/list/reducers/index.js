@@ -84,10 +84,12 @@ export default function reducer(state = initialState, action) {
        .setIn(['isFetching'], true)
 
     case TODO_ITEM_DELETE_REQUEST_SUCCESS:
-    debugger
-      state.get('data').delete(action.options.id)
+      let data = state.get('data')
+      _.remove(data,(item)=>{
+        return item.id == action.options.id
+      })
       return state.setIn(['isFetching'], false)
-        // .setIn(['options'], action.options)
+          .setIn(['data'], data)
 
     case TODO_ITEM_DELETE_REQUEST_FAILURE:
       return state.setIn(['isFetching'], false)
