@@ -8,6 +8,7 @@ import React,{
 } from 'react-native'
 
 import Swipeout from 'react-native-swipeout'
+import { Actions as routerActions }  from 'react-native-router-flux'
 
 
 // Swipeout component
@@ -22,6 +23,14 @@ var Row = React.createClass({
 		    "createdAt": "2016-03-17T03:29:01.000Z",
 		    "updatedAt": "2016-03-17T03:29:01.000Z"
 		  }
+	},
+	onRowPress(row){
+	  //改 detail 的 state
+	  this.props.changeDetailState({
+	    fields:row, title:row.text
+	  })
+	  //切换路由
+	  routerActions.todoDetail()
 	},
 	render() {
 		// Buttons
@@ -48,7 +57,7 @@ var Row = React.createClass({
     		    style={styles.row} 
     		    underlayColor='#c8c7cc'
     		    onPress={()=>{
-    		    	this.props.onRowPress(this.props.item)
+    		    	this.onRowPress(this.props.item)
     		    }}
     		  >  
     		    <Text>{this.props.item.text}</Text>

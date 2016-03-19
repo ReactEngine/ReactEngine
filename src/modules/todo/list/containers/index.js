@@ -50,14 +50,7 @@ class ListContainer extends Component {
     })
     this.find(filter,options)
   }
-  onRowPress(row){
-    //改 detail 的 state
-    detailActions.routerChange({
-      routerChangePayload:{fields:row, title:row.text}
-    })
-    //切换路由
-    routerActions.todoDetail()
-  }
+  
   render() {
     console.log("======== container render,state:",this.state," props:",this.props)
     var titleConfig = {
@@ -79,9 +72,9 @@ class ListContainer extends Component {
           onFetch={this.onFetch}
           find={this.props.actions.find}
           deleteById={this.props.detailActions.deleteById}
+          changeDetailState={this.props.detailActions.routerChange}
           fetchedData={this.props.todoList.data}
           fetchOptions={this.props.todoList.options}
-          onRowPress={this.onRowPress}
          />
        </View>
     )

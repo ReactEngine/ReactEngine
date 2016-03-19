@@ -81,7 +81,8 @@ var styles = StyleSheet.create({
         <View style={styles.inputs}>
           <DetailForm
               value={this.state.formValues}
-              onChange={this.props.onChange}
+              updateAction={this.props.update}
+              formFieldChangeAction={this.props.formFieldChange}
               form={this.props.form}
           />
         </View>

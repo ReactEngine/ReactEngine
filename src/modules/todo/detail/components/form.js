@@ -33,7 +33,8 @@ module.exports = React.createClass({
   propTypes: {
     form: PropTypes.object,
     value: PropTypes.object,
-    onChange: PropTypes.func
+    updateAction: PropTypes.func,
+    formFieldChangeAction: PropTypes.func
   },
 
   /**
@@ -47,49 +48,58 @@ module.exports = React.createClass({
     let options = {
       auto: 'placeholders',
       fields: {
-        id : {
-              label: 'ID',
-              editable: false
-            },
-        text : {
-              label: 'Text',
-              editable: !this.props.form.isFetching,
-              hasError: this.props.form.fields.textHasError,
-              error: 'Text is required'
-            },
-            completed : {
-                  label: 'Completed',
-                  editable: !this.props.form.isFetching
-                },
-        created : {
-              label: 'Created',
-              editable: false
-            },
-        lastUpdated : {
-              label: 'Last Updated',
-              editable: false
-            }
+        id: {
+          label: 'ID',
+          editable: false
+        },
+        text: {
+          label: 'Text',
+          editable: !this.props.form.isFetching,
+          hasError: this.props.form.fields.textHasError,
+          error: 'Text is required'
+        },
+        completed: {
+          label: 'Completed',
+          editable: !this.props.form.isFetching
+        },
+        created: {
+          label: 'Created',
+          editable: false
+        },
+        lastUpdated: {
+          label: 'Last Updated',
+          editable: false
+        }
       }
     }
 
     let DetailForm = t.struct({
-          id: t.String,
-          text: t.String,
-          completed: t.Boolean,
-          created: t.String,
-          lastUpdated: t.String
-        })
-    /**
-     * ### Return
-     * returns the Form component with the correct structures
-     */
-    return (
-        <Form ref="form"
-          type={DetailForm}
-          options={options}
-          value={this.props.value}
-          onChange={this.props.onChange}
-        />
+        id: t.String,
+        text: t.String,
+        completed: t.Boolean,
+        created: t.String,
+        lastUpdated: t.String
+      })
+      /**
+       * ### Return
+       * returns the Form component with the correct structures
+       */
+    return ( <Form ref = "form"
+      type = {
+        DetailForm
+      }
+      options = {
+        options
+      }
+      value = {
+        this.props.value
+      }
+      onChange = {
+        () => {
+          this.prop.formFieldChangeAction()
+        }
+      }
+      />
 
     )
   }

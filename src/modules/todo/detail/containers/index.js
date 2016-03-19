@@ -34,7 +34,6 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1,
     backgroundColor: 'transparent',
-    marginTop:80
   },
   inputs: {
     marginTop: 10,
@@ -46,18 +45,6 @@ var styles = StyleSheet.create({
 
 let DetailContainer = React.createClass({
   render() {
-    debugger
-    console.log('DetailContainer render routerChangePayload:',this.props.routerChangePayload)
-    //路由组件传递的数据
-    if(this.props.routerChangePayload){
-       this.props.actions.routerChange(this.props.routerChangePayload)
-    }
-
-    let onButtonPress = () => {
-      this.props.actions.update(
-        this.props.todoDetail.form.fields.id,
-        this.props.todoDetail.form.fields.text)
-    }
 
     var titleConfig = {
       title: this.props.title || "Detail View"
@@ -75,11 +62,10 @@ let DetailContainer = React.createClass({
                   leftButton={ leftButtonConfig }
         />
         <DetailComponent
-            onChange={this.props.actions.formFieldChange}
             form={this.props.todoDetail.form}
             buttonText={'Update'}
-            onButtonPress={onButtonPress}
-            formFieldChange={this.props.actions.formFieldChange}
+            updateAction={this.props.actions.update}
+            formFieldChangeAction={this.props.actions.formFieldChange}
         />
       </View>
     )

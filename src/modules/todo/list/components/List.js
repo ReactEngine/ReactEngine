@@ -30,7 +30,7 @@ var ListComponent = React.createClass({
       item={item}
       key={item.id}
       deleteById={this.props.deleteById}
-      onRowPress={this.props.onRowPress}
+      changeDetailState={this.props.changeDetailState}
       />
     )
   },
