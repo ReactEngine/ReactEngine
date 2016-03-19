@@ -28,6 +28,7 @@ import * as profileAsyncActions from '../actions/async'
  */
 import {Map} from 'immutable'
 
+import UserForm from '../components/form'
 /**
  * The ErrorAlert will display any and all errors
  */
@@ -56,12 +57,6 @@ import React,
 }
 from 'react-native'
 
-/**
-* The form processing component
-*/
-import t from 'tcomb-form-native'
-
-let Form = t.form.Form
 
 /**
  * ## Styles
@@ -194,35 +189,7 @@ class Profile extends Component {
     this.errorAlert.checkError(this.props.userProfile.form.error)
 
     let self = this
-    
-    let ProfileForm = t.struct({
-      username: t.String,
-      email: t.String
-    })
-    /**
-     * Set up the field definitions.  If we're fetching, the fields
-     * are disabled.  
-     */
-    let options = {
-      auto: 'placeholders',
-      fields: {
-        username: {
-          label: 'Username',
-          maxLength: 12,
-          editable: !this.props.userProfile.form.isFetching,
-          hasError: this.props.userProfile.form.fields.usernameHasError,
-          error: 'Must have 6-12 characters and/or numbers'
-        },
-        email: {
-          label: 'Email',
-          keyboardType: 'email-address',
-          editable: !this.props.userProfile.form.isFetching,
-          hasError: this.props.userProfile.form.fields.emailHasError,
-          error: 'Please enter valid email'
-        }
-      }
-    }
-
+  
     /**
      * When the button is pressed, send the users info including the
      * ```currrentUser``` object as it contains the accessToken and
@@ -242,24 +209,16 @@ class Profile extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.inputs}>
-          <Form
-              ref="form"
-              type={ProfileForm}
-              options={options}
+          <UserForm
               value={this.state.formValues}
               onChange={this.onChange.bind(self)}
-          />
-          <ItemCheckbox text="Email verified (display only)"
-                        disabled={true}
-                        checked={this.props.userProfile.form.fields.emailVerified}
+              form={this.props.userProfile.form}
           />
         </View>
-
         <FormButton
             isDisabled={!this.props.userProfile.form.isValid || this.props.userProfile.form.isFetching}
             onPress={onButtonPress.bind(self)}
             buttonText={profileButtonText}/>
-
       </View>
     )
   }
