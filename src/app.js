@@ -56,7 +56,7 @@ import userRegister from './modules/user/register/containers'
 import userForgotPassword from './modules/user/forgotPassword/containers'
 import userProfile from './modules/user/profile/containers'
 import todoList from './modules/todo/list/containers'
-import todoAdd from './modules/todo/item/containers'
+import todoDetail from './modules/todo/detail/containers'
 
 /**
  * ### icons
@@ -159,9 +159,9 @@ export default function native(platform) {
                          title="userForgotPassword"
                          type="replace" />
 
-      	    <Route name="todoAdd"
-                         component={todoAdd}
-                         title="todoAdd"
+      	    <Route name="todoDetail"
+                         component={todoDetail}
+                         title="todoDetail"
                          Schema="floatFromRight"	/>
 
       	    <Route name="Tabbar" type="replace">

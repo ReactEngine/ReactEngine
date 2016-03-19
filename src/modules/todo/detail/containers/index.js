@@ -77,8 +77,6 @@ function mapDispatchToProps(dispatch) {
 
 var styles = StyleSheet.create({
   container: {
-    borderTopWidth: 2,
-    borderBottomWidth:2,
     marginTop: 80,
     padding: 10
   },
@@ -94,24 +92,37 @@ var styles = StyleSheet.create({
 let Subview = React.createClass({
   
   render() {
+
     var titleConfig = {
-      title: "Add View"
+      title: this.props.title || "Detail View"
     }
     
     var leftButtonConfig = {
       title: 'Back',
       handler: routerActions.pop
     }
-    
+
+    let detailData = this.props.data || {
+      "completed": true,
+      "text": "",
+      "id": "",
+      "createdAt": "",
+      "updatedAt": ""
+    }
+
     return(
       <View>
-	<NavigationBar
-            title={ titleConfig }
-            leftButton={ leftButtonConfig }
-	/>
-	<View style={ styles.container }>
-	  <Text style={ styles.summary }>Module Add View</Text>
-	</View>
+      	<NavigationBar
+                  title={ titleConfig }
+                  leftButton={ leftButtonConfig }
+      	/>
+      	<View style={ styles.container }>
+      	  <Text style={ styles.summary }>text: {detailData.text}</Text>
+          <Text style={ styles.summary }>completed: {detailData.completed+''}</Text>
+          <Text style={ styles.summary }>id: {detailData.id}</Text>
+          <Text style={ styles.summary }>createdAt: {detailData.createdAt}</Text>
+          <Text style={ styles.summary }>updatedAt: {detailData.updatedAt}</Text>
+      	</View>
       </View>
     )
   }

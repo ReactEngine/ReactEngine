@@ -6,7 +6,13 @@ const {Record} = require('immutable')
 
 const Item = Record({
   error: null,
-  isFetching: false
+  isFetching: false,
+  fields: new (Record({
+    id: '',
+    text: '',
+    textHasError: false,
+    completed: true
+  }))
 })
 
 var InitialState = Record({

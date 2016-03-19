@@ -90,7 +90,9 @@ class ListContainer extends Component {
     })
     this.find(filter,options)
   }
-
+  onRowPress(row){
+    routerActions.todoDetail({data:row, title:row.text })
+  }
   render() { 
     console.log("======== container render,state:",this.state," props:",this.props)
     var titleConfig = {
@@ -98,7 +100,7 @@ class ListContainer extends Component {
     }
    var rightButtonConfig = {
       title: 'Add',
-      handler: routerActions.todoAdd
+      handler: routerActions.todoDetail
     }
     return(
       <View style={styles.container}>
@@ -114,6 +116,7 @@ class ListContainer extends Component {
           deleteById={this.props.actions.deleteById}
           fetchedData={this.props.todoList.data}
           fetchOptions={this.props.todoList.options}
+          onRowPress={this.onRowPress}
          />
        </View>
     )

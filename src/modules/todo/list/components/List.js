@@ -26,8 +26,11 @@ var ListComponent = React.createClass({
    */
  _renderRowView(item) {
     return (
-      <RowComponent item={item}
+      <RowComponent 
+      item={item}
+      key={item.id}
       deleteById={this.props.deleteById}
+      onRowPress={this.props.onRowPress}
       />
     )
   },

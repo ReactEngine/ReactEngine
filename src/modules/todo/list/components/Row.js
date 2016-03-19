@@ -23,9 +23,6 @@ var Row = React.createClass({
 		    "updatedAt": "2016-03-17T03:29:01.000Z"
 		  }
 	},
-	_onPress(item) {
-	  console.log(item.text+' pressed')
-	},
 	render() {
 		// Buttons
 		const self = this;
@@ -50,7 +47,9 @@ var Row = React.createClass({
 		    <TouchableHighlight 
     		    style={styles.row} 
     		    underlayColor='#c8c7cc'
-    		    onPress={() => this._onPress(this.props.item)}
+    		    onPress={()=>{
+    		    	this.props.onRowPress(this.props.item)
+    		    }}
     		  >  
     		    <Text>{this.props.item.text}</Text>
     		  </TouchableHighlight>

@@ -5,7 +5,7 @@ const  _ = require('lodash')
 const ApiFactory = require('../../../../services/api').default
 
 import * as syncActions from './index'
-import * as itemSyncActions from '../../item/actions'
+import * as itemSyncActions from '../../detail/actions'
 
 export function find(filter,options) {
   
