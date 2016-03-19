@@ -7,11 +7,14 @@ const {Record} = require('immutable')
 const Form = Record({
   error: null,
   isFetching: false,
+  title:'Detail View',
   fields: new (Record({
     id: '',
     text: '',
     textHasError: false,
-    completed: true
+    completed: true,
+    createdAt:'',
+    updatedAt:''
   }))
 })
 

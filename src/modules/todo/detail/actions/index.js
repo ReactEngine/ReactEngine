@@ -1,5 +1,8 @@
 const {
 
+  TODO_ITEM,
+  TODO_ITEM_INIT_START,
+
   TODO_ITEM_EXISTS_REQUEST_START,
   TODO_ITEM_EXISTS_REQUEST_SUCCESS,
   TODO_ITEM_EXISTS_REQUEST_FAILURE,
@@ -24,7 +27,16 @@ const {
   TODO_ITEM_UPDATEATTRIBUTES_REQUEST_SUCCESS,
   TODO_ITEM_UPDATEATTRIBUTES_REQUEST_FAILURE,
 
+  TODO_ITEM_FORMFIELD_CHANGE
+
 } = require('../../constants').default
+
+export function routerChangeStart(payload) {
+  return {
+    type: TODO_ITEM,
+    payload:payload
+  }
+}
 
 //exists
 export function existsRequestStart() {
@@ -147,5 +159,38 @@ export function updateAttributesFailure(error) {
   return {
     type: TODO_ITEM_UPDATEATTRIBUTES_REQUEST_FAILURE,
     payload: error
+  }
+}
+
+export function formFieldChange(field,value) {
+  return {
+    type: TODO_ITEM_FORMFIELD_CHANGE,
+    payload: {field: field, value: value}
+  }
+}
+
+
+export function routerChange(payload) {
+  
+  return dispatch => {
+    //请求开始
+    dispatch(routerChangeStart(payload))
+}
+}
+
+
+export function deleteById(id="") {
+  return dispatch => {
+    //请求开始
+    dispatch(deleteRequestStart())
+    return  ApiFactory().todo.deleteById(id)
+      .then((json) => {
+          //请求成功
+          dispatch(deleteRequestSuccess(json,{id:id}))
+      })
+      .catch((error) => {
+         dispatch(deleteRequestFailure(error))
+      })
+
   }
 }

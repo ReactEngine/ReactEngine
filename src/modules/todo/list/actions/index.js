@@ -1,3 +1,7 @@
+const  _ = require('lodash')
+
+const ApiFactory = require('../../../../services/api').default
+
 const {
   TODO_LIST_FIND_REQUEST_START,
   TODO_LIST_FIND_REQUEST_SUCCESS,
@@ -174,3 +178,25 @@ export function upsertRequestFailure(error) {
     payload: error
   }
 }
+
+export function find(filter,options) {
+  
+  return dispatch => {
+    //请求开始
+    dispatch(findRequestStart())
+    return  ApiFactory().todo.find(filter)
+      .then((data) => {
+          // let rows = {}
+          // const page = options.page || '1'
+          // const header = 'Page_'+ page
+          // rows[header] = data
+          //请求成功
+          dispatch(findRequestSuccess(data,options))
+      })
+      .catch((error) => {
+         dispatch(findRequestFailure(error))
+      })
+
+  }
+}
+

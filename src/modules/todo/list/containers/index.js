@@ -1,33 +1,6 @@
 'use strict'
-/*
- * ## Imports
- *  
- * Imports from redux
- */
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-
-/**
- * The actions we need
- */
-import * as asyncActions from '../actions/async'
-import NavigationBar from 'react-native-navbar'
-const ApiFactory = require('../../../../services/api').default
-/**
- * Immutable
- */ 
-import {Map} from 'immutable'
-
-/**
- * Router
- */
-import { Actions as routerActions }  from 'react-native-router-flux'
-import ListComponent from '../components/List'
-/**
- * The components needed from React
- */
 import React,
-{ 	
+{   
   Component,
   StyleSheet,
   View,
@@ -37,40 +10,27 @@ import React,
 }
 from 'react-native'
 
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+const ApiFactory = require('../../../../services/api').default
+import * as viewActions from '../actions'
+import * as detailActions from '../../detail/actions'
+import NavigationBar from 'react-native-navbar'
+import * as actionUtils from '../../../../utils/action'
+import { Actions as routerActions }  from 'react-native-router-flux'
+import ListComponent from '../components/List'
 
-/**
- * Support for Hot reload
- * 
- */
-const actions = [
-  asyncActions  
-]
 
-/**
- *  Instead of including all app states via ...state
- *  One could explicitly enumerate only those which Main.js will depend on.
- *
- */
 function mapStateToProps(state) {
   return {
       ...state
   }
 }
 
-/*
- * Bind all the functions from the ```actions``` and bind them with
- * ```dispatch```
-
- */
 function mapDispatchToProps(dispatch) {
-
-  const creators = Map()
-          .merge(...actions)
-          .filter(value => typeof value === 'function')
-          .toObject()
-
   return {
-    actions: bindActionCreators(creators, dispatch),
+    actions: bindActionCreators(actionUtils.getCreators(viewActions), dispatch),
+    detailActions: bindActionCreators(actionUtils.getCreators(detailActions), dispatch),
     dispatch
   }
 }
@@ -91,9 +51,14 @@ class ListContainer extends Component {
     this.find(filter,options)
   }
   onRowPress(row){
-    routerActions.todoDetail({data:row, title:row.text })
+    //改 detail 的 state
+    detailActions.routerChange({
+      routerChangePayload:{fields:row, title:row.text}
+    })
+    //切换路由
+    routerActions.todoDetail()
   }
-  render() { 
+  render() {
     console.log("======== container render,state:",this.state," props:",this.props)
     var titleConfig = {
       title: "Todos"
@@ -113,7 +78,7 @@ class ListContainer extends Component {
           rightButtonConfig={rightButtonConfig}
           onFetch={this.onFetch}
           find={this.props.actions.find}
-          deleteById={this.props.actions.deleteById}
+          deleteById={this.props.detailActions.deleteById}
           fetchedData={this.props.todoList.data}
           fetchOptions={this.props.todoList.options}
           onRowPress={this.onRowPress}

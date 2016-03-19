@@ -41,6 +41,8 @@ const {
   TODO_ITEM_UPDATEATTRIBUTES_REQUEST_SUCCESS,
   TODO_ITEM_UPDATEATTRIBUTES_REQUEST_FAILURE,
 
+  TODO_ITEM_FORMFIELD_CHANGE
+
 } = require('../../constants').default
 
 const initialState = new InitialState
@@ -58,7 +60,12 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
 
     // case TODO_ITEM_DELETE_START:
-     
+    case TODO_ITEM:
+     let newState = state.setIn(['form','isFetching'], false)
+        .setIn(['form','fields'], action.payload.fields)
+        .setIn(['form','title'], action.payload.title)
+        console.log('TODO_ITEM newState:',newState)
+        return newState
 
   }
   /**
