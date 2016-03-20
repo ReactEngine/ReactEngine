@@ -97,17 +97,15 @@ export default function reducer(state = initialState, action) {
 
   switch (action.type) {
 
-    //create
+    // create
     case TODO_CREATE_REQUEST_START:
      return state.setIn(['error'], null)
        .setIn(['isFetching'], true)
 
     case TODO_CREATE_REQUEST_SUCCESS:
-    debugger
       return state.setIn(['isFetching'], false)
         .setIn(['error'], null)
-        .setIn(['data'], [...data,
-            action.payload.res])
+        .setIn(['data'], [...data, action.payload.res])
 
     case TODO_CREATE_REQUEST_FAILURE:
       return state.setIn(['isFetching'], false)

@@ -34,7 +34,7 @@ class Row extends Component {
 		    type: 'primary',
 		    autoClose: true,
 		    onPress:()=>{
-		    	self.props.detailActions.deleteById(self.props.item.id)
+		    	self.props.actions.deleteById(self.props.item.id)
 		    }
 		  }
 		]

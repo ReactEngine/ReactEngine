@@ -31,7 +31,7 @@ export function findRequestFailure(error) {
   }
 }
 
-export function find(filter,options) {
+export function find(filter={},options={}) {
   return dispatch => {
     //请求开始
     dispatch(findRequestStart())
@@ -43,7 +43,9 @@ export function find(filter,options) {
           // rows[header] = data
           //请求成功
           dispatch(findRequestSuccess({
-            data:data,
+            data:_.sortBy(data,(item)=>{
+              return item.updateAt
+            }),
             options:options
           }))
       })

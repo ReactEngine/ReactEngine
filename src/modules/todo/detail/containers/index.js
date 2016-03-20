@@ -81,6 +81,9 @@ class DetailContainer extends Component {
       this.props.actions.formFieldChange(field,value[field])
     })
   }
+  NavigateBack(){
+   return routerActions.pop()
+  }
   render() {
     let self = this
     const buttonText = this.getMode()=='update'?'Update':'Add'
@@ -96,7 +99,7 @@ class DetailContainer extends Component {
                   }}
                   leftButton={{
                     title: 'Back',
-                    handler: routerActions.pop
+                    handler: self.NavigateBack
                   }}
         />
         <View style={styles.inputs}>
