@@ -29,14 +29,14 @@ react-native run-android
 ## 截图
 iOS:  
 <p align="center">
-  <img src="./ScreenShots/Register.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/Login.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/LoginError.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/ForgotPassword.png" alt="App Screenshot" width="200">
-</p>
-<p>
-  <img src="./ScreenShots/Profile.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/ModuleList.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/ModuleAdd.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/ModuleUpdate.png" alt="App Screenshot" width="200">
+  <img src="./ScreenShots/Register.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
+  <img src="./ScreenShots/Login.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
+  <img src="./ScreenShots/LoginError.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
+  <img src="./ScreenShots/ForgotPassword.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
+  <img src="./ScreenShots/Profile.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
+  <img src="./ScreenShots/ModuleAdd.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
+  <img src="./ScreenShots/ModuleList.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
+  <img src="./ScreenShots/ModuleUpdate.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
+  <img src="./ScreenShots/ModuleDelete.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
+  <img src="./ScreenShots/ModuleEmpty.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
 </p>
