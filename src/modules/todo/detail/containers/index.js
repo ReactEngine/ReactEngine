@@ -62,10 +62,16 @@ class DetailContainer extends Component {
   // }
   onButtonPress(){
     // this.props.actions.updateAttributes(this.props.todoDetail.form.fields.id,this.state.value)
-    this.props.actions.updateAttributes(this.props.todoDetail.form.fields.id,{
-        text: this.props.todoDetail.form.fields.text,
-        completed: this.props.todoDetail.form.fields.completed
-    })
+    const itemId = this.props.todoDetail.form.fields.id
+    const data = {
+          text: this.props.todoDetail.form.fields.text,
+          completed: this.props.todoDetail.form.fields.completed
+      }
+    if(itemId != ''){
+      this.props.actions.updateAttributes(itemId,data)
+    }else{
+      this.props.actions.create(data)
+    }
   }
   formFieldChange(value,fields){
     _.each(fields,(field)=>{

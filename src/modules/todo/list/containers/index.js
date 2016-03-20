@@ -45,7 +45,13 @@ class ListContainer extends Component {
     }
    var rightButtonConfig = {
       title: 'Add',
-      handler: routerActions.todoDetail
+      handler: ()=>{
+        routerActions.todoDetail()
+        //改 detail 的 state
+        this.props.detailActions.routerChange({
+          fields:{}, title:"Add Todo"
+        })
+      }
     }
     return(
       <View style={styles.container}>

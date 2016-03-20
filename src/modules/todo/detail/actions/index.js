@@ -183,6 +183,22 @@ export function routerChange(payload) {
 }
 
 
+export function create(data) {
+  return dispatch => {
+    //请求开始
+    dispatch(updateAttributesRequestStart())
+    return  ApiFactory().todo.create(data)
+      .then((res) => {
+          //请求成功
+          dispatch(updateAttributesRequestSuccess({item:res}))
+      })
+      .catch((error) => {
+         dispatch(updateAttributesRequestFailure(error))
+      })
+
+  }
+}
+
 export function updateAttributes(id,data) {
   return dispatch => {
     //请求开始
@@ -198,6 +214,7 @@ export function updateAttributes(id,data) {
 
   }
 }
+
 
 export function deleteById(id="") {
   return dispatch => {
