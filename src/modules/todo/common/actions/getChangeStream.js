@@ -10,7 +10,7 @@ const {
 
 } = require('../constants').default
 
-//createChangeStream
+//getChangeStream
 export function getChangeStreamRequestStart() {
   return {
     type: TODO_GETCHANGESTREAM_REQUEST_START

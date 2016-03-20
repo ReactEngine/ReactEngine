@@ -10,34 +10,71 @@ import formValidation from './formValidation'
 const fieldValidation = require('../../../common/reducers/fieldValidation').default
 
 const {
+  //create
+  TODO_CREATE_REQUEST_START,
+  TODO_CREATE_REQUEST_SUCCESS,
+  TODO_CREATE_REQUEST_FAILURE,
 
-  TODO_ITEM,
-  TODO_INIT_START,
+  //find
+  TODO_FIND_REQUEST_START,
+  TODO_FIND_REQUEST_SUCCESS,
+  TODO_FIND_REQUEST_FAILURE,
 
-  TODO_EXISTS_REQUEST_START,
-  TODO_EXISTS_REQUEST_SUCCESS,
-  TODO_EXISTS_REQUEST_FAILURE,
-
+  //findById
   TODO_FINDBYID_REQUEST_START,
   TODO_FINDBYID_REQUEST_SUCCESS,
   TODO_FINDBYID_REQUEST_FAILURE,
 
+  //findOne
   TODO_FINDONE_REQUEST_START,
   TODO_FINDONE_REQUEST_SUCCESS,
   TODO_FINDONE_REQUEST_FAILURE,
 
-  TODO_DELETE_REQUEST_START,
-  TODO_DELETE_REQUEST_SUCCESS,
-  TODO_DELETE_REQUEST_FAILURE,
+  //exists
+  TODO_EXISTS_REQUEST_START,
+  TODO_EXISTS_REQUEST_SUCCESS,
+  TODO_EXISTS_REQUEST_FAILURE,
 
+  //count
+  TODO_COUNT_REQUEST_START,
+  TODO_COUNT_REQUEST_SUCCESS,
+  TODO_COUNT_REQUEST_FAILURE,
+
+  //update
   TODO_UPDATE_REQUEST_START,
   TODO_UPDATE_REQUEST_SUCCESS,
   TODO_UPDATE_REQUEST_FAILURE,
 
+  //upsert
+  TODO_UPSERT_REQUEST_START,
+  TODO_UPSERT_REQUEST_SUCCESS,
+  TODO_UPSERT_REQUEST_FAILURE,
+
+  //updateAttributes
   TODO_UPDATEATTRIBUTES_REQUEST_START,
   TODO_UPDATEATTRIBUTES_REQUEST_SUCCESS,
   TODO_UPDATEATTRIBUTES_REQUEST_FAILURE,
 
+  //delete
+  TODO_DELETE_REQUEST_START,
+  TODO_DELETE_REQUEST_SUCCESS,
+  TODO_DELETE_REQUEST_FAILURE,
+
+  //getChangeStream
+  TODO_GETCHANGESTREAM_REQUEST_START,
+  TODO_GETCHANGESTREAM_REQUEST_SUCCESS,
+  TODO_GETCHANGESTREAM_REQUEST_FAILURE,
+
+  //createChangeStream
+  TODO_CREATECHANGESTREAM_REQUEST_START,
+  TODO_CREATECHANGESTREAM_REQUEST_SUCCESS,
+  TODO_CREATECHANGESTREAM_REQUEST_FAILURE,
+
+  TODO_LIST,
+  TODO_LIST_INIT_START,
+
+  TODO_ITEM,
+  TODO_ITEM_INIT_START,
   TODO_FORMFIELD_CHANGE
 
 } = require('../../common/constants').default
@@ -67,6 +104,25 @@ export default function reducer(state = initialState, action) {
         .setIn(['form','title'], action.payload.title)
         console.log('TODO_ITEM newState:',newState)
         return newState
+
+    //create
+    case TODO_CREATE_REQUEST_START:
+     return state.setIn(['form','error'], null)
+       .setIn(['form','isFetching'], true)
+
+    case TODO_CREATE_REQUEST_SUCCESS:
+        return state.setIn(['form','isFetching'], false)
+         .setIn(['form','error'], null)
+         .setIn(['form','fields','id'], action.payload.res.id)
+         .setIn(['form','fields','text'], action.payload.res.text)
+         .setIn(['form','fields','completed'], action.payload.res.completed)
+         .setIn(['form','fields','createdAt'], action.payload.res.createdAt)
+         .setIn(['form','fields','updatedAt'], action.payload.res.updatedAt)
+
+
+    case TODO_CREATE_REQUEST_FAILURE:
+      return state.setIn(['form','isFetching'], false)
+        .setIn(['form','error'], action.payload)
 
     //updateAttributes
     case TODO_UPDATEATTRIBUTES_REQUEST_START:

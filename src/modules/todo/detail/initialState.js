@@ -13,7 +13,7 @@ const Form = Record({
     id: '',
     text: '',
     textHasError: false,
-    completed: true,
+    completed: false,
     createdAt:'',
     updatedAt:''
   }))

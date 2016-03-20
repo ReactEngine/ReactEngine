@@ -60,15 +60,18 @@ class DetailContainer extends Component {
   //   //   }
   //   // })
   // }
+  getMode(){
+    const itemId = this.props.todoDetail.form.fields.id
+    return itemId?'update':'add'
+  }
   onButtonPress(){
     // this.props.actions.updateAttributes(this.props.todoDetail.form.fields.id,this.state.value)
-    const itemId = this.props.todoDetail.form.fields.id
     const data = {
-          text: this.props.todoDetail.form.fields.text,
-          completed: this.props.todoDetail.form.fields.completed
+          text: this.props.todoDetail.form.fields.text || "",
+          completed: this.props.todoDetail.form.fields.completed || false
       }
-    if(itemId != ''){
-      this.props.actions.updateAttributes(itemId,data)
+    if(this.getMode()=='update'){
+      this.props.actions.updateAttributes(this.props.todoDetail.form.fields.id,data)
     }else{
       this.props.actions.create(data)
     }
@@ -80,6 +83,7 @@ class DetailContainer extends Component {
   }
   render() {
     let self = this
+    const buttonText = this.getMode()=='update'?'Update':'Add'
 
     console.log(">>>>>>>>>> DetailContainer render,currentViewProps:",self.props.todoDetail)
     self.errorAlert.checkError(self.props.todoDetail.form.error)
@@ -104,7 +108,7 @@ class DetailContainer extends Component {
         <FormButton
             isDisabled={!self.props.todoDetail.form.isValid || self.props.todoDetail.form.isFetching}
             onPress={self.onButtonPress.bind(self)}
-            buttonText={'Update'}/>
+            buttonText={buttonText}/>
       </View>
     )
   }
