@@ -26,6 +26,13 @@ var styles = StyleSheet.create({
   }
 })
   class DetailComponent extends Component {
+  /**
+   * Set the initial state and prepare the errorAlert
+   */
+  constructor(props) {
+    super(props)
+    this.errorAlert = new ErrorAlert()
+  }
 
   render() {
     console.log(">>>>>>>>> DetailComponent render,state:",this.state)
