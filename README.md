@@ -36,7 +36,6 @@ iOS:
 </p>
 <p>
   <img src="./ScreenShots/Profile.png" alt="App Screenshot" width="200">
-  <img src="./ScreenShots/Logout.png" alt="App Screenshot" width="200">
   <img src="./ScreenShots/ModuleList.png" alt="App Screenshot" width="200">
   <img src="./ScreenShots/ModuleAdd.png" alt="App Screenshot" width="200">
   <img src="./ScreenShots/ModuleUpdate.png" alt="App Screenshot" width="200">
