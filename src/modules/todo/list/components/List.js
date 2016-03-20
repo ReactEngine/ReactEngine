@@ -29,8 +29,7 @@ var ListComponent = React.createClass({
       <RowComponent 
       item={item}
       key={item.id}
-      deleteById={this.props.deleteById}
-      changeDetailState={this.props.changeDetailState}
+      detailActions={this.props.detailActions}
       />
     )
   },
@@ -45,16 +44,32 @@ var ListComponent = React.createClass({
        />
      )
    },
-  
+  onFetch(page = 1, options) {
+    console.log("container/_onFetch page:",page," options:",options)
+    const pageLength = 10 //每一个 page 有多少 item
+    const skip = pageLength * (page-1)
+    const filter = {
+      skip:skip,
+      limit:10,
+      order:'updatedAt DESC'
+    }
+    options = _.assign({},options,{
+      page:page
+    })
+    this.props.actions.find(filter,options)
+  },
   render() {
     return (
           <GiftedListView
             rowView={this._renderRowView}
-            deleteById={this.props.deleteById}
-            onFetch={this.props.onFetch}
-            find={this.props.find}
+            onFetch={this.onFetch}
+
+            actions={this.props.actions}
+            detailActions={this.props.detailActions}
+
             fetchedData={this.props.fetchedData}
             fetchOptions={this.props.fetchOptions}
+            
             initialListSize={12}
             firstLoader={true}
           

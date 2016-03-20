@@ -36,20 +36,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 class ListContainer extends Component {
-  onFetch(page = 1, options) {
-    console.log("container/_onFetch page:",page," options:",options)
-    const pageLength = 10 //每一个 page 有多少 item
-    const skip = pageLength * (page-1)
-    const filter = {
-      skip:skip,
-      limit:10,
-      order:'updatedAt DESC'
-    }
-    options = _.assign({},options,{
-      page:page
-    })
-    this.find(filter,options)
-  }
+  
   
   render() {
     console.log("======== list container render,state:",this.state," props:",this.props)
@@ -69,10 +56,10 @@ class ListContainer extends Component {
         <ListComponent  
           titleConfig={titleConfig}
           rightButtonConfig={rightButtonConfig}
-          onFetch={this.onFetch}
-          find={this.props.actions.find}
-          deleteById={this.props.detailActions.deleteById}
-          changeDetailState={this.props.detailActions.routerChange}
+
+          actions={this.props.actions}
+          detailActions={this.props.detailActions}
+
           fetchedData={this.props.todoList.data}
           fetchOptions={this.props.todoList.options}
          />

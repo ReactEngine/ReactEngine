@@ -28,7 +28,7 @@ var Row = React.createClass({
 	  //切换路由
 	  routerActions.todoDetail()
 	  //改 detail 的 state
-	  this.props.changeDetailState({
+	  this.props.detailActions.routerChange({
 	    fields:row, title:row.text
 	  })
 	},
@@ -43,7 +43,7 @@ var Row = React.createClass({
 		    type: 'primary',
 		    autoClose: true,
 		    onPress:()=>{
-		    	self.props.deleteById(self.props.item.id)
+		    	self.props.detailActions.deleteById(self.props.item.id)
 		    }
 		  }
 		]
