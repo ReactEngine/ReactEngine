@@ -17,7 +17,6 @@ import GiftedListView from '../../../common/components/GiftedListView'
 import RowComponent from './Row'
 import styles from './List.styles'
 
-
 var ListComponent = React.createClass({
   
   /**

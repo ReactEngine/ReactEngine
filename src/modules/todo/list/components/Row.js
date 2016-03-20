@@ -14,16 +14,7 @@ import { Actions as routerActions }  from 'react-native-router-flux'
 // Swipeout component
 
 
-var Row = React.createClass({
-	getInitialState() {
-	  return {
-		    "completed": true,
-		    "text": "todo1",
-		    "id": "644ca090-ebf0-11e5-81e1-a53b29f0d75f",
-		    "createdAt": "2016-03-17T03:29:01.000Z",
-		    "updatedAt": "2016-03-17T03:29:01.000Z"
-		  }
-	},
+class Row extends Component {
 	onRowPress(row){
 	  //切换路由
 	  routerActions.todoDetail()
@@ -31,7 +22,7 @@ var Row = React.createClass({
 	  this.props.detailActions.routerChange({
 	    fields:row, title:row.text
 	  })
-	},
+	}
 	render() {
 		// Buttons
 		const self = this;
@@ -65,7 +56,7 @@ var Row = React.createClass({
 		  </Swipeout>
 		)
 	}
-})
+}
 
 
 const styles = StyleSheet.create({
