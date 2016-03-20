@@ -82,10 +82,10 @@ class DetailContainer extends Component {
     })
   }
   NavigateBack(){
-  //更改 list state  
-  this.props.actions.routerChangeToList()
-  //路由切换
-   return routerActions.pop()
+    //路由切换
+    routerActions.pop()
+    //更改 list state  
+    this.props.actions.routerChangeToList()
   }
   render() {
     let self = this
