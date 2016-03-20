@@ -74,7 +74,7 @@ export default function reducer(state = initialState, action) {
        .setIn(['form','error'], null)
 
     case TODO_UPDATEATTRIBUTES_REQUEST_SUCCESS:
-      let item = action.payload.item
+      let item = action.payload.res
       return state.setIn(['form','isFetching'], false)
        .setIn(['form','error'], null)
        .setIn(['form','fields','id'], item.id)

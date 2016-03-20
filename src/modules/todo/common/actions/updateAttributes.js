@@ -37,7 +37,7 @@ export function updateAttributes(id,data) {
     return  ApiFactory().todo.updateAttributes(id,data)
       .then((res) => {
           //请求成功
-          dispatch(updateAttributesRequestSuccess({item:res}))
+          dispatch(updateAttributesRequestSuccess({res:res}))
       })
       .catch((error) => {
          dispatch(updateAttributesRequestFailure(error))

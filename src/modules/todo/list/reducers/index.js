@@ -66,22 +66,64 @@ export default function reducer(state = initialState, action) {
   if (!(state instanceof InitialState)) {
     return initialState.mergeDeep(state)
   }
+  const data = state.get('data')
 
   switch (action.type) {
 
-    case TODO_FIND_REQUEST_START:
+    //create
+    case TODO_CREATE_REQUEST_START:
      return state.setIn(['error'], null)
        .setIn(['isFetching'], true)
 
+    case TODO_CREATE_REQUEST_SUCCESS:
+      return state.setIn(['isFetching'], false)
+        .setIn(['error'], null)
+        .setIn(['data'], [...data,
+            action.payload.res])
+
+    case TODO_CREATE_REQUEST_FAILURE:
+      return state.setIn(['isFetching'], false)
+        .setIn(['error'], action.payload)
+
+    //find
+    case TODO_FIND_REQUEST_START:
+     return state.setIn(['isFetching'], true)
+          .setIn(['error'], null)
+       
+
     case TODO_FIND_REQUEST_SUCCESS:
       return state.setIn(['isFetching'], false)
-        .setIn(['data'], action.payload)
-        .setIn(['options'], action.options)
+        .setIn(['error'], null)
+        .setIn(['data'], action.payload.data)
+        .setIn(['options'], action.payload.options)
 
     case TODO_FIND_REQUEST_FAILURE:
       return state.setIn(['isFetching'], false)
         .setIn(['error'], action.payload)
 
+    //updateAttributes
+    case TODO_UPDATE_REQUEST_START:
+    case TODO_UPDATEATTRIBUTES_REQUEST_START:
+     return state.setIn(['isFetching'], true)
+       .setIn(['error'], null)
+
+    // case TODO_UPDATE_REQUEST_SUCCESS: //Todo
+    case TODO_UPDATEATTRIBUTES_REQUEST_SUCCESS:
+      let index = _.findIndex(state.get('data'), function(item) { 
+        return item.id == action.payload.res.id 
+      })
+      return state.setIn(['isFetching'], false)
+          .setIn(['data'],[...data.slice(0, index),
+            action.payload.res,
+            ...data.slice(index + 1)]
+      )
+
+    case TODO_UPDATE_REQUEST_FAILURE:
+    case TODO_UPDATEATTRIBUTES_REQUEST_FAILURE:
+      return state.setIn(['isFetching'], false)
+        .setIn(['error'], action.payload)
+
+    //delete
     case TODO_DELETE_REQUEST_START:
      return state.setIn(['error'], null)
        .setIn(['isFetching'], true)
@@ -89,32 +131,13 @@ export default function reducer(state = initialState, action) {
     case TODO_DELETE_REQUEST_SUCCESS:
       return state.setIn(['isFetching'], false)
           .setIn(['data'], _.filter(state.get('data'),(item)=>{
-        return item.id != action.options.id
-      }))
+            return item.id != action.payload.id
+          }))
 
     case TODO_DELETE_REQUEST_FAILURE:
       return state.setIn(['isFetching'], false)
         .setIn(['error'], action.payload)
 
-    //updateAttributes
-    case TODO_UPDATEATTRIBUTES_REQUEST_START:
-     return state.setIn(['isFetching'], true)
-       .setIn(['error'], null)
-
-    case TODO_UPDATEATTRIBUTES_REQUEST_SUCCESS:
-      const data = state.get('data')
-      let index = _.findIndex(state.get('data'), function(item) { 
-        return item.id == action.payload.item.id 
-      })
-      return state.setIn(['isFetching'], false)
-          .setIn(['data'],[...data.slice(0, index),
-            action.payload.item,
-            ...data.slice(index + 1)]
-      )
-
-    case TODO_UPDATEATTRIBUTES_REQUEST_FAILURE:
-      return state.setIn(['isFetching'], false)
-        .setIn(['error'], action.payload)
 
   }
   /**

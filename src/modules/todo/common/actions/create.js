@@ -10,7 +10,6 @@ const {
 
 } = require('../constants').default
 
-
 //create
 export function createRequestStart() {
   return {
@@ -36,14 +35,14 @@ export function createRequestFailure(error) {
 export function create(data) {
   return dispatch => {
     //请求开始
-    dispatch(updateAttributesRequestStart())
+    dispatch(createRequestStart())
     return  ApiFactory().todo.create(data)
       .then((res) => {
           //请求成功
-          dispatch(updateAttributesRequestSuccess({item:res}))
+          dispatch(createRequestSuccess({res:res}))
       })
       .catch((error) => {
-         dispatch(updateAttributesRequestFailure(error))
+         dispatch(createRequestFailure(error))
       })
 
   }

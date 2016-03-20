@@ -9,7 +9,7 @@ export default class {
       this.urlBase = config.urlBase
     }
     /**
-     GET
+     get
      */
   async exists(id="") {
     return await utils.request({
@@ -54,9 +54,9 @@ export default class {
         })
         .then(utils.successHandle)
         .catch(utils.errorHandle)
-    }
+  }
     /**
-     POST
+     create
      */
   async create(data={}) {
     return await utils.request({
@@ -66,21 +66,6 @@ export default class {
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
-  }
-
-  async updateAll(where={},data={}) {
-    return await utils.request({
-        method: 'POST',
-        url: this.urlBase + this.modelNamePlural + '/update?where='+JSON.stringify(where),
-        body: data
-      })
-      .then(utils.successHandle)
-      .catch(utils.errorHandle)
-  }
-
-
-  async update(where={},data={}) {
-    return this.updateAll(where,data)
   }
 
   async createChangeStream(id="") {
@@ -93,7 +78,7 @@ export default class {
   }
 
   /**
-   PUT
+   update
    */
    //传递的data需是完整数据,如果有某些字段漏掉,该字段可能被 null 覆盖
   async upsert(data={}) {
@@ -110,6 +95,20 @@ export default class {
     return this.upsert(data)
   }
 
+  async updateAll(where={},data={}) {
+    return await utils.request({
+        method: 'POST',
+        url: this.urlBase + this.modelNamePlural + '/update?where='+JSON.stringify(where),
+        body: data
+      })
+      .then(utils.successHandle)
+      .catch(utils.errorHandle)
+  }
+
+  async update(where={},data={}) {
+    return this.updateAll(where,data)
+  }
+
   //只更新传递的数据
   async updateAttributes(id="",data={}) {
     return await utils.request({
@@ -122,7 +121,7 @@ export default class {
   }
 
   /**
-   DELETE
+   delete
    */
   async deleteById(id="") {
     return await utils.request({

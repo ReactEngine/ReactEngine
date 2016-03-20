@@ -17,10 +17,10 @@ export function updateRequestStart() {
     type: TODO_UPDATE_REQUEST_START
   }
 }
-export function updateRequestSuccess(json) {
+export function updateRequestSuccess(data) {
   return {
     type: TODO_UPDATE_REQUEST_SUCCESS,
-    payload: json
+    payload: data
   }
 }
 
@@ -28,5 +28,24 @@ export function updateRequestFailure(error) {
   return {
     type: TODO_UPDATE_REQUEST_FAILURE,
     payload: error
+  }
+}
+
+export function update(where,data) {
+  return dispatch => {
+    //请求开始
+    dispatch(updateRequestStart())
+    return  ApiFactory().todo.update(where,data)
+      .then((res) => {
+          //请求成功
+          dispatch(updateRequestSuccess({
+            res:res,
+            data:data
+          }))
+      })
+      .catch((error) => {
+         dispatch(updateRequestFailure(error))
+      })
+
   }
 }

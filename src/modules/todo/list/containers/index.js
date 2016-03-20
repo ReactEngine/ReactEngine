@@ -35,7 +35,6 @@ function mapDispatchToProps(dispatch) {
 
 class ListContainer extends Component {
   
-  
   render() {
     console.log("======== list container render,state:",this.state," props:",this.props)
     var titleConfig = {

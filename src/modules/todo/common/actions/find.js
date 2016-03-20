@@ -42,7 +42,10 @@ export function find(filter,options) {
           // const header = 'Page_'+ page
           // rows[header] = data
           //请求成功
-          dispatch(findRequestSuccess(data,options))
+          dispatch(findRequestSuccess({
+            data:data,
+            options:options
+          }))
       })
       .catch((error) => {
          dispatch(findRequestFailure(error))
