@@ -35,6 +35,15 @@ function mapDispatchToProps(dispatch) {
 }
 
 class ListContainer extends Component {
+  componentWillReceiveProps(nextprops) {
+    console.log(">>>>>>>>>> DetailContainer componentWillReceiveProps nextprops:",nextprops)
+    // const currentViewNextProps = nextprops.todoDetail
+    this.setState({
+      shouldRefresh:nextprops.todoList.shouldRefresh,
+      data: nextprops.todoList.data,
+      options:nextprops.todoList.options
+    })
+  }
   _renderRowView(item) {
      return (
        <RowComponent 
@@ -64,10 +73,21 @@ class ListContainer extends Component {
      options = _.assign({},options,{
        page:page
      })
-     this.actions.find(filter,options)
+
+     let find 
+     if(this.actions){
+      find = this.actions.find
+     }
+     else{
+      find = this.props.actions.find
+     }
+     find(filter,options)
    }
 
   render() {
+    // if(this.props.todoList.shouldRefresh){
+    //   this.onFetch()
+    // }
     console.log("======== list container render,state:",this.state," props:",this.props)
     var titleConfig = {
       title: "Todos"

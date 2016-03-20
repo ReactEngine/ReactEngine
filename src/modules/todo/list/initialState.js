@@ -7,6 +7,7 @@ const {Record} = require('immutable')
 const InitialState = Record({
   error: null,
   isFetching: false,
+  shouldRefresh:false,
   data:[],
   options:{}
 })

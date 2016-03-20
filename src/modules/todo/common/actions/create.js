@@ -40,29 +40,29 @@ export function create(data) {
       .then((res) => {
           //请求成功
           dispatch(createRequestSuccess({res:res}))
-
-          //刷新列表数据
-          const filter ={}
-          const options={}
-          //请求开始
-          dispatch(findActions.findRequestStart())
-          ApiFactory().todo.find(filter)
-            .then((data) => {
-                // let rows = {}
-                // const page = options.page || '1'
-                // const header = 'Page_'+ page
-                // rows[header] = data
-                //请求成功
-                dispatch(findActions.findRequestSuccess({
-                 data:_.sortBy(data,(item)=>{
-                    return item.updateAt
-                  }),
-                  options:options
-                }))
-            })
-            .catch((error) => {
-               dispatch(findActions.findRequestFailure(error))
-            })
+          
+          // //刷新列表数据
+          // const filter ={}
+          // const options={}
+          // //请求开始
+          // dispatch(findActions.findRequestStart())
+          // ApiFactory().todo.find(filter)
+          //   .then((data) => {
+          //       // let rows = {}
+          //       // const page = options.page || '1'
+          //       // const header = 'Page_'+ page
+          //       // rows[header] = data
+          //       //请求成功
+          //       dispatch(findActions.findRequestSuccess({
+          //        data:_.sortBy(data,(item)=>{
+          //           return item.updateAt
+          //         }),
+          //         options:options
+          //       }))
+          //   })
+          //   .catch((error) => {
+          //      dispatch(findActions.findRequestFailure(error))
+          //   })
           
       })
       .catch((error) => {

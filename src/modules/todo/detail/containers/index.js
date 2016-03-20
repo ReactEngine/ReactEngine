@@ -82,6 +82,9 @@ class DetailContainer extends Component {
     })
   }
   NavigateBack(){
+  //更改 list state  
+  this.props.actions.routerChangeToList()
+  //路由切换
    return routerActions.pop()
   }
   render() {
@@ -99,7 +102,7 @@ class DetailContainer extends Component {
                   }}
                   leftButton={{
                     title: 'Back',
-                    handler: self.NavigateBack
+                    handler: self.NavigateBack.bind(self)
                   }}
         />
         <View style={styles.inputs}>

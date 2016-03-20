@@ -122,10 +122,12 @@ export default function reducer(state = initialState, action) {
         .setIn(['error'], null)
         .setIn(['data'], action.payload.data)
         .setIn(['options'], action.payload.options)
+        .setIn(['shouldRefresh'], false)
 
     case TODO_FIND_REQUEST_FAILURE:
       return state.setIn(['isFetching'], false)
         .setIn(['error'], action.payload)
+        .setIn(['shouldRefresh'], false)
 
     //updateAttributes
     case TODO_UPDATE_REQUEST_START:
@@ -164,6 +166,10 @@ export default function reducer(state = initialState, action) {
       return state.setIn(['isFetching'], false)
         .setIn(['error'], action.payload)
 
+    case TODO_LIST:
+      return state.setIn(['isFetching'], false)
+        .setIn(['error'], null)
+        .setIn(['shouldRefresh'], true)
 
   }
   /**
