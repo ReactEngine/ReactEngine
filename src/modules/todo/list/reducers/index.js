@@ -15,50 +15,45 @@ const InitialState = require('../initialState').default
 const {
 
   TODO_LIST,
-  TODO_LIST_INIT_START,
+  TODO_INIT_START,
 
-  TODO_LIST_FIND_REQUEST_START,
-  TODO_LIST_FIND_REQUEST_SUCCESS,
-  TODO_LIST_FIND_REQUEST_FAILURE,
+  TODO_FIND_REQUEST_START,
+  TODO_FIND_REQUEST_SUCCESS,
+  TODO_FIND_REQUEST_FAILURE,
 
-  TODO_LIST_CREATE_REQUEST_START,
-  TODO_LIST_CREATE_REQUEST_SUCCESS,
-  TODO_LIST_CREATE_REQUEST_FAILURE,
+  TODO_CREATE_REQUEST_START,
+  TODO_CREATE_REQUEST_SUCCESS,
+  TODO_CREATE_REQUEST_FAILURE,
 
-  TODO_LIST_COUNT_REQUEST_START,
-  TODO_LIST_COUNT_REQUEST_SUCCESS,
-  TODO_LIST_COUNT_REQUEST_FAILURE,
+  TODO_COUNT_REQUEST_START,
+  TODO_COUNT_REQUEST_SUCCESS,
+  TODO_COUNT_REQUEST_FAILURE,
 
-  TODO_LIST_UPDATE_REQUEST_START,
-  TODO_LIST_UPDATE_REQUEST_SUCCESS,
-  TODO_LIST_UPDATE_REQUEST_FAILURE,
+  TODO_UPDATE_REQUEST_START,
+  TODO_UPDATE_REQUEST_SUCCESS,
+  TODO_UPDATE_REQUEST_FAILURE,
 
-  TODO_LIST_GETCHANGESTREAM_REQUEST_START,
-  TODO_LIST_GETCHANGESTREAM_REQUEST_SUCCESS,
-  TODO_LIST_GETCHANGESTREAM_REQUEST_FAILURE,
+  TODO_GETCHANGESTREAM_REQUEST_START,
+  TODO_GETCHANGESTREAM_REQUEST_SUCCESS,
+  TODO_GETCHANGESTREAM_REQUEST_FAILURE,
 
-  TODO_LIST_CREATECHANGESTREAM_REQUEST_START,
-  TODO_LIST_CREATECHANGESTREAM_REQUEST_SUCCESS,
-  TODO_LIST_CREATECHANGESTREAM_REQUEST_FAILURE,
+  TODO_CREATECHANGESTREAM_REQUEST_START,
+  TODO_CREATECHANGESTREAM_REQUEST_SUCCESS,
+  TODO_CREATECHANGESTREAM_REQUEST_FAILURE,
 
-  TODO_LIST_UPSERT_REQUEST_START,
-  TODO_LIST_UPSERT_REQUEST_SUCCESS,
-  TODO_LIST_UPSERT_REQUEST_FAILURE,
+  TODO_UPSERT_REQUEST_START,
+  TODO_UPSERT_REQUEST_SUCCESS,
+  TODO_UPSERT_REQUEST_FAILURE,
 
-  //item
-  TODO_ITEM_UPDATE_REQUEST_START,
-  TODO_ITEM_UPDATE_REQUEST_SUCCESS,
-  TODO_ITEM_UPDATE_REQUEST_FAILURE,
+  TODO_UPDATEATTRIBUTES_REQUEST_START,
+  TODO_UPDATEATTRIBUTES_REQUEST_SUCCESS,
+  TODO_UPDATEATTRIBUTES_REQUEST_FAILURE,
 
-  TODO_ITEM_UPDATEATTRIBUTES_REQUEST_START,
-  TODO_ITEM_UPDATEATTRIBUTES_REQUEST_SUCCESS,
-  TODO_ITEM_UPDATEATTRIBUTES_REQUEST_FAILURE,
+  TODO_DELETE_REQUEST_START,
+  TODO_DELETE_REQUEST_SUCCESS,
+  TODO_DELETE_REQUEST_FAILURE,
 
-  TODO_ITEM_DELETE_REQUEST_START,
-  TODO_ITEM_DELETE_REQUEST_SUCCESS,
-  TODO_ITEM_DELETE_REQUEST_FAILURE,
-
-} = require('../../constants').default
+} = require('../../common/constants').default
 
 const initialState = new InitialState
 
@@ -74,39 +69,39 @@ export default function reducer(state = initialState, action) {
 
   switch (action.type) {
 
-    case TODO_LIST_FIND_REQUEST_START:
+    case TODO_FIND_REQUEST_START:
      return state.setIn(['error'], null)
        .setIn(['isFetching'], true)
 
-    case TODO_LIST_FIND_REQUEST_SUCCESS:
+    case TODO_FIND_REQUEST_SUCCESS:
       return state.setIn(['isFetching'], false)
         .setIn(['data'], action.payload)
         .setIn(['options'], action.options)
 
-    case TODO_LIST_FIND_REQUEST_FAILURE:
+    case TODO_FIND_REQUEST_FAILURE:
       return state.setIn(['isFetching'], false)
         .setIn(['error'], action.payload)
 
-    case TODO_ITEM_DELETE_REQUEST_START:
+    case TODO_DELETE_REQUEST_START:
      return state.setIn(['error'], null)
        .setIn(['isFetching'], true)
 
-    case TODO_ITEM_DELETE_REQUEST_SUCCESS:
+    case TODO_DELETE_REQUEST_SUCCESS:
       return state.setIn(['isFetching'], false)
           .setIn(['data'], _.filter(state.get('data'),(item)=>{
         return item.id != action.options.id
       }))
 
-    case TODO_ITEM_DELETE_REQUEST_FAILURE:
+    case TODO_DELETE_REQUEST_FAILURE:
       return state.setIn(['isFetching'], false)
         .setIn(['error'], action.payload)
 
     //updateAttributes
-    case TODO_ITEM_UPDATEATTRIBUTES_REQUEST_START:
+    case TODO_UPDATEATTRIBUTES_REQUEST_START:
      return state.setIn(['isFetching'], true)
        .setIn(['error'], null)
 
-    case TODO_ITEM_UPDATEATTRIBUTES_REQUEST_SUCCESS:
+    case TODO_UPDATEATTRIBUTES_REQUEST_SUCCESS:
       const data = state.get('data')
       let index = _.findIndex(state.get('data'), function(item) { 
         return item.id == action.payload.item.id 
@@ -117,7 +112,7 @@ export default function reducer(state = initialState, action) {
             ...data.slice(index + 1)]
       )
 
-    case TODO_ITEM_UPDATEATTRIBUTES_REQUEST_FAILURE:
+    case TODO_UPDATEATTRIBUTES_REQUEST_FAILURE:
       return state.setIn(['isFetching'], false)
         .setIn(['error'], action.payload)
 

@@ -13,8 +13,7 @@ from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 const ApiFactory = require('../../../../services/api').default
-import * as viewActions from '../actions'
-import * as detailActions from '../../detail/actions'
+import moduleActions from '../../common/actions'
 import NavigationBar from 'react-native-navbar'
 import * as actionUtils from '../../../../utils/action'
 import { Actions as routerActions }  from 'react-native-router-flux'
@@ -29,8 +28,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actionUtils.getCreators(viewActions), dispatch),
-    detailActions: bindActionCreators(actionUtils.getCreators(detailActions), dispatch),
+    actions: bindActionCreators(actionUtils.getCreators(moduleActions), dispatch),
     dispatch
   }
 }
@@ -48,7 +46,7 @@ class ListContainer extends Component {
       handler: ()=>{
         routerActions.todoDetail()
         //改 detail 的 state
-        this.props.detailActions.routerChange({
+        this.props.actions.routerChange({
           fields:{}, title:"Add Todo"
         })
       }
@@ -64,7 +62,6 @@ class ListContainer extends Component {
           rightButtonConfig={rightButtonConfig}
 
           actions={this.props.actions}
-          detailActions={this.props.detailActions}
 
           fetchedData={this.props.todoList.data}
           fetchOptions={this.props.todoList.options}

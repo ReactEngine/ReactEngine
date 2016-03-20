@@ -19,7 +19,7 @@ class Row extends Component {
 	  //切换路由
 	  routerActions.todoDetail()
 	  //改 detail 的 state
-	  this.props.detailActions.routerChange({
+	  this.props.actions.routerChange({
 	    fields:row, title:row.text
 	  })
 	}

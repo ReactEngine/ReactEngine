@@ -9,13 +9,13 @@ import React,
 from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as actionUtils from '../../../../utils/action'
 import { Actions as routerActions }  from 'react-native-router-flux'
 import DetailForm from '../components/form'
 import ErrorAlert from '../../../common/components/ErrorAlert'
 import FormButton from '../../../common/components/FormButton'
 import NavigationBar from 'react-native-navbar'
-import * as viewActions from '../actions'
+import moduleActions from '../../common/actions'
+import * as actionUtils from '../../../../utils/action'
 
 function mapStateToProps(state) {
   return {
@@ -25,7 +25,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(viewActions, dispatch),
+    actions: bindActionCreators(actionUtils.getCreators(moduleActions), dispatch),
     dispatch
   }
 }

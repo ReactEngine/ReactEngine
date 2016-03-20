@@ -28,7 +28,7 @@ var ListComponent = React.createClass({
       <RowComponent 
       item={item}
       key={item.id}
-      detailActions={this.props.detailActions}
+      actions={this.props.actions}
       />
     )
   },
@@ -64,7 +64,6 @@ var ListComponent = React.createClass({
             onFetch={this.onFetch}
 
             actions={this.props.actions}
-            detailActions={this.props.detailActions}
 
             fetchedData={this.props.fetchedData}
             fetchOptions={this.props.fetchOptions}
