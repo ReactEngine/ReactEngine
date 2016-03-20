@@ -32,7 +32,6 @@ module.exports = React.createClass({
    */
   propTypes: {
     form: PropTypes.object,
-    value: PropTypes.object,
     updateAction: PropTypes.func,
     formFieldChangeAction: PropTypes.func
   },
@@ -91,9 +90,13 @@ module.exports = React.createClass({
       options = {
         options
       }
-      value = {
-        this.props.value
-      }
+      value = {{
+        id: this.props.form.fields.id,
+        text: this.props.form.fields.text,
+        completed: this.props.form.fields.completed,
+        createdAt: this.props.form.fields.createdAt,
+        updatedAt: this.props.form.fields.updatedAt
+      }}
       onChange = {
         () => {
           this.props.formFieldChangeAction()

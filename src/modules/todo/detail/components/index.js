@@ -26,40 +26,6 @@ var styles = StyleSheet.create({
   }
 })
   class DetailComponent extends Component {
-  /**
-   * Set the initial state and prepare the errorAlert
-   */
-  constructor(props) {
-    super(props)
-    this.errorAlert = new ErrorAlert()
-    this.state = this.state || {
-      formValues: {
-        id: "",
-        text: "",
-        completed: true,
-        createdAt: "",
-        updatedAt: ""
-      }
-    }
-  }
-  /**
-   * ### componentWillReceiveProps
-   *
-   * Since the Forms are looking at the state for the values of the
-   * fields, when we we need to set them
-   */
-  componentWillReceiveProps(props) {
-    console.log(">>>>>>>>> DetailComponent componentWillReceiveProps props:",props)
-    this.setState({
-      formValues:{
-        id: props.form.fields.id,
-        text: props.form.fields.text,
-        completed: props.form.fields.completed,
-        createdAt: props.form.fields.createdAt,
-        updatedAt: props.form.fields.updatedAt
-      }
-    })
-  }
 
   render() {
     console.log(">>>>>>>>> DetailComponent render,state:",this.state)
@@ -71,7 +37,6 @@ var styles = StyleSheet.create({
       <View style={styles.container}>
         <View style={styles.inputs}>
           <DetailForm
-              value={this.state.formValues}
               updateAction={this.props.update}
               formFieldChangeAction={this.props.formFieldChangeAction}
               form={this.props.form}
