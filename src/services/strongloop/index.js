@@ -1,8 +1,8 @@
 'use strict'
 
 import _ from 'lodash'
-import User from './models/user'
-import Todo from './models/todo'
+import User from './models/User'
+import Todo from './models/Todo'
 import defaultConfig from './config'
 
 export default class Strongloop {
