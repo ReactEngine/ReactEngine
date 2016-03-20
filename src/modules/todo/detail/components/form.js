@@ -32,10 +32,11 @@ module.exports = React.createClass({
    */
   propTypes: {
     form: PropTypes.object,
-    updateAction: PropTypes.func,
-    formFieldChangeAction: PropTypes.func
+    actions:PropTypes.object
   },
-
+  onChange(value,field) {
+      this.props.actions.formFieldChange('text',value.text)
+  },
   /**
    * ## render
    *
@@ -43,7 +44,7 @@ module.exports = React.createClass({
    *
    */
   render() {
-    
+    let self = this
     let options = {
       auto: 'placeholders',
       fields: {
@@ -98,9 +99,7 @@ module.exports = React.createClass({
         updatedAt: this.props.form.fields.updatedAt
       }}
       onChange = {
-        () => {
-          this.props.formFieldChangeAction()
-        }
+        this.onChange
       }
       />
 

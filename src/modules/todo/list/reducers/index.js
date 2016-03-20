@@ -78,23 +78,6 @@ export default function reducer(state = initialState, action) {
       return state.setIn(['isFetching'], false)
         .setIn(['error'], action.payload)
 
-
-    case TODO_ITEM_DELETE_REQUEST_START:
-     return state.setIn(['error'], null)
-       .setIn(['isFetching'], true)
-
-    case TODO_ITEM_DELETE_REQUEST_SUCCESS:
-      let data = state.get('data')
-      _.remove(data,(item)=>{
-        return item.id == action.options.id
-      })
-      return state.setIn(['isFetching'], false)
-          .setIn(['data'], data)
-
-    case TODO_ITEM_DELETE_REQUEST_FAILURE:
-      return state.setIn(['isFetching'], false)
-        .setIn(['error'], action.payload)
-
   }
   /**
    * ## Default

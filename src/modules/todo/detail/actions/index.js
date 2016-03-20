@@ -147,19 +147,19 @@ export function updateRequestFailure(error) {
 }
 
 //updateAttributes
-export function updateAttributesStart() {
+export function updateAttributesRequestStart() {
   return {
     type: TODO_ITEM_UPDATEATTRIBUTES_REQUEST_START
   }
 }
-export function updateAttributesSuccess(json) {
+export function updateAttributesRequestSuccess(json) {
   return {
     type: TODO_ITEM_UPDATEATTRIBUTES_REQUEST_SUCCESS,
     payload: json
   }
 }
 
-export function updateAttributesFailure(error) {
+export function updateAttributesRequestFailure(error) {
   return {
     type: TODO_ITEM_UPDATEATTRIBUTES_REQUEST_FAILURE,
     payload: error
@@ -182,6 +182,22 @@ export function routerChange(payload) {
 }
 }
 
+
+export function updateAttributes(item) {
+  return dispatch => {
+    //请求开始
+    dispatch(updateAttributesRequestStart())
+    return  ApiFactory().todo.deleteById(id)
+      .then((res) => {
+          //请求成功
+          dispatch(updateAttributesRequestSuccess(res,{item:item}))
+      })
+      .catch((error) => {
+         dispatch(updateAttributesRequestFailure(error))
+      })
+
+  }
+}
 
 export function deleteById(id="") {
   return dispatch => {

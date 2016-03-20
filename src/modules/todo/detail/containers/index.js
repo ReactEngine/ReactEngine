@@ -64,8 +64,7 @@ let DetailContainer = React.createClass({
         <DetailComponent
             form={this.props.todoDetail.form}
             buttonText={'Update'}
-            updateAction={this.props.actions.update}
-            formFieldChangeAction={this.props.actions.formFieldChange}
+            actions={this.props.actions}
         />
       </View>
     )

@@ -8,6 +8,7 @@ const Form = Record({
   error: null,
   isFetching: false,
   title:'Detail View',
+  isValid: true,
   fields: new (Record({
     id: '',
     text: '',

@@ -33,6 +33,9 @@ var styles = StyleSheet.create({
     super(props)
     this.errorAlert = new ErrorAlert()
   }
+  onButtonPress(){
+    this.props.actions.updateAttributes()
+  }
 
   render() {
     console.log(">>>>>>>>> DetailComponent render,state:",this.state)
@@ -44,14 +47,13 @@ var styles = StyleSheet.create({
       <View style={styles.container}>
         <View style={styles.inputs}>
           <DetailForm
-              updateAction={this.props.update}
-              formFieldChangeAction={this.props.formFieldChangeAction}
+              actions={this.props.actions}
               form={this.props.form}
           />
         </View>
         <FormButton
             isDisabled={!this.props.form.isValid || this.props.form.isFetching}
-            onPress={this.props.onButtonPress}
+            onPress={this.onButtonPress.bind(this)}
             buttonText={this.props.buttonText}/>
       </View>
     )

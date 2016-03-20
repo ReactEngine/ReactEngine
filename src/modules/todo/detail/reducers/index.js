@@ -1,8 +1,3 @@
-/**
- * # authReducer.js
- *
- * The reducer for all the actions from the various log states
- */
 'use strict'
 /**
  * ## Imports
@@ -11,6 +6,8 @@
  * formValidation for setting the form's valid flag
  */
 const InitialState = require('../initialState').default
+import formValidation from './formValidation'
+const fieldValidation = require('../../../common/reducers/fieldValidation').default
 
 const {
 
@@ -61,7 +58,6 @@ export default function reducer(state = initialState, action) {
 
     // case TODO_ITEM_DELETE_START:
     case TODO_ITEM:
-    
      let newState = state.setIn(['form','isFetching'], false)
         .setIn(['form','fields','id'], action.payload.fields.id)
         .setIn(['form','fields','text'], action.payload.fields.text)
@@ -72,6 +68,50 @@ export default function reducer(state = initialState, action) {
         console.log('TODO_ITEM newState:',newState)
         return newState
 
+    //updateAttributes
+    case TODO_ITEM_UPDATEATTRIBUTES_REQUEST_START:
+     return state.setIn(['isFetching'], true)
+       .setIn(['error'], null)
+
+    case TODO_ITEM_UPDATEATTRIBUTES_REQUEST_SUCCESS:debugger
+      let index = _.findIndex(state.get('data'), function(item) { 
+        return item.id == action.payload.item.id 
+      })
+      let newdata = [...data.slice(0, index),
+      action.payload.item,
+      ...data.slice(index + 1)]
+      return state.setIn(['isFetching'], false)
+          .setIn(['data'], newdata)
+
+    case TODO_ITEM_UPDATEATTRIBUTES_REQUEST_FAILURE:
+      return state.setIn(['isFetching'], false)
+        .setIn(['error'], action.payload)
+
+    //delete
+    case TODO_ITEM_DELETE_REQUEST_START:
+     return state.setIn(['isFetching'], true)
+       .setIn(['error'], null)
+
+    case TODO_ITEM_DELETE_REQUEST_SUCCESS:
+      return state.setIn(['isFetching'], false)
+          .setIn(['error'], null)
+          .setIn(['data'], _.filter(state.get('data'), function(item) { 
+              return item.id == action.options.id
+            }))
+
+    case TODO_ITEM_DELETE_REQUEST_FAILURE:
+      return state.setIn(['isFetching'], false)
+        .setIn(['error'], action.payload)
+
+    case TODO_ITEM_FORMFIELD_CHANGE: {
+      debugger
+      const {field, value} = action.payload
+      let nextState =  state.setIn(['form', 'fields', field], value)
+            .setIn(['form','error'],null)
+      return formValidation(
+        fieldValidation(nextState, action)
+        , action)
+    }
   }
   /**
    * ## Default
