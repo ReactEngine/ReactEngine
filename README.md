@@ -27,28 +27,34 @@ react-native run-android
 ```
 
 #### 3. 代码生成器
-[generator-reactengine](https://github.com/ReactEngine/generator-reactengine)可以帮你生成 Model 和 Moudle 样板代码.
+
+[generator-reactengine](https://github.com/ReactEngine/generator-reactengine)可以帮你生成 Model 和 Moudle 的样板代码.
 
 ##### 安装
+
 ```bash
 npm install -g yo   
 npm install -g generator-reactengine
 ```
 
 ##### 生成 model
+
 ```bash
 cd yo-project-dir # 进入你的工程目录     
 yo reactengine:model [options] <modelName>
 ```
+
 <p>
   <img src="./ScreenShots/CreateModel.png" width="340">
 </p>
 
 ##### 生成 module
+
 ```
 cd yo-project-dir # 进入你的工程目录
 yo reactengine:module [options] <moduleName>
 ```
+
 <p>
   <img src="./ScreenShots/CreateModule.png" width="450">
 </p>
