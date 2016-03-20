@@ -70,41 +70,27 @@ export default function reducer(state = initialState, action) {
 
     //updateAttributes
     case TODO_ITEM_UPDATEATTRIBUTES_REQUEST_START:
-     return state.setIn(['isFetching'], true)
-       .setIn(['error'], null)
+     return state.setIn(['form','isFetching'], true)
+       .setIn(['form','error'], null)
 
-    case TODO_ITEM_UPDATEATTRIBUTES_REQUEST_SUCCESS:debugger
-      let index = _.findIndex(state.get('data'), function(item) { 
-        return item.id == action.payload.item.id 
-      })
-      let newdata = [...data.slice(0, index),
-      action.payload.item,
-      ...data.slice(index + 1)]
-      return state.setIn(['isFetching'], false)
-          .setIn(['data'], newdata)
+    case TODO_ITEM_UPDATEATTRIBUTES_REQUEST_SUCCESS:
+      let item = action.payload.item
+      return state.setIn(['form','isFetching'], false)
+       .setIn(['form','error'], null)
+       .setIn(['form','fields','id'], item.id)
+       .setIn(['form','fields','text'], item.text)
+       .setIn(['form','fields','completed'], item.completed)
+       .setIn(['form','fields','createdAt'], item.createdAt)
+       .setIn(['form','fields','updatedAt'], item.updatedAt)
+      // return state.setIn(['form','isFetching'], false)
+      //  .setIn(['form','error'], null)
+      //  .setIn(['form','fields'], action.payload.item)
 
     case TODO_ITEM_UPDATEATTRIBUTES_REQUEST_FAILURE:
-      return state.setIn(['isFetching'], false)
-        .setIn(['error'], action.payload)
-
-    //delete
-    case TODO_ITEM_DELETE_REQUEST_START:
-     return state.setIn(['isFetching'], true)
-       .setIn(['error'], null)
-
-    case TODO_ITEM_DELETE_REQUEST_SUCCESS:
-      return state.setIn(['isFetching'], false)
-          .setIn(['error'], null)
-          .setIn(['data'], _.filter(state.get('data'), function(item) { 
-              return item.id == action.options.id
-            }))
-
-    case TODO_ITEM_DELETE_REQUEST_FAILURE:
-      return state.setIn(['isFetching'], false)
-        .setIn(['error'], action.payload)
+      return state.setIn(['form','isFetching'], false)
+        .setIn(['form','error'], action.payload)
 
     case TODO_ITEM_FORMFIELD_CHANGE: {
-      debugger
       const {field, value} = action.payload
       let nextState =  state.setIn(['form', 'fields', field], value)
             .setIn(['form','error'],null)

@@ -183,14 +183,14 @@ export function routerChange(payload) {
 }
 
 
-export function updateAttributes(item) {
+export function updateAttributes(id,data) {
   return dispatch => {
     //请求开始
     dispatch(updateAttributesRequestStart())
-    return  ApiFactory().todo.deleteById(id)
+    return  ApiFactory().todo.updateAttributes(id,data)
       .then((res) => {
           //请求成功
-          dispatch(updateAttributesRequestSuccess(res,{item:item}))
+          dispatch(updateAttributesRequestSuccess({item:res}))
       })
       .catch((error) => {
          dispatch(updateAttributesRequestFailure(error))

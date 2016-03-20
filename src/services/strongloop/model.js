@@ -95,6 +95,7 @@ export default class {
   /**
    PUT
    */
+   //传递的data需是完整数据,如果有某些字段漏掉,该字段可能被 null 覆盖
   async upsert(data={}) {
     return await utils.request({
         method: 'PUT',
@@ -109,10 +110,12 @@ export default class {
     return this.upsert(data)
   }
 
-  async updateAttributes(id="") {
+  //只更新传递的数据
+  async updateAttributes(id="",data={}) {
     return await utils.request({
         method: 'PUT',
-        url: this.urlBase + this.modelNamePlural + '/' + id
+        url: this.urlBase + this.modelNamePlural + '/' + id,
+        body: data
       })
       .then(utils.successHandle)
       .catch(utils.errorHandle)
