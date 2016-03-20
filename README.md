@@ -28,7 +28,7 @@ react-native run-android
 
 ## 截图
 iOS:  
-<p align="center">
+<p>
   <img src="./ScreenShots/Register.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
   <img src="./ScreenShots/Login.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
   <img src="./ScreenShots/LoginError.png" alt="App Screenshot" width="250"  style="margin-right: 10px;margin-bottom: 20px;">
