@@ -4,6 +4,7 @@ import com.facebook.react.ReactActivity;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.burnweb.rnsimplealertdialog.RNSimpleAlertDialogPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "ReactEngine";
+        return "App";
     }
 
     /**
@@ -35,8 +36,9 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-        new VectorIconsPackage()
+                new MainReactPackage(),
+                new VectorIconsPackage(),
+                new RNSimpleAlertDialogPackage(this)
         );
     }
 }
