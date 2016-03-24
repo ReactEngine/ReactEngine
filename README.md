@@ -18,7 +18,16 @@ git clone https://github.com/ReactEngine/ReactEngine-Client.git
 cd ReactEngine-Client  
 npm install -d
 ```
-#### 3. 运行
+
+#### 3. 启动服务器 
+参考: [ReactEngine-Server](https://github.com/ReactEngine/ReactEngine-Server)   
+修改 ```src/services/strongloop/config.js```:
+
+```
+"urlBase": "http://10.10.10.148:3000/api/"  //改为你的服务器API地址
+```
+
+#### 4. 运行
 iOS:    
 用 XCode 打开```ios/ReactEngine.xcodeproj```,编译运行.    
 Android:   
@@ -26,7 +35,7 @@ Android:
 react-native run-android
 ```
 
-#### 3. 代码生成器
+#### 5. 代码生成器
 
 [generator-reactengine](https://github.com/ReactEngine/generator-reactengine)可以帮你生成 Model 和 Moudle 的样板代码.
 
