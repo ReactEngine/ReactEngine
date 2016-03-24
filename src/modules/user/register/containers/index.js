@@ -57,25 +57,18 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-function buttonPressHandler(register, username, email, password) {
-  register (username, email, password)
-}
-
 let Register = React.createClass({
 
   render() {
-    let loginButtonText = 'Register'
-    let onButtonPress = buttonPressHandler.bind(null,
-                  this.props.actions.register,
-					        this.props.userRegister.form.fields.username,
-					        this.props.userRegister.form.fields.email,
-					        this.props.userRegister.form.fields.password
-		        )
-
     return(
       <UserComponent 
-          loginButtonText={ loginButtonText }
-          onButtonPress={ onButtonPress }				
+          loginButtonText={ 'Register' }
+          onButtonPress={()=>{
+            const username =  this.props.userRegister.form.fields.username
+            const email = this.props.userRegister.form.fields.email
+            const password = this.props.userRegister.form.fields.password
+            this.props.actions.register (username, email, password)
+          }}
           displayPasswordCheckbox ={ false }
           currentViewState={ this.props.userRegister }
           formFieldChange={ this.props.actions.formFieldChange }

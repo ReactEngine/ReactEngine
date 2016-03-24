@@ -1,0 +1,88 @@
+{
+  "_args": [
+    [
+      "react-native-simpledialog-android",
+      "/Users/jason/Documents/git/ReactEngine/ReactEngine"
+    ]
+  ],
+  "_cnpm_publish_time": 1447682456537,
+  "_from": "react-native-simpledialog-android@latest",
+  "_id": "react-native-simpledialog-android@1.0.2",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/react-native-simpledialog-android",
+  "_nodeVersion": "4.2.1",
+  "_npmUser": {
+    "email": "contato@lucasferreira.com",
+    "name": "lucasferreira"
+  },
+  "_npmVersion": "2.14.7",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "react-native-simpledialog-android",
+    "raw": "react-native-simpledialog-android",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-simpledialog-android/-/react-native-simpledialog-android-1.0.2.tgz",
+  "_shasum": "ee87856857dddd58a411b3ec006c88a96fff3727",
+  "_shrinkwrap": null,
+  "_spec": "react-native-simpledialog-android",
+  "_where": "/Users/jason/Documents/git/ReactEngine/ReactEngine",
+  "author": {
+    "email": "contato@lucasferreira.com",
+    "name": "Lucas Ferreira"
+  },
+  "bugs": {
+    "url": "https://github.com/lucasferreira/react-native-simpledialog-android/issues"
+  },
+  "dependencies": {},
+  "description": "React Native Android module to use Android's AlertDialog - same idea of AlertIOS",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "noattachment": false,
+    "shasum": "ee87856857dddd58a411b3ec006c88a96fff3727",
+    "size": 3618,
+    "tarball": "http://registry.npm.taobao.org/react-native-simpledialog-android/download/react-native-simpledialog-android-1.0.2.tgz"
+  },
+  "gitHead": "a2d6e2b2dc299531d757989644a451a73e931861",
+  "homepage": "https://github.com/lucasferreira/react-native-simpledialog-android#readme",
+  "keywords": [
+    "alert",
+    "alertdialog",
+    "android",
+    "dialog",
+    "react",
+    "react-component",
+    "react-native"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "lucasferreira",
+      "email": "contato@lucasferreira.com"
+    }
+  ],
+  "name": "react-native-simpledialog-android",
+  "optionalDependencies": {},
+  "peerDependencies": {
+    "react-native": ">=0.13"
+  },
+  "publish_time": 1447682456537,
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasferreira/react-native-simpledialog-android.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.2"
+}

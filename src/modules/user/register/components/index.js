@@ -70,7 +70,8 @@ var {height, width} = Dimensions.get('window') // Screen dimensions in current o
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
+    marginTop: 80,
   },
   inputs: {
     marginTop: 10,
@@ -86,28 +87,6 @@ var styles = StyleSheet.create({
     marginRight: 10
   }
 })
-/**
- * ## Redux boilerplate
- */
-const actions = [
-]
-
-function mapStateToProps(state) {
-  return {
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  const creators = Map()
-          .merge(...actions)
-          .filter(value => typeof value === 'function')
-          .toObject()
-
-  return {
-    actions: bindActionCreators(creators, dispatch),
-    dispatch
-  }
-}
 
 class UserComponent extends Component {
   constructor(props) {
@@ -174,7 +153,6 @@ class UserComponent extends Component {
     let self = this
 
     // display the login / register / change password screens
-    
     this.errorAlert.checkError(this.props.currentViewState.form.error)
     
     /**
@@ -206,12 +184,6 @@ class UserComponent extends Component {
       <View style={styles.container}>
       	<ScrollView horizontal={false} width={width} height={height}>
         	<View>
-        	    <Header isFetching={this.props.currentViewState.form.isFetching}
-                            showState={this.props.global.showState}
-                            currentState={this.props.global.currentState}
-                            onGetState={this.props.actions.getState}
-                            onSetState={this.props.actions.setState}                      
-        	    />
         	    
         	    <View style={styles.inputs}>
         	      <UserForm
@@ -255,4 +227,4 @@ class UserComponent extends Component {
     )
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(UserComponent)
+export default UserComponent

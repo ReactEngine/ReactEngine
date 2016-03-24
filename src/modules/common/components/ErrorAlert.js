@@ -13,7 +13,7 @@
 * ## Imports
 *
 */
-import SimpleAlert from 'react-native-simpledialog-android'
+import SimpleAlert from '../../../vendor/react-native-simpledialog-android'
 import  _ from 'lodash'
 
 var ErrorAlert = class ErrorAlertClass{
