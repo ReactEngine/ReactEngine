@@ -13,15 +13,15 @@
  */
 import { createStore, applyMiddleware,combineReducers,compose } from 'redux'
 import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
+// import createLogger from 'redux-logger'
 // import devTools from 'remote-redux-devtools'
 
-const logger = createLogger({
-  duration : true,
-  timestamp : true,
-  logger : console,
-  logErrors : true
-})
+// const logger = createLogger({
+//   duration : true,
+//   timestamp : true,
+//   logger : console,
+//   logErrors : true
+// })
 
 
 /**
@@ -39,9 +39,17 @@ import moduleReducers from './reducers'
  */ 
 export default function configureStore(initialState) {
   const enhancer = compose(
-    applyMiddleware(thunk,logger),
-    // devTools()
+    applyMiddleware(thunk),
   )
   // Note: passing enhancer as last argument requires redux@>=3.1.0
   return createStore(moduleReducers, initialState, enhancer)
 }
+
+// export default function configureStore(initialState) {
+//   const enhancer = compose(
+//     applyMiddleware(thunk,logger),
+//     // devTools()
+//   )
+//   // Note: passing enhancer as last argument requires redux@>=3.1.0
+//   return createStore(moduleReducers, initialState, enhancer)
+// }
