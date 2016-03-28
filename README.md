@@ -14,8 +14,8 @@ ReactEngine 客户端部分,基于 [Reac Native](https://facebook.github.io/reac
 
 #### 2. Clone 仓库并安装依赖:
 ```
-git clone https://github.com/ReactEngine/ReactEngine-Client.git
-cd ReactEngine-Client  
+git clone https://github.com/ReactEngine/ReactEngine.git
+cd ReactEngine 
 npm install -d
 ```
 
