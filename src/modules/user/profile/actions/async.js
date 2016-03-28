@@ -76,7 +76,7 @@ export function updateCurrentUser(username, email) {
         )
       })
       .then((json) => {
-          console.log("updateCurrentUser resp:",json)
+          //console.log("updateCurrentUser resp:",json)
           //更新请求成功
           dispatch(syncActions.updateSuccess())
           dispatch(getCurrentUser())

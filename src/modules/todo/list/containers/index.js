@@ -36,7 +36,7 @@ function mapDispatchToProps(dispatch) {
 
 class ListContainer extends Component {
   componentWillReceiveProps(nextprops) {
-    console.log(">>>>>>>>>> DetailContainer componentWillReceiveProps nextprops:",nextprops)
+    //console.log(">>>>>>>>>> DetailContainer componentWillReceiveProps nextprops:",nextprops)
     // const currentViewNextProps = nextprops.todoDetail
     this.setState({
       shouldRefresh:nextprops.todoList.shouldRefresh,
@@ -62,7 +62,7 @@ class ListContainer extends Component {
     }
 
    onFetch(page = 1, options) {
-     console.log("container/_onFetch page:",page," options:",options)
+     //console.log("container/_onFetch page:",page," options:",options)
      const pageLength = 10 //每一个 page 有多少 item
      const skip = pageLength * (page-1)
      const filter = {
@@ -88,7 +88,7 @@ class ListContainer extends Component {
     // if(this.props.todoList.shouldRefresh){
     //   this.onFetch()
     // }
-    console.log("======== list container render,state:",this.state," props:",this.props)
+    //console.log("======== list container render,state:",this.state," props:",this.props)
     var titleConfig = {
       title: "Todos"
     }

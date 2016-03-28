@@ -71,7 +71,7 @@ A button can be **SimpleAlert.POSITIVE_BUTTON**, **SimpleAlert.NEGATIVE_BUTTON**
 var SimpleAlert = require('react-native-simpledialog-android');
 
 function _onPress(event) {
-    console.log(event);
+    //console.log(event);
 };
 
 SimpleAlert.alert(

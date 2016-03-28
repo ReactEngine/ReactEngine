@@ -26,7 +26,7 @@ export default function formValidation (state) {
         !state.form.fields.emailHasError
         &&
         !state.form.fields.passwordHasError) {
-          console.log("login form is valid")
+          //console.log("login form is valid")
       return state.setIn(['form','isValid'],true)
     } else {
       return state.setIn(['form','isValid'],false)

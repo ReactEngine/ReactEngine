@@ -133,7 +133,7 @@ var Header = React.createClass({
     if (this.props.showState) {
       let displayText = JSON.stringify(this.props.currentState)
       
-     console.log(displayText)
+     //console.log(displayText)
 
       showState =
       <View style={styles.container}>

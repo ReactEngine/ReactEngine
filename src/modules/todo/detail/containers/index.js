@@ -50,7 +50,7 @@ class DetailContainer extends Component {
     this.errorAlert = new ErrorAlert()
   }
   // componentWillReceiveProps(nextprops) {
-  //   console.log(">>>>>>>>>> DetailContainer componentWillReceiveProps nextprops:",nextprops)
+  //   //console.log(">>>>>>>>>> DetailContainer componentWillReceiveProps nextprops:",nextprops)
   //   // const currentViewNextProps = nextprops.todoDetail
   //   // this.setState({
   //   //   value: {
@@ -91,7 +91,7 @@ class DetailContainer extends Component {
     let self = this
     const buttonText = this.getMode()=='update'?'Update':'Add'
 
-    console.log(">>>>>>>>>> DetailContainer render,currentViewProps:",self.props.todoDetail)
+    //console.log(">>>>>>>>>> DetailContainer render,currentViewProps:",self.props.todoDetail)
     self.errorAlert.checkError(self.props.todoDetail.form.error)
 
     return (

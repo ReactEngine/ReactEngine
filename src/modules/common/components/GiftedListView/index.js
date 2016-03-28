@@ -36,7 +36,7 @@ var GiftedListView = React.createClass({
   componentWillReceiveProps(props) {
     const fetchedData = props.fetchedData || {}
     const fetchOptions = props.fetchOptions || {}
-    console.log("listview/componentWillReceiveProps fetchedData:",fetchedData," fetchOptions:",fetchOptions)
+    //console.log("listview/componentWillReceiveProps fetchedData:",fetchedData," fetchOptions:",fetchOptions)
     if(fetchOptions.paginate){
       this._postPaginate(fetchedData,fetchOptions)
     }else{
@@ -300,7 +300,7 @@ var GiftedListView = React.createClass({
   },
 
   _postRefresh(rows = [], options = {}) {
-    console.log("listview/_postRefresh rows:",rows," options:",options)
+    //console.log("listview/_postRefresh rows:",rows," options:",options)
     if (this.isMounted()) {
       this._updateRows(rows, options)
       if (this.props.refreshable === true && Platform.OS !== 'android') {
@@ -469,7 +469,7 @@ var GiftedListView = React.createClass({
   },
 
   render() {
-    console.log("listview render,state:",this.state)
+    //console.log("listview render,state:",this.state)
     if (Platform.OS === 'android' && this.props.refreshable === true) {
       return (
         <PullToRefreshViewAndroid

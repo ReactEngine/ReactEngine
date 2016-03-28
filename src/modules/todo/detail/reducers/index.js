@@ -102,7 +102,7 @@ export default function reducer(state = initialState, action) {
         .setIn(['form','fields','createdAt'], action.payload.fields.createdAt)
         .setIn(['form','fields','updatedAt'], action.payload.fields.updatedAt)
         .setIn(['form','title'], action.payload.title)
-        console.log('TODO_ITEM newState:',newState)
+        //console.log('TODO_ITEM newState:',newState)
         return newState
 
     //create

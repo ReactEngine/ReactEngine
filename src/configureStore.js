@@ -38,11 +38,8 @@ import moduleReducers from './reducers'
  * 
  */ 
 export default function configureStore(initialState) {
-  const enhancer = compose(
-    applyMiddleware(thunk),
-  )
   // Note: passing enhancer as last argument requires redux@>=3.1.0
-  return createStore(moduleReducers, initialState, enhancer)
+  return createStore(moduleReducers, initialState, applyMiddleware(thunk))
 }
 
 // export default function configureStore(initialState) {

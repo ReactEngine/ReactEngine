@@ -152,7 +152,7 @@ class Profile extends Component {
    * form fields.  Otherwise, we need to go fetch the fields
    */
   componentDidMount() {
-    console.log("profile componentDidMount")
+    //console.log("profile componentDidMount")
     const username = this.props.userProfile.form.fields.username
     const email = this.props.userProfile.form.fields.email
 
@@ -187,7 +187,7 @@ class Profile extends Component {
    * display the form wrapped with the header and button
    */
   render() {
-    console.log("profile render")
+    //console.log("profile render")
     this.errorAlert.checkError(this.props.userProfile.form.error)
 
     let self = this
