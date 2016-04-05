@@ -11,6 +11,11 @@ var {
   PullToRefreshViewAndroid
 } = React
 
+var TableView = require('react-native-tableview');
+var Section = TableView.Section;
+var Item = TableView.Item;
+var Cell = TableView.Cell;
+
 import defaultStyles from './default.styles'
 
 // small helper function which merged two objects into one
@@ -295,7 +300,7 @@ var GiftedListView = React.createClass({
         isRefreshing: true,
       })
       this._setPage(1)
-      this.props.onFetch(this._getPage(), options)      
+      this.props.onFetch(this._getPage(), options)
     }
   },
 
@@ -352,14 +357,14 @@ var GiftedListView = React.createClass({
           refreshStatus: 'waiting',
           isRefreshing: false,
           paginationStatus: (options.allLoaded === true ? 'allLoaded' : 'waiting'),
-        })    
-      } 
+        })
+      }
     } else {
       this.setState({
         refreshStatus: 'waiting',
         isRefreshing: false,
         paginationStatus: (options.allLoaded === true ? 'allLoaded' : 'waiting'),
-      })      
+      })
     }
   },
 
@@ -436,35 +441,82 @@ var GiftedListView = React.createClass({
 
   renderListView(style = {}) {
     return (
-      <ListView
-        ref="listview"
-        dataSource={this.state.dataSource}
-        renderRow={this.props.rowView}
-        renderSectionHeader={this.props.sectionHeaderView}
 
-        renderHeader={this.props.refreshable === true && Platform.OS !== 'android' ? this._renderRefreshView : this.headerView}
-        renderFooter={this._renderPaginationView}
+      <TableView style={{flex:1}}
+                //  contentInset={{top:64,left:0,bottom:0,right:0}}
+                //  onScroll={this._onScroll}
+                //  refreshControl={this._renderRefreshControl()}
 
-        onScroll={this.props.refreshable === true && Platform.OS !== 'android' ? this._onScroll : null}
-        onResponderRelease={this.props.refreshable === true && Platform.OS !== 'android' ? this._onResponderRelease : null}
+                 ref="listview"
+                //  dataSource={this.state.dataSource}
+                //  renderRow={this.props.rowView}
+                //  renderSectionHeader={this.props.sectionHeaderView}
+                 //
+                //  renderHeader={this.props.refreshable === true && Platform.OS !== 'android' ? this._renderRefreshView : this.headerView}
+                //  renderFooter={this._renderPaginationView}
+                 //
+                 onScroll={this.props.refreshable === true && Platform.OS !== 'android' ? this._onScroll : null}
+                 onResponderRelease={this.props.refreshable === true && Platform.OS !== 'android' ? this._onResponderRelease : null}
 
-        scrollEventThrottle={200}
+                 scrollEventThrottle={200}
 
-        contentInset={this._calculateContentInset()}
-        contentOffset={this._calculateContentOffset()}
+                 contentInset={this._calculateContentInset()}
+                 contentOffset={this._calculateContentOffset()}
 
-        automaticallyAdjustContentInsets={false}
-        scrollEnabled={true}
-        canCancelContentTouches={true}
+                 automaticallyAdjustContentInsets={false}
+                 scrollEnabled={true}
+                 canCancelContentTouches={true}
 
-        renderSeparator={this.renderSeparator}
+                //  renderSeparator={this.renderSeparator}
 
-        onEndReached={this.onEndReached}
+                //  onEndReached={this.onEndReached}
+                 //
+                //  {...this.props}
+                 >
 
-        {...this.props}
+          <Section label="{this.state.sectionLabel}"  arrow={true}>
+              <Item >Example with custom cells</Item>
+              <Item >Example with app bundle JSON data</Item>
+              <Item >Example with multiple sections</Item>
+              <Item >Example with editing mode</Item>
+              <Item >Reusable Cell Example 1</Item>
+              <Item >Reusable Custom Cells</Item>
+              <Item >Firebase Example</Item>
+              <Item >Large ListView (scroll memory growth)</Item>
+              <Item >Reusable Large TableView Example</Item>
+              <Item >Custom Editing Example</Item>
+          </Section>
+      </TableView>
 
-        style={[this.props.style, style]}
-      />
+      // <ListView
+      //   ref="listview"
+      //   dataSource={this.state.dataSource}
+      //   renderRow={this.props.rowView}
+      //   renderSectionHeader={this.props.sectionHeaderView}
+      //
+      //   renderHeader={this.props.refreshable === true && Platform.OS !== 'android' ? this._renderRefreshView : this.headerView}
+      //   renderFooter={this._renderPaginationView}
+      //
+      //   onScroll={this.props.refreshable === true && Platform.OS !== 'android' ? this._onScroll : null}
+      //   onResponderRelease={this.props.refreshable === true && Platform.OS !== 'android' ? this._onResponderRelease : null}
+      //
+      //   scrollEventThrottle={200}
+      //
+      //   contentInset={this._calculateContentInset()}
+      //   contentOffset={this._calculateContentOffset()}
+      //
+      //   automaticallyAdjustContentInsets={false}
+      //   scrollEnabled={true}
+      //   canCancelContentTouches={true}
+      //
+      //   renderSeparator={this.renderSeparator}
+      //
+      //   onEndReached={this.onEndReached}
+      //
+      //   {...this.props}
+      //
+      //   style={[this.props.style, style]}
+      // />
     )
   },
 

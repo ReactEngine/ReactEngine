@@ -36,7 +36,8 @@
     "remote-redux-devtools": "^0.1.4",
     "superagent": "^1.8.0-beta.2",
     "tcomb-form-native": "^0.4.0",
-    "validate.js": "^0.9.0"
+    "validate.js": "^0.9.0",
+    "react-native-tableview": "file:../react-native-tableview/"
   },
   "devDependencies": {
     "babel-core": "~6.4.5",
