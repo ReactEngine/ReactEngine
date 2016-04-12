@@ -381,6 +381,7 @@ var GiftedListView = React.createClass({
   },
 
   _onScroll(e) {
+    // console.log("onScroll: "+JSON.stringify(e));
     this._setY(e.nativeEvent.contentOffset.y)
     if (this.props.refreshable === true) {
       if (Platform.OS !== 'android') {
@@ -388,6 +389,7 @@ var GiftedListView = React.createClass({
         && this.state.refreshStatus === 'waiting'
         && this._scrollResponder.scrollResponderHandleScrollShouldSetResponder() === true
       ) {
+          console.log("will refresh");
           this.setState({
             refreshStatus: 'willRefresh',
             isRefreshing: false,
@@ -443,7 +445,7 @@ var GiftedListView = React.createClass({
 
   renderListView(style = {}) {
     return (
-      <View ref="view">
+
       <TableView style={{flex:1}}
                  contentInset={{top:64,left:0,bottom:0,right:0}}
                 //  refreshControl={this._renderRefreshControl()}
@@ -470,13 +472,13 @@ var GiftedListView = React.createClass({
 
                 //  renderSeparator={this.renderSeparator}
                 //  onEndReached={this.onEndReached}
-                //
-                //  {...this.props}
+
+                 {...this.props}
                  >
           <Header>
             {this.props.refreshable === true && Platform.OS !== 'android' ? this._renderRefreshView() : this.headerView()}
           </Header>
-          <Section label="{this.state.sectionLabel}"  arrow={true}>
+          <Section label={this.state.sectionLabel}  arrow={true}>
               <Item >Example with custom cells</Item>
               <Item >Example with app bundle JSON data</Item>
               <Item >Example with multiple sections</Item>
@@ -492,7 +494,6 @@ var GiftedListView = React.createClass({
             {this._renderPaginationView()}
           </Footer>
       </TableView>
-      </View>
 
       // <ListView
       //   ref="listview"
