@@ -15,6 +15,8 @@ var TableView = require('react-native-tableview');
 var Section = TableView.Section;
 var Item = TableView.Item;
 var Cell = TableView.Cell;
+var Header = TableView.Header;
+var Footer = TableView.Footer;
 
 import defaultStyles from './default.styles'
 
@@ -441,20 +443,19 @@ var GiftedListView = React.createClass({
 
   renderListView(style = {}) {
     return (
-
+      <View ref="view">
       <TableView style={{flex:1}}
-                //  contentInset={{top:64,left:0,bottom:0,right:0}}
-                //  onScroll={this._onScroll}
+                 contentInset={{top:64,left:0,bottom:0,right:0}}
                 //  refreshControl={this._renderRefreshControl()}
 
                  ref="listview"
                 //  dataSource={this.state.dataSource}
                 //  renderRow={this.props.rowView}
                 //  renderSectionHeader={this.props.sectionHeaderView}
-                 //
+                //
                 //  renderHeader={this.props.refreshable === true && Platform.OS !== 'android' ? this._renderRefreshView : this.headerView}
                 //  renderFooter={this._renderPaginationView}
-                 //
+
                  onScroll={this.props.refreshable === true && Platform.OS !== 'android' ? this._onScroll : null}
                  onResponderRelease={this.props.refreshable === true && Platform.OS !== 'android' ? this._onResponderRelease : null}
 
@@ -468,12 +469,13 @@ var GiftedListView = React.createClass({
                  canCancelContentTouches={true}
 
                 //  renderSeparator={this.renderSeparator}
-
                 //  onEndReached={this.onEndReached}
-                 //
+                //
                 //  {...this.props}
                  >
-
+          <Header>
+            {this.props.refreshable === true && Platform.OS !== 'android' ? this._renderRefreshView() : this.headerView()}
+          </Header>
           <Section label="{this.state.sectionLabel}"  arrow={true}>
               <Item >Example with custom cells</Item>
               <Item >Example with app bundle JSON data</Item>
@@ -486,7 +488,11 @@ var GiftedListView = React.createClass({
               <Item >Reusable Large TableView Example</Item>
               <Item >Custom Editing Example</Item>
           </Section>
+          <Footer>
+            {this._renderPaginationView()}
+          </Footer>
       </TableView>
+      </View>
 
       // <ListView
       //   ref="listview"
