@@ -442,54 +442,63 @@ var GiftedListView = React.createClass({
     }
   },
 
-
   renderListView(style = {}) {
+
+    var dataSource = this.state.dataSource;
+    var allRowIDs = dataSource.rowIdentities;
+    var sections = [];
+
+    // var header = <Header>{this.props.refreshable === true && Platform.OS !== 'android' ? this._renderRefreshView() : this.headerView()}</Header>;
+    // var footer = <Footer>{this._renderPaginationView()}</Footer>;
+    // debugger
+    for (var sectionIdx = 0; sectionIdx < allRowIDs.length; sectionIdx++) {
+      var sectionID = dataSource.sectionIdentities[sectionIdx];
+      var rowIDs = allRowIDs[sectionIdx];
+
+      // renderItem
+      var items = [];
+      for (var rowIdx = 0; rowIdx < rowIDs.length; rowIdx++) {
+        var rowID = rowIDs[rowIdx];
+        var comboID = sectionID + '_' + rowID;
+        // var shouldUpdateRow = rowCount >= this._prevRenderedRowsCount &&
+          // dataSource.rowShouldUpdate(sectionIdx, rowIdx);
+        var rowData = dataSource.getRowData(sectionIdx, rowIdx);
+        var item = (<Item key={'r_' + comboID} label={rowData.text}></Item>);
+        items.push(item);
+      }
+      // debugger
+      var sctData = dataSource.getSectionHeaderData(sectionIdx);
+      var sct = (<Section key={'s_' + sectionID} label={sctData.text} arrow={true}>
+                  {items}
+                </Section>);
+      sections.push(sct)
+    }
+    // debugger
     return (
-
-      <TableView style={{flex:1}}
-                 contentInset={{top:64,left:0,bottom:0,right:0}}
-                //  refreshControl={this._renderRefreshControl()}
-
+      <TableView {...this.props}
                  ref="listview"
-                //  dataSource={this.state.dataSource}
-                //  renderRow={this.props.rowView}
-                //  renderSectionHeader={this.props.sectionHeaderView}
-                //
-                //  renderHeader={this.props.refreshable === true && Platform.OS !== 'android' ? this._renderRefreshView : this.headerView}
-                //  renderFooter={this._renderPaginationView}
-
-                 onScroll={this.props.refreshable === true && Platform.OS !== 'android' ? this._onScroll : null}
-                 onResponderRelease={this.props.refreshable === true && Platform.OS !== 'android' ? this._onResponderRelease : null}
-
+                 style={{flex:1}}
                  scrollEventThrottle={200}
-
                  contentInset={this._calculateContentInset()}
                  contentOffset={this._calculateContentOffset()}
-
                  automaticallyAdjustContentInsets={false}
                  scrollEnabled={true}
                  canCancelContentTouches={true}
-
-                //  renderSeparator={this.renderSeparator}
-                //  onEndReached={this.onEndReached}
-
-                 {...this.props}
+                 onScroll={this.props.refreshable === true && Platform.OS !== 'android' ? this._onScroll : null}
+                 onResponderRelease={this.props.refreshable === true && Platform.OS !== 'android' ? this._onResponderRelease : null}
+                 //  refreshControl={this._renderRefreshControl()}
+                 //  dataSource={this.state.dataSource}
+                 //  renderRow={this.props.rowView}
+                 //  renderSectionHeader={this.props.sectionHeaderView}
+                 //  renderHeader={this.props.refreshable === true && Platform.OS !== 'android' ? this._renderRefreshView : this.headerView}
+                 //  renderFooter={this._renderPaginationView}
+                 //  renderSeparator={this.renderSeparator}
+                 //  onEndReached={this.onEndReached}
                  >
           <Header>
             {this.props.refreshable === true && Platform.OS !== 'android' ? this._renderRefreshView() : this.headerView()}
           </Header>
-          <Section label={this.state.sectionLabel}  arrow={true}>
-              <Item >Example with custom cells</Item>
-              <Item >Example with app bundle JSON data</Item>
-              <Item >Example with multiple sections</Item>
-              <Item >Example with editing mode</Item>
-              <Item >Reusable Cell Example 1</Item>
-              <Item >Reusable Custom Cells</Item>
-              <Item >Firebase Example</Item>
-              <Item >Large ListView (scroll memory growth)</Item>
-              <Item >Reusable Large TableView Example</Item>
-              <Item >Custom Editing Example</Item>
-          </Section>
+          {sections}
           <Footer>
             {this._renderPaginationView()}
           </Footer>
@@ -524,7 +533,7 @@ var GiftedListView = React.createClass({
       //
       //   style={[this.props.style, style]}
       // />
-    )
+    );
   },
 
   render() {
