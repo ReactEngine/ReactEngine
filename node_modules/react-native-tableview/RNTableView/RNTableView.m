@@ -23,240 +23,18 @@
 #import "RNReactModuleCell.h"
 #import "RNAppGlobals.h"
 
-
-#pragma mark -
-#pragma mark RNCustomTableView
+@interface RCTEventDispatcher (RCTScrollView)
 
 /**
- * Include a custom table view subclass because we want to limit certain
- * default UIKit behaviors such as textFields automatically scrolling
- * scroll views that contain them and support sticky headers.
+ * Send a scroll event.
+ * (You can send a fake scroll event by passing nil for scrollView).
  */
-@interface RNCustomTableView : UITableView <UIGestureRecognizerDelegate>
-
-@property (nonatomic, copy) NSIndexSet *stickyHeaderIndices;
-@property (nonatomic, assign) BOOL centerContent;
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
+- (void)sendScrollEventWithType:(RCTScrollEventType)type
+                       reactTag:(NSNumber *)reactTag
+                     scrollView:(UIScrollView *)scrollView
+                       userData:(NSDictionary *)userData;
 
 @end
-
-
-@implementation RNCustomTableView
-
-//- (instancetype)initWithFrame:(CGRect)frame
-//{
-//    if ((self = [super initWithFrame:frame])) {
-//        [self.panGestureRecognizer addTarget:self action:@selector(handleCustomPan:)];
-//    }
-//    return self;
-//}
-
-//- (UIView *)contentView
-//{
-//    return ((RNTableView *)self.superview).contentView;
-//}
-
-/**
- * @return Whether or not the scroll view interaction should be blocked because
- * JS was found to be the responder.
- */
-- (BOOL)_shouldDisableScrollInteraction
-{
-    // Since this may be called on every pan, we need to make sure to only climb
-    // the hierarchy on rare occasions.
-    UIView *JSResponder = [RCTUIManager JSResponder];
-    if (JSResponder && JSResponder != self.superview) {
-        BOOL superviewHasResponder = [self isDescendantOfView:JSResponder];
-        return superviewHasResponder;
-    }
-    return NO;
-}
-
-//- (void)handleCustomPan:(__unused UIPanGestureRecognizer *)sender
-//{
-//    if ([self _shouldDisableScrollInteraction] && ![[RCTUIManager JSResponder] isKindOfClass:[RNTableView class]]) {
-//        self.panGestureRecognizer.enabled = NO;
-//        self.panGestureRecognizer.enabled = YES;
-//        // TODO: If mid bounce, animate the scroll view to a non-bounced position
-//        // while disabling (but only if `stopScrollInteractionIfJSHasResponder` was
-//        // called *during* a `pan`. Currently, it will just snap into place which
-//        // is not so bad either.
-//        // Another approach:
-//        // self.scrollEnabled = NO;
-//        // self.scrollEnabled = YES;
-//    }
-//}
-
-//- (void)scrollRectToVisible:(__unused CGRect)rect animated:(__unused BOOL)animated {
-//    // noop
-//}
-
-/**
- * Returning `YES` cancels touches for the "inner" `view` and causes a scroll.
- * Returning `NO` causes touches to be directed to that inner view and prevents
- * the scroll view from scrolling.
- *
- * `YES` -> Allows scrolling.
- * `NO` -> Doesn't allow scrolling.
- *
- * By default this returns NO for all views that are UIControls and YES for
- * everything else. What that does is allows scroll views to scroll even when a
- * touch started inside of a `UIControl` (`UIButton` etc). For React scroll
- * views, we want the default to be the same behavior as `UIControl`s so we
- * return `YES` by default. But there's one case where we want to block the
- * scrolling no matter what: When JS believes it has its own responder lock on
- * a view that is *above* the scroll view in the hierarchy. So we abuse this
- * `touchesShouldCancelInContentView` API in order to stop the scroll view from
- * scrolling in this case.
- *
- * We are not aware of *any* other solution to the problem because alternative
- * approaches require that we disable the scrollview *before* touches begin or
- * move. This approach (`touchesShouldCancelInContentView`) works even if the
- * JS responder is set after touches start/move because
- * `touchesShouldCancelInContentView` is called as soon as the scroll view has
- * been touched and dragged *just* far enough to decide to begin the "drag"
- * movement of the scroll interaction. Returning `NO`, will cause the drag
- * operation to fail.
- *
- * `touchesShouldCancelInContentView` will stop the *initialization* of a
- * scroll pan gesture and most of the time this is sufficient. On rare
- * occasion, the scroll gesture would have already initialized right before JS
- * notifies native of the JS responder being set. In order to recover from that
- * timing issue we have a fallback that kills any ongoing pan gesture that
- * occurs when native is notified of a JS responder.
- *
- * Note: Explicitly returning `YES`, instead of relying on the default fixes
- * (at least) one bug where if you have a UIControl inside a UIScrollView and
- * tap on the UIControl and then start dragging (to scroll), it won't scroll.
- * Chat with andras for more details.
- *
- * In order to have this called, you must have delaysContentTouches set to NO
- * (which is the not the `UIKit` default).
- */
-- (BOOL)touchesShouldCancelInContentView:(__unused UIView *)view
-{
-    //TODO: shouldn't this call super if _shouldDisableScrollInteraction returns NO?
-    return ![self _shouldDisableScrollInteraction];
-}
-
-- (void)useless {
-/*
- * Automatically centers the content such that if the content is smaller than the
- * ScrollView, we force it to be centered, but when you zoom or the content otherwise
- * becomes larger than the ScrollView, there is no padding around the content but it
- * can still fill the whole view.
- */
-//- (void)setContentOffset:(CGPoint)contentOffset
-//{
-//    UIView *contentView = [self contentView];
-//    if (contentView && _centerContent) {
-//        CGSize subviewSize = contentView.frame.size;
-//        CGSize scrollViewSize = self.bounds.size;
-//        if (subviewSize.width < scrollViewSize.width) {
-//            contentOffset.x = -(scrollViewSize.width - subviewSize.width) / 2.0;
-//        }
-//        if (subviewSize.height < scrollViewSize.height) {
-//            contentOffset.y = -(scrollViewSize.height - subviewSize.height) / 2.0;
-//        }
-//    }
-//    super.contentOffset = contentOffset;
-//}
-
-//- (void)dockClosestSectionHeader
-//{
-//    UIView *contentView = [self contentView];
-//    CGFloat scrollTop = self.bounds.origin.y + self.contentInset.top;
-//    
-//    // Find the section headers that need to be docked
-//    __block UIView *previousHeader = nil;
-//    __block UIView *currentHeader = nil;
-//    __block UIView *nextHeader = nil;
-//    NSUInteger subviewCount = contentView.reactSubviews.count;
-//    [_stickyHeaderIndices enumerateIndexesWithOptions:0 usingBlock:
-//     ^(NSUInteger idx, __unused BOOL *stop) {
-//         
-//         if (idx >= subviewCount) {
-//             RCTLogError(@"Sticky header index %zd was outside the range {0, %zd}", idx, subviewCount);
-//             return;
-//         }
-//         
-//         UIView *header = contentView.reactSubviews[idx];
-//         
-//         // If nextHeader not yet found, search for docked headers
-//         if (!nextHeader) {
-//             CGFloat height = header.bounds.size.height;
-//             CGFloat top = header.center.y - height * header.layer.anchorPoint.y;
-//             if (top > scrollTop) {
-//                 nextHeader = header;
-//             } else {
-//                 previousHeader = currentHeader;
-//                 currentHeader = header;
-//             }
-//         }
-//         
-//         // Reset transforms for header views
-//         header.transform = CGAffineTransformIdentity;
-//         header.layer.zPosition = ZINDEX_DEFAULT;
-//         
-//     }];
-//    
-//    // If no docked header, bail out
-//    if (!currentHeader) {
-//        return;
-//    }
-//    
-//    // Adjust current header to hug the top of the screen
-//    CGFloat currentFrameHeight = currentHeader.bounds.size.height;
-//    CGFloat currentFrameTop = currentHeader.center.y - currentFrameHeight * currentHeader.layer.anchorPoint.y;
-//    CGFloat yOffset = scrollTop - currentFrameTop;
-//    if (nextHeader) {
-//        // The next header nudges the current header out of the way when it reaches
-//        // the top of the screen
-//        CGFloat nextFrameHeight = nextHeader.bounds.size.height;
-//        CGFloat nextFrameTop = nextHeader.center.y - nextFrameHeight * nextHeader.layer.anchorPoint.y;
-//        CGFloat overlap = currentFrameHeight - (nextFrameTop - scrollTop);
-//        yOffset -= MAX(0, overlap);
-//    }
-//    currentHeader.transform = CGAffineTransformMakeTranslation(0, yOffset);
-//    currentHeader.layer.zPosition = ZINDEX_STICKY_HEADER;
-//    
-//    if (previousHeader) {
-//        // The previous header sits right above the currentHeader's initial position
-//        // so it scrolls away nicely once the currentHeader has locked into place
-//        CGFloat previousFrameHeight = previousHeader.bounds.size.height;
-//        CGFloat targetCenter = currentFrameTop - previousFrameHeight * (1.0 - previousHeader.layer.anchorPoint.y);
-//        yOffset = targetCenter - previousHeader.center.y;
-//        previousHeader.transform = CGAffineTransformMakeTranslation(0, yOffset);
-//        previousHeader.layer.zPosition = ZINDEX_STICKY_HEADER;
-//    }
-//}
-
-//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
-//{
-//    __block UIView *hitView;
-//    
-//    [_stickyHeaderIndices enumerateIndexesWithOptions:0 usingBlock:^(NSUInteger idx, BOOL *stop) {
-//        UIView *stickyHeader = [self contentView].reactSubviews[idx];
-//        CGPoint convertedPoint = [stickyHeader convertPoint:point fromView:self];
-//        hitView = [stickyHeader hitTest:convertedPoint withEvent:event];
-//        *stop = (hitView != nil);
-//    }];
-//    
-//    return hitView ?: [super hitTest:point withEvent:event];
-//}
-}
-    
-- (void)setRefreshControl:(UIRefreshControl *)refreshControl
-{
-    if (_refreshControl) {
-        [_refreshControl removeFromSuperview];
-    }
-    _refreshControl = refreshControl;
-    [self addSubview:_refreshControl];
-}
-
-@end
-
 
 #pragma mark -
 #pragma mark RNTableView
@@ -265,7 +43,8 @@
     id<RNTableViewDatasource> datasource;
 }
 @property (strong, nonatomic) NSMutableArray *selectedIndexes;
-@property (strong, nonatomic) RNCustomTableView *tableView;
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -283,22 +62,72 @@
     CGRect _lastClippedToRect;
 }
 
-@synthesize nativeScrollDelegate = _nativeScrollDelegate;
-@synthesize contentSize = _contentSize;
+#pragma mark -
+#pragma mark Constructors
 
--(void)setEditing:(BOOL)editing {
-    [self.tableView setEditing:editing animated:YES];
+- (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher {
+    RCTAssertParam(eventDispatcher);
+    
+    if ((self = [super initWithFrame:CGRectZero])) {
+        _bridge = [[RNAppGlobals sharedInstance] appBridge];
+        _eventDispatcher = eventDispatcher;
+        _cellHeight = 44;
+        _cells = [NSMutableArray array];
+        _autoFocus = YES;
+        _allowsToggle = NO;
+        _allowsMultipleSelection = NO;
+    }
+    return self;
 }
 
--(void) setSeparatorColor:(UIColor *)separatorColor
-{
+- (void)createTableView {
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:_tableViewStyle];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _tableView.allowsMultipleSelectionDuringEditing = NO;
+    _tableView.contentInset = self.contentInset;
+    _tableView.contentOffset = self.contentOffset;
+    _tableView.scrollIndicatorInsets = self.scrollIndicatorInsets;
+    _tableView.backgroundColor = [UIColor clearColor];
+    UIView *view = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0.001, 0.001)];
+    _tableView.tableHeaderView = view;
+    _tableView.tableFooterView = view;
+    _tableView.separatorStyle = self.separatorStyle;
+    _reactModuleCellReuseIndentifier = @"ReactModuleCell";
+    [_tableView registerClass:[RNReactModuleCell class] forCellReuseIdentifier:_reactModuleCellReuseIndentifier];
+    [self addSubview:_tableView];
+}
+
+- (void)setTableViewStyle:(UITableViewStyle)tableViewStyle {
+    _tableViewStyle = tableViewStyle;
+    
+    [self createTableView];
+}
+
+- (void)dealloc {
+    _tableView.delegate = nil;
+}
+
+RCT_NOT_IMPLEMENTED(-initWithFrame:(CGRect)frame)
+RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
+
+#pragma mark -
+
+- (void)setSeparatorColor:(UIColor *)separatorColor {
     _separatorColor = separatorColor;
-
-    [self.tableView setSeparatorColor: separatorColor];
+    [self.tableView setSeparatorColor:separatorColor];
 }
 
-- (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex
-{
+- (void)setContentOffset:(CGPoint)offset {
+    _contentOffset = offset;
+    _tableView.contentOffset = offset;
+}
+
+#pragma mark -
+#pragma mark React View Hierarchy
+
+- (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
     // will not insert because we don't need to draw them
     //   [super insertSubview:subview atIndex:atIndex];
     
@@ -319,52 +148,84 @@
     } else if ([subview isKindOfClass:[RNTableHeaderView class]]){
         RNTableHeaderView *headerView = (RNTableHeaderView *)subview;
         headerView.tableView = self.tableView;
+    } else if ([subview isKindOfClass:[RCTRefreshControl class]]) {
+        [self addRefreshControl:(UIRefreshControl *)subview];
     }
 }
 
-- (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher
-{
-    RCTAssertParam(eventDispatcher);
-    
-    if ((self = [super initWithFrame:CGRectZero])) {
-        _bridge = [[RNAppGlobals sharedInstance] appBridge];
-        _eventDispatcher = eventDispatcher;
-        _cellHeight = 44;
-        _cells = [NSMutableArray array];
-        _autoFocus = YES;
-        _allowsToggle = NO;
-        _allowsMultipleSelection = NO;
+- (void)removeReactSubview:(UIView *)subview {
+    if ([subview isKindOfClass:[RCTRefreshControl class]]) {
+        [self removeRefreshControl];
     }
-    return self;
 }
 
-RCT_NOT_IMPLEMENTED(-initWithFrame:(CGRect)frame)
-RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
-- (void)setTableViewStyle:(UITableViewStyle)tableViewStyle {
-    _tableViewStyle = tableViewStyle;
+- (NSArray<UIView *> *)reactSubviews {
+    if (self.refreshControl) {
+        return @[self.refreshControl];
+    }
+    return @[];
+}
+
+#pragma mark -
+#pragma mark Refresh Control
+
+- (void)addRefreshControl:(UIRefreshControl *)refreshControl {
+    // remove old refreshControl
+    [self removeRefreshControl];
+    // add new refreshControl
+    self.refreshControl = refreshControl;
+    [self.tableView addSubview:refreshControl];
+}
+
+- (void)removeRefreshControl {
+    [self.refreshControl removeFromSuperview];
+    self.refreshControl = nil;
+}
+
+- (void)setOnRefreshStart:(RCTDirectEventBlock)onRefreshStart {
+    if (!onRefreshStart) {
+        _onRefreshStart = nil;
+        [self removeRefreshControl];
+        return;
+    }
+    _onRefreshStart = [onRefreshStart copy];
     
-    [self createTableView];
+    if (!self.refreshControl) {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(refreshControlValueChanged) forControlEvents:UIControlEventValueChanged];
+        [self addRefreshControl:refreshControl];
+    }
 }
 
-- (void)setContentInset:(UIEdgeInsets)insets {
-    _contentInset = insets;
-    _tableView.contentInset = insets;
+- (void)refreshControlValueChanged {
+    if (self.onRefreshStart) {
+        self.onRefreshStart(nil);
+    }
 }
 
-- (void)setContentOffset:(CGPoint)offset {
-    _contentOffset = offset;
-    _tableView.contentOffset = offset;
-}
-
-- (void)setScrollIndicatorInsets:(UIEdgeInsets)insets {
-    _scrollIndicatorInsets = insets;
-    _tableView.scrollIndicatorInsets = insets;
+- (void)endRefreshing {
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark -
 
+- (void)setRemoveClippedSubviews:(__unused BOOL)removeClippedSubviews {
+    // Does nothing
+}
+
+- (void)setClipsToBounds:(BOOL)clipsToBounds {
+    super.clipsToBounds = clipsToBounds;
+    _tableView.clipsToBounds = clipsToBounds;
+}
+
 - (void)layoutSubviews {
-    [self.tableView setFrame:self.frame];
+    [super layoutSubviews];
+    RCTAssert(self.subviews.count == 1, @"we should only have exactly one subview");
+    RCTAssert([self.subviews lastObject] == _tableView, @"our only subview should be a tableview");
+    
+    CGPoint originalOffset = _tableView.contentOffset;
+    _tableView.frame = self.bounds;
+    _tableView.contentOffset = originalOffset;
     
     // if sections are not define, try to load JSON
     if (![_sections count] && _json){
@@ -393,44 +254,57 @@ RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
 #pragma mark Private APIs
 
 #pragma mark -
-#pragma mark TableView APIs
+#pragma mark Item Description Data
 
-- (void)createTableView {
-    _tableView = [[RNCustomTableView alloc] initWithFrame:CGRectZero style:_tableViewStyle];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    _tableView.allowsMultipleSelectionDuringEditing = NO;
-    _tableView.contentInset = self.contentInset;
-    _tableView.contentOffset = self.contentOffset;
-    _tableView.scrollIndicatorInsets = self.scrollIndicatorInsets;
-    _tableView.backgroundColor = [UIColor clearColor];
-    UIView *view = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0.001, 0.001)];
-    _tableView.tableHeaderView = view;
-    _tableView.tableFooterView = view;
-    _tableView.separatorStyle = self.separatorStyle;
-    _reactModuleCellReuseIndentifier = @"ReactModuleCell";
-    [_tableView registerClass:[RNReactModuleCell class] forCellReuseIdentifier:_reactModuleCellReuseIndentifier];
-    [self addSubview:_tableView];
-}
-
-#pragma mark UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+- (void)setSections:(NSArray *)sections {
     
-    if (self.footerTextColor){
-        footer.textLabel.textColor = self.footerTextColor;
+    _sections = [NSMutableArray arrayWithCapacity:[sections count]];
+    
+    // create selected indexes
+    _selectedIndexes = [NSMutableArray arrayWithCapacity:[sections count]];
+    
+//    BOOL found = NO;
+    for (NSDictionary *section in sections) {
+        NSMutableDictionary *sectionData = [NSMutableDictionary dictionaryWithDictionary:section];
+        NSMutableArray *allItems = [NSMutableArray array];
+        if (self.additionalItems){
+            [allItems addObjectsFromArray:self.additionalItems];
+        }
+        [allItems addObjectsFromArray:sectionData[@"items"]];
+        
+        NSMutableArray *items = [NSMutableArray arrayWithCapacity:[allItems count]];
+        NSInteger selectedIndex = -1;
+        for (NSDictionary *item in allItems){
+            NSMutableDictionary *itemData = [NSMutableDictionary dictionaryWithDictionary:item];
+            if ((itemData[@"selected"] && [itemData[@"selected"] intValue])
+                || (self.selectedValue && [self.selectedValue isEqual:item[@"value"]]))
+            {
+                if (selectedIndex == -1)
+                    selectedIndex = [items count];
+                itemData[@"selected"] = @YES;
+//                found = YES;
+            }
+            [items addObject:itemData];
+        }
+        [_selectedIndexes addObject:[NSNumber numberWithUnsignedInteger:selectedIndex]];
+        
+        sectionData[@"items"] = items;
+        [_sections addObject:sectionData];
     }
-    if (self.footerFont){
-        footer.textLabel.font = self.footerFont;
-    }
+    [self.tableView reloadData];
 }
 
-
--(void)setHeaderHeight:(float)headerHeight {
-    _headerHeight = headerHeight;
+- (NSMutableDictionary *)dataForRow:(NSInteger)row section:(NSInteger)section {
+    return (NSMutableDictionary *)_sections[section][@"items"][row];
 }
+
+- (BOOL)hasCustomCells:(NSInteger)section {
+    return [[_sections[section] valueForKey:@"customCells"] boolValue];
+}
+
+#pragma mark -
+#pragma mark Section Header
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (_sections[section][@"headerHeight"]){
         return [_sections[section][@"headerHeight"] floatValue] ? [_sections[section][@"headerHeight"] floatValue] : 0.000001;
@@ -442,16 +316,8 @@ RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (_sections[section][@"footerHeight"]){
-        return [_sections[section][@"footerHeight"] floatValue] ? [_sections[section][@"footerHeight"] floatValue] : 0.000001;
-
-    } else {
-        if (self.footerHeight){
-            return self.footerHeight;
-        }
-        return -1;
-    }
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return _sections[section][@"label"];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -465,7 +331,120 @@ RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
     }
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark -
+#pragma mark Section Footer
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (_sections[section][@"footerHeight"]){
+        return [_sections[section][@"footerHeight"] floatValue] ? [_sections[section][@"footerHeight"] floatValue] : 0.000001;
+        
+    } else {
+        if (self.footerHeight){
+            return self.footerHeight;
+        }
+        return -1;
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return _sections[section][@"footerLabel"];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    
+    if (self.footerTextColor){
+        footer.textLabel.textColor = self.footerTextColor;
+    }
+    if (self.footerFont){
+        footer.textLabel.font = self.footerFont;
+    }
+}
+
+#pragma mark -
+#pragma mark Cells
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [_sections count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSInteger count = [_sections[section][@"items"] count];
+    // if we have custom cells, additional processing is necessary
+    if ([self hasCustomCells:section]){
+        if ([_cells count]<=section){
+            return 0;
+        }
+        // don't display cells until their's height is not calculated (TODO: maybe it is possible to optimize??)
+        for (RNCellView *view in _cells[section]){
+            if (!view.componentHeight){
+                return 0;
+            }
+        }
+        count = [_cells[section] count];
+    }
+    return count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (![self hasCustomCells:indexPath.section]){
+        NSNumber *styleHeight = _sections[indexPath.section][@"items"][indexPath.row][@"height"];
+        return styleHeight.floatValue ?: _cellHeight;
+    } else {
+        RNCellView *cell = (RNCellView *)_cells[indexPath.section][indexPath.row];
+        CGFloat height =  cell.componentHeight;
+        return height;
+    }
+}
+
+- (UITableViewCell *)setupReactModuleCell:(UITableView *)tableView data:(NSDictionary *)data indexPath:(NSIndexPath *)indexPath {
+    RCTAssert(_bridge, @"Must set global bridge in AppDelegate, e.g. \n\
+              #import <RNTableView/RNAppGlobals.h>\n\
+              [[RNAppGlobals sharedInstance] setAppBridge:rootView.bridge]");
+    RNReactModuleCell *cell = [tableView dequeueReusableCellWithIdentifier:_reactModuleCellReuseIndentifier];
+    if (cell == nil) {
+        cell = [[RNReactModuleCell alloc] initWithStyle:self.tableViewCellStyle reuseIdentifier:_reactModuleCellReuseIndentifier bridge: _bridge data:data indexPath:indexPath reactModule:_reactModuleForCell tableViewTag:self.reactTag];
+    } else {
+        [cell setUpAndConfigure:data bridge:_bridge indexPath:indexPath reactModule:_reactModuleForCell tableViewTag:self.reactTag];
+    }
+    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = nil;
+    NSDictionary *item = [self dataForRow:indexPath.item section:indexPath.section];
+    
+    // check if it is standard cell or user-defined UI
+    if ([self hasCustomCells:indexPath.section]){
+        cell = ((RNCellView *)_cells[indexPath.section][indexPath.row]).tableViewCell;
+    } else if (self.reactModuleForCell != nil && ![self.reactModuleForCell isEqualToString:@""]) {
+        cell = [self setupReactModuleCell:tableView data:item indexPath:indexPath];
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:self.tableViewCellStyle reuseIdentifier:@"Cell"];
+        }
+        cell.textLabel.text = item[@"label"];
+        cell.detailTextLabel.text = item[@"detail"];
+    }
+    
+    if (item[@"selected"] && [item[@"selected"] intValue]){
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else if ([item[@"arrow"] intValue]) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    if ([item[@"transparent"] intValue]) {
+        cell.backgroundColor = [UIColor clearColor];
+    }
+    if (item[@"selectionStyle"]) {
+        cell.selectionStyle = [item[@"selectionStyle"] intValue];
+    }
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.emptyInsets){
         // Remove separator inset
@@ -520,140 +499,8 @@ RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
     [_eventDispatcher sendInputEventWithName:@"onWillDisplayCell" body:@{@"target":self.reactTag, @"row":@(indexPath.row), @"section": @(indexPath.section)}];
 }
 
-#pragma mark UITableViewDataSource
-
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     [_eventDispatcher sendInputEventWithName:@"onEndDisplayingCell" body:@{@"target":self.reactTag, @"row":@(indexPath.row), @"section": @(indexPath.section)}];
-}
-
-
-- (void)setSections:(NSArray *)sections
-{
-    _sections = [NSMutableArray arrayWithCapacity:[sections count]];
-    
-    // create selected indexes
-    _selectedIndexes = [NSMutableArray arrayWithCapacity:[sections count]];
-    
-    BOOL found = NO;
-    for (NSDictionary *section in sections){
-        NSMutableDictionary *sectionData = [NSMutableDictionary dictionaryWithDictionary:section];
-        NSMutableArray *allItems = [NSMutableArray array];
-        if (self.additionalItems){
-            [allItems addObjectsFromArray:self.additionalItems];
-        }
-        [allItems addObjectsFromArray:sectionData[@"items"]];
-        
-        NSMutableArray *items = [NSMutableArray arrayWithCapacity:[allItems count]];
-        NSInteger selectedIndex = -1;
-        for (NSDictionary *item in allItems){
-            NSMutableDictionary *itemData = [NSMutableDictionary dictionaryWithDictionary:item];
-            if ((itemData[@"selected"] && [itemData[@"selected"] intValue]) || (self.selectedValue && [self.selectedValue isEqual:item[@"value"]])){
-                if(selectedIndex == -1)
-                    selectedIndex = [items count];
-                itemData[@"selected"] = @YES;
-                found = YES;
-            }
-            [items addObject:itemData];
-        }
-        [_selectedIndexes addObject:[NSNumber numberWithUnsignedInteger:selectedIndex]];
-        
-        sectionData[@"items"] = items;
-        [_sections addObject:sectionData];
-    }
-    [self.tableView reloadData];
-}
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [_sections count];
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger count = [_sections[section][@"items"] count];
-    // if we have custom cells, additional processing is necessary
-    if ([self hasCustomCells:section]){
-        if ([_cells count]<=section){
-            return 0;
-        }
-        // don't display cells until their's height is not calculated (TODO: maybe it is possible to optimize??)
-        for (RNCellView *view in _cells[section]){
-            if (!view.componentHeight){
-                return 0;
-            }
-        }
-        count = [_cells[section] count];
-    }
-    return count;
-}
-
--(UITableViewCell*)setupReactModuleCell:(UITableView *)tableView data:(NSDictionary*)data indexPath:(NSIndexPath *)indexPath {
-    RCTAssert(_bridge, @"Must set global bridge in AppDelegate, e.g. \n\
-              #import <RNTableView/RNAppGlobals.h>\n\
-              [[RNAppGlobals sharedInstance] setAppBridge:rootView.bridge]");
-    RNReactModuleCell *cell = [tableView dequeueReusableCellWithIdentifier:_reactModuleCellReuseIndentifier];
-    if (cell == nil) {
-        cell = [[RNReactModuleCell alloc] initWithStyle:self.tableViewCellStyle reuseIdentifier:_reactModuleCellReuseIndentifier bridge: _bridge data:data indexPath:indexPath reactModule:_reactModuleForCell tableViewTag:self.reactTag];
-    } else {
-        [cell setUpAndConfigure:data bridge:_bridge indexPath:indexPath reactModule:_reactModuleForCell tableViewTag:self.reactTag];
-    }
-    return cell;
-}
-
--(UITableViewCell* )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = nil;
-    NSDictionary *item = [self dataForRow:indexPath.item section:indexPath.section];
-    
-    // check if it is standard cell or user-defined UI
-    if ([self hasCustomCells:indexPath.section]){
-        cell = ((RNCellView *)_cells[indexPath.section][indexPath.row]).tableViewCell;
-    } else if (self.reactModuleForCell != nil && ![self.reactModuleForCell isEqualToString:@""]) {
-        cell = [self setupReactModuleCell:tableView data:item indexPath:indexPath];
-    } else {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:self.tableViewCellStyle reuseIdentifier:@"Cell"];
-        }
-        cell.textLabel.text = item[@"label"];
-        cell.detailTextLabel.text = item[@"detail"];
-    }
-    
-    if (item[@"selected"] && [item[@"selected"] intValue]){
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else if ([item[@"arrow"] intValue]) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    if ([item[@"transparent"] intValue]) {
-        cell.backgroundColor = [UIColor clearColor];
-    }
-    if (item[@"selectionStyle"]) {
-        cell.selectionStyle = [item[@"selectionStyle"] intValue];
-    }
-    return cell;
-}
-
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return _sections[section][@"label"];
-}
-
--(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    return _sections[section][@"footerLabel"];
-}
-
--(NSMutableDictionary *)dataForRow:(NSInteger)row section:(NSInteger)section {
-    return (NSMutableDictionary *)_sections[section][@"items"][row];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (![self hasCustomCells:indexPath.section]){
-        NSNumber *styleHeight = _sections[indexPath.section][@"items"][indexPath.row][@"height"];
-        return styleHeight.floatValue ?: _cellHeight;
-    } else {
-        RNCellView *cell = (RNCellView *)_cells[indexPath.section][indexPath.row];
-        CGFloat height =  cell.componentHeight;
-        return height;
-    }
-    
 }
 
 #pragma mark Select Row
@@ -690,7 +537,7 @@ RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
     self.selectedIndexes[indexPath.section] = [NSNumber numberWithInteger:indexPath.item];
 }
 
-#pragma mark Move
+#pragma mark Moving
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableDictionary *value = [self dataForRow:indexPath.item section:indexPath.section];
@@ -708,7 +555,15 @@ RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
     return proposedDestinationIndexPath;
 }
 
-#pragma mark Edit
+#pragma mark Editing
+
+- (void)setEditing:(BOOL)editing {
+    [self.tableView setEditing:editing animated:YES];
+}
+
+- (BOOL)editing {
+    return self.tableView.editing;
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableDictionary *value = [self dataForRow:indexPath.item section:indexPath.section];
@@ -731,207 +586,72 @@ RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
     }
 }
 
--(UITableViewCellEditingStyle)tableView:(UITableView *)tableView
-          editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+          editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return self.tableViewCellEditingStyle;
 }
 
--(BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.tableViewCellEditingStyle == UITableViewCellEditingStyleNone) {
         return NO;
     }
     return YES;
 }
 
--(BOOL)hasCustomCells:(NSInteger)section {
-    return [[_sections[section] valueForKey:@"customCells"] boolValue];
-}
-
-
-@end
-
-
-
-
-
 #pragma mark -
-#pragma mark ScrollView APIs
+#pragma mark RCTAutoInsetsProtocol
 
-
-@interface RCTEventDispatcher (RCTScrollView)
-
-/**
- * Send a scroll event.
- * (You can send a fake scroll event by passing nil for scrollView).
- */
-- (void)sendScrollEventWithType:(RCTScrollEventType)type
-                       reactTag:(NSNumber *)reactTag
-                     scrollView:(UIScrollView *)scrollView
-                       userData:(NSDictionary *)userData;
-
-@end
-
-
-@implementation RNTableView (RCTScrollView)
-
-- (void)setRemoveClippedSubviews:(__unused BOOL)removeClippedSubviews
-{
-    // Does nothing
-}
-
-//- (void)insertReactSubview:(UIView *)view atIndex:(__unused NSInteger)atIndex
-//{
-//    if ([view isKindOfClass:[RCTRefreshControl class]]) {
-//        _tableView.refreshControl = (RCTRefreshControl*)view;
-//    } else {
-//        RCTAssert(_contentView == nil, @"RNTableView may only contain a single subview");
-//        _contentView = view;
-//        [_tableView addSubview:view];
-//    }
-//}
-
-//- (void)removeReactSubview:(UIView *)subview
-//{
-//    if ([subview isKindOfClass:[RCTRefreshControl class]]) {
-//        _tableView.refreshControl = nil;
-//    } else {
-//        RCTAssert(_contentView == subview, @"Attempted to remove non-existent subview");
-//        _contentView = nil;
-//        [subview removeFromSuperview];
-//    }
-//}
-
-//- (NSArray<UIView *> *)reactSubviews
-//{
-//    if (_contentView && _tableView.refreshControl) {
-//        return @[_contentView, _tableView.refreshControl];
-//    }
-//    return _contentView ? @[_contentView] : @[];
-//}
-
-- (BOOL)centerContent
-{
-    return _tableView.centerContent;
-}
-
-- (void)setCenterContent:(BOOL)centerContent
-{
-    _tableView.centerContent = centerContent;
-}
-
-- (NSIndexSet *)stickyHeaderIndices
-{
-    return _tableView.stickyHeaderIndices;
-}
-
-- (void)setStickyHeaderIndices:(NSIndexSet *)headerIndices
-{
-    RCTAssert(_tableView.contentSize.width <= self.frame.size.width,
-              @"sticky headers are not supported with horizontal scrolled views");
-    _tableView.stickyHeaderIndices = headerIndices;
-}
-
-- (void)setClipsToBounds:(BOOL)clipsToBounds
-{
-    super.clipsToBounds = clipsToBounds;
-    _tableView.clipsToBounds = clipsToBounds;
-}
-
-- (void)dealloc
-{
-    _tableView.delegate = nil;
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    RCTAssert(self.subviews.count == 1, @"we should only have exactly one subview");
-    RCTAssert([self.subviews lastObject] == _tableView, @"our only subview should be a scrollview");
-    
-    CGPoint originalOffset = _tableView.contentOffset;
-    _tableView.frame = self.bounds;
-    _tableView.contentOffset = originalOffset;
-    
-    [self updateClippedSubviews];
-}
-
-- (void)updateClippedSubviews
-{
-    // Find a suitable view to use for clipping
-    UIView *clipView = [self react_findClipView];
-    if (!clipView) {
-        return;
-    }
-    
-    static const CGFloat leeway = 1.0;
-    
-    const CGSize contentSize = _tableView.contentSize;
-    const CGRect bounds = _tableView.bounds;
-    const BOOL scrollsHorizontally = contentSize.width > bounds.size.width;
-    const BOOL scrollsVertically = contentSize.height > bounds.size.height;
-    
-    const BOOL shouldClipAgain =
-    CGRectIsNull(_lastClippedToRect) ||
-    (scrollsHorizontally && (bounds.size.width < leeway || fabs(_lastClippedToRect.origin.x - bounds.origin.x) >= leeway)) ||
-    (scrollsVertically && (bounds.size.height < leeway || fabs(_lastClippedToRect.origin.y - bounds.origin.y) >= leeway));
-    
-    if (shouldClipAgain) {
-        const CGRect clipRect = CGRectInset(clipView.bounds, -leeway, -leeway);
-        [self react_updateClippedSubviewsWithClipRect:clipRect relativeToView:clipView];
-        _lastClippedToRect = bounds;
-    }
-}
-
-- (void)setContentInset:(UIEdgeInsets)contentInset
-{
-    CGPoint contentOffset = _tableView.contentOffset;
+- (void)setContentInset:(UIEdgeInsets)contentInset {
+    CGPoint contentOffset = self.tableView.contentOffset;
     
     _contentInset = contentInset;
     [RCTView autoAdjustInsetsForView:self
-                      withScrollView:_tableView
+                      withScrollView:self.tableView
                         updateOffset:NO];
     
-    _tableView.contentOffset = contentOffset;
+    self.tableView.contentOffset = contentOffset;
 }
 
-- (void)scrollToOffset:(CGPoint)offset
-{
+- (void)refreshContentInset {
+    [RCTView autoAdjustInsetsForView:self
+                      withScrollView:self.tableView
+                        updateOffset:YES];
+}
+
+#pragma mark -
+#pragma mark RCTScrollableProtocol
+
+@synthesize nativeScrollDelegate = _nativeScrollDelegate;
+@synthesize contentSize = _contentSize;
+
+- (void)scrollToOffset:(CGPoint)offset {
     [self scrollToOffset:offset animated:YES];
 }
 
-- (void)scrollToOffset:(CGPoint)offset animated:(BOOL)animated
-{
+- (void)scrollToOffset:(CGPoint)offset animated:(BOOL)animated {
     if (!CGPointEqualToPoint(_tableView.contentOffset, offset)) {
         [_tableView setContentOffset:offset animated:animated];
     }
 }
 
-- (void)zoomToRect:(CGRect)rect animated:(BOOL)animated
-{
+- (void)zoomToRect:(CGRect)rect animated:(BOOL)animated {
     [_tableView zoomToRect:rect animated:animated];
 }
 
-- (void)refreshContentInset
-{
-    [RCTView autoAdjustInsetsForView:self
-                      withScrollView:_tableView
-                        updateOffset:YES];
-}
-
-#pragma mark - ScrollView delegate
+#pragma mark -
+#pragma mark UIScrollViewDelegate
 
 #define RCT_SCROLL_EVENT_HANDLER(delegateMethod, eventName) \
-- (void)delegateMethod:(UIScrollView *)scrollView           \
-{                                                           \
-[_eventDispatcher sendScrollEventWithType:eventName reactTag:self.reactTag scrollView:scrollView userData:nil]; \
-if ([_nativeScrollDelegate respondsToSelector:_cmd]) { \
-[_nativeScrollDelegate delegateMethod:scrollView]; \
-} \
+- (void)delegateMethod:(UIScrollView *)scrollView { \
+    [_eventDispatcher sendScrollEventWithType:eventName reactTag:self.reactTag scrollView:scrollView userData:nil]; \
+    if ([_nativeScrollDelegate respondsToSelector:_cmd]) { \
+        [_nativeScrollDelegate delegateMethod:scrollView]; \
+    } \
 }
 
 #define RCT_FORWARD_SCROLL_EVENT(call) \
 if ([_nativeScrollDelegate respondsToSelector:_cmd]) { \
-[_nativeScrollDelegate call]; \
+    [_nativeScrollDelegate call]; \
 }
 
 RCT_SCROLL_EVENT_HANDLER(scrollViewDidEndScrollingAnimation, RCTScrollEventTypeEndDeceleration)
@@ -939,9 +659,8 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewWillBeginDecelerating, RCTScrollEventTypeStar
 RCT_SCROLL_EVENT_HANDLER(scrollViewDidEndDecelerating, RCTScrollEventTypeEndDeceleration)
 RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-//    [_tableView dockClosestSectionHeader];
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    //    [_tableView dockClosestSectionHeader];
     [self updateClippedSubviews];
     
     NSTimeInterval now = CACurrentMediaTime();
@@ -955,14 +674,11 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
     if (_allowNextScrollNoMatterWhat ||
         (_scrollEventThrottle > 0 && _scrollEventThrottle < (now - _lastScrollDispatchTime))) {
         
-        // Calculate changed frames
-        NSArray<NSDictionary *> *childFrames = [self calculateChildFramesData];
-        
         // Dispatch event
         [_eventDispatcher sendScrollEventWithType:RCTScrollEventTypeMove
                                          reactTag:self.reactTag
                                        scrollView:scrollView
-                                         userData:@{@"updatedChildFrames": childFrames}];
+                                         userData:nil];
         
         // Update dispatch time
         _lastScrollDispatchTime = now;
@@ -971,49 +687,13 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
     RCT_FORWARD_SCROLL_EVENT(scrollViewDidScroll:scrollView);
 }
 
-- (NSArray<NSDictionary *> *)calculateChildFramesData
-{
-    NSMutableArray<NSDictionary *> *updatedChildFrames = [NSMutableArray new];
-//    [[_contentView reactSubviews] enumerateObjectsUsingBlock:
-//     ^(UIView *subview, NSUInteger idx, __unused BOOL *stop) {
-//         
-//         // Check if new or changed
-//         CGRect newFrame = subview.frame;
-//         BOOL frameChanged = NO;
-//         if (_cachedChildFrames.count <= idx) {
-//             frameChanged = YES;
-//             [_cachedChildFrames addObject:[NSValue valueWithCGRect:newFrame]];
-//         } else if (!CGRectEqualToRect(newFrame, [_cachedChildFrames[idx] CGRectValue])) {
-//             frameChanged = YES;
-//             _cachedChildFrames[idx] = [NSValue valueWithCGRect:newFrame];
-//         }
-//         
-//         // Create JS frame object
-//         if (frameChanged) {
-//             [updatedChildFrames addObject: @{
-//                                              @"index": @(idx),
-//                                              @"x": @(newFrame.origin.x),
-//                                              @"y": @(newFrame.origin.y),
-//                                              @"width": @(newFrame.size.width),
-//                                              @"height": @(newFrame.size.height),
-//                                              }];
-//         }
-//     }];
-    
-    return updatedChildFrames;
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     _allowNextScrollNoMatterWhat = YES; // Ensure next scroll event is recorded, regardless of throttle
     [_eventDispatcher sendScrollEventWithType:RCTScrollEventTypeStart reactTag:self.reactTag scrollView:scrollView userData:nil];
     RCT_FORWARD_SCROLL_EVENT(scrollViewWillBeginDragging:scrollView);
 }
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-    
-    
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     // snapToInterval
     // An alternative to enablePaging which allows setting custom stopping intervals,
     // smaller than a full page size. Often seen in apps which feature horizonally
@@ -1069,8 +749,7 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
     RCT_FORWARD_SCROLL_EVENT(scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset);
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     RCT_FORWARD_SCROLL_EVENT(scrollViewDidEndDragging:scrollView willDecelerate:decelerate);
 }
 
@@ -1099,10 +778,10 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
 //    return _contentView;
 //}
 
-#pragma mark - Setters
+#pragma mark -
+#pragma mark ScrollView APIs
 
-- (CGSize)_calculateViewportSize
-{
+- (CGSize)_calculateViewportSize {
     CGSize viewportSize = self.bounds.size;
     if (_automaticallyAdjustContentInsets) {
         UIEdgeInsets contentInsets = [RCTView contentInsetsForView:self];
@@ -1157,25 +836,11 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
  * managed by you, and we'll never automatically compute the size for you,
  * unless you manually reset it back to {0, 0}
  */
-- (CGSize)contentSize
-{
+- (CGSize)contentSize {
     return _tableView.contentSize;
-//    if (!CGSizeEqualToSize(_contentSize, CGSizeZero)) {
-//        return _contentSize;
-//    } else if (!_contentView) {
-//        return CGSizeZero;
-//    } else {
-//        CGSize singleSubviewSize = _contentView.frame.size;
-//        CGPoint singleSubviewPosition = _contentView.frame.origin;
-//        return (CGSize){
-//            singleSubviewSize.width + singleSubviewPosition.x,
-//            singleSubviewSize.height + singleSubviewPosition.y
-//        };
-//    }
 }
 
-- (void)reactBridgeDidFinishTransaction
-{
+- (void)reactBridgeDidFinishTransaction {
     CGSize contentSize = self.contentSize;
     if (!CGSizeEqualToSize(_tableView.contentSize, contentSize)) {
         // When contentSize is set manually, ScrollView internals will reset
@@ -1184,9 +849,8 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
         // adjusting contentOffset whenever this happens
         CGPoint newOffset = [self calculateOffsetForContentSize:contentSize];
         _tableView.contentSize = contentSize;
-        _tableView.contentOffset = newOffset;
+        self.contentOffset = newOffset;
     }
-//    [_tableView dockClosestSectionHeader];
 }
 
 // Note: setting several properties of UIScrollView has the effect of
@@ -1194,9 +858,9 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
 // setters here that will record the contentOffset beforehand, and
 // restore it after the property has been set.
 
-#define RCT_SET_AND_PRESERVE_OFFSET(setter, type)    \
-- (void)setter:(type)value                           \
-{                                                    \
+#define RCT_SET_AND_PRESERVE_OFFSET(setter, type)     \
+- (void)setter:(type)value                            \
+{                                                     \
     CGPoint contentOffset = _tableView.contentOffset; \
     [_tableView setter:value];                        \
     _tableView.contentOffset = contentOffset;         \
@@ -1222,59 +886,17 @@ RCT_SET_AND_PRESERVE_OFFSET(setScrollIndicatorInsets, UIEdgeInsets);
 
 #pragma mark - Forward methods and properties to underlying UIScrollView
 
-- (BOOL)respondsToSelector:(SEL)aSelector
-{
+- (BOOL)respondsToSelector:(SEL)aSelector {
     return [super respondsToSelector:aSelector] || [_tableView respondsToSelector:aSelector];
 }
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key
-{
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     [_tableView setValue:value forKey:key];
 }
 
-- (id)valueForUndefinedKey:(NSString *)key
-{
+- (id)valueForUndefinedKey:(NSString *)key {
     return [_tableView valueForKey:key];
 }
 
-- (void)setOnRefreshStart:(RCTDirectEventBlock)onRefreshStart
-{
-    if (!onRefreshStart) {
-        _onRefreshStart = nil;
-        _tableView.refreshControl = nil;
-        return;
-    }
-    _onRefreshStart = [onRefreshStart copy];
-    
-    if (!_tableView.refreshControl) {
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(refreshControlValueChanged) forControlEvents:UIControlEventValueChanged];
-        _tableView.refreshControl = refreshControl;
-    }
-}
-
-- (void)refreshControlValueChanged
-{
-    if (self.onRefreshStart) {
-        self.onRefreshStart(nil);
-    }
-}
-
-- (void)endRefreshing
-{
-    [_tableView.refreshControl endRefreshing];
-}
-
 @end
-
-
-
-
-
-
-
-
-
-
-
 

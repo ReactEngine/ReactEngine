@@ -14,14 +14,14 @@ Native iOS UITableView for React Native with JSON support.
 - Native editing mode for table - move/delete option is supported by using attributes canMove, canEdit for items/sections
 
 ## Supports UITableView styles
-- UITableViewStylePlain (TableView.Consts.Style.Plain)
-- UITableViewStyleGrouped (TableView.Consts.Style.Grouped)
+- UITableViewStylePlain ('plain')
+- UITableViewStyleGrouped ('grouped')
 
 ## Supports UITableViewCell styles
-- UITableViewCellStyleDefault (TableView.Consts.CellStyle.Default)
-- UITableViewCellStyleValue1 (TableView.Consts.CellStyle.Value1)
-- UITableViewCellStyleValue2 (TableView.Consts.CellStyle.Value2)
-- UITableViewCellStyleSubtitle (TableView.Consts.CellStyle.Subtitle)
+- UITableViewCellStyleDefault ('default')
+- UITableViewCellStyleValue1 ('value1')
+- UITableViewCellStyleValue2 ('value2')
+- UITableViewCellStyleSubtitle ('subtitle')
 
 ## Supports accessory types
 - UITableViewCellAccessoryDisclosureIndicator ("arrow" attribute for TableView.Item or TableView.Section)
@@ -48,8 +48,8 @@ class TableViewExample extends React.Component {
             <TableView style={{flex:1}}
                        allowsToggle={true}
                        allowsMultipleSelection={true}
-                       tableViewStyle={TableView.Consts.Style.Grouped}
-                       tableViewCellStyle={TableView.Consts.CellStyle.Subtitle}
+                       tableViewStyle={'grouped'}
+                       tableViewCellStyle={'subtitle'}
                        onPress={(event) => console.log(event)}>
                 <Section label="Section 1" arrow={true}>
                     <Item value="1" detail="Detail1" >Item 1</Item>
@@ -91,7 +91,7 @@ AppRegistry.registerComponent('TableViewExample', () => TableViewExample);
     render(){
         return (
             <TableView selectedValue="ES" style={{flex:1}} json="countries"
-                       tableViewCellStyle={TableView.Consts.CellStyle.Subtitle}
+                       tableViewCellStyle={'subtitle'}
                        onPress={(event) => console.log(event)}/>
         );
     }
@@ -104,7 +104,7 @@ AppRegistry.registerComponent('TableViewExample', () => TableViewExample);
         var country = "ES";
         return (
             <TableView selectedValue="" style={{flex:1}} json="states" filter={`country=='${country}'`}
-                       tableViewCellStyle={TableView.Consts.CellStyle.Subtitle}
+                       tableViewCellStyle={'subtitle'}
                        onPress={(event) => console.log(event)}>
                 <Item value="">All states</Item>
             </TableView>

@@ -8,6 +8,7 @@ var {
   TouchableHighlight,
   View,
   Text,
+  ScrollView,
   PullToRefreshViewAndroid
 } = React
 
@@ -442,6 +443,11 @@ var GiftedListView = React.createClass({
     }
   },
 
+  _renderItem(item, sectionIdx, rowIdx) {
+    var comboID = sectionIdx + '_' + rowIdx;
+    return (<Item key={'r_' + comboID} label={item.text}></Item>);
+  },
+
   renderListView(style = {}) {
 
     var dataSource = this.state.dataSource;
@@ -455,29 +461,31 @@ var GiftedListView = React.createClass({
       var sectionID = dataSource.sectionIdentities[sectionIdx];
       var rowIDs = allRowIDs[sectionIdx];
 
+      var renderItem = this.props.rowView ? this.props.rowView : this._renderItem;
+
       // renderItem
       var items = [];
       for (var rowIdx = 0; rowIdx < rowIDs.length; rowIdx++) {
         var rowID = rowIDs[rowIdx];
         var comboID = sectionID + '_' + rowID;
         // var shouldUpdateRow = rowCount >= this._prevRenderedRowsCount &&
-          // dataSource.rowShouldUpdate(sectionIdx, rowIdx);
+        // dataSource.rowShouldUpdate(sectionIdx, rowIdx);
         var rowData = dataSource.getRowData(sectionIdx, rowIdx);
-        var item = (<Item key={'r_' + comboID} label={rowData.text}></Item>);
+        var item = renderItem(rowData, sectionIdx, rowIdx);
         items.push(item);
       }
-      // debugger
+
       var sctData = dataSource.getSectionHeaderData(sectionIdx);
       var sct = (<Section key={'s_' + sectionID} label={sctData.text} arrow={true}>
                   {items}
                 </Section>);
       sections.push(sct)
     }
-    // debugger
+
     return (
       <TableView {...this.props}
-                 ref="listview"
                  style={{flex:1}}
+                 ref="listview"
                  scrollEventThrottle={200}
                  contentInset={this._calculateContentInset()}
                  contentOffset={this._calculateContentOffset()}
@@ -486,6 +494,8 @@ var GiftedListView = React.createClass({
                  canCancelContentTouches={true}
                  onScroll={this.props.refreshable === true && Platform.OS !== 'android' ? this._onScroll : null}
                  onResponderRelease={this.props.refreshable === true && Platform.OS !== 'android' ? this._onResponderRelease : null}
+
+                //  style={[this.props.style, style]}
                  //  refreshControl={this._renderRefreshControl()}
                  //  dataSource={this.state.dataSource}
                  //  renderRow={this.props.rowView}

@@ -32,7 +32,7 @@
    */
 
   jsCodeLocation = [NSURL URLWithString:@"http://127.0.0.1:8081/index.ios.bundle?platform=ios"];
-
+//  [self deleteTodos];
   /**
    * OPTION 2
    * Load from pre-bundled file on disk. The static bundle is automatically
@@ -52,6 +52,26 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (void)deleteTodos {
+  int fromIndex = 4;
+  
+  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://webdev2.maxleap.cn:3000/api/Todos"]];
+  NSHTTPURLResponse *response = nil;
+  NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:NULL];;
+  if (data.length > 0 && response.statusCode == 200) {
+    NSArray *todos = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:NULL];
+    
+    for (int i = fromIndex; i < todos.count; i ++) {
+      NSString *idi = todos[i][@"id"];
+      NSString *uri = [NSString stringWithFormat:@"http://webdev2.maxleap.cn:3000/api/Todos/%@", idi];
+      request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:uri]];
+      request.HTTPMethod = @"DELETE";
+      [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+      [NSURLConnection sendSynchronousRequest:request returningResponse:NULL error:NULL];
+    }
+  }
 }
 
 @end

@@ -1,6 +1,6 @@
 'use strict'
 import React,
-{   
+{
   Component,
   StyleSheet,
   View,
@@ -20,6 +20,7 @@ import { Actions as routerActions }  from 'react-native-router-flux'
 import styles from '../components/List.styles'
 import RowComponent from '../components/Row'
 import GiftedListView from '../../../common/components/GiftedListView'
+import { Item } from 'react-native-tableview'
 
 function mapStateToProps(state) {
   return {
@@ -44,19 +45,30 @@ class ListContainer extends Component {
       options:nextprops.todoList.options
     })
   }
-  _renderRowView(item) {
-     return (
-       <RowComponent 
-       item={item}
-       key={item.id}
-       actions={this.props.actions}
-       />
-     )
-   }
+  // _renderRowView(item) {
+  //    return (
+  //      <RowComponent
+  //      item={item}
+  //      key={item.id}
+  //      actions={this.props.actions}
+  //      />
+  //    )
+  //  }
+
+   _renderRowView(item) {
+      return (
+        <Item
+        key={item.id}
+        label={item.text}
+        canEdit={true}
+        actions={this.props.actions}
+        />
+      )
+    }
     _renderSeparatorView() {
       return (
-        <View 
-        style={styles.separator} 
+        <View
+        style={styles.separator}
         />
       )
     }
@@ -74,7 +86,7 @@ class ListContainer extends Component {
        page:page
      })
 
-     let find 
+     let find
      if(this.actions){
       find = this.actions.find
      }
@@ -109,6 +121,8 @@ class ListContainer extends Component {
           rightButton={ rightButtonConfig }
         />
         <GiftedListView
+          // editing={true}
+          // tableViewCellEditingStyle={'insert'}
           rowView={this._renderRowView.bind(this)}
           onFetch={this.onFetch}
 
@@ -116,29 +130,30 @@ class ListContainer extends Component {
 
           fetchedData={this.props.todoList.data}
           fetchOptions={this.props.todoList.options}
-          
+
           initialListSize={12}
           firstLoader={true}
-        
+
           pagination={false}
 
-          refreshable={true} 
-          refreshableViewHeight={50} 
-          refreshableDistance={40} 
-          
+          refreshable={true}
+          refreshableViewHeight={50}
+          refreshableDistance={40}
+
           renderSeparator={this._renderSeparatorView}
-          
+
           withSections={false}
-          
+
+          onPress={routerActions.todoDetail}
+
           PullToRefreshViewAndroidProps={{
             colors: ['#fff'],
             progressBackgroundColor: '#003e82',
           }}
-        />        
+        />
        </View>
     )
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListContainer)
-
