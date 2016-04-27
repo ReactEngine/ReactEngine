@@ -173,7 +173,6 @@ RCT_EXPORT_VIEW_PROPERTY(alwaysBounceVertical, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(bounces, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(bouncesZoom, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canCancelContentTouches, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(centerContent, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(automaticallyAdjustContentInsets, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(decelerationRate, CGFloat)
 RCT_EXPORT_VIEW_PROPERTY(directionalLockEnabled, BOOL)
@@ -185,7 +184,6 @@ RCT_EXPORT_VIEW_PROPERTY(scrollEnabled, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(scrollsToTop, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(showsHorizontalScrollIndicator, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(showsVerticalScrollIndicator, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(stickyHeaderIndices, NSIndexSet)
 RCT_EXPORT_VIEW_PROPERTY(scrollEventThrottle, NSTimeInterval)
 RCT_EXPORT_VIEW_PROPERTY(zoomScale, CGFloat)
 
@@ -201,7 +199,6 @@ RCT_EXPORT_VIEW_PROPERTY(snapToAlignment, NSString)
 RCT_CUSTOM_VIEW_PROPERTY(contentOffset, CGPoint, RNTableView) {
     [view setContentOffset:[RCTConvert CGPoint:json]];
 }
-RCT_EXPORT_VIEW_PROPERTY(onRefreshStart, RCTDirectEventBlock)
 
 // Use ScrollView.Constants.DecelerationRate
 //- (NSDictionary<NSString *, id> *)constantsToExport

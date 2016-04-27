@@ -483,9 +483,7 @@ var GiftedListView = React.createClass({
     }
 
     return (
-      <TableView {...this.props}
-                 style={{flex:1}}
-                 ref="listview"
+      <TableView ref="listview"
                  scrollEventThrottle={200}
                  contentInset={this._calculateContentInset()}
                  contentOffset={this._calculateContentOffset()}
@@ -494,8 +492,8 @@ var GiftedListView = React.createClass({
                  canCancelContentTouches={true}
                  onScroll={this.props.refreshable === true && Platform.OS !== 'android' ? this._onScroll : null}
                  onResponderRelease={this.props.refreshable === true && Platform.OS !== 'android' ? this._onResponderRelease : null}
-
-                //  style={[this.props.style, style]}
+                 {...this.props}
+                 style={[this.props.style, style]}
                  //  refreshControl={this._renderRefreshControl()}
                  //  dataSource={this.state.dataSource}
                  //  renderRow={this.props.rowView}

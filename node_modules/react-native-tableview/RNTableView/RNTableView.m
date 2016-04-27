@@ -182,27 +182,6 @@ RCT_NOT_IMPLEMENTED(-initWithCoder:(NSCoder *)aDecoder)
     self.refreshControl = nil;
 }
 
-- (void)setOnRefreshStart:(RCTDirectEventBlock)onRefreshStart {
-    if (!onRefreshStart) {
-        _onRefreshStart = nil;
-        [self removeRefreshControl];
-        return;
-    }
-    _onRefreshStart = [onRefreshStart copy];
-    
-    if (!self.refreshControl) {
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(refreshControlValueChanged) forControlEvents:UIControlEventValueChanged];
-        [self addRefreshControl:refreshControl];
-    }
-}
-
-- (void)refreshControlValueChanged {
-    if (self.onRefreshStart) {
-        self.onRefreshStart(nil);
-    }
-}
-
 - (void)endRefreshing {
     [self.refreshControl endRefreshing];
 }
@@ -694,45 +673,6 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    // snapToInterval
-    // An alternative to enablePaging which allows setting custom stopping intervals,
-    // smaller than a full page size. Often seen in apps which feature horizonally
-    // scrolling items. snapToInterval does not enforce scrolling one interval at a time
-    // but guarantees that the scroll will stop at an interval point.
-    if (self.snapToInterval) {
-        CGFloat snapToIntervalF = (CGFloat)self.snapToInterval;
-        
-        // Find which axis to snap
-        BOOL isHorizontal = (scrollView.contentSize.width > self.frame.size.width);
-        
-        // What is the current offset?
-        CGFloat targetContentOffsetAlongAxis = isHorizontal ? targetContentOffset->x : targetContentOffset->y;
-        
-        // Which direction is the scroll travelling?
-        CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView];
-        CGFloat translationAlongAxis = isHorizontal ? translation.x : translation.y;
-        
-        // Offset based on desired alignment
-        CGFloat frameLength = isHorizontal ? self.frame.size.width : self.frame.size.height;
-        CGFloat alignmentOffset = 0.0f;
-        if ([self.snapToAlignment  isEqualToString: @"center"]) {
-            alignmentOffset = (frameLength * 0.5f) + (snapToIntervalF * 0.5f);
-        } else if ([self.snapToAlignment  isEqualToString: @"end"]) {
-            alignmentOffset = frameLength;
-        }
-        
-        // Pick snap point based on direction and proximity
-        NSInteger snapIndex = floor((targetContentOffsetAlongAxis + alignmentOffset) / snapToIntervalF);
-        snapIndex = (translationAlongAxis < 0) ? snapIndex + 1 : snapIndex;
-        CGFloat newTargetContentOffset = ( snapIndex * snapToIntervalF ) - alignmentOffset;
-        
-        // Set new targetContentOffset
-        if (isHorizontal) {
-            targetContentOffset->x = newTargetContentOffset;
-        } else {
-            targetContentOffset->y = newTargetContentOffset;
-        }
-    }
     
     NSDictionary *userData = @{
                                @"velocity": @{
@@ -772,11 +712,6 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidZoom, RCTScrollEventTypeMove)
     }
     return YES;
 }
-
-//- (UIView *)viewForZoomingInScrollView:(__unused UIScrollView *)scrollView
-//{
-//    return _contentView;
-//}
 
 #pragma mark -
 #pragma mark ScrollView APIs

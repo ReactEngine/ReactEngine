@@ -61,7 +61,6 @@ class ListContainer extends Component {
         key={item.id}
         label={item.text}
         canEdit={true}
-        actions={this.props.actions}
         />
       )
     }
@@ -96,6 +95,15 @@ class ListContainer extends Component {
      find(filter,options)
    }
 
+   _onPress(row) {
+     routerActions.todoDetail();
+ 	   //改 detail 的 state
+ 	   this.props.actions.routerChange({
+ 	     fields:row,
+       title:row.label
+ 	   })
+   }
+
   render() {
     // if(this.props.todoList.shouldRefresh){
     //   this.onFetch()
@@ -123,6 +131,9 @@ class ListContainer extends Component {
         <GiftedListView
           // editing={true}
           // tableViewCellEditingStyle={'insert'}
+
+          style={styles.container}
+
           rowView={this._renderRowView.bind(this)}
           onFetch={this.onFetch}
 
@@ -144,7 +155,7 @@ class ListContainer extends Component {
 
           withSections={false}
 
-          onPress={routerActions.todoDetail}
+          onPress={this._onPress.bind(this)}
 
           PullToRefreshViewAndroidProps={{
             colors: ['#fff'],
