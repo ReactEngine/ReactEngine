@@ -99,8 +99,7 @@ class ListContainer extends Component {
      routerActions.todoDetail();
  	   //改 detail 的 state
  	   this.props.actions.routerChange({
- 	     fields:row,
-       title:row.label
+ 	     fields:row, title:row.text
  	   })
    }
 

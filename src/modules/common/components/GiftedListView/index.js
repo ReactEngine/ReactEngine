@@ -448,6 +448,13 @@ var GiftedListView = React.createClass({
     return (<Item key={'r_' + comboID} label={item.text}></Item>);
   },
 
+  _onPress(event) {
+    var rowData = this.state.dataSource.getRowData(event.selectedSection, event.selectedIndex);
+    if (this.props.onPress) {
+      this.props.onPress(rowData);
+    }
+  },
+
   renderListView(style = {}) {
 
     var dataSource = this.state.dataSource;
@@ -494,6 +501,7 @@ var GiftedListView = React.createClass({
                  onResponderRelease={this.props.refreshable === true && Platform.OS !== 'android' ? this._onResponderRelease : null}
                  {...this.props}
                  style={[this.props.style, style]}
+                 onPress={this._onPress}
                  //  refreshControl={this._renderRefreshControl()}
                  //  dataSource={this.state.dataSource}
                  //  renderRow={this.props.rowView}
